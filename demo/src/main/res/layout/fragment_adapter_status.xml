@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.less.widget.RSmartRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/base_refresh_layout"
+        tools:ignore="MissingDefaultResource"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.angcyo.uiview.less.recycler.RRecyclerView
+                android:id="@+id/base_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+
+        <include
+                android:id="@+id/show_state_layout"
+                android:layout_width="100dp"
+                android:layout_height="80dp"
+                android:background="@color/colorAccent"
+                android:layout_gravity="center_vertical|right"
+                layout="@layout/base_item_show_state_layout"/>
+
+        <LinearLayout
+                android:orientation="horizontal"
+                android:layout_gravity="bottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/empty_button"
+                    android:text="空布局"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/load_button"
+                    android:text="加载中"
+                    android:layout_marginLeft="@dimen/base_xhdpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/error_button"
+                    android:text="错误"
+                    android:layout_width="wrap_content"
+                    android:layout_marginLeft="@dimen/base_xhdpi"
+                    android:layout_height="wrap_content"/>
+
+            <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/nonet_button"
+                    android:text="无网络"
+                    android:layout_marginLeft="@dimen/base_xhdpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </FrameLayout>
+
+
+</com.angcyo.uiview.less.widget.RSmartRefreshLayout>
