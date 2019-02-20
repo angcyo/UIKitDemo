@@ -62,7 +62,7 @@ open class MainItem : SingleItem {
 
     fun initItem(holder: RBaseViewHolder, text: String, listener: View.OnClickListener) {
         holder.item(R.id.base_item_info_layout).apply {
-            //setLeftDrawableRes()
+            setLeftDrawableRes(R.drawable.ic_logo_little)
             setItemText(text)
 
             holder.click(this, listener)
