@@ -11,6 +11,9 @@ import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
+import com.angcyo.uiview.less.utils.RUtils
+import com.angcyo.uiview.less.utils.Root
+import com.angcyo.uiview.less.utils.Tip
 import java.util.*
 
 /**
@@ -33,8 +36,17 @@ class MainFragment : BaseItemFragment() {
             }
         })
         singleItems.add(object : MainItem(Type.LINE) {
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_last
+            }
+
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                initItem(holder, "测试", AdapterStatusDemo::class.java)
+                holder.tv(R.id.text_view).text = Root.device_info(mAttachContext)
+                holder.click(R.id.text_view) {
+                    RUtils.copyText(holder.tv(R.id.text_view).text)
+                    Tip.ok("已复制")
+                }
             }
         })
     }
