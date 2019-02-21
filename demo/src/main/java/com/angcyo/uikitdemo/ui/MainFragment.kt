@@ -8,7 +8,6 @@ import com.angcyo.uikitdemo.ui.demo.AdapterStatusDemo
 import com.angcyo.uikitdemo.ui.demo.TabLayoutDemo
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
-import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -81,7 +80,10 @@ class MainFragment : BaseItemFragment() {
 
                 holder.click(this) {
                     fragment?.let {
-                        FragmentHelper.build(parentFragmentManager()).showFragment(fragment).doIt()
+                        FragmentHelper.build(parentFragmentManager())
+                            .showFragment(fragment)
+                            .defaultEnterAnim()
+                            .doIt()
                     }
                 }
             }
