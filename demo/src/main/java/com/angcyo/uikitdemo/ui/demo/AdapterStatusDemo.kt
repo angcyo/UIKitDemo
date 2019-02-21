@@ -7,7 +7,6 @@ import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.less.recycler.widget.IShowState
 import com.angcyo.uiview.less.recycler.widget.ItemShowStateLayout
-import com.scwang.smartrefresh.layout.api.RefreshLayout
 
 /**
  *
@@ -47,8 +46,10 @@ class AdapterStatusDemo : BaseRecyclerFragment<String>() {
         return super.onCreateAdapter(datas)
     }
 
-    override fun onBaseRefresh(refreshLayout: RefreshLayout?) {
-        super.onBaseRefresh(refreshLayout)
-        baseAdapter.appendData(mutableListOf("1", "2", "3"))
+    override fun onBaseLoadData() {
+        //super.onBaseLoadData()
+        baseViewHolder.postDelay(2000) {
+            onBaseLoadEnd(mutableListOf("1", "2", "3", "4", "5"), 5)
+        }
     }
 }
