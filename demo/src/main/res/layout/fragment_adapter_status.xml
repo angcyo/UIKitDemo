@@ -14,6 +14,7 @@
         <com.angcyo.uiview.less.recycler.RRecyclerView
                 android:id="@+id/base_recycler_view"
                 android:layout_width="match_parent"
+                android:tag="GV3"
                 android:layout_height="match_parent"/>
 
         <include
