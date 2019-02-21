@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:padding="@dimen/base_xhdpi"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab1"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本3"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试4"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试5"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试6"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试7"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试8"/>
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab2"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本3"/>
+
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab3"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            android:layout_width="match_parent"
+            app:r_indicator_type="TYPE_ROUND_RECT_BLOCK"
+            app:r_indicator_color="@color/base_red"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本3"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试4"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试5"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试6"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试7"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试8"/>
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab4"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            app:r_indicator_type="TYPE_ROUND_RECT_BLOCK"
+            app:r_indicator_color="@color/base_red"
+            app:r_indicator_offset_width="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本3"/>
+
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab5"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            app:r_indicator_type="TYPE_NONE"
+            app:r_border_show="true"
+            app:r_border_round_size="10dp"
+            app:r_auto_set_item_background="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本3"/>
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab6"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            app:r_indicator_type="TYPE_NONE"
+            app:r_border_show="true"
+            app:r_auto_set_item_background="true"
+            app:r_auto_set_item_selector_status="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:text="文本3"/>
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab7"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            app:r_indicator_type="TYPE_NONE"
+            app:r_border_show="true"
+            app:r_border_round_size="10dp"
+            app:r_auto_set_item_background="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本3"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试4"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试5"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试6"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试7"/>
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab8"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            app:r_indicator_type="TYPE_BOTTOM_FLOW_LINE"
+            app:r_indicator_width="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文1"/>
+
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试2"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本3"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试4"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试5"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试6"/>
+        <TextView
+                style="@style/TabItemStyle"
+                android:layout_margin="0dp"
+                android:text="文本测试7"/>
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+
+    <com.angcyo.uiview.less.widget.pager.RViewPager
+            android:id="@+id/view_pager"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            tools:background="@color/transparent_dark20"
+            android:layout_height="0dp"/>
+
+</LinearLayout>

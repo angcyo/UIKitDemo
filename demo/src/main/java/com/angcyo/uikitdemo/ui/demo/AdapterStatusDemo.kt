@@ -2,7 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
 import com.angcyo.uikitdemo.R
-import com.angcyo.uiview.less.base.BaseRecyclerFragment
+import com.angcyo.uikitdemo.ui.base.AppBaseRecyclerFragment
 import com.angcyo.uiview.less.iview.AffectUI
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
@@ -16,7 +16,7 @@ import com.angcyo.uiview.less.recycler.widget.ItemShowStateLayout
  * @date 2019/02/20
  */
 
-class AdapterStatusDemo : BaseRecyclerFragment<String>() {
+class AdapterStatusDemo : AppBaseRecyclerFragment<String>() {
 
     override fun getContentLayoutId(): Int {
         return R.layout.fragment_adapter_status

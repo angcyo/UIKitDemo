@@ -8,4 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="TabItemStyle" parent="BaseMainTextStyle">
+        <item name="android:paddingLeft">@dimen/base_hdpi</item>
+        <item name="android:paddingRight">@dimen/base_hdpi</item>
+        <item name="android:layout_marginLeft">@dimen/base_hdpi</item>
+        <item name="android:layout_marginRight">@dimen/base_hdpi</item>
+    </style>
 </resources>

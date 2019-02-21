@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.demo.AdapterStatusDemo
+import com.angcyo.uikitdemo.ui.demo.TabLayoutDemo
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.kotlin.getColor
@@ -26,13 +27,17 @@ class MainFragment : BaseItemFragment() {
 
     override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
-        contentControl().selector().setBackgroundColor(getColor(R.color.line_color))
     }
 
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         singleItems.add(object : MainItem(Type.TOP) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                initItem(holder, "AdapterStatusDemo", AdapterStatusDemo::class.java)
+                initItem(holder, "AdapterStatusDemo", posInData, AdapterStatusDemo::class.java)
+            }
+        })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "TabLayoutDemo", posInData, TabLayoutDemo::class.java)
             }
         })
         singleItems.add(object : MainItem(Type.LINE) {
@@ -69,10 +74,10 @@ class MainFragment : BaseItemFragment() {
         override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
         }
 
-        fun initItem(holder: RBaseViewHolder, text: String, fragment: Class<out Fragment>? = null) {
+        fun initItem(holder: RBaseViewHolder, text: String, position: Int, fragment: Class<out Fragment>? = null) {
             holder.item(R.id.base_item_info_layout).apply {
                 setLeftDrawableRes(R.drawable.ic_logo_little)
-                setItemText(text)
+                setItemText("${position + 1}. $text")
 
                 holder.click(this) {
                     fragment?.let {
