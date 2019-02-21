@@ -3,6 +3,7 @@ package com.angcyo.uikitdemo.ui.demo
 import android.os.Bundle
 import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.base.BaseRecyclerFragment
+import com.angcyo.uiview.less.iview.AffectUI
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.less.recycler.widget.IShowState
@@ -40,6 +41,8 @@ class AdapterStatusDemo : BaseRecyclerFragment<String>() {
             itemShowStateLayout.showState = IShowState.NONET
             baseAdapter.setShowState(IShowState.NONET)
         }
+
+        affectUI.showAffect(AffectUI.AFFECT_LOADING)
     }
 
     override fun onCreateAdapter(datas: MutableList<String>?): RBaseAdapter<String> {
@@ -48,8 +51,14 @@ class AdapterStatusDemo : BaseRecyclerFragment<String>() {
 
     override fun onBaseLoadData() {
         //super.onBaseLoadData()
-        baseViewHolder.postDelay(2000) {
-            onBaseLoadEnd(mutableListOf("1", "2", "3", "4", "5"), 5)
+        if (currentPageIndex == 3) {
+            baseViewHolder.postDelay(2000) {
+                onBaseLoadEnd(emptyList(), 5)
+            }
+        } else {
+            baseViewHolder.postDelay(2000) {
+                onBaseLoadEnd(mutableListOf("1", "2", "3", "4", "5"), 5)
+            }
         }
     }
 }
