@@ -13,5 +13,16 @@
         <item name="android:paddingRight">@dimen/base_hdpi</item>
         <item name="android:layout_marginLeft">@dimen/base_hdpi</item>
         <item name="android:layout_marginRight">@dimen/base_hdpi</item>
+        <item name="r_draw_text_gravity">CENTER</item>
+        <item name="r_draw_text_color">@color/base_text_color</item>
+    </style>
+    <style name="TabDrawItemStyle" parent="TabItemStyle">
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="r_draw_text_gravity">CENTER</item>
+        <item name="r_draw_text_size">@dimen/default_text_size16</item>
+        <item name="r_draw_text_color">@color/base_text_color</item>
     </style>
 </resources>

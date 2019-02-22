@@ -258,6 +258,46 @@
 
     </com.angcyo.uiview.less.widget.group.RTabLayout>
 
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+            android:id="@+id/tab9"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark"
+            app:r_indicator_type="TYPE_BOTTOM_FLOW_LINE"
+            app:r_indicator_width="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.less.widget.RDrawTextView
+                style="@style/TabDrawItemStyle"
+                android:layout_margin="0dp"
+                app:r_draw_text_string="文1"/>
+        <com.angcyo.uiview.less.widget.RDrawTextView
+                style="@style/TabDrawItemStyle"
+                android:layout_margin="0dp"
+                app:r_draw_text_string="文本测试2"/>
+        <com.angcyo.uiview.less.widget.RDrawTextView
+                style="@style/TabDrawItemStyle"
+                android:layout_margin="0dp"
+                app:r_draw_text_string="文本3"/>
+        <com.angcyo.uiview.less.widget.RDrawTextView
+                style="@style/TabDrawItemStyle"
+                android:layout_margin="0dp"
+                app:r_draw_text_string="文本测试4"/>
+        <com.angcyo.uiview.less.widget.RDrawTextView
+                style="@style/TabDrawItemStyle"
+                android:layout_margin="0dp"
+                app:r_draw_text_string="文本测试5"/>
+        <com.angcyo.uiview.less.widget.RDrawTextView
+                style="@style/TabDrawItemStyle"
+                android:layout_margin="0dp"
+                app:r_draw_text_string="文本测试6"/>
+        <com.angcyo.uiview.less.widget.RDrawTextView
+                style="@style/TabDrawItemStyle"
+                android:layout_margin="0dp"
+                app:r_draw_text_string="文本测试7"/>
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
 
     <com.angcyo.uiview.less.widget.pager.RViewPager
             android:id="@+id/view_pager"
