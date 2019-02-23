@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
+import android.util.SparseIntArray
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseRecyclerFragment
 import com.angcyo.uiview.less.iview.AffectUI
@@ -46,7 +47,35 @@ class AdapterStatusDemo : AppBaseRecyclerFragment<String>() {
     }
 
     override fun onCreateAdapter(datas: MutableList<String>?): RBaseAdapter<String> {
-        return super.onCreateAdapter(datas)
+        return object : RBaseAdapter<String>() {
+            override fun registerLayouts(layouts: SparseIntArray) {
+                super.registerLayouts(layouts)
+                layouts.put(1, android.R.layout.simple_list_item_1)
+                layouts.put(2, android.R.layout.simple_list_item_2)
+                layouts.put(3 or RBaseAdapter.ITEM_SINGLE_LINE, R.layout.item_single_text)
+            }
+
+            override fun getItemType(position: Int, data: String?): Int {
+                return when (position % 4) {
+                    1 -> 1
+                    3 -> 1
+                    2 -> 2
+                    else -> 3 or RBaseAdapter.ITEM_SINGLE_LINE
+                }
+            }
+
+            override fun onBindView(holder: RBaseViewHolder, position: Int, bean: String?) {
+                when (holder.itemViewType) {
+                    1 -> holder.tv(android.R.id.text1).text = "$position"
+                    3 -> holder.tv(android.R.id.text1).text = "$position"
+                    2 -> {
+                        holder.tv(android.R.id.text1).text = "text1:$position"
+                        holder.tv(android.R.id.text2).text = "text2:$position"
+                    }
+                    else -> holder.tv(R.id.text_view).text = "single text:$position"
+                }
+            }
+        }
     }
 
     override fun onBaseLoadData() {
