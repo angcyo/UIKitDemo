@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.demo.AdapterStatusDemo
 import com.angcyo.uikitdemo.ui.demo.TabLayoutDemo
+import com.angcyo.uikitdemo.ui.demo.WidgetDemo
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -37,6 +38,11 @@ class MainFragment : BaseItemFragment() {
         singleItems.add(object : MainItem(Type.LINE) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 initItem(holder, "TabLayoutDemo", posInData, TabLayoutDemo::class.java)
+            }
+        })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "WidgetDemo", posInData, WidgetDemo::class.java)
             }
         })
         singleItems.add(object : MainItem(Type.LINE) {
