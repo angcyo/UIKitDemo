@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
 import com.angcyo.uikitdemo.ui.fragment.TextFragment
+import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.widget.group.RTabLayout
 import com.angcyo.uiview.less.widget.pager.RFragmentAdapter
@@ -41,7 +42,26 @@ class TabLayoutDemo : AppBaseTitleFragment() {
                         setParentFragment(this@TabLayoutDemo)
                     }
 
+            viewHolder.tab(R.id.tab1).setupViewPager(this)
+            viewHolder.tab(R.id.tab2).setupViewPager(this)
+            viewHolder.tab(R.id.tab3).setupViewPager(this)
+            viewHolder.tab(R.id.tab4).setupViewPager(this)
+            viewHolder.tab(R.id.tab4).onTabLayoutListener =
+                RTabLayout.DefaultColorListener(
+                    getColor(R.color.base_text_color),
+                    getColor(R.color.base_white),
+                    this
+                )
+            viewHolder.tab(R.id.tab5).setupViewPager(this)
+            viewHolder.tab(R.id.tab6).setupViewPager(this)
+            viewHolder.tab(R.id.tab7).setupViewPager(this)
             viewHolder.tab(R.id.tab8).setupViewPager(this)
+            viewHolder.tab(R.id.tab8).onTabLayoutListener =
+                RTabLayout.DefaultColorListener(
+                    getColor(R.color.base_text_color),
+                    getColor(R.color.colorAccent),
+                    this
+                )
             viewHolder.tab(R.id.tab9).setupViewPager(this)
             viewHolder.tab(R.id.tab9).onTabLayoutListener = RTabLayout.DefaultTabLayoutListener(this)
         }
