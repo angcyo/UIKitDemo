@@ -50,6 +50,7 @@ class TabLayoutDemo : AppBaseTitleFragment() {
                 RTabLayout.DefaultColorListener(
                     getColor(R.color.base_text_color),
                     getColor(R.color.base_white),
+                    false,
                     this
                 )
             viewHolder.tab(R.id.tab5).setupViewPager(this)
@@ -60,6 +61,7 @@ class TabLayoutDemo : AppBaseTitleFragment() {
                 RTabLayout.DefaultColorListener(
                     getColor(R.color.base_text_color),
                     getColor(R.color.colorAccent),
+                    true,
                     this
                 )
             viewHolder.tab(R.id.tab9).setupViewPager(this)
