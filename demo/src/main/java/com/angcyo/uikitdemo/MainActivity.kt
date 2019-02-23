@@ -9,6 +9,6 @@ class MainActivity : BaseAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        FragmentHelper.restoreShow(this, supportFragmentManager, R.id.frame_layout, MainFragment::class.java)
+        FragmentHelper.restoreShow(this, supportFragmentManager, R.id.fragment_layout, MainFragment::class.java)
     }
 }

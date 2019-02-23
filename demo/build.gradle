@@ -3,3 +3,11 @@ ext {
 }
 
 apply from: allGradle.key
+
+android {
+    productFlavors {
+        _min {
+            minSdkVersion 18
+        }
+    }
+}

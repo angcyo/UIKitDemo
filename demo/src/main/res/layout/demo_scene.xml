@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/transparent_dark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+        <Button
+                android:text="测试"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+
+    <RadioGroup
+            android:id="@+id/radio_group"
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/base_xhdpi"
+            android:layout_marginBottom="?attr/actionBarSize"
+            android:layout_height="wrap_content">
+
+        <RadioButton
+                android:id="@+id/ChangeTransform"
+                android:text="ChangeTransform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <RadioButton
+                android:id="@+id/ChangeImageTransform"
+                android:text="ChangeImageTransform"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <RadioButton
+                android:id="@+id/ChangeScroll"
+                android:text="ChangeScroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <RadioButton
+                android:id="@+id/ChangeBounds"
+                android:text="ChangeBounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <RadioButton
+                android:id="@+id/TextScale"
+                android:text="TextScale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <RadioButton
+                android:id="@+id/ChangeClipBounds"
+                android:text="ChangeClipBounds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
+    <LinearLayout
+            android:layout_gravity="bottom|center_horizontal"
+            android:orientation="horizontal"
+            android:layout_marginBottom="@dimen/base_xhdpi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/button1"
+                android:text="场景1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/button2"
+                android:text="场景2"
+                android:layout_marginLeft="@dimen/base_hdpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/button3"
+                android:text="场景3"
+                android:layout_marginLeft="@dimen/base_hdpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/button4"
+                android:text="场景4"
+                android:layout_marginLeft="@dimen/base_hdpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -4,9 +4,6 @@ import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.angcyo.uikitdemo.R
-import com.angcyo.uikitdemo.ui.demo.AdapterStatusDemo
-import com.angcyo.uikitdemo.ui.demo.TabLayoutDemo
-import com.angcyo.uikitdemo.ui.demo.WidgetDemo
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -32,19 +29,32 @@ class MainFragment : BaseItemFragment() {
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         singleItems.add(object : MainItem(Type.TOP) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                initItem(holder, "AdapterStatusDemo", posInData, AdapterStatusDemo::class.java)
+                initItem(holder, "AdapterStatusDemo", posInData)
             }
         })
         singleItems.add(object : MainItem(Type.LINE) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                initItem(holder, "TabLayoutDemo", posInData, TabLayoutDemo::class.java)
+                initItem(holder, "TabLayoutDemo", posInData)
             }
         })
         singleItems.add(object : MainItem(Type.LINE) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                initItem(holder, "WidgetDemo", posInData, WidgetDemo::class.java)
+                initItem(holder, "WidgetDemo", posInData)
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "TransitionDemo", posInData)
+            }
+        })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "SceneDemo", posInData)
+            }
+        })
+
+
+        //last item
         singleItems.add(object : MainItem(Type.LINE) {
 
             override fun getItemLayoutId(): Int {
@@ -85,9 +95,14 @@ class MainFragment : BaseItemFragment() {
                 setItemText("${position + 1}. $text")
 
                 holder.click(this) {
-                    fragment?.let {
+                    var cls: Class<out Fragment>? = fragment
+                    if (fragment == null) {
+                        cls = Class.forName("com.angcyo.uikitdemo.ui.demo.$text") as? Class<out Fragment>
+                    }
+
+                    cls?.let {
                         FragmentHelper.build(parentFragmentManager())
-                            .showFragment(fragment)
+                            .showFragment(it)
                             .defaultEnterAnim()
                             .doIt()
                     }
