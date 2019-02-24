@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.view.View
 import android.view.ViewGroup
 import com.angcyo.uikitdemo.R
@@ -95,7 +96,18 @@ class MPChartDemo : AppBaseItemFragment() {
 
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 (holder.itemView as? LineChart)?.apply {
-                    extraRightOffset = ResUtil.dpToPx(6f)
+                    post {
+                        description.apply {
+                            text = "(小时)"
+                            textAlign = Paint.Align.RIGHT
+                            setPosition(
+                                viewPortHandler.contentLeft(),
+                                viewPortHandler.contentTop()
+                            )
+                        }
+                        invalidate()
+                    }
+                    extraRightOffset = ResUtil.dpToPx(10f)
                     //setTouchEnabled(false)
                     legend.apply {
                         horizontalAlignment = Legend.LegendHorizontalAlignment.RIGHT
