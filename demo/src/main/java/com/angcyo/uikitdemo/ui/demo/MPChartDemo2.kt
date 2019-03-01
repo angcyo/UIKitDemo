@@ -56,7 +56,7 @@ class MPChartDemo2 : AppBaseItemFragment() {
                         .setLineMode(LineDataSet.Mode.CUBIC_BEZIER)
                         .setLineDrawCircleHole(true)
                         .setLineDrawCircles(false)
-                        .setLineDrawValues(false)
+                        .setDrawLineValues(false)
                         .setLineDrawFilled(true)
                         .setDrawXAxisLine(true)
                         .setDrawXAxisTextColor(Color.BLUE)
