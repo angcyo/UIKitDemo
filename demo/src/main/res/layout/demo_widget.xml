@@ -20,6 +20,30 @@
             android:layout_width="wrap_content"
             android:layout_height="?android:attr/actionBarSize"/>
 
+    <com.angcyo.uiview.less.widget.ExEditText
+            android:id="@+id/edit1"
+            app:layout_constraintTop_toBottomOf="@id/button2"
+            android:background="@drawable/bg_bottom_line_selector"
+            android:inputType="textWebEmailAddress"
+            android:layout_width="80dp"
+            android:layout_height="40dp"/>
+
+    <com.angcyo.uiview.less.widget.ExEditText
+            android:id="@+id/edit2"
+            app:layout_constraintTop_toBottomOf="@id/edit1"
+            android:background="@drawable/bg_bottom_line_selector"
+            android:inputType="textWebEditText"
+            android:layout_width="80dp"
+            android:layout_height="40dp"/>
+
+    <com.angcyo.uiview.less.widget.ExEditText
+            android:id="@+id/edit3"
+            app:layout_constraintTop_toBottomOf="@id/edit2"
+            android:background="@drawable/bg_bottom_line_selector"
+            android:inputType="textVisiblePassword"
+            android:layout_width="80dp"
+            android:layout_height="40dp"/>
+
     <TextView
             android:id="@+id/text1"
             tools:text="文本"
