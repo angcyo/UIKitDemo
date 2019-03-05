@@ -62,6 +62,11 @@ class MainFragment : BaseItemFragment() {
                 initItem(holder, "MPChartDemo2", posInData)
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "MPChartDemo3", posInData)
+            }
+        })
 
         //last item
         singleItems.add(object : MainItem(Type.LINE) {
