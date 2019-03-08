@@ -5,6 +5,7 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
+import com.angcyo.uiview.less.base.dialog.HttpConfigDialog
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -51,6 +52,12 @@ class WidgetDemo : AppBaseItemFragment() {
                     .setBackgroundColor(Color.YELLOW)
                     .appendImage(R.drawable.ic_logo, SpanUtils.ALIGN_CENTER)
                     .create()
+
+                holder.click(R.id.button1) {
+                    HttpConfigDialog.show(mAttachContext, "base_url") {
+
+                    }
+                }
             }
         })
     }
