@@ -3,6 +3,7 @@ package com.angcyo.uikitdemo.ui.demo
 import android.graphics.Color
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.base.dialog.HttpConfigDialog
@@ -12,6 +13,7 @@ import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.resources.ResUtil
 import com.angcyo.uiview.less.utils.RSpan
 import com.angcyo.uiview.less.utils.SpanUtils
+import com.angcyo.uiview.less.utils.Tip
 import java.util.*
 
 /**
@@ -57,6 +59,33 @@ class WidgetDemo : AppBaseItemFragment() {
                     HttpConfigDialog.show(mAttachContext, "base_url") {
 
                     }
+                }
+
+                holder.click(R.id.button2) {
+                    fun getMonthEndTime(): String {
+                        val cal = Calendar.getInstance()
+
+                        val year = cal.get(Calendar.YEAR)//2018
+                        val month = cal.get(Calendar.MONTH)//0-11月
+
+                        for (i in 0..11) {
+                            cal.set(year, i, 0)
+                            val day = cal.get(Calendar.DAY_OF_MONTH)//1-31天
+                            L.i("1: ${i + 1}月,共$day 天")
+                        }
+
+                        for (i in 0..11) {
+                            cal.set(year, i, 1)
+                            cal.roll(Calendar.DAY_OF_MONTH, -1)
+                            val day = cal.get(Calendar.DAY_OF_MONTH)//1-31天
+                            L.i("2: ${i + 1}月,共$day 天")
+                        }
+
+                        val day = cal.get(Calendar.DAY_OF_MONTH)//1-31天
+                        return "$year-$month-$day 23:59:59"
+                    }
+
+                    Tip.tip(getMonthEndTime())
                 }
             }
         })
