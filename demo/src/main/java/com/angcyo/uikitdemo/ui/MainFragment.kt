@@ -67,6 +67,11 @@ class MainFragment : BaseItemFragment() {
                 initItem(holder, "MPChartDemo3", posInData)
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "RxJavaDemo Observable", posInData)
+            }
+        })
 
         //last item
         singleItems.add(object : MainItem(Type.LINE) {
@@ -111,7 +116,9 @@ class MainFragment : BaseItemFragment() {
                 holder.click(this) {
                     var cls: Class<out Fragment>? = fragment
                     if (fragment == null) {
-                        cls = Class.forName("com.angcyo.uikitdemo.ui.demo.$text") as? Class<out Fragment>
+                        cls =
+                            Class.forName("com.angcyo.uikitdemo.ui.demo.${text.split(" ")[0]}")
+                                    as? Class<out Fragment>
                     }
 
                     cls?.let {
