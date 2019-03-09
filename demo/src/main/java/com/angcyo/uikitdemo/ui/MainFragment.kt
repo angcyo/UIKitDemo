@@ -3,6 +3,7 @@ package com.angcyo.uikitdemo.ui
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
@@ -74,20 +75,30 @@ class MainFragment : BaseItemFragment() {
         })
 
         //last item
-        singleItems.add(object : MainItem(Type.LINE) {
+        singleItems.add(object : MainItem(Type.LINE, "Last") {
 
             override fun getItemLayoutId(): Int {
                 return R.layout.item_last
             }
 
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                holder.tv(R.id.text_view).text = Root.device_info(mAttachContext)
+                holder.tv(R.id.text_view).text =
+                    RUtils.getIP(mAttachContext) +
+                            "\n" + RUtils.getMobileIP() +
+                            "\n" + Root.device_info(mAttachContext)
                 holder.click(R.id.text_view) {
                     RUtils.copyText(holder.tv(R.id.text_view).text)
                     Tip.ok("已复制")
                 }
             }
         })
+    }
+
+    override fun onFragmentShow(bundle: Bundle?) {
+        super.onFragmentShow(bundle)
+        L.i(RUtils.getIP(mAttachContext))
+        L.i(RUtils.getMobileIP())
+        notifyItemChangedByTag("Last")
     }
 
     open inner class MainItem : SingleItem {
