@@ -73,6 +73,11 @@ class MainFragment : BaseItemFragment() {
                 initItem(holder, "RxJavaDemo Observable", posInData)
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "PhotoViewDemo", posInData)
+            }
+        })
 
         //last item
         singleItems.add(object : MainItem(Type.LINE, "Last") {
@@ -126,10 +131,13 @@ class MainFragment : BaseItemFragment() {
 
                 holder.click(this) {
                     var cls: Class<out Fragment>? = fragment
-                    if (fragment == null) {
-                        cls =
-                            Class.forName("com.angcyo.uikitdemo.ui.demo.${text.split(" ")[0]}")
-                                    as? Class<out Fragment>
+                    val className = "com.angcyo.uikitdemo.ui.demo.${text.split(" ")[0]}"
+                    try {
+                        if (fragment == null) {
+                            cls = Class.forName(className) as? Class<out Fragment>
+                        }
+                    } catch (e: Exception) {
+                        Tip.tip("未找到类:\n$className")
                     }
 
                     cls?.let {

@@ -1,12 +1,12 @@
 package com.angcyo.uikitdemo.ui.demo
 
-import android.support.transition.ChangeBounds
-import android.support.transition.Scene
-import android.support.transition.Transition
-import android.support.transition.TransitionManager
+import android.support.transition.*
+import android.support.v4.view.animation.FastOutSlowInInterpolator
 import android.widget.RadioGroup
+import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
+import com.angcyo.uiview.less.kotlin.setWidthHeight
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -79,6 +79,34 @@ class SceneDemo : AppBaseItemFragment() {
                             mAttachContext
                         ), transition
                     )
+                }
+
+                holder.click(R.id.button5) {
+                    holder.group(R.id.frame_layout).apply {
+                        L.i("tx:$translationX ty:$translationY l:$left t:$top sx:$scrollX sy:$scrollY")
+                    }
+
+                    holder.group(R.id.frame_layout).apply {
+//                        translationX = 100f
+//                        translationY = 100f
+
+                        //ViewCompat.offsetLeftAndRight(this, 200)
+                    }
+
+                    TransitionManager.beginDelayedTransition(holder.group(R.id.frame_layout), TransitionSet().apply {
+                        duration = 3000
+                        addTransition(ChangeBounds())
+                        addTransition(ChangeTransform())
+                        addTransition(ChangeImageTransform())
+                        interpolator = FastOutSlowInInterpolator()
+                    })
+
+                    holder.group(R.id.frame_layout).apply {
+                        setWidthHeight(-1, -1)
+                        translationX = 0f
+                        translationY = 0f
+                        //ViewCompat.offsetLeftAndRight(this, 100)
+                    }
                 }
             }
 
