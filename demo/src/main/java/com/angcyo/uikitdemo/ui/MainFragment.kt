@@ -79,6 +79,12 @@ class MainFragment : BaseItemFragment() {
             }
         })
 
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "FozuLayoutDemo", posInData)
+            }
+        })
+
         //last item
         singleItems.add(object : MainItem(Type.LINE, "Last") {
 
