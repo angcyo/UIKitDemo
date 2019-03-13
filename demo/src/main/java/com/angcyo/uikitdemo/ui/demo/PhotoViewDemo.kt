@@ -118,6 +118,7 @@ class PhotoViewDemo : BaseItemFragment() {
                                 height: Int,
                                 imageSize: Int
                             ) {
+                                imageView.originalSize = true
                                 imageView.url = url
                             }
 
@@ -156,6 +157,7 @@ class PhotoViewDemo : BaseItemFragment() {
                                 height: Int,
                                 imageSize: Int
                             ) {
+                                imageView.originalSize = true
                                 imageView.url = url
                             }
 
