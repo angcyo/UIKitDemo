@@ -1,6 +1,8 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
+import android.support.design.circularreveal.CircularRevealFrameLayout
+import android.support.design.circularreveal.CircularRevealWidget
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import com.angcyo.lib.L
@@ -12,6 +14,7 @@ import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.resources.ResUtil
 import com.angcyo.uiview.less.utils.RSpan
+import com.angcyo.uiview.less.utils.RUtils
 import com.angcyo.uiview.less.utils.SpanUtils
 import com.angcyo.uiview.less.utils.Tip
 import java.util.*
@@ -87,6 +90,14 @@ class WidgetDemo : AppBaseItemFragment() {
 
                     Tip.tip(getMonthEndTime())
                 }
+
+                val revealLayout: CircularRevealFrameLayout = holder.v(R.id.reveal_layout)
+                revealLayout.revealInfo =
+                    CircularRevealWidget.RevealInfo(
+                        (RUtils.getScreenWidth() / 2).toFloat(),
+                        (RUtils.getScreenHeight() / 2).toFloat(),
+                        0f
+                    )
             }
         })
     }
