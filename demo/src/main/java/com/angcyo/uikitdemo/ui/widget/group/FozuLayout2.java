@@ -2,16 +2,17 @@ package com.angcyo.uikitdemo.ui.widget.group;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.support.v4.math.MathUtils;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.angcyo.lib.L;
 
 /**
  * Email:angcyo@126.com
@@ -20,7 +21,7 @@ import com.angcyo.lib.L;
  * @date 2019/03/13
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-public class FozuLayout extends FrameLayout {
+public class FozuLayout2 extends FrameLayout {
 
     /**
      * 间隔大小
@@ -34,16 +35,25 @@ public class FozuLayout extends FrameLayout {
 
     GestureDetectorCompat gestureDetectorCompat;
 
-    public FozuLayout(@NonNull Context context) {
+    /**
+     * 只用来控制顶层view的移动距离
+     */
+    int lastMoveY = 0;
+    /**
+     * 只用来控制底层view的移动距离
+     */
+    int firstMoveY = 0;
+
+    public FozuLayout2(@NonNull Context context) {
         this(context, null);
     }
 
-    public FozuLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
+    public FozuLayout2(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         gestureDetectorCompat = new GestureDetectorCompat(context, new GestureDetector.SimpleOnGestureListener() {
             @Override
             public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-                scrollBy(0, (int) distanceY);
+                moveBy(distanceY);
                 return true;
             }
         });
@@ -75,7 +85,7 @@ public class FozuLayout extends FrameLayout {
         //不支持 layout_gravity
         for (int i = 0; i < getChildCount(); i++) {
             View child = getChildAt(i);
-            FrameLayout.LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
+            LayoutParams layoutParams = (LayoutParams) child.getLayoutParams();
 
             int childLeft = (getMeasuredWidth() - child.getMeasuredWidth()) / 2;
             int childTop = getPaddingTop() + layoutParams.topMargin + i * itemSpace;
@@ -83,17 +93,23 @@ public class FozuLayout extends FrameLayout {
         }
     }
 
-    @Override
-    public void scrollTo(int x, int y) {
-        super.scrollTo(x, Math.max(Math.min(y, getUpScrollY()), -getDownScrollY()));
-        progress = -getScrollY() * 1f / getMeasuredHeight();
-    }
+    private void moveBy(float distanceY) {
+        //顶上是手指方向移动
+        lastMoveY += -distanceY;
+        //底下是反方向移动
+        firstMoveY += distanceY / 4;
 
-    @Override
-    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
-        super.onScrollChanged(l, t, oldl, oldt);
-        L.i("l:" + l + " t:" + t + " oldl:" + oldl + " oldt:" + oldt);
-        scaleLayout();
+        //边界限制
+        int maxLastMoveY = getMeasuredHeight() - 3 * itemSpace;
+        int minLastMoveY = -itemSpace;
+
+        int maxFirstMoveY = itemSpace;
+        int minFirstMoveY = -100;
+
+        lastMoveY = MathUtils.clamp(lastMoveY, minLastMoveY, maxLastMoveY);
+        firstMoveY = MathUtils.clamp(firstMoveY, minFirstMoveY, maxFirstMoveY);
+
+        refreshLayout();
     }
 
     @Override
@@ -105,66 +121,47 @@ public class FozuLayout extends FrameLayout {
         return true;
     }
 
-    private void scaleLayout() {
+    private void refreshLayout() {
         int childCount = getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            View child = getChildAt(i);
+        View lastChild = null;
+        View firstChild = null;
+        if (childCount > 0) {
+            lastChild = getChildAt(childCount - 1);
+        }
+        if (childCount > 1) {
+            firstChild = getChildAt(0);
+        }
 
-            int count = i + 1;
-
-            if (i != childCount - 1) {
-                //非最上层
-                child.setScaleX(1 + progress / (childCount - count));
-                child.setScaleY(1 + progress / (childCount - count));
-            }
+        if (lastChild != null) {
+            lastChild.setTranslationY(lastMoveY);
+        }
+        if (firstChild != null) {
+            firstChild.setTranslationY(firstMoveY);
         }
     }
 
     private void resetLayout() {
-        ValueAnimator valueAnimator = ValueAnimator.ofInt(getScrollY(), 0);
+        ValueAnimator valueAnimator = ValueAnimator.ofFloat(0f, 1f);
         valueAnimator.setDuration(300);
         valueAnimator.setInterpolator(new BounceInterpolator());
         valueAnimator.start();
         valueAnimator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                scrollTo(0, (Integer) animation.getAnimatedValue());
+                float value = (float) animation.getAnimatedValue();
+                lastMoveY = (int) ((1 - value) * lastMoveY);
+                firstMoveY = (int) ((1 - value) * firstMoveY);
+                refreshLayout();
             }
         });
     }
 
-    /**
-     * 往下允许滚动多少距离
-     */
-    private int getDownScrollY() {
-        int childCount = getChildCount();
-        if (childCount < 1) {
-            return 0;
-        }
-        int lastChildWidth = getChildAt(childCount - 1).getMeasuredWidth();
-
-        return (int) (lastChildWidth * 1f / (lastChildWidth - itemWidthScaleSize) * getMeasuredWidth()) - getMeasuredWidth();
-    }
-
-    /**
-     * 往上允许滚动多少距离
-     */
-    private int getUpScrollY() {
-        return itemWidthScaleSize;
-    }
-
-    float progress = 0f;
-
     @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-//        AnimUtil.valueAnimator(6000, new ValueAnimator.AnimatorUpdateListener() {
-//            @Override
-//            public void onAnimationUpdate(ValueAnimator animation) {
-//                progress = (float) animation.getAnimatedValue();
-//
-//                scrollTo(0, -(int) (progress * 1000));
-//            }
-//        }).start();
+    public void addView(View child, int index, ViewGroup.LayoutParams params) {
+        super.addView(child, index, params);
+        if (getChildCount() > 2) {
+            //不支持多个child
+            throw new IllegalArgumentException("不支持多个child");
+        }
     }
 }
