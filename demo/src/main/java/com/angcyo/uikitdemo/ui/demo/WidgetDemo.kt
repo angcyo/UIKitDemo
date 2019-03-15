@@ -92,12 +92,19 @@ class WidgetDemo : AppBaseItemFragment() {
                 }
 
                 val revealLayout: CircularRevealFrameLayout = holder.v(R.id.reveal_layout)
-                revealLayout.revealInfo =
-                    CircularRevealWidget.RevealInfo(
-                        (RUtils.getScreenWidth() / 2).toFloat(),
-                        (RUtils.getScreenHeight() / 2).toFloat(),
-                        0f
-                    )
+                revealLayout.post {
+                    revealLayout.buildCircularRevealCache()
+                    //revealLayout.circularRevealScrimColor = Color.RED
+
+                    revealLayout.revealInfo =
+                        CircularRevealWidget.RevealInfo(
+                            (RUtils.getScreenWidth() / 2).toFloat(),
+                            (RUtils.getScreenHeight() / 2).toFloat(),
+                            10f
+                        )
+
+                    revealLayout.destroyCircularRevealCache()
+                }
             }
         })
     }
