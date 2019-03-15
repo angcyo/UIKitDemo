@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
+import com.angcyo.uikitdemo.java.Java
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -110,6 +111,8 @@ class MainFragment : BaseItemFragment() {
         L.i(RUtils.getIP(mAttachContext))
         L.i(RUtils.getMobileIP())
         notifyItemChangedByTag("Last")
+
+        Java.main()
     }
 
     open inner class MainItem : SingleItem {
