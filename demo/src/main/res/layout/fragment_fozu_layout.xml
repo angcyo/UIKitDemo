@@ -9,20 +9,26 @@
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
-        <View android:layout_width="match_parent"
-              android:layout_height="200dp"
-              android:layout_margin="40dp"
-              android:background="@color/color_orange"/>
+        <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="40dp"
+                android:background="@color/color_orange"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_margin="40dp"
-              android:layout_height="200dp"
-              android:background="@color/base_red"/>
+        <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_margin="40dp"
+                android:layout_height="200dp"
+                android:background="@color/base_red"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_margin="40dp"
-              android:layout_height="200dp"
-              android:background="@color/base_link_color_dark"/>
+        <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_margin="40dp"
+                android:layout_height="200dp"
+                android:background="@color/base_link_color_dark"/>
     </com.angcyo.uikitdemo.ui.widget.group.FozuLayout>
 
     <com.angcyo.uikitdemo.ui.widget.group.FozuLayout2
@@ -30,14 +36,18 @@
             android:layout_width="match_parent"
             android:layout_height="300dp">
 
-        <View android:layout_width="match_parent"
-              android:layout_margin="40dp"
-              android:layout_height="200dp"
-              android:background="@color/base_red"/>
+        <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_margin="40dp"
+                android:layout_height="200dp"
+                android:background="@color/base_red"/>
 
-        <View android:layout_width="match_parent"
-              android:layout_margin="40dp"
-              android:layout_height="200dp"
-              android:background="@color/base_link_color_dark"/>
+        <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_margin="40dp"
+                android:layout_height="200dp"
+                android:background="@color/base_link_color_dark"/>
     </com.angcyo.uikitdemo.ui.widget.group.FozuLayout2>
 </LinearLayout>

@@ -113,6 +113,11 @@ public class FozuLayout2 extends FrameLayout {
     }
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return gestureDetectorCompat.onTouchEvent(ev);
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         gestureDetectorCompat.onTouchEvent(event);
         if (event.getActionMasked() == MotionEvent.ACTION_UP) {
