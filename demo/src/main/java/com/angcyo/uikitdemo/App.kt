@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo
 
 import android.os.Bundle
+import com.angcyo.lib.L
 import com.angcyo.uiview.less.RApplication
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
@@ -13,8 +14,15 @@ import com.angcyo.uiview.less.kotlin.getColor
  * @date 2019/02/20
  */
 class App : RApplication() {
+
+    companion object {
+        fun isApk() = BuildConfig.FLAVOR == "apk"
+    }
+
     override fun onBaseInit() {
         super.onBaseInit()
+
+        L.init(!isApk(), "angcyo_" + hashCode())
 
         BaseUI.uiFragment = object : BaseUI.DefaultUIFragment() {
             override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
