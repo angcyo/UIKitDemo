@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.java.Java
+import com.angcyo.uikitdemo.kotlin.Kotlin
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -113,6 +114,7 @@ class MainFragment : BaseItemFragment() {
         notifyItemChangedByTag("Last")
 
         Java.main()
+        Kotlin.main()
     }
 
     open inner class MainItem : SingleItem {
