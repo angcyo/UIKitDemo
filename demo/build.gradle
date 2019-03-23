@@ -24,3 +24,5 @@ dependencies {
 }
 
 //apply from: allGradle.v7a
+
+//apply from: allGradle.xml

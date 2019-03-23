@@ -1,0 +1,254 @@
+println "......test xml3"
+println gradle.class
+println this.class
+println this.class.getSuperclass()
+println Thread.currentThread().name
+println this
+println gradle
+println gradle.gradleVersion
+println gradle.gradleHomeDir
+println gradle.gradleUserHomeDir
+println gradle.startParameter
+
+org.gradle.invocation.DefaultGradle_Decorated
+//xml_3un14h6i1pka4q0loz8srpefw
+org.gradle.groovy.scripts.DefaultScript
+//Daemon worker Thread 5
+
+def targetFile = new File("${buildFile.parent}/src/main/res/values/strings.xml")
+def testFile = new File("${buildFile.parent}/src/main/res/values/strings_test.xml")
+def afterFile = new File("${buildFile.parent}/src/main/res/values/strings_after.xml")
+
+task _configXml {
+    println buildFile
+    println buildFile.parent
+    println "......test xml2"
+    println gradle.class
+
+    println targetFile.exists()
+
+}
+
+println "......test xml1"
+println gradle.class
+
+gradle.projectsEvaluated {
+    println "......test projectsEvaluated"
+    println buildFile
+    println preBuild
+
+//    tasks.forEach {
+//        println it
+//    }
+    println "文件原内容:"
+    println targetFile.text
+
+    def result = openXml(targetFile)
+
+    println "xml内容:"
+    logXmlText(result)
+    println "xml map:"
+    logXmlWithMap(result)
+
+
+    println getValue(result, "app_name")
+    println setValue(result, "app_name", "new_value")
+    println getValue(result, "app_name")
+
+    result = deleteKey(result, "app_name")
+
+    result = addKey(result, "new_key", "new_value")
+
+    logXmlText(result)
+
+    save(afterFile, result)
+    //1 / 0
+
+    println "......xml....."
+    println result.text()
+
+    //打印所有 string 资源
+    result.string.each {
+        println "key:${it["@name"]} value:${it.text()}"
+        //修改 资源名字 "test" 的值
+        if (it["@name"] == "test") {
+            it[0].replaceBody("修改后的值")
+        }
+    }
+    println "......xml....."
+    result.string.each {
+        println "key:${it["@name"]} value:${it.text()}"
+    }
+
+    //保存修改后的值
+    def afterString = groovy.xml.XmlUtil.serialize(result)
+
+    println "需要修改为:"
+    println afterString
+
+//    targetFile.withWriter("UTF8") { writer ->
+//        writer.write(afterString)
+//    }
+
+    def stringWrite = new StringWriter()
+    def builder = new groovy.xml.MarkupBuilder(stringWrite)
+
+    builder.resources() {
+        'string'(name: "app_name", name2: "app_name_2", "test_value1")
+        'string'(name: 'app_name2', 'test_value2')
+//        'string'(name: "\"app_name2\"", 'test_value3')
+//        'string'('name:\"app_name3\"')
+    }
+
+    println "......xml....."
+    println stringWrite
+
+    def xmlFile = testFile
+    xmlFile.withWriter("UTF8") { writer ->
+        //writer.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n")
+        writer.write(stringWrite.toString())
+    }
+
+//    writeFile.withWriterAppend("UTF8") { writer ->
+//        writer.write(stringWrite.toString())
+//    }
+}
+
+/**
+ * 参考: https://blog.csdn.net/lwj_zeal/article/details/82750719
+ *
+ * 获取一个 GPathResult 对象
+ * @see groovy.util.slurpersupport.GPathResult
+ * */
+static def openXml(xml) {
+    def xmlSlurper = new XmlSlurper()
+    def result = xmlSlurper.parse(xml)
+    return result
+}
+
+static def openXmlText(xmlText) {
+    def xmlSlurper = new XmlSlurper()
+    def result = xmlSlurper.parseText(xmlText)
+    return result
+}
+
+/**
+ * @return 返回修改之前的值
+ * */
+static def setValue(pathResult, key, value) {
+    def nodeChildren = getNodeChildren(pathResult, key)
+
+    def oldValue = nodeChildren[0].text()
+    nodeChildren[0].replaceBody(value)
+
+    return oldValue
+}
+
+static def getValue(pathResult, key) {
+    return getNodeChildren(pathResult, key)[0].text()
+}
+
+/**
+ * XmlSlurper 实在是没有找到 删除 node 的方法.
+ * 所以, 这里使用 XmlParser 删除了 node,
+ * 再重新返回 GPathResult 对象
+ *
+ * @see groovy.util.XmlSlurper
+ * @see groovy.util.XmlParser
+ * */
+static def deleteKey(pathResult, key) {
+    def xmlText = groovy.xml.XmlUtil.serialize(pathResult)
+    def xmlParser = new groovy.util.XmlParser()
+    def rootNode = xmlParser.parseText(xmlText)
+
+    def deleteNode = null
+    rootNode.depthFirst().each {
+        //println "tag:${it.name()} name:${it.attributes()["name"]} value:${it.value()} childs:${it.children.size()}"
+        if (it.attributes()["name"] == key) {
+            deleteNode = it
+        }
+    }
+
+    deleteNode?.parent()?.remove(deleteNode)
+
+    def afterXmlText = groovy.xml.XmlUtil.serialize(rootNode)
+
+    return openXmlText(afterXmlText)
+}
+
+/**
+ * @see #deleteKey
+ *
+ * */
+static def addKey(pathResult, key, value) {
+    def xmlText = groovy.xml.XmlUtil.serialize(pathResult)
+    def xmlParser = new groovy.util.XmlParser()
+    def rootNode = xmlParser.parseText(xmlText)
+
+    def targetNode = null
+    rootNode.depthFirst().each {
+        //println "tag:${it.name()} name:${it.attributes()["name"]} value:${it.value()} childs:${it.children.size()}"
+        if (it.name() == "resources") {
+            targetNode = it
+        }
+    }
+
+    targetNode?.append(new groovy.util.Node(null, "string", ["name": key], value))
+
+    def afterXmlText = groovy.xml.XmlUtil.serialize(rootNode)
+
+    return openXmlText(afterXmlText)
+}
+
+static def logXmlWithMap(pathResult) {
+    pathResult?.depthFirst()?.findAll { node ->
+        println "name:${node.name()} \tkey:${node["@name"]} \tvalue:${node.text()} \tchilds:${node.size()}"
+
+        if (pathResult != node && node.size() > 1) {
+            logXmlWithMap(node)
+        }
+    }
+}
+
+/**
+ * 获取属性名为 name 值为 key 的 Node
+ * */
+static def getNodeChildren(pathResult, key) {
+    pathResult?.depthFirst()?.findAll { node ->
+        if (node["@name"] == key) {
+            return node
+        }
+    }
+}
+
+static def logXmlText(pathResult) {
+    def xmlText = groovy.xml.XmlUtil.serialize(pathResult)
+    println xmlText
+}
+
+/**
+ * 保存到指定文件
+ * */
+static def save(targetFile, xml) {
+    def text = null
+
+    if (xml instanceof groovy.util.slurpersupport.GPathResult) {
+        text = groovy.xml.XmlUtil.serialize(xml)
+    } else {
+        text = xml.toString()
+    }
+
+    def tempFile = null
+    if (targetFile instanceof File) {
+        tempFile = targetFile
+    } else {
+        tempFile = new File(targetFile)
+    }
+
+    println "保存:$targetFile"
+    println "保存:$text"
+
+    tempFile.withWriter("UTF8") { writer ->
+        writer.write(text)
+    }
+}

@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">UIKitDemo</string>
+    <string name="string_test">测试专用文本</string>
+    <string name="test">test value</string>
 </resources>
