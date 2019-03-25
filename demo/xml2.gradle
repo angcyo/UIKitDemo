@@ -1,0 +1,93 @@
+def targetFile = new File("${buildFile.parent}/src/main/res/values/styles.xml")
+
+gradle.projectsEvaluated {
+    def rootNode = openXml(targetFile)
+
+    println "......xml......"
+    println rootNode.name()
+
+    if ("resources" == rootNode.name()) {
+        //确保根节点是 resources
+
+        //去重后的 nodes
+        def resultNodes = [:]
+        //需要删除的 nodes
+        def deleteNodes = []
+
+        rootNode.children().each {
+            //name 属性的值
+            def name = it.attributes()["name"]
+            def node = resultNodes[name]
+            if (node != null) {
+                println "找到重复属性, name为 ${name}"
+                deleteNodes += node
+            } else {
+                println "新增节点, name为 ${name}"
+                resultNodes[name] = it
+            }
+            //println it.name() + it.attributes()["name"]
+        }
+
+        println 'xml...原内容'
+        logXmlText(rootNode)
+
+        def childs = rootNode.children()
+        for (int i = childs.size() - 1; i >= 0; i--) {
+            rootNode.remove(childs[i])
+        }
+
+        println 'xml...去重后'
+        resultNodes.each { _, node ->
+            rootNode.append(node)
+        }
+        logXmlText(rootNode)
+
+        save(targetFile, rootNode)
+
+    }
+}
+
+static def openXml(xml) {
+    def xmlParser = new groovy.util.XmlParser()
+    def result = xmlParser.parse(xml)
+    return result
+}
+
+static def openXmlText(xmlText) {
+    def xmlParser = new groovy.util.XmlParser()
+    def result = xmlParser.parseText(xmlText)
+    return result
+}
+
+static def logXmlText(node) {
+    def xmlText = groovy.xml.XmlUtil.serialize(node)
+    println xmlText
+}
+
+/**
+ * 保存到指定文件
+ * */
+static def save(targetFile, xml) {
+    def text = null
+
+    if (xml instanceof groovy.util.slurpersupport.GPathResult ||
+            xml instanceof groovy.util.Node) {
+        text = groovy.xml.XmlUtil.serialize(xml)
+    } else {
+        text = xml.toString()
+    }
+
+    def tempFile = null
+    if (targetFile instanceof File) {
+        tempFile = targetFile
+    } else {
+        tempFile = new File(targetFile)
+    }
+
+    //println "保存:$targetFile"
+    //println "保存:$text"
+
+    tempFile.withWriter("UTF8") { writer ->
+        writer.write(text)
+    }
+}
