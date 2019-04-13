@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="160dp"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:background="@drawable/base_round_tran80"
+        android:layout_height="160dp">
+
+
+    <LinearLayout
+            android:id="@+id/record_tip_layout"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@mipmap/icon_record"/>
+
+        <com.angcyo.uikitdemo.ui.widget.RecordAnimView
+                android:id="@+id/record_anim_view"
+                android:layout_width="60dp"
+                android:layout_height="70dp"
+                android:paddingLeft="10dp"
+                tools:background="@color/base_white"
+                tools:src="@mipmap/icon_record"/>
+    </LinearLayout>
+
+    <ImageView
+            android:id="@+id/record_cancel_tip_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            tools:visibility="gone"
+            android:src="@mipmap/icon_record_cancel"/>
+
+    <TextView
+            android:id="@+id/record_cancel_tip_view"
+            android:layout_gravity="center_horizontal|bottom"
+            tools:text="上滑取消"
+            style="@style/BaseDarkTextStyle"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:textColor="@color/base_white"
+            android:layout_width="wrap_content"
+            tools:background="@drawable/shape_cancel_record_tip"
+            android:layout_height="wrap_content"/>
+
+</FrameLayout>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:padding="@dimen/base_xhdpi"
+        android:layout_height="wrap_content">
+
+    <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/record_view"
+            android:text="按住录音"
+            android:layout_width="match_parent"
+            android:minHeight="40dp"
+            android:layout_height="wrap_content"/>
+
+</android.support.constraint.ConstraintLayout>

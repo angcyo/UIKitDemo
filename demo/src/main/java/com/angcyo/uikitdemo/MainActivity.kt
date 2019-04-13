@@ -1,5 +1,6 @@
 package com.angcyo.uikitdemo
 
+import android.Manifest
 import android.os.Bundle
 import com.angcyo.uikitdemo.ui.MainFragment
 import com.angcyo.uiview.less.RCrashHandler
@@ -11,10 +12,20 @@ class MainActivity : BaseAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         FragmentHelper.restoreShow(this, supportFragmentManager, R.id.fragment_layout, MainFragment::class.java)
+
+        checkPermissions()
     }
 
     override fun checkCrash() {
         //super.checkCrash()
         RCrashHandler.checkCrash(this)
+    }
+
+    override fun needPermissions(): Array<String> {
+        return arrayOf(
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.WAKE_LOCK
+        )
     }
 }
