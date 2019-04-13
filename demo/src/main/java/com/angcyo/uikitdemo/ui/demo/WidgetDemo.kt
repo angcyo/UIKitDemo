@@ -7,8 +7,10 @@ import android.text.SpannableStringBuilder
 import android.text.Spanned
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
+import com.angcyo.uikitdemo.component.MarginTextSpan
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.base.dialog.HttpConfigDialog
+import com.angcyo.uiview.less.kotlin.dp
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -104,6 +106,21 @@ class WidgetDemo : AppBaseItemFragment() {
                         )
 
                     revealLayout.destroyCircularRevealCache()
+                }
+
+                holder.tv(R.id.time_view).text = SpannableStringBuilder("22:22:22").apply {
+                    setSpan(
+                        RSpan.TextSpan().apply {
+                            setOffsetY((-2 * dp).toInt())
+                        },
+                        2,
+                        3,
+                        Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                    )
+                }
+
+                holder.tv(R.id.time_view2).text = SpannableStringBuilder("22:22:22").apply {
+                    setSpan(MarginTextSpan(-2 * dp), 2, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
             }
         })
