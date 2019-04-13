@@ -111,7 +111,7 @@ class WidgetDemo : AppBaseItemFragment() {
                 holder.tv(R.id.time_view).text = SpannableStringBuilder("22:22:22").apply {
                     setSpan(
                         RSpan.TextSpan().apply {
-                            setOffsetY((-2 * dp).toInt())
+                            setOffsetY(-2 * dp)
                         },
                         2,
                         3,
