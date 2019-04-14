@@ -18,6 +18,43 @@ class RecordUI {
     var recordLayout: ViewGroup? = null
     var touchView: View? = null
 
+    var recordStartTime = 0L
+
+    /**
+     * 需要限制最大录制的时长 秒
+     * */
+    var maxRecordTime = -1L
+
+    /**
+     * 当前录制的时间, 毫秒
+     * */
+    var currentRecordTime = 0L
+        set(value) {
+            field = value
+            showRecordTime(value)
+        }
+
+    val checkTimeRunnable: Runnable by lazy {
+        Runnable {
+            val time = System.currentTimeMillis()
+            val millis = time - recordStartTime
+
+            currentRecordTime = millis
+
+            if (maxRecordTime > 0 && millis >= maxRecordTime * 1000) {
+                //到达最大值
+                onMaxRecordTime?.run()
+            } else {
+                touchView?.postDelayed(checkTimeRunnable, 300)
+            }
+        }
+    }
+
+    /**
+     * 达到最大时间的回调
+     * */
+    var onMaxRecordTime: Runnable? = null
+
     /**
      * @param activity 用来附着显示界面的Activity
      * @param touchView 用来请求拦截Touch事件
@@ -36,6 +73,9 @@ class RecordUI {
                 .inflate(R.layout.layout_record_ui, parent, false) as? ViewGroup
 
             parent?.addView(recordLayout)
+
+            recordStartTime = System.currentTimeMillis()
+            touchView?.post(checkTimeRunnable)
         }
 
         showCancel(false)
@@ -53,6 +93,9 @@ class RecordUI {
         Rect()
     }
 
+    /**
+     * 视图是否在屏幕偏下的位置
+     * */
     fun isViewPreferBottom(): Boolean {
         var result = false
         touchView?.let { view ->
@@ -69,7 +112,7 @@ class RecordUI {
      * 自动检查 是否需要显示取消的提示
      * */
     fun checkCancel(event: MotionEvent) {
-        recordLayout?.let { layout ->
+        recordLayout?.let {
             touchView?.let { view ->
                 val height = view.resources.displayMetrics.heightPixels
                 view.getGlobalVisibleRect(tempRect)
@@ -120,5 +163,46 @@ class RecordUI {
                 tipImageCancelView.visibility = View.GONE
             }
         }
+    }
+
+    /**
+     *
+     * @param millis 多少毫秒
+     * */
+    fun showRecordTime(millis: Long) {
+        recordLayout?.let {
+            val timeView: TextView = it.findViewById(R.id.record_time_view)
+
+            if (maxRecordTime > 0) {
+                timeView.text = "${formatTime(millis)}/${formatTime(maxRecordTime * 1000)}"
+            } else {
+                timeView.text = formatTime(millis)
+            }
+        }
+    }
+
+    /**
+     * 00:00的格式输出, 如果有小时: 01:00:00
+     */
+    fun formatTime(millisecond: Long /*毫秒*/): String {
+        val mill = millisecond / 1000
+
+        val min = mill / 60
+        val hour = min / 60
+
+        val h = hour % 24
+        val m = min % 60
+        val s = mill % 60
+
+        val builder = StringBuilder()
+        if (hour > 0) {
+            builder.append(if (h >= 10) h else "0$h")
+            builder.append(":")
+        }
+        builder.append(if (m >= 10) m else "0$m")
+        builder.append(":")
+        builder.append(if (s >= 10) s else "0$s")
+
+        return builder.toString()
     }
 }
