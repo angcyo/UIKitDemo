@@ -29,6 +29,10 @@ class MainFragment : BaseItemFragment() {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
     }
 
+    override fun getViewHolderInitialCapacity(): Int {
+        return 128
+    }
+
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         singleItems.add(object : MainItem(Type.TOP) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
