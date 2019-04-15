@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo
 
 import android.os.Bundle
 import com.angcyo.lib.L
+import com.angcyo.rtbs.RTbs
 import com.angcyo.uiview.less.RApplication
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
@@ -30,5 +31,8 @@ class App : RApplication() {
                 titleFragment.contentControl().selector().setBackgroundColor(getColor(R.color.line_color))
             }
         }
+
+
+        RTbs.init(this, BuildConfig.SHOW_DEBUG)
     }
 }

@@ -21,6 +21,7 @@ android {
 
 dependencies {
     implementation project(allModule.MPChart)
+    implementation project(allModule.RTbs)
 }
 
 //apply from: allGradle.v7a
