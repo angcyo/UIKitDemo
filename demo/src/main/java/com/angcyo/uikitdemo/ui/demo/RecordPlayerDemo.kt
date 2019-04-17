@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.MotionEvent
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
+import com.angcyo.uikitdemo.component.PlayControl
 import com.angcyo.uikitdemo.component.RecordUI
 import com.angcyo.uiview.less.base.BaseItemFragment
+import com.angcyo.uiview.less.media.RPlayer
 import com.angcyo.uiview.less.media.RRecord
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
@@ -26,13 +28,44 @@ class RecordPlayerDemo : BaseItemFragment() {
 
     val recordUI = RecordUI()
     lateinit var record: RRecord
+    lateinit var player: RPlayer
+    var playControl = PlayControl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         record = RRecord(mAttachContext, Root.getAppExternalFolder("Record"))
+        player = RPlayer()
     }
 
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
+        singleItems.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                val path = "http://ting666.yymp3.com:86/new27/liyugang6/6.mp3"
+                holder.tv(R.id.path_view).text = path
+                holder.click(R.id.play_view) {
+                    playControl.play(requireActivity(), path)
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_player_layout
+            }
+        })
+
+        singleItems.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                val path = "http://ting666.yymp3.com:86/new27/xuezhiqian8/8.mp3"
+                holder.tv(R.id.path_view).text = path
+                holder.click(R.id.play_view) {
+                    playControl.play(requireActivity(), path)
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.item_player_layout
+            }
+        })
+
         pathList.onEach { path ->
             singleItems.add(object : SingleItem() {
                 override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
@@ -92,6 +125,8 @@ class RecordPlayerDemo : BaseItemFragment() {
     override fun onDestroy() {
         super.onDestroy()
         record.release()
+        player.release()
+        playControl.release()
     }
 
 }

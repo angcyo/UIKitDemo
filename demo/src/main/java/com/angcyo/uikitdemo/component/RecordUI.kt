@@ -7,6 +7,7 @@ import android.widget.TextView
 import com.angcyo.uikitdemo.R
 
 /**
+ *  模仿微信录音对话框的UI
  *
  * Email:angcyo@126.com
  * @author angcyo

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_gravity="top|right"
+        android:layout_marginTop="70dp"
+        android:layout_marginRight="20dp"
+        android:elevation="2dp"
+        android:layout_width="35dp"
+        android:background="@drawable/base_white_circle_shape"
+        android:layout_height="35dp">
+
+    <com.angcyo.uikitdemo.component.widget.VoiceView
+            android:id="@+id/voice_tip"
+            android:layout_width="match_parent"
+            android:paddingLeft="12dp"
+            android:layout_height="match_parent"/>
+
+    <com.angcyo.uikitdemo.component.widget.CircleLoadingView
+            android:id="@+id/loading_tip"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="match_parent"/>
+
+    <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/play_tip"
+            app:srcCompat="@drawable/ic_play"
+            android:visibility="gone"
+            android:layout_gravity="center"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
+    <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/pause_tip"
+            android:scaleType="center"
+            app:srcCompat="@drawable/ic_pause"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
+</FrameLayout>
