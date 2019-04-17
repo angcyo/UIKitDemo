@@ -71,8 +71,7 @@ class RecordPlayerDemo : BaseItemFragment() {
                 override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                     holder.tv(R.id.path_view).text = path
                     holder.click(R.id.play_view) {
-                        record.stopPlayback()
-                        record.startPlayback(path, 0f)
+                        playControl.play(requireActivity(), path)
                     }
                 }
 
