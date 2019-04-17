@@ -19,6 +19,8 @@ class PlayControl {
                     pause()
                 } else if (currentStatus == PlayerUI.STATUS_PAUSE) {
                     resume()
+                } else if (currentStatus == PlayerUI.STATUS_COMPLETE) {
+                    replay()
                 }
             }
         }
@@ -32,7 +34,7 @@ class PlayControl {
 
                     when (to) {
                         RPlayer.STATE_PLAYING -> playerUI.setShowStatus(PlayerUI.STATUS_PLAYING)
-                        RPlayer.STATE_COMPLETION -> playerUI.setShowStatus(PlayerUI.STATUS_PAUSE)
+                        RPlayer.STATE_COMPLETION -> playerUI.setShowStatus(PlayerUI.STATUS_COMPLETE)
                         RPlayer.STATE_PAUSE -> playerUI.setShowStatus(PlayerUI.STATUS_PAUSE)
                         else -> playerUI.setShowStatus(PlayerUI.STATUS_LOADING)
                     }
@@ -57,5 +59,9 @@ class PlayControl {
 
     fun resume() {
         player.resumePlay()
+    }
+
+    fun replay() {
+        player.replay()
     }
 }

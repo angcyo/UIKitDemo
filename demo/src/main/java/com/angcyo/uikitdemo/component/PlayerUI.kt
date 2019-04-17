@@ -23,6 +23,7 @@ class PlayerUI {
         const val STATUS_PLAYING = 1
         const val STATUS_PAUSE = 2
         const val STATUS_ERROR = 3
+        const val STATUS_COMPLETE = 4
     }
 
     var parent: ViewGroup? = null
@@ -94,6 +95,12 @@ class PlayerUI {
                     R.id.loading_tip
                 ).visibleId(R.id.pause_tip, R.id.loading_tip)
                 loadingView?.isMultiMode = false
+            }
+            STATUS_COMPLETE -> {
+                //播放完成
+                ViewGroupHelper.build(rootLayout).visibilityAllId(
+                    View.GONE
+                ).visibleId(R.id.play_tip)
             }
             STATUS_PAUSE -> {
                 //暂停中
