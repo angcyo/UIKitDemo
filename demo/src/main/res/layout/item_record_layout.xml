@@ -5,11 +5,14 @@
         android:padding="@dimen/base_xhdpi"
         android:layout_height="wrap_content">
 
-    <com.angcyo.uiview.less.widget.Button
-            android:id="@+id/record_view"
-            android:text="按住录音"
-            android:layout_width="match_parent"
-            android:minHeight="40dp"
-            android:layout_height="wrap_content"/>
+    <!--<com.angcyo.uiview.less.widget.Button-->
+    <!--android:id="@+id/record_view"-->
+    <!--android:text="按住录音"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:minHeight="40dp"-->
+    <!--android:layout_height="wrap_content"/>-->
+
+    <include
+            layout="@layout/layout_record_control"/>
 
 </android.support.constraint.ConstraintLayout>

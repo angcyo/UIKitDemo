@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/record_wrap_layout"
+        tools:layout_margin="10dp"
+        android:background="@drawable/record_layout_shape"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <!--输入框布局-->
+    <LinearLayout
+            android:id="@+id/text_input_wrap_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/voice_switch_view"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@mipmap/icon_record"/>
+
+        <com.angcyo.uiview.less.widget.ExEditText
+                android:id="@+id/text_input_edit"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:minHeight="40dp"/>
+
+    </LinearLayout>
+
+    <!--语音录制布局-->
+    <FrameLayout
+            android:visibility="gone"
+            android:id="@+id/voice_input_wrap_layout"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            tools:visibility="visible"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/voice_input_view"
+                android:gravity="center"
+                style="@style/BaseMainTextStyle"
+                android:text="按住录音"
+                android:background="@drawable/record_tip_selector"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"/>
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/text_switch_view"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@mipmap/icon_kbd"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:id="@+id/voice_wrap_layout"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uikitdemo.component.widget.VoiceView
+                android:id="@+id/voice_tip_view"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/voice_time_view"
+                style="@style/BaseMainTextStyle"
+                tools:text="0'"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="40dp"/>
+
+        <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/voice_cancel_view"
+                android:layout_gravity="center_vertical"
+                android:padding="10dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                app:srcCompat="@mipmap/icon_cancel"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>

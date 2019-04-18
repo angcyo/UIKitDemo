@@ -59,6 +59,29 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
         RectF()
     }
 
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        //super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+
+        var widthSize = MeasureSpec.getSize(widthMeasureSpec)
+        val widthMode = MeasureSpec.getMode(widthMeasureSpec)
+        var heightSize = MeasureSpec.getSize(heightMeasureSpec)
+        val heightMode = MeasureSpec.getMode(heightMeasureSpec)
+
+        if (widthMode != MeasureSpec.EXACTLY) {
+            //wrap_content unspecified
+            //widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(measureDrawWidth(widthSize, widthMode), View.MeasureSpec.EXACTLY);
+            widthSize = (paddingLeft + paddingRight + width * 2 * (count + 2) + space * (count - 1)).toInt()
+        }
+
+        if (heightMode != MeasureSpec.EXACTLY) {
+            //wrap_content unspecified
+            //heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(measureDrawHeight(heightSize, heightMode), View.MeasureSpec.EXACTLY);
+            heightSize = (paddingTop + paddingBottom + width * count * 4).toInt()
+        }
+
+        setMeasuredDimension(widthSize, heightSize)
+    }
+
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 

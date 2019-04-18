@@ -1,6 +1,10 @@
 package com.angcyo.uikitdemo.component
 
 import android.app.Activity
+import android.content.Context
+import android.media.AudioManager
+import com.angcyo.okdownload.FDown
+import com.angcyo.uiview.less.RApplication
 import com.angcyo.uiview.less.media.RPlayer
 import com.angcyo.uiview.less.media.SimplePlayerListener
 
@@ -12,6 +16,28 @@ import com.angcyo.uiview.less.media.SimplePlayerListener
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class PlayControl {
+
+    companion object {
+        /**
+         * 请求拿到音频焦点
+         */
+        fun requestAudioFocus(context: Context) {
+            val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.requestAudioFocus(
+                null,
+                AudioManager.STREAM_MUSIC,
+                AudioManager.AUDIOFOCUS_GAIN_TRANSIENT
+            )//请求焦点
+        }
+
+        /**
+         * 释放音频焦点
+         */
+        fun abandonAudioFocus(context: Context) {
+            val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
+            audioManager.abandonAudioFocus(null)//放弃焦点
+        }
+    }
 
     /**
      * 播放状态改变回调
@@ -39,10 +65,22 @@ class PlayControl {
                     super.onPlayStateChange(playUrl, from, to)
 
                     when (to) {
-                        RPlayer.STATE_PLAYING -> playerUI.setShowStatus(PlayerUI.STATUS_PLAYING)
-                        RPlayer.STATE_COMPLETION -> playerUI.setShowStatus(PlayerUI.STATUS_COMPLETE)
-                        RPlayer.STATE_PAUSE -> playerUI.setShowStatus(PlayerUI.STATUS_PAUSE)
-                        else -> playerUI.setShowStatus(PlayerUI.STATUS_LOADING)
+                        RPlayer.STATE_PLAYING -> {
+                            requestAudioFocus(RApplication.getApp())
+                            playerUI.setShowStatus(PlayerUI.STATUS_PLAYING)
+                        }
+                        RPlayer.STATE_COMPLETION -> {
+                            abandonAudioFocus(RApplication.getApp())
+                            playerUI.setShowStatus(PlayerUI.STATUS_COMPLETE)
+                        }
+                        RPlayer.STATE_PAUSE -> {
+                            abandonAudioFocus(RApplication.getApp())
+                            playerUI.setShowStatus(PlayerUI.STATUS_PAUSE)
+                        }
+                        else -> {
+                            abandonAudioFocus(RApplication.getApp())
+                            playerUI.setShowStatus(PlayerUI.STATUS_LOADING)
+                        }
                     }
 
                     onPlayerStatusChangeListener?.invoke(playUrl, to)
@@ -79,6 +117,29 @@ class PlayControl {
      * 指定的url, 是否正在播放中
      * */
     fun isPlaying(url: String): Boolean {
-        return player.playUrl === url && player.isPlaying()
+        return (player.playUrl == url /*||
+                player.playUrl == FDown.Builder.defaultDownloadPath(url)*/) && player.isPlaying()
     }
+
+    fun isPause(url: String): Boolean {
+        return (player.playUrl == url /*||
+                player.playUrl == FDown.Builder.defaultDownloadPath(url)*/) && player.isPause()
+    }
+
+//    fun download(url: String, onFilePath: ((String) -> Unit) = {}) {
+//        if (url.startsWith("http")) {
+//            FDown.build(url).download(object : FDownListener() {
+//                override fun onCompleted(task: BaseDownloadTask) {
+//                    super.onCompleted(task)
+//                    onFilePath.invoke(task.path)
+//                }
+//            })
+//        } else {
+//            File(url).apply {
+//                if (exists()) {
+//                    onFilePath.invoke(absolutePath)
+//                }
+//            }
+//        }
+//    }
 }
