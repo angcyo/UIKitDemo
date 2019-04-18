@@ -12,6 +12,12 @@ import com.angcyo.uiview.less.media.SimplePlayerListener
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class PlayControl {
+
+    /**
+     * 播放状态改变回调
+     * */
+    var onPlayerStatusChangeListener: ((url: String, status: Int) -> Unit)? = null
+
     val playerUI: PlayerUI by lazy {
         PlayerUI().apply {
             onPlayerClickListener = { _, currentStatus ->
@@ -38,6 +44,8 @@ class PlayControl {
                         RPlayer.STATE_PAUSE -> playerUI.setShowStatus(PlayerUI.STATUS_PAUSE)
                         else -> playerUI.setShowStatus(PlayerUI.STATUS_LOADING)
                     }
+
+                    onPlayerStatusChangeListener?.invoke(playUrl, to)
                 }
             }
         }
@@ -54,7 +62,9 @@ class PlayControl {
     }
 
     fun pause() {
-        player.pausePlay()
+        if (player.isPlaying()) {
+            player.pausePlay()
+        }
     }
 
     fun resume() {
@@ -63,5 +73,12 @@ class PlayControl {
 
     fun replay() {
         player.replay()
+    }
+
+    /**
+     * 指定的url, 是否正在播放中
+     * */
+    fun isPlaying(url: String): Boolean {
+        return player.playUrl === url && player.isPlaying()
     }
 }

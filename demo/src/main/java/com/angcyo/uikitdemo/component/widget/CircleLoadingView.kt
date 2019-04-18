@@ -4,6 +4,7 @@ import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
+import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.kotlin.dp
 
 /**
@@ -77,9 +78,29 @@ class CircleLoadingView(context: Context, attributeSet: AttributeSet? = null) : 
      * */
     var loadingBackgroundColor = Color.WHITE
 
+    val tempRectF: RectF by lazy {
+        RectF()
+    }
+
+    val drawTempRectF: RectF by lazy {
+        RectF()
+    }
+
+    var rotateDegrees = 0f
 
     init {
-        paint.strokeWidth = width
+        val typedArray = context.obtainStyledAttributes(attributeSet, R.styleable.CircleLoadingView)
+        width = typedArray.getDimensionPixelOffset(R.styleable.CircleLoadingView_r_circle_load_width, width.toInt())
+            .toFloat()
+        rotateStep = typedArray.getInt(R.styleable.CircleLoadingView_r_circle_load_rotate_step, rotateStep)
+        loadingColor = typedArray.getColor(R.styleable.CircleLoadingView_r_circle_load_color, loadingColor)
+        loadingBackgroundColor =
+            typedArray.getColor(R.styleable.CircleLoadingView_r_circle_load_draw_bg_color, loadingBackgroundColor)
+        isMultiMode = typedArray.getBoolean(R.styleable.CircleLoadingView_r_circle_load_is_multi_mode, isMultiMode)
+        drawLoadingBackground =
+            typedArray.getBoolean(R.styleable.CircleLoadingView_r_circle_load_draw_bg, drawLoadingBackground)
+
+        typedArray.recycle()
     }
 
     private fun createSingleShader(color: Int): SweepGradient {
@@ -118,15 +139,6 @@ class CircleLoadingView(context: Context, attributeSet: AttributeSet? = null) : 
         )
     }
 
-    val tempRectF: RectF by lazy {
-        RectF()
-    }
-
-    val drawTempRectF: RectF by lazy {
-        RectF()
-    }
-
-    var rotateDegrees = 0f
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
