@@ -121,7 +121,11 @@ class RecordLayoutControl(val parent: ViewGroup) {
                 } else {
                     parent.findViewById<VoiceView>(R.id.voice_tip_view).stop()
 
-                    showPlayTime(recordTime)
+                    if (urlDuration != -1L) {
+                        showPlayTime(urlDuration)
+                    } else {
+                        showPlayTime(recordTime)
+                    }
                 }
             }
         }
@@ -159,7 +163,7 @@ class RecordLayoutControl(val parent: ViewGroup) {
     }
 
     var showUrl: String? = null
-    var urlDuration = 0L
+    var urlDuration = -1L
     /**
      * 单纯用来显示播放音频
      * @param url 音频地址
