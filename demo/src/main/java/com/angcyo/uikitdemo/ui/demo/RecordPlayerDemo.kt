@@ -1,9 +1,9 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
-import com.angcyo.uikitdemo.component.RecordLayoutControl
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.component.PlayControl
+import com.angcyo.uikitdemo.component.RecordLayoutControl
 import com.angcyo.uikitdemo.component.RecordUI
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.media.RPlayer
@@ -29,6 +29,7 @@ class RecordPlayerDemo : BaseItemFragment() {
     lateinit var record: RRecord
     lateinit var player: RPlayer
     var playControl = PlayControl()
+    var recordLayoutControl: RecordLayoutControl? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,6 +66,32 @@ class RecordPlayerDemo : BaseItemFragment() {
             }
         })
 
+        singleItems.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                val path = "http://ting666.yymp3.com:86/new27/xuezhiqian8/8.mp3"
+                RecordLayoutControl(holder.group(R.id.record_wrap_layout)).apply {
+                    singleShowVoice(path, 100 * 1000)
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.layout_record_control
+            }
+        })
+
+        singleItems.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                val path = "http://ting666.yymp3.com:86/new27/xuezhiqian8/8.mp3"
+                RecordLayoutControl(holder.group(R.id.record_wrap_layout)).apply {
+                    singleShowText(path)
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.layout_record_control
+            }
+        })
+
         pathList.onEach { path ->
             singleItems.add(object : SingleItem() {
                 override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
@@ -82,7 +109,8 @@ class RecordPlayerDemo : BaseItemFragment() {
 
         singleItems.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                RecordLayoutControl(holder.group(R.id.record_wrap_layout))
+                recordLayoutControl?.release()
+                recordLayoutControl = RecordLayoutControl(holder.group(R.id.record_wrap_layout))
 
 //                holder.view(R.id.record_view).setOnTouchListener { v, event ->
 //                    when {
@@ -127,6 +155,7 @@ class RecordPlayerDemo : BaseItemFragment() {
         record.release()
         player.release()
         playControl.release()
+        recordLayoutControl?.release()
     }
 
 }

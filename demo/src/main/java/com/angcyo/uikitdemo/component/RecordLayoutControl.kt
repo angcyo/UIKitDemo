@@ -15,6 +15,7 @@ import com.angcyo.uiview.less.kotlin.noExtName
 import com.angcyo.uiview.less.media.RPlayer
 import com.angcyo.uiview.less.media.SimplePlayerListener
 import com.angcyo.uiview.less.resources.ResUtil
+import com.angcyo.uiview.less.widget.ExEditText
 import java.io.File
 
 /**
@@ -95,9 +96,13 @@ class RecordLayoutControl(val parent: ViewGroup) {
 
         //播放录音
         helper.click(R.id.voice_wrap_layout) {
-            recordFile?.let {
-                if (it.exists()) {
-                    player.click(it.absolutePath)
+            if (showUrl != null) {
+                player.click(showUrl)
+            } else {
+                recordFile?.let {
+                    if (it.exists()) {
+                        player.click(it.absolutePath)
+                    }
                 }
             }
         }
@@ -106,8 +111,7 @@ class RecordLayoutControl(val parent: ViewGroup) {
         player.onPlayListener = object : SimplePlayerListener() {
             override fun onPlayProgress(progress: Int, duration: Int) {
                 super.onPlayProgress(progress, duration)
-                val time = (progress / 1000)
-                parent.findViewById<TextView>(R.id.voice_time_view).text = "$time'"
+                showPlayTime(progress.toLong())
             }
 
             override fun onPlayStateChange(playUrl: String, from: Int, to: Int) {
@@ -117,8 +121,7 @@ class RecordLayoutControl(val parent: ViewGroup) {
                 } else {
                     parent.findViewById<VoiceView>(R.id.voice_tip_view).stop()
 
-                    val time = (recordTime / 1000)
-                    parent.findViewById<TextView>(R.id.voice_time_view).text = "$time'"
+                    showPlayTime(recordTime)
                 }
             }
         }
@@ -140,6 +143,44 @@ class RecordLayoutControl(val parent: ViewGroup) {
 
     fun showVoiceLayout() {
         helper.visibilityAllId(View.GONE).visibleId(R.id.voice_wrap_layout)
+    }
+
+    /**
+     * 单纯用来展示文本, 可以控制是否允许输入
+     * @param noEdit 不可编辑
+     * */
+    fun singleShowText(text: CharSequence, noEdit: Boolean = true) {
+        showTextInputLayout()
+        (helper.view(R.id.text_input_edit) as ExEditText).apply {
+            setInputText(text)
+            isNoEditMode = noEdit
+        }
+        helper.view(R.id.voice_switch_view)?.visibility = View.GONE
+    }
+
+    var showUrl: String? = null
+    var urlDuration = 0L
+    /**
+     * 单纯用来显示播放音频
+     * @param url 音频地址
+     * @param duration 音频时长, 毫秒
+     * */
+    fun singleShowVoice(url: String, duration: Long) {
+        if (showUrl != null) {
+            player.stopPlay()
+        }
+        showUrl = url
+        urlDuration = duration
+
+        showVoiceLayout()
+        helper.view(R.id.voice_cancel_view)?.visibility = View.GONE
+
+        showPlayTime(duration)
+    }
+
+    fun showPlayTime(time: Long /*毫秒*/) {
+        val t = (time / 1000)
+        parent.findViewById<TextView>(R.id.voice_time_view).text = "$t'"
     }
 
     fun release() {
