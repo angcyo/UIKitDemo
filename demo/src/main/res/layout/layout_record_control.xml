@@ -31,6 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingRight="4dp"
+                app:r_request_focus_on_touch="true"
                 android:minHeight="40dp"/>
 
     </LinearLayout>
