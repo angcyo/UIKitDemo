@@ -48,6 +48,13 @@ class RecordLayoutControl {
      * */
     var recordTime = 0L
 
+    /**
+     * 输入控件输入的文本
+     * */
+    val inputText: CharSequence?
+        get() {
+            return (helper?.view(R.id.text_input_edit) as? TextView)?.text
+        }
 
     init {
         //播放状态监听
