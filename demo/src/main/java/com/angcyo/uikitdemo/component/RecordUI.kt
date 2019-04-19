@@ -71,9 +71,11 @@ class RecordUI {
 
             if (maxRecordTime > 0 && millis >= maxRecordTime * 1000) {
                 //到达最大值
-                onMaxRecordTime?.run()
+                touchView?.postDelayed({
+                    onMaxRecordTime?.run()
+                }, 60)
             } else {
-                touchView?.postDelayed(checkTimeRunnable, 300)
+                touchView?.postDelayed(checkTimeRunnable, 160)
             }
         }
     }

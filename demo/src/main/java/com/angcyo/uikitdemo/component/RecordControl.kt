@@ -30,6 +30,18 @@ class RecordControl {
             record = RRecord(activity, Root.getAppExternalFolder("Record"))
         }
 
+        fun onEnd(isCancel: Boolean) {
+            view.isSelected = false
+            recordUI.hide()
+            record?.stopRecord()
+
+            if (!isCancel) {
+                record?.let {
+                    onRecordEnd.invoke(it.sampleFile)
+                }
+            }
+        }
+
         view.setOnTouchListener { v, event ->
             when {
                 event.actionMasked == MotionEvent.ACTION_DOWN -> {
@@ -41,16 +53,7 @@ class RecordControl {
                 }
                 event.actionMasked == MotionEvent.ACTION_UP ||
                         event.actionMasked == MotionEvent.ACTION_CANCEL -> {
-                    view.isSelected = false
-                    recordUI.hide()
-                    record?.stopRecord()
-                    if (recordUI.isCancel) {
-
-                    } else {
-                        record?.let {
-                            onRecordEnd.invoke(it.sampleFile)
-                        }
-                    }
+                    onEnd(recordUI.isCancel)
                 }
 
                 event.actionMasked == MotionEvent.ACTION_MOVE -> {
@@ -59,6 +62,10 @@ class RecordControl {
             }
             //L.i("Touch:${event.actionMasked} x:${event.x}  y:${event.y} rawY:${event.rawY}")
             true
+        }
+
+        recordUI.onMaxRecordTime = Runnable {
+            onEnd(false)
         }
     }
 
