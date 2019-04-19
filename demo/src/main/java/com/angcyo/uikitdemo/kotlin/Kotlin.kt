@@ -16,6 +16,7 @@ import com.angcyo.uiview.less.kotlin.scaleFromCenter
  */
 object Kotlin {
     fun main() {
+        L.e("Kotlin ......... ")
         val rectF1 = RectF(0f, 0f, 100f, 100f)
         val rectF2 = RectF(rectF1)
 
@@ -24,6 +25,6 @@ object Kotlin {
 
         val drawable = getDrawable(R.drawable.ic_pause)
 
-        L.i("Kotlin test...")
+        L.e("Kotlin ......... end")
     }
 }
