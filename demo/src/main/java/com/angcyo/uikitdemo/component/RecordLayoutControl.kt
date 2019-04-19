@@ -26,13 +26,15 @@ import java.io.File
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 
-class RecordLayoutControl(val parent: ViewGroup) {
-    private val helper: ViewGroupHelper = ViewGroupHelper.build(parent)
+class RecordLayoutControl {
+    var parent: ViewGroup? = null
 
-    private val recordControl: RecordControl by lazy {
+    var helper: ViewGroupHelper? = null
+
+    val recordControl: RecordControl by lazy {
         RecordControl()
     }
-    private val player: RPlayer by lazy {
+    val player: RPlayer by lazy {
         RPlayer()
     }
 
@@ -48,6 +50,43 @@ class RecordLayoutControl(val parent: ViewGroup) {
 
 
     init {
+        //播放状态监听
+        player.onPlayListener = object : SimplePlayerListener() {
+            override fun onPlayProgress(progress: Int, duration: Int) {
+                super.onPlayProgress(progress, duration)
+                showPlayTime(progress.toLong())
+            }
+
+            override fun onPlayStateChange(playUrl: String, from: Int, to: Int) {
+                super.onPlayStateChange(playUrl, from, to)
+                if (to == RPlayer.STATE_PLAYING) {
+                    parent?.findViewById<VoiceView>(R.id.voice_tip_view)?.play()
+                } else {
+                    parent?.findViewById<VoiceView>(R.id.voice_tip_view)?.stop()
+
+                    if (urlDuration != -1L) {
+                        showPlayTime(urlDuration)
+                    } else {
+                        showPlayTime(recordTime)
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * 包裹
+     * */
+    fun wrap(parent: ViewGroup) {
+        if (helper != null) {
+            if (player.isPlaying()) {
+                player.stopPlay()
+            }
+        }
+
+        this.parent = parent
+
+        helper = ViewGroupHelper.build(parent)
 
         //图示icon
         parent.findViewById<ImageView>(R.id.voice_switch_view)
@@ -78,24 +117,24 @@ class RecordLayoutControl(val parent: ViewGroup) {
         }
 
         //切换布局
-        helper.click(R.id.voice_switch_view) {
+        helper?.click(R.id.voice_switch_view) {
             showVoiceInputLayout()
         }
 
         //切换布局
-        helper.click(R.id.text_switch_view) {
+        helper?.click(R.id.text_switch_view) {
             cancelRecordFile()
             showTextInputLayout()
         }
 
         //切换布局
-        helper.click(R.id.voice_cancel_view) {
+        helper?.click(R.id.voice_cancel_view) {
             player.stopPlay()
             showVoiceInputLayout()
         }
 
         //播放录音
-        helper.click(R.id.voice_wrap_layout) {
+        helper?.click(R.id.voice_wrap_layout) {
             if (showUrl != null) {
                 player.click(showUrl)
             } else {
@@ -106,47 +145,24 @@ class RecordLayoutControl(val parent: ViewGroup) {
                 }
             }
         }
-
-        //播放状态监听
-        player.onPlayListener = object : SimplePlayerListener() {
-            override fun onPlayProgress(progress: Int, duration: Int) {
-                super.onPlayProgress(progress, duration)
-                showPlayTime(progress.toLong())
-            }
-
-            override fun onPlayStateChange(playUrl: String, from: Int, to: Int) {
-                super.onPlayStateChange(playUrl, from, to)
-                if (to == RPlayer.STATE_PLAYING) {
-                    parent.findViewById<VoiceView>(R.id.voice_tip_view).play()
-                } else {
-                    parent.findViewById<VoiceView>(R.id.voice_tip_view).stop()
-
-                    if (urlDuration != -1L) {
-                        showPlayTime(urlDuration)
-                    } else {
-                        showPlayTime(recordTime)
-                    }
-                }
-            }
-        }
     }
 
     fun cancelRecordFile() {
         recordFile = null
         recordTime = 0L
-        parent.findViewById<TextView>(R.id.voice_time_view).text = ""
+        parent?.findViewById<TextView>(R.id.voice_time_view)?.text = ""
     }
 
     fun showTextInputLayout() {
-        helper.visibilityAllId(View.GONE).visibleId(R.id.text_input_wrap_layout)
+        helper?.visibilityAllId(View.GONE)?.visibleId(R.id.text_input_wrap_layout)
     }
 
     fun showVoiceInputLayout() {
-        helper.visibilityAllId(View.GONE).visibleId(R.id.voice_input_wrap_layout)
+        helper?.visibilityAllId(View.GONE)?.visibleId(R.id.voice_input_wrap_layout)
     }
 
     fun showVoiceLayout() {
-        helper.visibilityAllId(View.GONE).visibleId(R.id.voice_wrap_layout)
+        helper?.visibilityAllId(View.GONE)?.visibleId(R.id.voice_wrap_layout)
     }
 
     /**
@@ -155,11 +171,11 @@ class RecordLayoutControl(val parent: ViewGroup) {
      * */
     fun singleShowText(text: CharSequence, noEdit: Boolean = true) {
         showTextInputLayout()
-        (helper.view(R.id.text_input_edit) as ExEditText).apply {
+        (helper?.view(R.id.text_input_edit) as ExEditText).apply {
             setInputText(text)
             isNoEditMode = noEdit
         }
-        helper.view(R.id.voice_switch_view)?.visibility = View.GONE
+        helper?.view(R.id.voice_switch_view)?.visibility = View.GONE
     }
 
     var showUrl: String? = null
@@ -177,14 +193,14 @@ class RecordLayoutControl(val parent: ViewGroup) {
         urlDuration = duration
 
         showVoiceLayout()
-        helper.view(R.id.voice_cancel_view)?.visibility = View.GONE
+        helper?.view(R.id.voice_cancel_view)?.visibility = View.GONE
 
         showPlayTime(duration)
     }
 
     fun showPlayTime(time: Long /*毫秒*/) {
         val t = (time / 1000)
-        parent.findViewById<TextView>(R.id.voice_time_view).text = "$t'"
+        parent?.findViewById<TextView>(R.id.voice_time_view)?.text = "$t'"
     }
 
     fun release() {
