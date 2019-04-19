@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.component
 
 import android.app.Activity
 import android.graphics.Rect
+import android.text.TextUtils
 import android.view.*
 import android.widget.TextView
 import com.angcyo.uikitdemo.R
@@ -15,6 +16,32 @@ import com.angcyo.uikitdemo.R
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class RecordUI {
+
+    companion object {
+        /**
+         * 从url中, 获取录制的音频时长
+         */
+        fun getRecordTime(url: String): Int {
+            if (TextUtils.isEmpty(url)) {
+                return -1
+            }
+            var result = -1
+            try {
+                val end = url.split("_t_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+                val index = end.indexOf(".")
+                if (index != -1) {
+                    result = Integer.parseInt(end.substring(0, index))
+                } else {
+                    result = Integer.parseInt(end)
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+
+            return result
+        }
+    }
+
     var parent: ViewGroup? = null
     var recordLayout: ViewGroup? = null
     var touchView: View? = null

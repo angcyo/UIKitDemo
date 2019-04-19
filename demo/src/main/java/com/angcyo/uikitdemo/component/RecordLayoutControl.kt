@@ -171,11 +171,14 @@ class RecordLayoutControl {
      * */
     fun singleShowText(text: CharSequence, noEdit: Boolean = true) {
         showTextInputLayout()
+        parent?.background = null
         (helper?.view(R.id.text_input_edit) as ExEditText).apply {
+            hint = ""
             setInputText(text)
             isNoEditMode = noEdit
         }
         helper?.view(R.id.voice_switch_view)?.visibility = View.GONE
+
     }
 
     var showUrl: String? = null
@@ -193,6 +196,7 @@ class RecordLayoutControl {
         urlDuration = duration
 
         showVoiceLayout()
+        parent?.setBackgroundResource(R.drawable.record_layout_shape)
         helper?.view(R.id.voice_cancel_view)?.visibility = View.GONE
 
         showPlayTime(duration)
