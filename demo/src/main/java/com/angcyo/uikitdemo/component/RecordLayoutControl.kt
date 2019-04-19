@@ -90,14 +90,14 @@ class RecordLayoutControl {
 
         //图示icon
         parent.findViewById<ImageView>(R.id.voice_switch_view)
-            .setImageDrawable(ResUtil.colorFilter(getDrawable(R.mipmap.icon_record), Color.BLACK))
+            .setImageDrawable(ResUtil.filterDrawable(getDrawable(R.mipmap.icon_record), Color.BLACK))
 
         //图示icon
         parent.findViewById<ImageView>(R.id.text_switch_view)
-            .setImageDrawable(ResUtil.colorFilter(getDrawable(R.mipmap.icon_kbd), Color.BLACK))
+            .setImageDrawable(ResUtil.filterDrawable(getDrawable(R.mipmap.icon_kbd), Color.BLACK))
 
         parent.findViewById<ImageView>(R.id.voice_cancel_view)
-            .setImageDrawable(ResUtil.colorFilter(getDrawable(R.mipmap.icon_cancel), Color.BLACK))
+            .setImageDrawable(ResUtil.filterDrawable(getDrawable(R.mipmap.icon_cancel), Color.BLACK))
 
         //touch事件监听
         recordControl.wrap(parent.findViewById(R.id.voice_input_view), parent.context as Activity, {

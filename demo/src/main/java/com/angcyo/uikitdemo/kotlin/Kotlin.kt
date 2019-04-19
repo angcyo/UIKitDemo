@@ -2,6 +2,8 @@ package com.angcyo.uikitdemo.kotlin
 
 import android.graphics.RectF
 import com.angcyo.lib.L
+import com.angcyo.uikitdemo.R
+import com.angcyo.uiview.less.kotlin.getDrawable
 import com.angcyo.uiview.less.kotlin.scale
 import com.angcyo.uiview.less.kotlin.scaleFromCenter
 
@@ -19,5 +21,9 @@ object Kotlin {
 
         L.i(rectF1.scale(0.5f, 0.5f))
         L.i(rectF2.scaleFromCenter(0.5f, 0.5f))
+
+        val drawable = getDrawable(R.drawable.ic_pause)
+
+        L.i("Kotlin test...")
     }
 }
