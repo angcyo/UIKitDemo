@@ -24,19 +24,41 @@ public class Java {
         String nullStrValue = null;
         Number nullNumValue = null;
 
+//        L.i(Json.json()
+//                .add("Key", "key")
+//                .add("Key2", nullStrValue)
+//                .add("Key3", 1)
+//                .addJson("newJson")
+//                .add("json1", "json1")
+//                .addArray("newArray")
+//                .add(nullNumValue)
+//                .add(nullStrValue)
+//                .add(1)
+//                .add("2")
+//                .endAdd()
+//                .endAdd()
+//                .get());
+
+        L.i(Json.json().add("key", "value").get());
+        L.i(Json.json().add("k", "v'").addJson("obj").add("k", "v").endAdd().get());
+        L.i(Json.json().add("k", "v'").addArray("array").add("k", "v").endAdd().get());
         L.i(Json.json()
-                .add("Key", "key")
-                .add("Key2", nullStrValue)
-                .add("Key3", 1)
-                .groupJson("newJson")
-                .add("json1", "json1")
-                .groupArray("newArray")
-                .add(nullNumValue)
-                .add(nullStrValue)
-                .add(1)
-                .add("2")
-                .endGroup()
-                .endGroup()
+                .add("k", "v'").add("k2", "v2")
+                .addArray("array")
+                .addJson().add("k", "v").add("k2", "v2")
+                .endAll()
+                .get());
+        L.i(Json.json().add("k", "v'")
+                .addArray("array")
+                .addJson().add("k", "v").add("k2", "v2").endAdd()
+                .addJson().add("k", "v").add("k2", "v2").endAdd()
+                .get());
+        L.e(" ......... ");
+
+        L.i(Json.array()
+                .addJson().add("k", "v").add("k2", "v2").endAdd()
+                .addJson().add("k", "v").add("k2", "v2")
+                .addArray("array").addJson().add("k", "v").add("k2", "v2").endAdd()
                 .get());
 
         L.e("Java ......... end");
