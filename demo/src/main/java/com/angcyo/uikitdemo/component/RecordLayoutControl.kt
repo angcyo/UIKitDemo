@@ -67,9 +67,15 @@ class RecordLayoutControl {
             override fun onPlayStateChange(playUrl: String, from: Int, to: Int) {
                 super.onPlayStateChange(playUrl, from, to)
                 if (to == RPlayer.STATE_PLAYING) {
-                    parent?.findViewById<VoiceView>(R.id.voice_tip_view)?.play()
+                    parent?.apply {
+                        findViewById<VoiceView>(R.id.voice_tip_view)?.play()
+                        PlayControl.requestAudioFocus(this.context)
+                    }
                 } else {
-                    parent?.findViewById<VoiceView>(R.id.voice_tip_view)?.stop()
+                    parent?.apply {
+                        findViewById<VoiceView>(R.id.voice_tip_view)?.stop()
+                        PlayControl.abandonAudioFocus(this.context)
+                    }
 
                     if (urlDuration != -1L) {
                         showPlayTime(urlDuration)
