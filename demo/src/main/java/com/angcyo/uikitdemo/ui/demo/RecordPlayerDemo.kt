@@ -30,6 +30,8 @@ class RecordPlayerDemo : BaseItemFragment() {
     lateinit var player: RPlayer
     var playControl = PlayControl()
     var recordLayoutControl = RecordLayoutControl()
+    var recordLayoutControl1 = RecordLayoutControl()
+    var recordLayoutControl2 = RecordLayoutControl()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,7 +71,7 @@ class RecordPlayerDemo : BaseItemFragment() {
         singleItems.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 val path = "http://ting666.yymp3.com:86/new27/xuezhiqian8/8.mp3"
-                RecordLayoutControl().apply {
+                recordLayoutControl1.apply {
                     wrap(holder.group(R.id.record_wrap_layout))
                     singleShowVoice(path, 100 * 1000)
                 }
@@ -83,7 +85,7 @@ class RecordPlayerDemo : BaseItemFragment() {
         singleItems.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 val path = "http://ting666.yymp3.com:86/new27/xuezhiqian8/8.mp3"
-                RecordLayoutControl().apply {
+                recordLayoutControl2.apply {
                     wrap(holder.group(R.id.record_wrap_layout))
                     singleShowText(path)
                 }
@@ -156,7 +158,9 @@ class RecordPlayerDemo : BaseItemFragment() {
         record.release()
         player.release()
         playControl.release()
-        recordLayoutControl?.release()
+        recordLayoutControl.release()
+        recordLayoutControl1.release()
+        recordLayoutControl2.release()
     }
 
 }
