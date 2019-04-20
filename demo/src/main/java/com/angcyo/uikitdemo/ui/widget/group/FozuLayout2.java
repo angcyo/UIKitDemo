@@ -2,6 +2,8 @@ package com.angcyo.uikitdemo.ui.widget.group;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.math.MathUtils;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
@@ -11,8 +13,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.BounceInterpolator;
 import android.widget.FrameLayout;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 /**
  * Email:angcyo@126.com
