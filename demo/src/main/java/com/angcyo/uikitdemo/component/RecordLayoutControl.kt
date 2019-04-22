@@ -59,6 +59,13 @@ class RecordLayoutControl {
     init {
         //播放状态监听
         player.onPlayListener = object : SimplePlayerListener() {
+            override fun onPreparedCompletion(duration: Int) {
+                super.onPreparedCompletion(duration)
+                if (urlDuration == 0L) {
+                    urlDuration = duration.toLong()
+                }
+            }
+
             override fun onPlayProgress(progress: Int, duration: Int) {
                 super.onPlayProgress(progress, duration)
                 showPlayTime(progress.toLong())
@@ -77,7 +84,9 @@ class RecordLayoutControl {
                         PlayControl.abandonAudioFocus(this.context)
                     }
 
-                    if (urlDuration != -1L) {
+                    if (urlDuration == 0L) {
+                        noTime()
+                    } else if (urlDuration != -1L) {
                         showPlayTime(urlDuration)
                     } else {
                         showPlayTime(recordTime)
@@ -199,7 +208,7 @@ class RecordLayoutControl {
     /**
      * 单纯用来显示播放音频
      * @param url 音频地址
-     * @param duration 音频时长, 毫秒
+     * @param duration 音频时长, 毫秒, =0 自动解析url音频时长
      * */
     fun singleShowVoice(url: String, duration: Long) {
         if (showUrl != null) {
@@ -212,12 +221,20 @@ class RecordLayoutControl {
         parent?.setBackgroundResource(R.drawable.record_layout_shape)
         helper?.view(R.id.voice_cancel_view)?.visibility = View.GONE
 
-        showPlayTime(duration)
+        if (urlDuration <= 0) {
+            noTime()
+        } else {
+            showPlayTime(duration)
+        }
     }
 
     fun showPlayTime(time: Long /*毫秒*/) {
         val t = (time / 1000)
         parent?.findViewById<TextView>(R.id.voice_time_view)?.text = "$t'"
+    }
+
+    fun noTime() {
+        parent?.findViewById<TextView>(R.id.voice_time_view)?.text = ""
     }
 
     fun release() {
