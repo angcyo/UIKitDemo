@@ -101,6 +101,11 @@ class MainFragment : BaseItemFragment() {
                 initItem(holder, "TBSDemo", posInData)
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "CameraDemo", posInData)
+            }
+        })
 
 
         //last item
