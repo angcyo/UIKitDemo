@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
+import com.angcyo.camera.IDCardScanFragment
 import com.angcyo.camera.TakePictureFragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
@@ -31,6 +32,14 @@ class CameraDemo : AppBaseTitleFragment() {
         viewHolder.click(R.id.take_picture_no_confirm) {
             TakePictureFragment.show(parentFragmentManager(), false, null) { bitmap, _ ->
                 viewHolder.giv(R.id.image_view).setImageBitmap(bitmap)
+            }
+        }
+
+        viewHolder.click(R.id.id_card_scan) {
+            IDCardScanFragment.show(parentFragmentManager(), false, null) { cardBmp, numBmp, no ->
+                viewHolder.giv(R.id.image_view).setImageBitmap(cardBmp)
+                viewHolder.giv(R.id.image_view2).setImageBitmap(numBmp)
+                viewHolder.tv(R.id.text_view).text = no
             }
         }
     }
