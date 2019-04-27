@@ -1,11 +1,18 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
+import android.widget.ImageView
 import com.angcyo.camera.IDCardScanFragment
 import com.angcyo.camera.TakePictureFragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
+import com.angcyo.uiview.less.base.helper.FragmentHelper
+import com.angcyo.uiview.less.kotlin.getViewRect
+import com.angcyo.uiview.less.kotlin.load
+import com.angcyo.uiview.less.picture.BasePhotoTransitionFragment
+import com.angcyo.uiview.less.picture.BaseTransitionFragment
+import com.angcyo.uiview.less.picture.transition.TransitionConfig
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 
 /**
@@ -41,6 +48,44 @@ class CameraDemo : AppBaseTitleFragment() {
                 viewHolder.giv(R.id.image_view2).setImageBitmap(numBmp)
                 viewHolder.tv(R.id.text_view).text = no
             }
+        }
+
+        viewHolder.click(R.id.transition_button) {
+            FragmentHelper.build(parentFragmentManager())
+                .noAnim()
+                .showFragment(BasePhotoTransitionFragment())
+                .setArgs(BaseTransitionFragment.KEY_TRANSITION_FROM_RECT, it.getViewRect())
+                .doIt()
+        }
+
+        viewHolder.click(R.id.image_view) {
+            FragmentHelper.build(parentFragmentManager())
+                .noAnim()
+                .showFragment(BasePhotoTransitionFragment().apply {
+                    config {
+                        configPreview = { _, preview, _ ->
+                            TransitionConfig.configPreviewFromImageView(preview, it as ImageView)
+                        }
+                    }
+                })
+                .setArgs(BaseTransitionFragment.KEY_TRANSITION_FROM_RECT, it.getViewRect())
+                .doIt()
+        }
+
+        viewHolder.imgV(R.id.image_view2).load("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3213427760,1870503692&fm=26&gp=0.jpg")
+
+        viewHolder.click(R.id.image_view2) {
+            FragmentHelper.build(parentFragmentManager())
+                .noAnim()
+                .showFragment(BasePhotoTransitionFragment().apply {
+                    config {
+                        configPreview = { _, preview, _ ->
+                            TransitionConfig.configPreviewFromImageView(preview, it as ImageView)
+                        }
+                    }
+                })
+                .setArgs(BaseTransitionFragment.KEY_TRANSITION_FROM_RECT, it.getViewRect())
+                .doIt()
         }
     }
 
