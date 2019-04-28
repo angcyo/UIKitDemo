@@ -3,7 +3,6 @@ package com.angcyo.uikitdemo
 import android.os.Bundle
 import com.angcyo.lib.L
 import com.angcyo.rtbs.RTbs
-import com.angcyo.uiview.less.RApplication
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
 import com.angcyo.uiview.less.kotlin.getColor
@@ -14,7 +13,7 @@ import com.angcyo.uiview.less.kotlin.getColor
  * @author angcyo
  * @date 2019/02/20
  */
-class App : RApplication() {
+class App : PluginHostApplication() {
 
     companion object {
         fun isApk() = BuildConfig.FLAVOR == "apk"
@@ -31,7 +30,6 @@ class App : RApplication() {
                 titleFragment.contentControl().selector().setBackgroundColor(getColor(R.color.line_color))
             }
         }
-
 
         RTbs.init(this, BuildConfig.SHOW_DEBUG)
     }

@@ -23,7 +23,20 @@ dependencies {
     implementation project(allModule.MPChart)
     implementation project(allModule.RTbs)
     implementation project(allModule.Camera)
+
+    api 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
 }
+
+apply plugin: 'replugin-host-gradle'
+
+repluginHostConfig {
+    /**
+     * 是否使用 AppCompat 库
+     * 不需要个性化配置时，无需添加
+     */
+    useAppCompat = true
+}
+
 
 //apply from: allGradle.v7a
 

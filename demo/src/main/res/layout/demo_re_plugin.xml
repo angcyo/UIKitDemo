@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_marginLeft="@dimen/base_hdpi"
+            android:layout_marginRight="@dimen/base_hdpi"
+            android:layout_marginTop="@dimen/base_hdpi"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.less.widget.ExEditText
+                android:id="@+id/plugin_path_edit"
+                style="@style/BaseMainTextStyle"
+                android:hint="插件路径"
+                android:inputType="textWebEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:layout_marginLeft="@dimen/base_hdpi"
+            android:layout_marginRight="@dimen/base_hdpi"
+            android:layout_marginTop="@dimen/base_hdpi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.less.widget.ExEditText
+                android:id="@+id/plugin_name_edit"
+                style="@style/BaseMainTextStyle"
+                android:hint="插件名"
+                android:inputType="textWebEmailAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+            android:layout_marginLeft="@dimen/base_hdpi"
+            android:layout_marginRight="@dimen/base_hdpi"
+            android:layout_marginTop="@dimen/base_hdpi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.less.widget.ExEditText
+                android:id="@+id/start_activity_edit"
+                style="@style/BaseMainTextStyle"
+                android:hint="需要启动启动Activity"
+                android:layout_width="match_parent"
+                android:inputType="textWebEmailAddress"
+                android:layout_height="wrap_content"/>
+
+    </android.support.design.widget.TextInputLayout>
+
+    <com.angcyo.uiview.less.widget.Button
+            android:text="选择插件"
+            android:layout_width="match_parent"
+            android:layout_margin="@dimen/base_hdpi"
+            android:minHeight="@dimen/base_item_size"
+            android:layout_height="wrap_content"/>
+
+    <com.angcyo.uiview.less.widget.Button
+            android:text="启动插件"
+            android:layout_margin="@dimen/base_hdpi"
+            android:minHeight="@dimen/base_item_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>
