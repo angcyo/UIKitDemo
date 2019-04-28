@@ -22,4 +22,65 @@
             android:layout_width="70dp"
             android:layout_height="70dp"/>
 
+    <FrameLayout
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="100dp"
+            android:layout_width="100dp"
+            android:background="@color/transparent_dark80"
+            android:layout_height="100dp">
+
+        <com.angcyo.uiview.less.widget.NumCheckView
+                android:id="@+id/num_check_view"
+                app:r_draw_num="999"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.NumCheckView
+                android:id="@+id/num_check_view2"
+                android:layout_gravity="bottom|right"
+                app:r_draw_num="9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.draw.view.RDrawNoReadNumView
+                android:layout_width="wrap_content"
+                app:r_draw_read_num_string="1"
+                android:background="@color/base_orange"
+                app:r_draw_border="true"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.draw.view.RDrawNoReadNumView
+                android:layout_width="wrap_content"
+                app:r_draw_read_num_string="99"
+                android:background="@color/base_orange"
+                app:r_draw_border="false"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.draw.view.RDrawNoReadNumView
+                android:layout_width="wrap_content"
+                android:background="@color/base_orange"
+                app:r_draw_read_num_string="999"
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.draw.view.RDrawNoReadNumView
+                android:layout_width="wrap_content"
+                android:background="@color/base_orange"
+                app:r_draw_read_num_string="999"
+                android:layout_gravity="bottom|left"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.draw.view.RDrawNoReadNumView
+                android:layout_width="wrap_content"
+                android:background="@color/base_orange"
+                app:r_draw_read_num_string="999+"
+                app:r_draw_keep_circle="true"
+                android:layout_gravity="right|bottom"
+                android:layout_height="wrap_content"/>
+    </FrameLayout>
+
+
 </android.support.constraint.ConstraintLayout>
