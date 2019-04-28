@@ -132,7 +132,7 @@ class RecordPlayerDemo : BaseItemFragment() {
 //                                pathList.add(record.sampleFile.absolutePath.apply {
 //                                    L.w("文件路径:$this")
 //                                })
-//                                baseViewHolder.post {
+//                                iViewHolder.post {
 //                                    refreshLayout()
 //                                }
 //                            }

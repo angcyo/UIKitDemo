@@ -46,8 +46,8 @@ class TransitionFragment : AppBaseTitleFragment() {
 
     override fun onPostCreateView(container: ViewGroup?, arguments: Bundle?, savedInstanceState: Bundle?) {
         super.onPostCreateView(container, arguments, savedInstanceState)
-//        ViewCompat.setTransitionName(baseViewHolder.view(R.id.image_view), "image")
-//        ViewCompat.setTransitionName(baseViewHolder.view(R.id.button), "button")
+//        ViewCompat.setTransitionName(iViewHolder.view(R.id.image_view), "image")
+//        ViewCompat.setTransitionName(iViewHolder.view(R.id.button), "button")
     }
 
     override fun onTitleBackClick(view: View?) {
