@@ -63,7 +63,7 @@ class RePluginDemo : AppBaseItemFragment() {
                     ) {
                         return@click
                     }
-                    
+
                     RHost.startPlugin(
                         mAttachContext,
                         holder.exV(R.id.plugin_path_edit).string().trim(),
