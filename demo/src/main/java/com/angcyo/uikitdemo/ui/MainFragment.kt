@@ -7,8 +7,10 @@ import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.java.Java
 import com.angcyo.uikitdemo.kotlin.Kotlin
+import com.angcyo.uikitdemo.ui.demo.RePluginDemo
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
+import com.angcyo.uiview.less.kotlin.getViewRect
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -109,6 +111,15 @@ class MainFragment : BaseItemFragment() {
         singleItems.add(object : MainItem(Type.LINE) {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 initItem(holder, "RePluginDemo", posInData)
+
+                holder.click(R.id.base_item_info_layout) {
+                    FragmentHelper.build(parentFragmentManager())
+                        .showFragment(RePluginDemo().apply {
+                            showFromRect = it.getViewRect()
+                        })
+                        .noAnim()
+                        .doIt()
+                }
             }
         })
 
