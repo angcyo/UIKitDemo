@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
+import com.angcyo.http.HttpSubscriber
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.RHost
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
@@ -15,6 +16,7 @@ import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.utils.RUtils
+import com.qihoo360.replugin.model.PluginInfo
 import java.util.*
 
 /**
@@ -61,13 +63,18 @@ class RePluginDemo : AppBaseItemFragment() {
                     ) {
                         return@click
                     }
-
+                    
                     RHost.startPlugin(
                         mAttachContext,
                         holder.exV(R.id.plugin_path_edit).string().trim(),
                         holder.exV(R.id.plugin_name_edit).string().trim(),
                         holder.exV(R.id.start_activity_edit).string().trim()
-                    ).subscribe()
+                    ).subscribe(object : HttpSubscriber<PluginInfo>() {
+                        override fun onStart() {
+                            super.onStart()
+                            RHost.uninstall(holder.exV(R.id.plugin_name_edit).string().trim())
+                        }
+                    })
                 }
             }
 
