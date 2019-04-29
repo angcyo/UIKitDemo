@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import com.angcyo.http.Func;
 import com.angcyo.http.HttpSubscriber;
@@ -12,7 +13,6 @@ import com.angcyo.lib.L;
 import com.angcyo.uiview.less.utils.RDialog;
 import com.qihoo360.replugin.RePlugin;
 import com.qihoo360.replugin.model.PluginInfo;
-import org.jetbrains.annotations.Nullable;
 import rx.Observable;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -130,28 +130,45 @@ public class RHost {
     public static Observable<PluginInfo> startPlugin(@NonNull final Context context,
                                                      @Nullable final String pluginName,
                                                      @Nullable final String activity) {
-        return Rx.create(new Func<PluginInfo>() {
-            @Override
-            public PluginInfo call(Observer observer) {
-                if (TextUtils.isEmpty(pluginName) || TextUtils.isEmpty(activity)) {
-                    return null;
-                }
-                PluginInfo pluginInfo = RePlugin.getPluginInfo(pluginName);
-                if (pluginInfo == null) {
-                    //未安装插件
-                    return null;
-                }
-                if (pluginInfo.isNeedUpdate()) {
-                    //插件需要升级
-                }
-                if (pluginInfo.isUsed()) {
-                    //已经释放过dex
-                } else {
-                    //需要释放dex
-                }
-                return pluginInfo;
-            }
-        })
+        return startPlugin(context, null, pluginName, activity);
+    }
+
+    /**
+     * 启动插件中的Activity
+     * 如果需要释放dex, 会有 Loading 对话框
+     *
+     * @param pluginPath 如果插件未安装, 会先安装. 如果插件已安装, 会触发下一次的升级
+     */
+    public static Observable<PluginInfo> startPlugin(@NonNull final Context context,
+                                                     @Nullable final String pluginPath,
+                                                     @Nullable final String pluginName,
+                                                     @Nullable final String activity) {
+        return Rx
+                .create(new Func<PluginInfo>() {
+                    @Override
+                    public PluginInfo call(Observer observer) {
+                        if (TextUtils.isEmpty(pluginName) || TextUtils.isEmpty(activity)) {
+                            return null;
+                        }
+                        PluginInfo pluginInfo = RePlugin.getPluginInfo(pluginName);
+                        if (pluginInfo == null) {
+                            //未安装插件
+                            if (TextUtils.isEmpty(pluginPath)) {
+                                return null;
+                            }
+                            pluginInfo = RePlugin.install(pluginPath);
+                        }
+                        if (pluginInfo.isNeedUpdate()) {
+                            //插件需要升级
+                        }
+                        if (pluginInfo.isUsed()) {
+                            //已经释放过dex
+                        } else {
+                            //需要释放dex
+                        }
+                        return pluginInfo;
+                    }
+                })
                 .observeOn(AndroidSchedulers.mainThread())
                 .map(new Func1<PluginInfo, PluginInfo>() {
                     @Override
