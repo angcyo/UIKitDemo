@@ -86,6 +86,12 @@ public class RHost {
         return RePlugin.isPluginRunning(pluginName);
     }
 
+    /**
+     * 插件是否已被安装
+     */
+    public static boolean isPluginInstalled(String pluginName) {
+        return RePlugin.isPluginInstalled(pluginName);
+    }
 
     /**
      * 获取当前插件的版本号
@@ -191,7 +197,11 @@ public class RHost {
                             }
 
                             //可以直接在子线程中启动插件
-                            RePlugin.startActivity(context, new Intent(), pluginName, activity);
+                            boolean startActivity = RePlugin.startActivity(context, new Intent(), pluginName, activity);
+
+                            if (!startActivity) {
+                                L.w(activity + " 启动失败!");
+                            }
                         }
                         return pluginInfo;
                     }

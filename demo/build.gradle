@@ -2,6 +2,8 @@ ext {
     APP_NAME = "UIKitDemo"
 }
 
+apply from:allGradle.appName
+
 apply from: allGradle.key
 
 android {

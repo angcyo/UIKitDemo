@@ -16,6 +16,7 @@ import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.utils.RUtils
+import com.angcyo.uiview.less.utils.Tip
 import com.qihoo360.replugin.model.PluginInfo
 import java.util.*
 
@@ -44,6 +45,24 @@ class RePluginDemo : AppBaseItemFragment() {
                 holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
                 holder.exV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.MainActivity")
 
+                //预设按钮
+                holder.click(R.id.test1) {
+                    holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
+                    holder.exV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test1Activity")
+                }
+                holder.click(R.id.test2) {
+                    holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
+                    holder.exV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test2Activity")
+                }
+                holder.click(R.id.test3) {
+                    holder.exV(R.id.plugin_name_edit).setInputText("com.angcyo.plugin1")
+                    holder.exV(R.id.start_activity_edit).setInputText("com.angcyo.plugin1.MainActivity")
+                }
+                holder.click(R.id.test4) {
+                    holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.plugin1")
+                    holder.exV(R.id.start_activity_edit).setInputText("com.wayto.plugin1.MainActivity")
+                }
+
                 //选择插件
                 holder.click(R.id.selector_file_button) {
                     FragmentHelper.build(parentFragmentManager())
@@ -55,26 +74,36 @@ class RePluginDemo : AppBaseItemFragment() {
                         .defaultEnterAnim()
                         .doIt()
                 }
+
                 //启动插件
                 holder.click(R.id.start_plugin_button) {
-                    if (holder.exV(R.id.plugin_path_edit).checkEmpty() ||
-                        holder.exV(R.id.plugin_name_edit).checkEmpty() ||
+                    if (holder.exV(R.id.plugin_name_edit).checkEmpty() ||
                         holder.exV(R.id.start_activity_edit).checkEmpty()
                     ) {
                         return@click
                     }
 
+                    //插件没有安装过
+                    if (!RHost.isPluginInstalled(holder.exV(R.id.plugin_name_edit).string())) {
+                        if (holder.exV(R.id.plugin_path_edit).checkEmpty()) {
+                            return@click
+                        }
+                    }
+
                     RHost.startPlugin(
                         mAttachContext,
-                        holder.exV(R.id.plugin_path_edit).string().trim(),
-                        holder.exV(R.id.plugin_name_edit).string().trim(),
-                        holder.exV(R.id.start_activity_edit).string().trim()
+                        holder.exV(R.id.plugin_path_edit).string(),
+                        holder.exV(R.id.plugin_name_edit).string(),
+                        holder.exV(R.id.start_activity_edit).string()
                     ).subscribe(object : HttpSubscriber<PluginInfo>() {
-                        override fun onStart() {
-                            super.onStart()
-                            RHost.uninstall(holder.exV(R.id.plugin_name_edit).string().trim())
-                        }
                     })
+                }
+
+                //卸载插件
+                holder.click(R.id.uninstall_plugin_button) {
+                    if (holder.exV(R.id.plugin_name_edit).checkEmpty()) return@click
+                    RHost.uninstall(holder.exV(R.id.plugin_name_edit).string().trim())
+                    Tip.tip("Ok!")
                 }
             }
 

@@ -55,6 +55,36 @@
 
     </android.support.design.widget.TextInputLayout>
 
+    <LinearLayout
+            android:padding="@dimen/base_hdpi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/test1"
+                android:text="Test1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/test2"
+                android:text="Test2"
+                android:layout_marginLeft="@dimen/base_hdpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/test3"
+                android:text="Test3"
+                android:layout_marginLeft="@dimen/base_hdpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/test4"
+                android:text="Test4"
+                android:layout_marginLeft="@dimen/base_hdpi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
     <com.angcyo.uiview.less.widget.Button
             android:id="@+id/selector_file_button"
             android:text="选择插件"
@@ -71,5 +101,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
-    <include layout="@layout/base_dialog_flow_loading_layout"/>
+    <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/uninstall_plugin_button"
+            android:text="卸载插件"
+            android:layout_margin="@dimen/base_hdpi"
+            android:minHeight="@dimen/base_item_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 </LinearLayout>

@@ -1,0 +1,27 @@
+//目标xml
+def targetFile = new File("${buildFile.parent}/src/main/res/values/strings.xml")
+
+//返回的appName
+ext.appName = ''
+//所有xml中 键值对内容
+ext.stringsXml = [:]
+
+//打开xml
+def rootNode = openXml(targetFile)
+
+if ("resources" == rootNode.name()) {
+    //确保根节点是 resources
+
+    rootNode.children().each {
+        def name = it.attributes()["name"]
+        stringsXml[name] = it.text()
+    }
+}
+
+appName = stringsXml['app_name']
+
+static def openXml(xml) {
+    def xmlParser = new groovy.util.XmlParser()
+    def result = xmlParser.parse(xml)
+    return result
+}
