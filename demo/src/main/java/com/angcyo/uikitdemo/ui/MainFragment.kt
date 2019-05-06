@@ -122,6 +122,11 @@ class MainFragment : BaseItemFragment() {
                 }
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "WaveDemo", posInData)
+            }
+        })
 
 
         //last item
