@@ -69,7 +69,7 @@ public class WaveView extends View {
             setTag(ta.getString(R.styleable.WaveView_mwhWaves));
         } else if (getTag() == null) {
             //int offsetX, int offsetY, float scaleX, float scaleY, int velocity,
-            setTag("0,0,1,1,40\n100,0,1,0.8,-30\n250,0,1,1.2,25");
+            setTag("0,0,1,1,40\n100,0,1,0.8,-30\n250,0,1,1.2,25\n");
         }
         ta.recycle();
     }
@@ -164,11 +164,14 @@ public class WaveView extends View {
 
         mltWave.clear();
 
-        if (getTag() instanceof String) {
-            String[] waves = getTag().toString().split("\\s+");
-            if ("-1".equals(getTag())) {
+        Object tag = getTag();
+        if (tag instanceof String) {
+            String tagString = (String) tag;
+
+            String[] waves = tagString.split("\\s+");
+            if ("-1".equals(tagString)) {
                 waves = "70,25,1.4,1.4,-26\n100,5,1.4,1.2,15\n420,0,1.15,1,-10\n520,10,1.7,1.5,20\n220,0,1,1,-15".split("\\s+");
-            } else if ("-2".equals(getTag())) {
+            } else if ("-2".equals(tagString)) {
                 waves = "0,0,1,0.5,90\n90,0,1,0.5,90".split("\\s+");
             }
             for (String wave : waves) {
