@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LegendTextView">
+        <attr name="r_legend_style" format="enum">
+            <enum name="LEGEND_STYLE_SQUARE" value="1"/>
+            <enum name="LEGEND_STYLE_CIRCLE" value="2"/>
+        </attr>
+        <attr name="r_legend_width" format="dimension"/>
+        <attr name="r_legend_height" format="dimension"/>
+        <attr name="r_legend_offset" format="dimension"/>
+        <attr name="r_legend_round" format="dimension"/>
+        <attr name="r_legend_color" format="color"/>
+        <attr name="r_legend_border_color" format="color"/>
+        <attr name="r_legend_draw_border" format="boolean"/>
+        <attr name="r_legend_border_width" format="dimension"/>
+    </declare-styleable>
+</resources>
