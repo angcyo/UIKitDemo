@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-          android:id="@+id/text_view"
-          android:background="@drawable/main_selector"
-          android:padding="@dimen/base_xhdpi"
-          android:clickable="true"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content">
-</TextView>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:background="@drawable/main_selector_ripple"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/text_view"
+            android:padding="@dimen/base_xhdpi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+    </TextView>
+
+    <android.support.v7.widget.AppCompatCheckBox
+            android:id="@+id/check_box"
+            android:padding="@dimen/base_hdpi"
+            android:layout_gravity="right|center_vertical"
+            android:layout_width="wrap_content"
+            android:clickable="true"
+            android:buttonTint="@color/white"
+            android:layout_height="wrap_content"/>
+
+</FrameLayout>

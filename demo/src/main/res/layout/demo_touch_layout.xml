@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <View
+            android:clickable="true"
+            android:id="@+id/view1"
+            android:layout_width="300dp"
+            android:background="@drawable/main_selector_ripple"
+            android:layout_height="300dp"/>
+
+    <View
+            android:id="@+id/view2"
+            android:clickable="true"
+            android:layout_width="150dp"
+            android:background="@drawable/transparent_selector_ripple"
+            android:layout_height="150dp"/>
+
+    <com.angcyo.uikitdemo.ui.widget.DrawCallbackView
+            android:id="@+id/draw_callback_view"
+            android:layout_gravity="bottom"
+            android:layout_width="300dp"
+            android:background="@color/transparent_dark20"
+            android:layout_height="300dp"/>
+
+</FrameLayout>

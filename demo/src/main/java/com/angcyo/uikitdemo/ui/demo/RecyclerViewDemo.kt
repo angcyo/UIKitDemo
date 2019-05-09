@@ -44,6 +44,10 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                             itemHolder.clickItem {
                                 TopToast.show("点击位置:$itemPosition", -1)
                             }
+
+                            itemHolder.click(R.id.check_box) {
+                                TopToast.show("CheckBox:$itemPosition", -1)
+                            }
                         }
                     }
 
@@ -61,6 +65,8 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                 decorationOverLayoutType = {
                     R.layout.item_text
                 }
+
+                recyclerView
 
                 isOverDecorationSame = { _, p1, p2 ->
                     var same = false
