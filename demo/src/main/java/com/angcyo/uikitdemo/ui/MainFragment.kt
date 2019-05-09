@@ -127,6 +127,11 @@ class MainFragment : BaseItemFragment() {
                 initItem(holder, "WaveDemo", posInData)
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "RecyclerViewDemo", posInData)
+            }
+        })
 
 
         //last item
@@ -137,10 +142,9 @@ class MainFragment : BaseItemFragment() {
             }
 
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                holder.tv(R.id.text_view).text =
-                    RUtils.getIP(mAttachContext) +
-                            "\n" + RUtils.getMobileIP() +
-                            "\n" + Root.device_info(mAttachContext)
+                holder.tv(R.id.text_view).text = StringBuilder().append(RUtils.getIP(mAttachContext))
+                    .appendln().append(RUtils.getMobileIP()).appendln().append(Root.device_info(mAttachContext))
+
                 holder.click(R.id.text_view) {
                     RUtils.copyText(holder.tv(R.id.text_view).text)
                     Tip.ok("已复制")
