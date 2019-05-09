@@ -32,8 +32,14 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
 
         viewHolder.rv(R.id.recycler_view).apply {
             dslAdapter {
+                for (i in 0..2) {
+                    renderItem {
+                        itemLayoutId = R.layout.item_image
+                    }
+                }
+
                 for (i in 0..5) {
-                    overPositionList.add(i * 8)
+                    overPositionList.add(i * 3 + 3)
 
                     renderItem {
                         itemLayoutId = R.layout.item_text
@@ -51,7 +57,7 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                         }
                     }
 
-                    for (i in 0..6) {
+                    for (i in 0..1) {
                         renderItem {
                             itemLayoutId = R.layout.item_image
                         }
@@ -66,35 +72,37 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                     R.layout.item_text
                 }
 
-                recyclerView
+                haveOverDecoration = {
+                    overPositionList.contains(it)
+                }
 
-                isOverDecorationSame = { _, p1, p2 ->
-                    var same = false
-
-                    for (i in overPositionList.size - 1 downTo 1) {
-                        val l1 = overPositionList[i]
-                        val l2 = overPositionList[i - 1]
-                        if ((p1 < l1 && p2 < l1) || (p1 == l1 && p2 == l1)) {
-                            if (p1 >= l2 && p2 >= l2) {
-                                same = true
-                                break
-                            }
-                        }
-                    }
-
-//                    val minValue = Math.min(p1, p2)
-//                    val maxValue = Math.max(p1, p2)
+//                isOverDecorationSame = { _, p1, p2 ->
+//                    var same = false
 //
-//                    for (i in 0 until overPositionList.size) {
-//                        val value = overPositionList[i]
-//                        if (value >= minValue && value < maxValue) {
-//                            same = false
-//                            break
+//                    for (i in overPositionList.size - 1 downTo 1) {
+//                        val l1 = overPositionList[i]
+//                        val l2 = overPositionList[i - 1]
+//                        if ((p1 < l1 && p2 < l1) || (p1 == l1 && p2 == l1)) {
+//                            if (p1 >= l2 && p2 >= l2) {
+//                                same = true
+//                                break
+//                            }
 //                        }
 //                    }
-
-                    same
-                }
+//
+////                    val minValue = Math.min(p1, p2)
+////                    val maxValue = Math.max(p1, p2)
+////
+////                    for (i in 0 until overPositionList.size) {
+////                        val value = overPositionList[i]
+////                        if (value >= minValue && value < maxValue) {
+////                            same = false
+////                            break
+////                        }
+////                    }
+//
+//                    same
+//                }
             }
 
             addItemDecoration(RBaseItemDecoration(20 * dpi, Color.RED))
