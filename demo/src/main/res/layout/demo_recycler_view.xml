@@ -8,4 +8,31 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="@dimen/base_hdpi"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/linear_button"
+                android:text="Linear"
+                android:layout_width="wrap_content"
+                android:paddingLeft="@dimen/base_ldpi"
+                android:paddingRight="@dimen/base_ldpi"
+                android:layout_marginRight="@dimen/base_hdpi"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/grid_button"
+                android:paddingLeft="@dimen/base_ldpi"
+                android:paddingRight="@dimen/base_ldpi"
+                android:layout_marginRight="@dimen/base_hdpi"
+                android:text="Grid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
 </FrameLayout>
