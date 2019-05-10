@@ -5,10 +5,7 @@ import android.os.Bundle
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
-import com.angcyo.uiview.less.kotlin.clearItemDecoration
-import com.angcyo.uiview.less.kotlin.dpi
-import com.angcyo.uiview.less.kotlin.dslAdapter
-import com.angcyo.uiview.less.kotlin.renderItem
+import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.recycler.HoverItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -27,10 +24,6 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
         return R.layout.demo_recycler_view
     }
 
-
-    //分割线的位置
-    val overPositionList = mutableListOf<Int>()
-
     override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
         gridLayoutTest()
@@ -44,48 +37,12 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
         }
 
         baseViewHolder.rv(R.id.recycler_view).apply {
-            HoverItemDecoration().attachToRecyclerView(this) {
-                decorationOverLayoutType = {
-                    R.layout.item_text
-                }
-
-                haveOverDecoration = {
-                    overPositionList.contains(it)
-                }
-//
-////                isOverDecorationSame = { _, p1, p2 ->
-////                    var same = false
-////
-////                    for (i in overPositionList.size - 1 downTo 1) {
-////                        val l1 = overPositionList[i]
-////                        val l2 = overPositionList[i - 1]
-////                        if ((p1 < l1 && p2 < l1) || (p1 == l1 && p2 == l1)) {
-////                            if (p1 >= l2 && p2 >= l2) {
-////                                same = true
-////                                break
-////                            }
-////                        }
-////                    }
-////
-//////                    val minValue = Math.min(p1, p2)
-//////                    val maxValue = Math.max(p1, p2)
-//////
-//////                    for (i in 0 until overPositionList.size) {
-//////                        val value = overPositionList[i]
-//////                        if (value >= minValue && value < maxValue) {
-//////                            same = false
-//////                            break
-//////                        }
-//////                    }
-////
-////                    same
-////                }
-            }
+            noItemAnim()
+            HoverItemDecoration().attachToRecyclerView(this)
         }
     }
 
     fun gridLayoutTest() {
-        overPositionList.clear()
 
         baseViewHolder.rv(R.id.recycler_view).apply {
             clearItemDecoration {
@@ -101,7 +58,6 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                 }
 
                 for (i in 0..5) {
-                    overPositionList.add(i * 7 + 3)
 
                     renderItem {
                         itemSpanCount = 4
@@ -141,7 +97,6 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
     }
 
     fun linearLayoutTest() {
-        overPositionList.clear()
 
         baseViewHolder.rv(R.id.recycler_view).apply {
             resetLayoutManager(context, "V")
@@ -159,7 +114,6 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                 }
 
                 for (i in 0..5) {
-                    overPositionList.add(i * 3 + 3)
 
                     renderItem {
                         itemLayoutId = R.layout.item_text
