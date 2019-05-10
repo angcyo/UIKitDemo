@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
 import android.os.Bundle
+import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
 import com.angcyo.uiview.less.kotlin.clearItemDecoration
@@ -11,6 +12,7 @@ import com.angcyo.uiview.less.kotlin.renderItem
 import com.angcyo.uiview.less.recycler.HoverItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
 import com.angcyo.uiview.less.utils.TopToast
 
 /**
@@ -91,6 +93,7 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
             }
 
             dslAdapter(4) {
+                val dslAdapter = this
                 for (i in 0..2) {
                     renderItem {
                         itemLayoutId = R.layout.item_image_little
@@ -103,17 +106,24 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                     renderItem {
                         itemSpanCount = 4
 
+                        itemIsGroupHead = true
+
                         itemLayoutId = R.layout.item_text
 
                         itemBind = { itemHolder, itemPosition, adapterItem ->
+                            L.i("bind...$itemPosition")
+
                             itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
 
                             itemHolder.clickItem {
                                 TopToast.show("点击位置:$itemPosition", -1)
                             }
 
+                            itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
+
                             itemHolder.click(R.id.check_box) {
-                                TopToast.show("CheckBox:$itemPosition", -1)
+                                //TopToast.show("CheckBox:$itemPosition", -1)
+                                dslAdapter.foldItem(adapterItem, adapterItem.itemGroupExtend)
                             }
                         }
                     }
@@ -124,6 +134,8 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                         }
                     }
                 }
+
+                dslDateFilter = DslDateFilter(this)
             }
         }
     }
@@ -138,6 +150,8 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
             }
 
             dslAdapter {
+                val dslAdapter = this
+
                 for (i in 0..2) {
                     renderItem {
                         itemLayoutId = R.layout.item_image
@@ -150,6 +164,8 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                     renderItem {
                         itemLayoutId = R.layout.item_text
 
+                        itemIsGroupHead = true
+
                         itemBind = { itemHolder, itemPosition, adapterItem ->
                             itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
 
@@ -157,8 +173,11 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                                 TopToast.show("点击位置:$itemPosition", -1)
                             }
 
+                            itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
+
                             itemHolder.click(R.id.check_box) {
-                                TopToast.show("CheckBox:$itemPosition", -1)
+                                //TopToast.show("CheckBox:$itemPosition", -1)
+                                dslAdapter.foldItem(adapterItem, adapterItem.itemGroupExtend)
                             }
                         }
                     }
@@ -169,6 +188,8 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                         }
                     }
                 }
+
+                dslDateFilter = DslDateFilter(this)
             }
 
             addItemDecoration(RBaseItemDecoration(10 * dpi, Color.GREEN))
