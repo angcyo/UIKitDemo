@@ -63,12 +63,14 @@
                 android:layout_height="wrap_content"/>
 
         <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/input_single_dialog"
                 android:text="单行输入对话框"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/input_multi_dialog"
                 android:text="多行输入对话框"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"

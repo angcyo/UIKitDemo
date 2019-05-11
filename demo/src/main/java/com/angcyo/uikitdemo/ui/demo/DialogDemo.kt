@@ -2,7 +2,6 @@ package com.angcyo.uikitdemo.ui.demo
 
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
-import com.angcyo.uiview.less.iview.ChoiceIView
 import com.angcyo.uiview.less.kotlin.dialog.*
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
@@ -110,9 +109,8 @@ class DialogDemo : AppBaseItemFragment() {
                 }
 
                 holder.click(R.id.menu_choice_dialog) {
-                    menuDialog {
+                    singleChoiceDialog {
                         dialogTitle = "小分队出发"
-                        choiceModel = ChoiceIView.CHOICE_MODE_SINGLE
 
                         items = mutableListOf("Item1", "Item2", "Item3")
 
@@ -124,9 +122,8 @@ class DialogDemo : AppBaseItemFragment() {
                 }
 
                 holder.click(R.id.menu_multi_dialog) {
-                    menuDialog {
+                    multiChoiceDialog {
                         dialogTitle = "弟弟"
-                        choiceModel = ChoiceIView.CHOICE_MODE_MULTI
 
                         items = mutableListOf("Item1", "Item2", "Item3")
 
@@ -139,6 +136,29 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
+                holder.click(R.id.input_single_dialog) {
+                    inputDialog {
+                        showSoftInput = true
+
+                        hintInputString = "客官输入点东西吧..."
+
+                        onInputResult = { dialog, inputText ->
+                            TopToast.show(inputText)
+                            false
+                        }
+                    }
+                }
+
+                holder.click(R.id.input_multi_dialog) {
+                    multiInputDialog {
+                        dialogTitle = "请输入"
+
+                        onInputResult = { dialog, inputText ->
+                            TopToast.show(inputText)
+                            false
+                        }
+                    }
+                }
             }
 
             override fun getItemLayoutId(): Int {
