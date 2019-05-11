@@ -3,6 +3,7 @@ package com.angcyo.uikitdemo.ui.demo
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.kotlin.dialog.normalDialog
+import com.angcyo.uiview.less.kotlin.dialog.normalIosDialog
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -22,7 +23,24 @@ class DialogDemo : AppBaseItemFragment() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 holder.click(R.id.normal_dialog) {
                     normalDialog {
-                        //                        dialogTitle = "标题"
+                        dialogTitle = "标题"
+                        dialogMessage = "内容"
+
+                        positiveButton { dialog, _ ->
+                            TopToast.show("Test...")
+
+                            dialog.cancel()
+                        }
+
+                        negativeButton { dialog, _ ->
+                            dialog.dismiss()
+                        }
+                    }
+                }
+
+                holder.click(R.id.normal_ios_dialog) {
+                    normalIosDialog {
+                        dialogTitle = "标题"
                         dialogMessage = "内容"
 
                         positiveButton { dialog, _ ->

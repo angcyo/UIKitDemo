@@ -21,6 +21,13 @@
                 android:layout_height="wrap_content"/>
 
         <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/normal_ios_dialog"
+                android:text="普通IOS确认对话框框"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
                 android:text="Wheel选择对话框"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
