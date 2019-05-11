@@ -2,9 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
-import com.angcyo.uiview.less.kotlin.dialog.itemsDialog
-import com.angcyo.uiview.less.kotlin.dialog.normalDialog
-import com.angcyo.uiview.less.kotlin.dialog.normalIosDialog
+import com.angcyo.uiview.less.kotlin.dialog.*
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -65,6 +63,35 @@ class DialogDemo : AppBaseItemFragment() {
                         onItemClick = { _, index, item ->
                             TopToast.show(item as CharSequence)
                             false
+                        }
+                    }
+                }
+
+                holder.click(R.id.menu_dialog) {
+                    menuDialog {
+                        dialogTitle = "你要干啥?"
+
+                        items = mutableListOf("Item1", "Item2", "Item3")
+
+                        onItemClick = { _, index, item ->
+                            TopToast.show(item as CharSequence)
+                            false
+                        }
+                    }
+                }
+
+                holder.click(R.id.wheel_dialog) {
+                    wheelDialog {
+                        dialogTitle = "今晚谁陪朕?"
+
+                        wheelItems = mutableListOf("Item1", "Item2", "Item3")
+
+                        wheelCyclic = false
+
+                        defaultIndex = 1
+
+                        onWheelItemSelector = { _, index, item ->
+                            TopToast.show(item as CharSequence)
                         }
                     }
                 }
