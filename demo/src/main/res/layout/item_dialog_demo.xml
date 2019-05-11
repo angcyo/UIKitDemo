@@ -34,6 +34,13 @@
                 android:layout_height="wrap_content"/>
 
         <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/item_dialog"
+                android:text="Items对话框"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
                 android:text="菜单对话框"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"

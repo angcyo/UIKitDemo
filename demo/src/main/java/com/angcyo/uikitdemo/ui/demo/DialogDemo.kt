@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
+import com.angcyo.uiview.less.kotlin.dialog.itemsDialog
 import com.angcyo.uiview.less.kotlin.dialog.normalDialog
 import com.angcyo.uiview.less.kotlin.dialog.normalIosDialog
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -51,6 +52,19 @@ class DialogDemo : AppBaseItemFragment() {
 
                         negativeButton { dialog, _ ->
                             dialog.dismiss()
+                        }
+                    }
+                }
+
+                holder.click(R.id.item_dialog) {
+                    itemsDialog {
+                        dialogTitle = "标题标题标题标题标题"
+
+                        items = mutableListOf("Item1", "Item2", "Item3")
+
+                        onItemClick = { _, index, item ->
+                            TopToast.show(item as CharSequence)
+                            false
                         }
                     }
                 }
