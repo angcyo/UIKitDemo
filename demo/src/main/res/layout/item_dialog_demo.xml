@@ -49,12 +49,14 @@
                 android:layout_height="wrap_content"/>
 
         <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/menu_choice_dialog"
                 android:text="菜单单选确认对话框"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
         <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/menu_multi_dialog"
                 android:text="菜单多选确认对话框"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"

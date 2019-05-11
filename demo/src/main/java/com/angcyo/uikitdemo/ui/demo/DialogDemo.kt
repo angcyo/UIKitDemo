@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
+import com.angcyo.uiview.less.iview.ChoiceIView
 import com.angcyo.uiview.less.kotlin.dialog.*
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
@@ -58,7 +59,18 @@ class DialogDemo : AppBaseItemFragment() {
                     itemsDialog {
                         dialogTitle = "标题标题标题标题标题"
 
-                        items = mutableListOf("Item1", "Item2", "Item3")
+                        items = mutableListOf(
+                            "Item1",
+                            "Item2",
+                            "Item3",
+                            "Item4",
+                            "Item5",
+                            "Item6",
+                            "Item7",
+                            "Item8",
+                            "Item9",
+                            "Item10"
+                        )
 
                         onItemClick = { _, index, item ->
                             TopToast.show(item as CharSequence)
@@ -92,9 +104,41 @@ class DialogDemo : AppBaseItemFragment() {
 
                         onWheelItemSelector = { _, index, item ->
                             TopToast.show(item as CharSequence)
+                            false
                         }
                     }
                 }
+
+                holder.click(R.id.menu_choice_dialog) {
+                    menuDialog {
+                        dialogTitle = "小分队出发"
+                        choiceModel = ChoiceIView.CHOICE_MODE_SINGLE
+
+                        items = mutableListOf("Item1", "Item2", "Item3")
+
+                        onChoiceItemList = { _, indexList ->
+                            TopToast.show(indexList.toString())
+                            false
+                        }
+                    }
+                }
+
+                holder.click(R.id.menu_multi_dialog) {
+                    menuDialog {
+                        dialogTitle = "弟弟"
+                        choiceModel = ChoiceIView.CHOICE_MODE_MULTI
+
+                        items = mutableListOf("Item1", "Item2", "Item3")
+
+                        defaultSelectorIndexList = mutableListOf(0, 2)
+
+                        onChoiceItemList = { _, indexList ->
+                            TopToast.show(indexList.toString())
+                            false
+                        }
+                    }
+                }
+
             }
 
             override fun getItemLayoutId(): Int {
