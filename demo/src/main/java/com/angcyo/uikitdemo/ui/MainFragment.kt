@@ -137,6 +137,11 @@ class MainFragment : BaseItemFragment() {
                 initItem(holder, "TouchDemo", posInData)
             }
         })
+        singleItems.add(object : MainItem(Type.LINE) {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                initItem(holder, "DialogDemo", posInData)
+            }
+        })
 
         //last item
         singleItems.add(object : MainItem(Type.LINE, "Last") {
