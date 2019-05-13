@@ -6,6 +6,7 @@ import com.angcyo.rtbs.RTbs
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
 import com.angcyo.uiview.less.kotlin.getColor
+import com.angcyo.uiview.less.utils.RNetwork
 
 /**
  *
@@ -32,5 +33,7 @@ class App : PluginHostApplication() {
         }
 
         RTbs.init(this, BuildConfig.SHOW_DEBUG)
+
+        RNetwork.init(this)
     }
 }
