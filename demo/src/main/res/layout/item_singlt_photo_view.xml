@@ -5,6 +5,12 @@
         android:background="@color/transparent_dark20"
         android:layout_height="200dp">
 
+    <com.angcyo.uiview.less.widget.FlatImageView
+            android:id="@+id/flat_image_view"
+            android:scaleType="centerCrop"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
     <com.github.chrisbanes.photoview.PhotoView
             android:id="@+id/photo_view"
             android:scaleType="fitXY"

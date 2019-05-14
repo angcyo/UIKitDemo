@@ -6,6 +6,7 @@ import com.angcyo.uiview.less.picture.RPhotoPager
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
+import com.angcyo.uiview.less.widget.FlatImageView
 import com.angcyo.uiview.less.widget.GlideImageView
 import com.angcyo.uiview.less.widget.group.RNineImageLayout
 import com.bumptech.glide.Glide
@@ -73,6 +74,11 @@ class PhotoViewDemo : BaseItemFragment() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
                 //show(holder, "https://up.enterdesk.com/edpic/3b/d3/8b/3bd38b061de3d8e67973349d5d38fef7.jpg")
                 show(holder, "http://hbimg.b0.upaiyun.com/823d7bd817f69a3b3ce2f9720e2f6adfc11a04365d138-LDS1uE_fw658")
+
+                holder.v<FlatImageView>(R.id.flat_image_view).apply {
+                    url = "http://hbimg.b0.upaiyun.com/823d7bd817f69a3b3ce2f9720e2f6adfc11a04365d138-LDS1uE_fw658"
+                    startFlat(true)
+                }
             }
         })
 
