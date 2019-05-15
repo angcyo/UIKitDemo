@@ -7,6 +7,7 @@
         android:layout_height="match_parent">
 
     <com.angcyo.uiview.less.widget.group.RFlowLayout
+            android:id="@+id/flow_1"
             android:layout_width="match_parent"
             android:padding="@dimen/base_hdpi"
             app:r_flow_item_horizontal_space="@dimen/base_hdpi"
@@ -72,6 +73,24 @@
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/input_multi_dialog"
                 android:text="多行输入对话框"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </com.angcyo.uiview.less.widget.group.RFlowLayout>
+
+    <com.angcyo.uiview.less.widget.group.RFlowLayout
+            android:id="@+id/flow_2"
+            android:layout_width="match_parent"
+            android:padding="@dimen/base_hdpi"
+            app:r_flow_item_horizontal_space="@dimen/base_hdpi"
+            app:r_flow_item_vertical_space="@dimen/base_hdpi"
+            app:layout_constraintTop_toBottomOf="@id/flow_1"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/normal_popup"
+                android:text="普通Popup"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

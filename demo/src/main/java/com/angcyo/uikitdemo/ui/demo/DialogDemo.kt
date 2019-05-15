@@ -1,5 +1,8 @@
 package com.angcyo.uikitdemo.ui.demo
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
+import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.kotlin.dialog.*
@@ -159,6 +162,18 @@ class DialogDemo : AppBaseItemFragment() {
                         }
                     }
                 }
+
+                //popup
+                holder.click(R.id.normal_popup) {
+                    popupWindow(it) {
+                        layoutId = R.layout.item_dialog_demo
+                        background = ColorDrawable(Color.RED)
+                        onDismiss = {
+                            L.i("...dismiss...")
+                        }
+                    }
+                }
+
             }
 
             override fun getItemLayoutId(): Int {
