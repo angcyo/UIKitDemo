@@ -12,6 +12,7 @@ import com.angcyo.uiview.less.kotlin.getViewRect
 import com.angcyo.uiview.less.kotlin.load
 import com.angcyo.uiview.less.picture.BasePhotoTransitionFragment
 import com.angcyo.uiview.less.picture.BaseTransitionFragment
+import com.angcyo.uiview.less.picture.RPager
 import com.angcyo.uiview.less.picture.transition.TransitionConfig
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 
@@ -72,20 +73,27 @@ class CameraDemo : AppBaseTitleFragment() {
                 .doIt()
         }
 
-        viewHolder.imgV(R.id.image_view2).load("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3213427760,1870503692&fm=26&gp=0.jpg")
+        viewHolder.imgV(R.id.image_view2)
+            .load("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3213427760,1870503692&fm=26&gp=0.jpg")
 
-        viewHolder.click(R.id.image_view2) {
-            FragmentHelper.build(parentFragmentManager())
-                .noAnim()
-                .showFragment(BasePhotoTransitionFragment().apply {
-                    config {
-                        configPreview = { _, preview, _ ->
-                            TransitionConfig.configPreviewFromImageView(preview, it as ImageView)
-                        }
-                    }
-                })
-                .setArgs(BaseTransitionFragment.KEY_TRANSITION_FROM_RECT, it.getViewRect())
-                .doIt()
+        viewHolder.click(R.id.image_view2) { view ->
+            //            FragmentHelper.build(parentFragmentManager())
+//                .noAnim()
+//                .showFragment(BasePhotoTransitionFragment().apply {
+//                    config {
+//                        configPreview = { _, preview, _ ->
+//                            TransitionConfig.configPreviewFromImageView(preview, it as ImageView)
+//                        }
+//                    }
+//                })
+//                .setArgs(BaseTransitionFragment.KEY_TRANSITION_FROM_RECT, it.getViewRect())
+//                .doIt()
+
+            RPager.pager(parentFragmentManager()) {
+                onGetTargetView = {
+                    view
+                }
+            }
         }
     }
 

@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.base.BaseItemFragment
+import com.angcyo.uiview.less.picture.RPager
 import com.angcyo.uiview.less.picture.RPhotoPager
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
@@ -173,7 +174,20 @@ class PhotoViewDemo : BaseItemFragment() {
                                 imageList: MutableList<GlideImageView>,
                                 index: Int
                             ) {
-                                RPhotoPager.start(parentFragmentManager()!!, imageList, urlList, index)
+                                //RPhotoPager.start(parentFragmentManager()!!, imageList, urlList, index)
+
+                                RPager.pager(parentFragmentManager()) {
+                                    startPagerIndex = index
+                                    pagerCount = urlList.size
+
+                                    onGetPagerImageUrl = {
+                                        urlList[it]
+                                    }
+
+                                    onGetTargetView = {
+                                        imageList[it]
+                                    }
+                                }
                             }
                         })
 
