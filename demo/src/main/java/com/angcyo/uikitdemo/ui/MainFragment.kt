@@ -8,6 +8,7 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.java.Java
 import com.angcyo.uikitdemo.kotlin.Kotlin
 import com.angcyo.uikitdemo.ui.demo.RePluginDemo
+import com.angcyo.uiview.less.base.BaseDslItemFragment
 import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.kotlin.getViewRect
@@ -25,7 +26,7 @@ import java.util.*
  * @author angcyo
  * @date 2019/02/20
  */
-class MainFragment : BaseItemFragment() {
+class MainFragment : BaseDslItemFragment() {
 
     override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
