@@ -1,6 +1,6 @@
 package com.angcyo.uikitdemo.ui.base
 
-import com.angcyo.uiview.less.base.BaseItemFragment
+import com.angcyo.uiview.less.base.BaseDslItemFragment
 
 /**
  *
@@ -8,6 +8,6 @@ import com.angcyo.uiview.less.base.BaseItemFragment
  * @author angcyo
  * @date 2019/02/23
  */
-abstract class AppBaseItemFragment : BaseItemFragment() {
+abstract class AppBaseItemFragment : BaseDslItemFragment() {
 
 }

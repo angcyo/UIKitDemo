@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:minHeight="300dp"
+             android:layout_height="wrap_content">
+
+    <com.angcyo.uiview.less.widget.group.RFlowLayout
+            android:id="@+id/flow_layout"
+            android:layout_width="match_parent"
+            android:padding="@dimen/base_hdpi"
+            app:r_flow_item_horizontal_space="@dimen/base_hdpi"
+            app:r_flow_item_vertical_space="@dimen/base_hdpi"
+            app:layout_constraintTop_toBottomOf="@id/flow_1"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/single_all"
+                android:text="单选图片/视频"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/single_image"
+                android:text="单选图片"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/single_video"
+                android:text="单选视频"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/single_audio"
+                android:text="单选音频"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/multi_all"
+                android:text="多选图片/视频"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/multi_image"
+                android:text="多选图片"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/multi_video"
+                android:text="多选视频"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/multi_audio"
+                android:text="多选音频"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/multi_image_crop"
+                android:text="多选图片/剪切"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </com.angcyo.uiview.less.widget.group.RFlowLayout>
+
+
+</FrameLayout>

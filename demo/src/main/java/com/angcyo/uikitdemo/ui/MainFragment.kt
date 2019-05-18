@@ -9,8 +9,8 @@ import com.angcyo.uikitdemo.java.Java
 import com.angcyo.uikitdemo.kotlin.Kotlin
 import com.angcyo.uikitdemo.ui.demo.RePluginDemo
 import com.angcyo.uiview.less.base.BaseDslItemFragment
-import com.angcyo.uiview.less.base.BaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
+import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getViewRect
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
@@ -144,6 +144,13 @@ class MainFragment : BaseDslItemFragment() {
             }
         })
 
+        dslCreateItem {
+            itemTopInsert = 1 * dpi
+            singleItemBind = { holder, posInData, singItem ->
+                initItem(holder, "PictureSelectorDemo", posInData)
+            }
+        }
+
         //last item
         singleItems.add(object : MainItem(Type.LINE, "Last") {
 
@@ -161,6 +168,32 @@ class MainFragment : BaseDslItemFragment() {
                 }
             }
         })
+    }
+
+    fun initItem(holder: RBaseViewHolder, text: String, position: Int, fragment: Class<out Fragment>? = null) {
+        holder.item(R.id.base_item_info_layout).apply {
+            setLeftDrawableRes(R.drawable.ic_logo_little)
+            setItemText("${position + 1}. $text")
+
+            holder.click(this) {
+                var cls: Class<out Fragment>? = fragment
+                val className = "com.angcyo.uikitdemo.ui.demo.${text.split(" ")[0]}"
+                try {
+                    if (fragment == null) {
+                        cls = Class.forName(className) as? Class<out Fragment>
+                    }
+                } catch (e: Exception) {
+                    Tip.tip("未找到类:\n$className")
+                }
+
+                cls?.let {
+                    FragmentHelper.build(parentFragmentManager())
+                        .showFragment(it)
+                        .defaultEnterAnim()
+                        .doIt()
+                }
+            }
+        }
     }
 
     override fun onFragmentShow(bundle: Bundle?) {
@@ -192,29 +225,7 @@ class MainFragment : BaseDslItemFragment() {
         }
 
         fun initItem(holder: RBaseViewHolder, text: String, position: Int, fragment: Class<out Fragment>? = null) {
-            holder.item(R.id.base_item_info_layout).apply {
-                setLeftDrawableRes(R.drawable.ic_logo_little)
-                setItemText("${position + 1}. $text")
-
-                holder.click(this) {
-                    var cls: Class<out Fragment>? = fragment
-                    val className = "com.angcyo.uikitdemo.ui.demo.${text.split(" ")[0]}"
-                    try {
-                        if (fragment == null) {
-                            cls = Class.forName(className) as? Class<out Fragment>
-                        }
-                    } catch (e: Exception) {
-                        Tip.tip("未找到类:\n$className")
-                    }
-
-                    cls?.let {
-                        FragmentHelper.build(parentFragmentManager())
-                            .showFragment(it)
-                            .defaultEnterAnim()
-                            .doIt()
-                    }
-                }
-            }
+            this@MainFragment.initItem(holder, text, position, fragment)
         }
     }
 }
