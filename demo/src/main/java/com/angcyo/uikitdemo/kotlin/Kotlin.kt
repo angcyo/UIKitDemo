@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.kotlin
 
 import android.graphics.RectF
+import com.angcyo.http.Json
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.kotlin.getDrawable
@@ -24,6 +25,8 @@ object Kotlin {
         L.i(rectF2.scaleFromCenter(0.5f, 0.5f))
 
         val drawable = getDrawable(R.drawable.ic_pause)
+
+        L.i("重复key测试:${Json.json().add("k", "abc").add("k", "123").build()}")
 
         L.e("Kotlin ......... end")
     }
