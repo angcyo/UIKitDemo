@@ -6,9 +6,11 @@ import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.kotlin.dialog.*
+import com.angcyo.uiview.less.kotlin.toColor
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
+import com.angcyo.uiview.less.resources.RDrawable
 import com.angcyo.uiview.less.utils.TopToast
 import java.util.*
 
@@ -159,6 +161,36 @@ class DialogDemo : AppBaseItemFragment() {
                         onInputResult = { dialog, inputText ->
                             TopToast.show(inputText)
                             false
+                        }
+                    }
+                }
+
+                holder.click(R.id.grid_dialog) {
+                    gridDialog {
+                        appendItem {
+                            gridItemIcon = R.drawable.ic_building_collect
+                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
+                            gridItemText = "走 访"
+                        }
+                        appendItem {
+                            gridItemIcon = R.drawable.ic_building_collect
+                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
+                            gridItemText = "添加人口"
+                        }
+                        appendItem {
+                            gridItemIcon = R.drawable.ic_building_collect
+                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#F5BA00".toColor()).get()
+                            gridItemText = "注销人口"
+                        }
+                        appendItem {
+                            gridItemIcon = R.drawable.ic_building_collect
+                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
+                            gridItemText = "房屋信息"
+                        }
+                        appendItem {
+                            gridItemIcon = R.drawable.ic_building_collect
+                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
+                            gridItemText = "房屋相册"
                         }
                     }
                 }

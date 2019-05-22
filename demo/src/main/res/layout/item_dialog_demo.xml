@@ -77,6 +77,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/grid_dialog"
+                android:text="网格对话框"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
     <com.angcyo.uiview.less.widget.group.RFlowLayout
