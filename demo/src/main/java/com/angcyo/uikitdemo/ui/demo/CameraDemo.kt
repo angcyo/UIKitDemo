@@ -44,7 +44,7 @@ class CameraDemo : AppBaseTitleFragment() {
         }
 
         viewHolder.click(R.id.id_card_scan) {
-            IDCardScanFragment.show(parentFragmentManager(), false, null) { cardBmp, numBmp, no ->
+            IDCardScanFragment.show(parentFragmentManager()) { cardBmp, numBmp, no ->
                 viewHolder.giv(R.id.image_view).setImageBitmap(cardBmp)
                 viewHolder.giv(R.id.image_view2).setImageBitmap(numBmp)
                 viewHolder.tv(R.id.text_view).text = no
