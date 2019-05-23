@@ -5,6 +5,7 @@ import android.widget.ImageView
 import com.angcyo.camera.IDCardScanFragment
 import com.angcyo.camera.TakePictureFragment
 import com.angcyo.lib.L
+import com.angcyo.rcode.CodeScanFragment
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
@@ -56,6 +57,17 @@ class CameraDemo : AppBaseTitleFragment() {
                 .noAnim()
                 .showFragment(BasePhotoTransitionFragment())
                 .setArgs(BaseTransitionFragment.KEY_TRANSITION_FROM_RECT, it.getViewRect())
+                .doIt()
+        }
+
+        viewHolder.click(R.id.scan_button) {
+            FragmentHelper.build(parentFragmentManager())
+                .defaultEnterAnim()
+                .showFragment(CodeScanFragment().apply {
+                    onScanResult = {
+                        viewHolder.tv(R.id.text_view).text = it
+                    }
+                })
                 .doIt()
         }
 
