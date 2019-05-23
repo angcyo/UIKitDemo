@@ -84,6 +84,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/all_dialog"
+                android:text="日期时间"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/date_dialog"
+                android:text="日期选择"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/time_dialog"
+                android:text="时间选择"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
     <com.angcyo.uiview.less.widget.group.RFlowLayout

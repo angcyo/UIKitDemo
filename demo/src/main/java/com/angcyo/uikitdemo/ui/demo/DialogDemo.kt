@@ -12,6 +12,7 @@ import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.resources.RDrawable
 import com.angcyo.uiview.less.utils.TopToast
+import com.bigkoo.pickerview.view.WheelTime
 import java.util.*
 
 /**
@@ -191,6 +192,38 @@ class DialogDemo : AppBaseItemFragment() {
                             gridItemIcon = R.drawable.ic_building_collect
                             gridItemBgDrawable = RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
                             gridItemText = "房屋相册"
+                        }
+                    }
+                }
+
+                holder.click(R.id.all_dialog) {
+                    dateDialog {
+                        dialogTitle = "日期时间"
+                        type = booleanArrayOf(true, true, true, true, true, true)
+                        onDateSelectListener = { dialog, date ->
+                            TopToast.show(WheelTime.dateFormat.format(date))
+                            false
+                        }
+                    }
+                }
+
+                holder.click(R.id.date_dialog) {
+                    dateDialog {
+                        dialogTitle = "出生日期"
+                        onDateSelectListener = { dialog, date ->
+                            TopToast.show(WheelTime.dateFormat.format(date))
+                            false
+                        }
+                    }
+                }
+
+                holder.click(R.id.time_dialog) {
+                    dateDialog {
+                        dialogTitle = "时间选择"
+                        type = booleanArrayOf(false, false, false, true, true, true)
+                        onDateSelectListener = { dialog, date ->
+                            TopToast.show(WheelTime.dateFormat.format(date))
+                            false
                         }
                     }
                 }
