@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+        android:background="@drawable/permission_bg"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/permission_title"
+            style="@style/BaseMainTextStyle"
+            tools:text="为了更好的服务体验, 程序需要以下权限"
+            android:padding="@dimen/base_xxhdpi"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/action_bar_height"
+            android:layout_gravity="center_horizontal"
+            android:layout_height="wrap_content"/>
+
+    <com.angcyo.uiview.less.recycler.RRecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:tag="GV2"
+            android:layout_height="wrap_content"/>
+
+    <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/enable_button"
+            android:text="开启权限"
+            app:r_button_style="ROUND_GRADIENT_RECT"
+            android:minHeight="45dp"
+            android:textColor="@color/base_white"
+            android:layout_width="match_parent"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="@dimen/base_xxhdpi"
+            android:layout_marginRight="@dimen/base_xxhdpi"
+            android:layout_marginBottom="@dimen/base_xxxhdpi"
+            android:layout_height="wrap_content"/>
+
+</FrameLayout>
