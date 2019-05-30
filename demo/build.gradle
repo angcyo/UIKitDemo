@@ -24,7 +24,7 @@ android {
 dependencies {
     implementation project(allModule.MPChart)
     implementation project(allModule.RTbs)
-    implementation project(allModule.Camera)
+    implementation project(allModule.tesstwo)
     implementation project(allModule.rcode)
 
     api 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
