@@ -1,8 +1,12 @@
 package com.angcyo.uikitdemo.ui.demo
 
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.widget.ImageView
+import com.angcyo.camera.RecordVideoCallback
+import com.angcyo.camera.RecordVideoFragment
 import com.angcyo.camera.TakePictureFragment
+import com.angcyo.camera.play.TextureVideoView
 import com.angcyo.lib.L
 import com.angcyo.rcode.CodeScanFragment
 import com.angcyo.tesstwo.IDCardScanFragment
@@ -16,6 +20,7 @@ import com.angcyo.uiview.less.picture.BaseTransitionFragment
 import com.angcyo.uiview.less.picture.RPager
 import com.angcyo.uiview.less.picture.transition.TransitionConfig
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import java.io.File
 
 /**
  *
@@ -106,6 +111,25 @@ class CameraDemo : AppBaseTitleFragment() {
                     view
                 }
             }
+        }
+
+        viewHolder.click(R.id.record_video) {
+            RecordVideoFragment.show(parentFragmentManager(), object : RecordVideoCallback() {
+                override fun onTakePhoto(bitmap: Bitmap, outputFile: File) {
+                    super.onTakePhoto(bitmap, outputFile)
+                    viewHolder.tv(R.id.text_view).text = outputFile.absolutePath
+                    viewHolder.giv(R.id.image_view).url = outputFile.absolutePath
+                }
+
+                override fun onTakeVideo(videoPath: String) {
+                    super.onTakeVideo(videoPath)
+                    viewHolder.tv(R.id.text_view).text = videoPath
+                    viewHolder.v<TextureVideoView>(R.id.video_view).apply {
+                        setVideoPath(videoPath)
+                        start()
+                    }
+                }
+            })
         }
     }
 
