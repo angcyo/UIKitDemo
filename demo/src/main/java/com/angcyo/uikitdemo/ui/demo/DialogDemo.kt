@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.view.Gravity
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
@@ -89,6 +90,35 @@ class DialogDemo : AppBaseItemFragment() {
                         dialogTitle = "你要干啥?"
 
                         items = mutableListOf("Item1", "Item2", "Item3")
+
+                        onItemClick = { _, index, item ->
+                            TopToast.show(item as CharSequence)
+                            false
+                        }
+                    }
+                }
+
+                holder.click(R.id.menu_ico_dialog) {
+                    menuDialog {
+                        //dialogTitle = "你要干啥?"
+
+                        items = mutableListOf("Item1", "Item2", "Item3")
+                        itemIcons = mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
+
+                        onItemClick = { _, index, item ->
+                            TopToast.show(item as CharSequence)
+                            false
+                        }
+                    }
+                }
+
+                holder.click(R.id.menu_ico2_dialog) {
+                    menuDialog {
+                        //dialogTitle = "你要干啥?"
+
+                        items = mutableListOf("Item1", "Item2", "Item3")
+                        itemIcons = mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
+                        itemTextGravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
 
                         onItemClick = { _, index, item ->
                             TopToast.show(item as CharSequence)

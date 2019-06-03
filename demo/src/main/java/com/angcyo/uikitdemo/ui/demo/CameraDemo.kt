@@ -6,6 +6,7 @@ import android.widget.ImageView
 import com.angcyo.camera.RecordVideoCallback
 import com.angcyo.camera.RecordVideoFragment
 import com.angcyo.camera.TakePictureFragment
+import com.angcyo.camera.play.TextureVideoView
 import com.angcyo.lib.L
 import com.angcyo.rcode.CodeScanFragment
 import com.angcyo.tesstwo.IDCardScanFragment
@@ -14,7 +15,6 @@ import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.kotlin.getViewRect
 import com.angcyo.uiview.less.kotlin.load
-import com.angcyo.uiview.less.media.play.TextureVideoView
 import com.angcyo.uiview.less.picture.BasePhotoTransitionFragment
 import com.angcyo.uiview.less.picture.BaseTransitionFragment
 import com.angcyo.uiview.less.picture.RPager
