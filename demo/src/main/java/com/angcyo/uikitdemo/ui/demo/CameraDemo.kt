@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Bitmap
+import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import com.angcyo.camera.RecordVideoCallback
@@ -90,8 +91,15 @@ class CameraDemo : AppBaseTitleFragment() {
                 .doIt()
         }
 
+//        viewHolder.imgV(R.id.image_view2)
+//            .load("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3213427760,1870503692&fm=26&gp=0.jpg")
+        val url = "http://pic37.nipic.com/20140113/8800276_184927469000_2.png?fileId=100&q=\"angcyo\""
         viewHolder.imgV(R.id.image_view2)
-            .load("https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3213427760,1870503692&fm=26&gp=0.jpg")
+            .load(url)
+
+        val uri = Uri.parse(url)
+        uri.queryParameterNames
+        val parameter = uri.getQueryParameter("fileId")
 
         viewHolder.click(R.id.image_view2) { view ->
             //            FragmentHelper.build(parentFragmentManager())

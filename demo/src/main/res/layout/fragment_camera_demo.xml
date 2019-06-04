@@ -50,7 +50,7 @@
 
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
-    <com.angcyo.camera.play.TextureVideoView
+    <com.angcyo.uiview.less.media.play.TextureVideoView
             android:id="@+id/video_view"
             android:layout_width="match_parent"
             app:layout_constraintBottom_toTopOf="@id/image_view"
