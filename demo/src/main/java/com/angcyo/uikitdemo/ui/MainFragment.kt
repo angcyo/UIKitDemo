@@ -10,6 +10,7 @@ import com.angcyo.uikitdemo.kotlin.Kotlin
 import com.angcyo.uikitdemo.ui.demo.RePluginDemo
 import com.angcyo.uiview.less.base.BaseDslItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
+import com.angcyo.uiview.less.component.FileSelectorFragment
 import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getViewRect
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -165,6 +166,13 @@ class MainFragment : BaseDslItemFragment() {
                 holder.click(R.id.text_view) {
                     RUtils.copyText(holder.tv(R.id.text_view).text)
                     Tip.ok("已复制")
+
+                    FileSelectorFragment.show(parentFragmentManager()) {
+                        targetPath = Root.getAppExternalFolder()
+                        showFileMd5 = true
+                        showFileMenu = true
+                        showHideFile = true
+                    }
                 }
             }
         })
