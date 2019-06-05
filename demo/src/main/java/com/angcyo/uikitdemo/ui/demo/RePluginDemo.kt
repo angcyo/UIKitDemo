@@ -67,6 +67,8 @@ class RePluginDemo : AppBaseItemFragment() {
                 holder.click(R.id.selector_file_button) {
                     FragmentHelper.build(parentFragmentManager())
                         .showFragment(FileSelectorFragment().fileSelectorConfig {
+                            showFileMenu = true
+                            showFileMd5 = true
                             onFileSelector = {
                                 holder.exV(R.id.plugin_path_edit).setInputText(it.absolutePath)
                             }
