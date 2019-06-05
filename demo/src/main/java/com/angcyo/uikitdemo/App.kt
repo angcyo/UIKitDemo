@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo
 
 import android.os.Bundle
 import com.angcyo.lib.L
+import com.angcyo.opencv.CardOcr
 import com.angcyo.rtbs.RTbs
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
@@ -35,5 +36,7 @@ class App : PluginHostApplication() {
         RTbs.init(this, BuildConfig.SHOW_DEBUG)
 
         RNetwork.init(this)
+
+        CardOcr.init(this)
     }
 }
