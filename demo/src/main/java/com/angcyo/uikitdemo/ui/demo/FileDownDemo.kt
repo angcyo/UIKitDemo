@@ -82,7 +82,7 @@ class FileDownDemo : AppBaseRecyclerFragment<DslAdapterItem>() {
                 itemLayoutId = R.layout.item_file_down_all
                 itemBind = { itemHolder, _, _ ->
                     FDown.removeListener(listener)
-                    listener = object : FDownListener() {
+                    listener = object : FDownListener(false) {
                         override fun onTaskStart(task: DownloadTask) {
                             super.onTaskStart(task)
                             itemHolder.tv(R.id.down_url).text = RSpan.get(nowTime().toString()).append(" 开始下载:\n")
@@ -148,7 +148,7 @@ class FileDownDemo : AppBaseRecyclerFragment<DslAdapterItem>() {
                                 if (FDown.getStatus(task) == StatusUtil.Status.RUNNING) {
                                     FDown.cancel(task.id)
                                 } else {
-                                    FDown.down(task)
+                                    FDown.down(task, listener)
                                 }
                             }
 
