@@ -62,6 +62,7 @@
             app:layout_constraintLeft_toLeftOf="@id/image_view"
             android:layout_marginBottom="@dimen/base_line"
             android:background="@color/transparent_dark20"
+            android:textColor="@color/base_white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
