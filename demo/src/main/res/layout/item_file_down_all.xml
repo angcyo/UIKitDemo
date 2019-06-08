@@ -17,6 +17,8 @@
     <com.angcyo.uiview.less.widget.SimpleProgressBar
             android:id="@+id/down_progress_bar"
             app:layout_constraintTop_toBottomOf="@id/down_url"
+            app:r_progress_gradient_start_color="@color/base_white"
+            app:r_progress_gradient="true"
             android:layout_width="match_parent"
             android:layout_marginTop="@dimen/base_ldpi"
             android:layout_height="4dp"/>

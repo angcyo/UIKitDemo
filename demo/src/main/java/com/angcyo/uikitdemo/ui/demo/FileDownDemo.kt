@@ -30,6 +30,7 @@ import java.io.File
 class FileDownDemo : AppBaseRecyclerFragment<DslAdapterItem>() {
     private val urls = mutableListOf(
         "http://package.mac.wpscdn.cn/mac_wps_pkg/1.1.0/WPS_Office_1.1.0(1454).dmg",
+        "https://appest-public.s3.cn-north-1.amazonaws.com.cn/download/mac/didalist_2.9.02_89.dmg",
         "http://package.mac.wpscdn.cn/mac_wps_pkg/1.0.0/WPS2019_For_Mac_Beta_5_1.0.0(1304).dmg",
         "https://a.amap.com/lbs/static/zip/AMap3DMap_AMapNavi_AMapSearch_AMapTrack_AMapLocation.zip",
         "https://dl.google.com/dl/android/studio/install/3.4.1.0/android-studio-ide-183.5522156-mac.dmg"
