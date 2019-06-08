@@ -1,9 +1,12 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.net.Uri
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.widget.ImageView
+import android.widget.TextView
 import com.angcyo.camera.RecordVideoCallback
 import com.angcyo.camera.RecordVideoFragment
 import com.angcyo.camera.TakePictureFragment
@@ -13,8 +16,7 @@ import com.angcyo.tesstwo.IDCardScanFragment
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
-import com.angcyo.uiview.less.kotlin.getViewRect
-import com.angcyo.uiview.less.kotlin.load
+import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.media.play.TextureVideoView
 import com.angcyo.uiview.less.picture.BasePhotoTransitionFragment
 import com.angcyo.uiview.less.picture.BaseTransitionFragment
@@ -136,6 +138,21 @@ class CameraDemo : AppBaseTitleFragment() {
                         setVideoPath(videoPath)
                         start()
                     }
+                }
+
+                override fun onTakePhotoBefore(photo: Bitmap, width: Int, height: Int): Bitmap {
+                    val inflate = LayoutInflater.from(mAttachContext).inflate(R.layout.layout_watermark, null)
+                    inflate.find<ImageView>(R.id.image_view)?.setImageBitmap(photo)
+                    inflate.find<TextView>(R.id.text_view)?.text = "强大的水印\n${nowTime().toTime()}"
+                    inflate.measure(exactly(width), exactly(height))
+                    inflate.layout(0, 0, width, height)
+
+                    val result = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+                    val canvas = Canvas(result)
+                    inflate.draw(canvas)
+
+                    photo.recycle()
+                    return result
                 }
             })
         }
