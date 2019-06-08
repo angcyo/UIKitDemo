@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:padding="@dimen/base_ldpi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/down_url"
+            tools:text="下载地址下载地址下载地址下载地址下载地址下载地址下载地址"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    <com.angcyo.uiview.less.widget.SimpleProgressBar
+            android:id="@+id/down_progress_bar"
+            app:layout_constraintTop_toBottomOf="@id/down_url"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/base_ldpi"
+            android:layout_height="4dp"/>
+
+</android.support.constraint.ConstraintLayout>
