@@ -123,38 +123,54 @@ class CameraDemo : AppBaseTitleFragment() {
             }
         }
 
+        val callback = object : RecordVideoCallback() {
+            override fun onTakePhoto(bitmap: Bitmap, outputFile: File) {
+                super.onTakePhoto(bitmap, outputFile)
+                viewHolder.tv(R.id.text_view).text = outputFile.absolutePath
+                viewHolder.giv(R.id.image_view).url = outputFile.absolutePath
+            }
+
+            override fun onTakeVideo(videoPath: String) {
+                super.onTakeVideo(videoPath)
+                viewHolder.tv(R.id.text_view).text = videoPath
+                viewHolder.v<TextureVideoView>(R.id.video_view).apply {
+                    setVideoPath(videoPath)
+                    start()
+                }
+            }
+
+            override fun onTakePhotoBefore(photo: Bitmap, width: Int, height: Int): Bitmap {
+                val inflate = LayoutInflater.from(mAttachContext).inflate(R.layout.layout_watermark, null)
+                inflate.find<ImageView>(R.id.image_view)?.setImageBitmap(photo)
+                inflate.find<TextView>(R.id.text_view)?.text = "强大的水印\n${nowTime().toTime()}"
+                inflate.measure(exactly(width), exactly(height))
+                inflate.layout(0, 0, width, height)
+
+                val result = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
+                val canvas = Canvas(result)
+                inflate.draw(canvas)
+
+                photo.recycle()
+                return result
+            }
+        }
+
         viewHolder.click(R.id.record_video) {
-            RecordVideoFragment.show(parentFragmentManager(), object : RecordVideoCallback() {
-                override fun onTakePhoto(bitmap: Bitmap, outputFile: File) {
-                    super.onTakePhoto(bitmap, outputFile)
-                    viewHolder.tv(R.id.text_view).text = outputFile.absolutePath
-                    viewHolder.giv(R.id.image_view).url = outputFile.absolutePath
-                }
+            callback.isOnlyTakePhoto = false
+            callback.isOnlyTakeVideo = false
+            RecordVideoFragment.show(parentFragmentManager(), callback)
+        }
 
-                override fun onTakeVideo(videoPath: String) {
-                    super.onTakeVideo(videoPath)
-                    viewHolder.tv(R.id.text_view).text = videoPath
-                    viewHolder.v<TextureVideoView>(R.id.video_view).apply {
-                        setVideoPath(videoPath)
-                        start()
-                    }
-                }
+        viewHolder.click(R.id.record_video_p) {
+            callback.isOnlyTakePhoto = true
+            callback.isOnlyTakeVideo = false
+            RecordVideoFragment.show(parentFragmentManager(), callback)
+        }
 
-                override fun onTakePhotoBefore(photo: Bitmap, width: Int, height: Int): Bitmap {
-                    val inflate = LayoutInflater.from(mAttachContext).inflate(R.layout.layout_watermark, null)
-                    inflate.find<ImageView>(R.id.image_view)?.setImageBitmap(photo)
-                    inflate.find<TextView>(R.id.text_view)?.text = "强大的水印\n${nowTime().toTime()}"
-                    inflate.measure(exactly(width), exactly(height))
-                    inflate.layout(0, 0, width, height)
-
-                    val result = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565)
-                    val canvas = Canvas(result)
-                    inflate.draw(canvas)
-
-                    photo.recycle()
-                    return result
-                }
-            })
+        viewHolder.click(R.id.record_video_v) {
+            callback.isOnlyTakePhoto = false
+            callback.isOnlyTakeVideo = true
+            RecordVideoFragment.show(parentFragmentManager(), callback)
         }
     }
 
