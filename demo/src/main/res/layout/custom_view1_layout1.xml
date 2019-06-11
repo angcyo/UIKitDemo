@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <LinearLayout
+            android:background="@color/transparent_dark40"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uikitdemo.ui.widget.DYProgressBar
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/base_xhdpi"
+                android:layout_height="3dp"/>
+
+        <com.angcyo.uikitdemo.ui.widget.DYProgressBar
+                android:id="@+id/dy_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/base_xhdpi"
+                android:layout_height="3dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+            android:background="@color/transparent_dark40"
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/base_xhdpi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.angcyo.uikitdemo.ui.widget.HSProgressView
+                android:id="@+id/hs_progress_view1"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/base_xhdpi"
+                android:layout_height="3dp"/>
+
+        <com.angcyo.uikitdemo.ui.widget.HSProgressView
+                android:id="@+id/hs_progress_view2"
+                android:layout_width="match_parent"
+                android:layout_margin="@dimen/base_xhdpi"
+                android:layout_height="3dp"/>
+
+    </LinearLayout>
+</LinearLayout>

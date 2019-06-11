@@ -171,6 +171,12 @@ class MainFragment : BaseDslItemFragment() {
                 initItem(holder, "FileDownDemo", posInData)
             }
         }
+        dslCreateItem {
+            itemTopInsert = 1 * dpi
+            singleItemBind = { holder, posInData, _ ->
+                initItem(holder, "CustomViewDemo1", posInData)
+            }
+        }
 
         //last item
         singleItems.add(object : MainItem(Type.LINE, "Last") {
