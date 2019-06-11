@@ -4,7 +4,7 @@ import android.os.Bundle
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.ui.widget.DYProgressBar
-import com.angcyo.uikitdemo.ui.widget.HSProgressView
+import com.angcyo.uiview.less.draw.view.HSProgressView
 import com.angcyo.uiview.less.kotlin.renderItem
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 

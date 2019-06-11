@@ -30,13 +30,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <com.angcyo.uikitdemo.ui.widget.HSProgressView
+        <com.angcyo.uiview.less.draw.view.HSProgressView
                 android:id="@+id/hs_progress_view1"
                 android:layout_width="match_parent"
                 android:layout_margin="@dimen/base_xhdpi"
                 android:layout_height="3dp"/>
 
-        <com.angcyo.uikitdemo.ui.widget.HSProgressView
+        <com.angcyo.uiview.less.draw.view.HSProgressView
                 android:id="@+id/hs_progress_view2"
                 android:layout_width="match_parent"
                 android:layout_margin="@dimen/base_xhdpi"
