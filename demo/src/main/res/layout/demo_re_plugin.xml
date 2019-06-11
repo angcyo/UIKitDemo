@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:app1="http://schemas.android.com/apk/res-auto"
+              xmlns:app2="http://schemas.android.com/apk/res-auto" xmlns:app3="http://schemas.android.com/apk/res-auto"
+              xmlns:app4="http://schemas.android.com/apk/res-auto" xmlns:app5="http://schemas.android.com/apk/res-auto"
+              xmlns:app6="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:paddingBottom="@dimen/base_xxxhdpi"
+              android:layout_height="wrap_content">
 
     <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -28,11 +33,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <com.angcyo.uiview.less.widget.ExEditText
+        <com.angcyo.uiview.less.widget.AutoEditText
                 android:id="@+id/plugin_name_edit"
                 style="@style/BaseMainTextStyle"
                 android:hint="插件名"
                 android:inputType="textWebEmailAddress"
+                android:completionThreshold="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -45,11 +51,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <com.angcyo.uiview.less.widget.ExEditText
+        <com.angcyo.uiview.less.widget.AutoEditText
                 android:id="@+id/start_activity_edit"
                 style="@style/BaseMainTextStyle"
                 android:hint="需要启动启动Activity"
                 android:layout_width="match_parent"
+                android:completionThreshold="0"
                 android:inputType="textWebEmailAddress"
                 android:layout_height="wrap_content"/>
 
@@ -64,23 +71,27 @@
                 android:id="@+id/test1"
                 android:text="Test1"
                 android:layout_width="wrap_content"
+                app:r_button_style="ROUND_GRADIENT_RECT"
                 android:layout_height="wrap_content"/>
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/test2"
                 android:text="Test2"
                 android:layout_marginLeft="@dimen/base_hdpi"
+                app1:r_button_style="ROUND_GRADIENT_RECT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/test3"
                 android:text="Test3"
                 android:layout_marginLeft="@dimen/base_hdpi"
+                app2:r_button_style="ROUND_GRADIENT_RECT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/test4"
                 android:text="Test4"
                 android:layout_marginLeft="@dimen/base_hdpi"
+                app3:r_button_style="ROUND_GRADIENT_RECT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -89,6 +100,7 @@
             android:id="@+id/selector_file_button"
             android:text="选择插件"
             android:layout_width="match_parent"
+            app4:r_button_style="ROUND_GRADIENT_RECT"
             android:layout_margin="@dimen/base_hdpi"
             android:minHeight="@dimen/base_item_size"
             android:layout_height="wrap_content"/>
@@ -98,6 +110,7 @@
             android:text="启动插件"
             android:layout_margin="@dimen/base_hdpi"
             android:minHeight="@dimen/base_item_size"
+            app5:r_button_style="ROUND_GRADIENT_RECT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -105,6 +118,7 @@
             android:id="@+id/uninstall_plugin_button"
             android:text="卸载插件"
             android:layout_margin="@dimen/base_hdpi"
+            app6:r_button_style="ROUND_GRADIENT_RECT"
             android:minHeight="@dimen/base_item_size"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>

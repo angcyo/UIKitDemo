@@ -10,7 +10,7 @@ import com.angcyo.uikitdemo.RHost
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.component.FileSelectorFragment
-import com.angcyo.uiview.less.kotlin.dp
+import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.picture.transition.transitionFromRect
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
@@ -38,29 +38,40 @@ class RePluginDemo : AppBaseItemFragment() {
         return null
     }
 
+    override fun getContentLayoutId(): Int {
+        return R.layout.base_input_recycler_fragment_layout
+    }
+
+    fun updateAdapter(holder: RBaseViewHolder) {
+        holder.auto(R.id.plugin_name_edit, "plugin_name_edit".hawkGetList(), true)
+        holder.auto(R.id.start_activity_edit, "start_activity_edit".hawkGetList(), true)
+    }
+
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         singleItems.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
 
-                holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
-                holder.exV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.MainActivity")
+                holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
+                holder.eV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.MainActivity")
+
+                updateAdapter(holder)
 
                 //预设按钮
                 holder.click(R.id.test1) {
-                    holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
-                    holder.exV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test1Activity")
+                    holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
+                    holder.eV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test1Activity")
                 }
                 holder.click(R.id.test2) {
-                    holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
-                    holder.exV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test2Activity")
+                    holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
+                    holder.eV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test2Activity")
                 }
                 holder.click(R.id.test3) {
-                    holder.exV(R.id.plugin_name_edit).setInputText("com.angcyo.plugin1")
-                    holder.exV(R.id.start_activity_edit).setInputText("com.angcyo.plugin1.MainActivity")
+                    holder.eV(R.id.plugin_name_edit).setInputText("com.angcyo.plugin1")
+                    holder.eV(R.id.start_activity_edit).setInputText("com.angcyo.plugin1.MainActivity")
                 }
                 holder.click(R.id.test4) {
-                    holder.exV(R.id.plugin_name_edit).setInputText("com.wayto.plugin1")
-                    holder.exV(R.id.start_activity_edit).setInputText("com.wayto.plugin1.MainActivity")
+                    holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.plugin1")
+                    holder.eV(R.id.start_activity_edit).setInputText("com.wayto.plugin1.MainActivity")
                 }
 
                 //选择插件
@@ -70,7 +81,7 @@ class RePluginDemo : AppBaseItemFragment() {
                             showFileMenu = true
                             showFileMd5 = true
                             onFileSelector = {
-                                holder.exV(R.id.plugin_path_edit).setInputText(it.absolutePath)
+                                holder.eV(R.id.plugin_path_edit).setInputText(it.absolutePath)
                             }
                         })
                         .defaultEnterAnim()
@@ -79,32 +90,43 @@ class RePluginDemo : AppBaseItemFragment() {
 
                 //启动插件
                 holder.click(R.id.start_plugin_button) {
-                    if (holder.exV(R.id.plugin_name_edit).checkEmpty() ||
-                        holder.exV(R.id.start_activity_edit).checkEmpty()
+                    if (holder.eV(R.id.plugin_name_edit).checkEmpty() ||
+                        holder.eV(R.id.start_activity_edit).checkEmpty()
                     ) {
                         return@click
                     }
 
                     //插件没有安装过
-                    if (!RHost.isPluginInstalled(holder.exV(R.id.plugin_name_edit).string())) {
-                        if (holder.exV(R.id.plugin_path_edit).checkEmpty()) {
+                    if (!RHost.isPluginInstalled(holder.eV(R.id.plugin_name_edit).string())) {
+                        if (holder.eV(R.id.plugin_path_edit).checkEmpty()) {
                             return@click
                         }
                     }
 
+                    "plugin_name_edit".hawkPutList(holder.eV(R.id.plugin_name_edit).string())
+                    "start_activity_edit".hawkPutList(holder.eV(R.id.start_activity_edit).string())
+
+                    updateAdapter(holder)
+
                     RHost.startPlugin(
                         mAttachContext,
-                        holder.exV(R.id.plugin_path_edit).string(),
-                        holder.exV(R.id.plugin_name_edit).string(),
-                        holder.exV(R.id.start_activity_edit).string()
+                        holder.eV(R.id.plugin_path_edit).string(),
+                        holder.eV(R.id.plugin_name_edit).string(),
+                        holder.eV(R.id.start_activity_edit).string()
                     ).subscribe(object : HttpSubscriber<PluginInfo>() {
+                        override fun onEnd(data: PluginInfo?, error: Throwable?) {
+                            super.onEnd(data, error)
+                            error?.let {
+                                toast_tip(it.message ?: "--")
+                            }
+                        }
                     })
                 }
 
                 //卸载插件
                 holder.click(R.id.uninstall_plugin_button) {
-                    if (holder.exV(R.id.plugin_name_edit).checkEmpty()) return@click
-                    RHost.uninstall(holder.exV(R.id.plugin_name_edit).string().trim())
+                    if (holder.eV(R.id.plugin_name_edit).checkEmpty()) return@click
+                    RHost.uninstall(holder.eV(R.id.plugin_name_edit).string().trim())
                     Tip.tip("Ok!")
                 }
             }
