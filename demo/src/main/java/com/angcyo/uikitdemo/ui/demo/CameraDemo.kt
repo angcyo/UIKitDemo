@@ -23,6 +23,8 @@ import com.angcyo.uiview.less.picture.BaseTransitionFragment
 import com.angcyo.uiview.less.picture.RPager
 import com.angcyo.uiview.less.picture.transition.TransitionConfig
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import com.angcyo.uiview.less.utils.RNetwork
+import com.angcyo.uiview.less.utils.RSpan
 import java.io.File
 
 /**
@@ -177,6 +179,15 @@ class CameraDemo : AppBaseTitleFragment() {
             (it as? TextView)?.text?.copy()
             toast_tip("已复制")
         }
+
+        val checkState = RNetwork.checkState(mAttachContext)
+        viewHolder.tv(R.id.network_state_view).text = RSpan.get("网络状态:")
+            .append("\ncheckState: ").append(checkState[0].toString())
+            .appendSpace(10 * dpi).append(checkState[1].toString())
+            .append("\nisConnect: ").append(RNetwork.isConnect(mAttachContext).toString())
+            .append("\nisWifi: ").append(RNetwork.isWifi(mAttachContext).toString())
+            .append("\nisMobile: ").append(RNetwork.isMobile(mAttachContext).toString())
+            .create()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
