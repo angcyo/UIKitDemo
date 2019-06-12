@@ -172,6 +172,11 @@ class CameraDemo : AppBaseTitleFragment() {
             callback.isOnlyTakeVideo = true
             RecordVideoFragment.show(parentFragmentManager(), callback)
         }
+
+        viewHolder.click(R.id.text_view) {
+            (it as? TextView)?.text?.copy()
+            toast_tip("已复制")
+        }
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
