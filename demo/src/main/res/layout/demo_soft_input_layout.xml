@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.less.widget.group.RSoftInputLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/base_soft_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.angcyo.uiview.less.widget.RSmartRefreshLayout
+                android:id="@+id/base_refresh_layout"
+                tools:ignore="MissingDefaultResource"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp">
+
+            <com.angcyo.uiview.less.recycler.RRecyclerView
+                    android:id="@+id/base_recycler_view"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/base_dark_round_border_shape"
+                    android:layout_margin="@dimen/base_xhdpi"
+                    android:layout_height="match_parent"/>
+
+        </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
+
+        <com.angcyo.uiview.less.widget.ExEditText
+                android:minHeight="50dp"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+</com.angcyo.uiview.less.widget.group.RSoftInputLayout>
