@@ -15,8 +15,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <com.angcyo.uiview.less.widget.ExEditText
+        <com.angcyo.uiview.less.widget.AutoEditText
                 android:id="@+id/file_edit"
+                android:completionThreshold="0"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
     </LinearLayout>
@@ -32,9 +33,31 @@
                 android:text="Go"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/open_file"
                 android:text="open file"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/mine_type"
+                android:text="MineType"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/open_file_new"
+                android:text="open file new"
+                android:layout_marginLeft="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/open_url_new"
+                android:text="open url new"
                 android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
