@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.angcyo.lib.L
-import com.angcyo.okdownload.FDown
 import com.angcyo.rtbs.X5WebView
 import com.angcyo.rtbs.fragment.FilePreviewFragment
 import com.angcyo.uikitdemo.R
@@ -88,12 +87,6 @@ class TBSDemo : BaseTitleFragment() {
                 targetUrl = viewHolder.ev(R.id.url_edit).string()
             }
         }
-
-        FDown.cancel(0)
-        FDown.cancel(-1)
-        FDown.cancel(-2)
-        FDown.cancel("")
-        FDown.cancel(null)
     }
 
     fun openFile(parent: ViewGroup, filePath: String) {
