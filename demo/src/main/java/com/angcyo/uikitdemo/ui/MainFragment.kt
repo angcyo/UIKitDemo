@@ -183,6 +183,12 @@ class MainFragment : BaseDslItemFragment() {
                 initItem(holder, "SoftInputDemo", posInData)
             }
         }
+        dslCreateItem {
+            itemTopInsert = 1 * dpi
+            singleItemBind = { holder, posInData, _ ->
+                initItem(holder, "RegularPatternDemo", posInData)
+            }
+        }
 
         //last item
         singleItems.add(object : MainItem(Type.LINE, "Last") {
