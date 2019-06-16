@@ -46,7 +46,8 @@ class TBSDemo : BaseTitleFragment() {
                 "http://lc-orltc1ed.cn-n1.lcfile.com/a2b7a1c668e304cb7300/Effective%20Java%20%E4%B8%AD%E6%96%87%E7%AC%AC%E4%BA%8C%E7%89%88.pdf".decode(),
                 "http://mfiles.sohu.com/news/shanghetuzzx/14.jpg".decode(),
                 "http://mfiles.sohu.com/news/shanghetuzzx/15.jpg".decode(),
-                "http://www.duwenzhang.com/wenzhang/aiqingwenzhang/shanggan/20190604/403685.html".decode()
+                "http://www.duwenzhang.com/wenzhang/aiqingwenzhang/shanggan/20190604/403685.html".decode(),
+                "http://beta.wayto.com.cn:8101/Excels\\维修日报表20190616122041.xls".decode()
             )
         )
 
