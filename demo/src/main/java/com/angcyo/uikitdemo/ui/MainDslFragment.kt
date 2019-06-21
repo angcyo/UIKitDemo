@@ -57,6 +57,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("SoftInputDemo")
             renderMainItem("RegularPatternDemo")
             renderMainItem("WebSocketDemo")
+            renderMainItem("MqttDemo")
 
             //last item
             renderMainItem {

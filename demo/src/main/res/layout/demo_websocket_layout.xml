@@ -12,22 +12,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <FrameLayout
+        <LinearLayout
                 android:id="@+id/top_wrap_layout"
                 app:layout_constraintTop_toTopOf="parent"
                 android:padding="@dimen/base_ldpi"
+                android:orientation="horizontal"
                 app:layout_constraintBottom_toTopOf="@id/base_refresh_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
             <com.angcyo.uiview.less.widget.AutoEditText
                     android:id="@+id/url_edit"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     style="@style/BaseMainTextStyle"
                     android:hint="请输入websocket连接地址"
                     android:minHeight="@dimen/base_item_size"
-                    android:layout_marginRight="70dp"
-                    android:text="ws://116.7.249.36:8083/mqtt"
+                    android:text="tcp://116.7.249.36:1883"
                     android:layout_height="wrap_content"/>
 
             <com.angcyo.uiview.less.widget.Button
@@ -38,7 +39,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-        </FrameLayout>
+            <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/disconnect"
+                    android:layout_gravity="right|top"
+                    android:layout_marginLeft="@dimen/base_hdpi"
+                    android:text="dis"
+                    android:padding="@dimen/base_hdpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </LinearLayout>
 
         <com.angcyo.uiview.less.widget.RSmartRefreshLayout
                 android:id="@+id/base_refresh_layout"
@@ -57,7 +67,8 @@
 
         </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
 
-        <FrameLayout
+        <LinearLayout
+                android:orientation="horizontal"
                 android:id="@+id/bottom_wrap_layout"
                 android:layout_width="match_parent"
                 android:padding="@dimen/base_ldpi"
@@ -68,9 +79,9 @@
 
             <com.angcyo.uiview.less.widget.AutoEditText
                     android:id="@+id/input_edit"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     style="@style/BaseMainTextStyle"
-                    android:layout_marginRight="50dp"
                     android:hint="请输入发送的内容"
                     android:maxLines="3"
                     android:minHeight="@dimen/base_item_size"
@@ -84,6 +95,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
-        </FrameLayout>
+        </LinearLayout>
     </android.support.constraint.ConstraintLayout>
 </com.angcyo.uiview.less.widget.group.RSoftInputLayout>

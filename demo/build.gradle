@@ -28,6 +28,7 @@ dependencies {
     implementation project(allModule.opencv)
     implementation project(allModule.rcode)
     implementation project(allModule.websocket)
+    implementation project(allModule.mqtt)
 
     api 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
 }
