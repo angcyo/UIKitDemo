@@ -1,6 +1,8 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
+import com.angcyo.uikitdemo.R
+import com.angcyo.uiview.less.kotlin.setInputText
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.neovisionaries.ws.client.WebSocket
 import com.neovisionaries.ws.client.angcyo.RWebSocket
@@ -22,6 +24,8 @@ class WebSocketDemo : SocketDemo() {
 
     override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
+
+        viewHolder.ev(R.id.url_edit).setInputText("ws://116.7.249.36:8083/mqtt")
 
         websocket.addListener(object : RWebSocketListener() {
             override fun disConnectWebsocket(code: Int, message: String?) {
