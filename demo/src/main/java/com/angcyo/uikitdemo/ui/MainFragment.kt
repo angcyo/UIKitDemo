@@ -22,11 +22,12 @@ import com.angcyo.uiview.less.utils.Tip
 import java.util.*
 
 /**
- *
+ * @see [MainDslFragment]
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2019/02/20
  */
+@Deprecated("请使用[MainDslFragment]")
 class MainFragment : BaseDslItemFragment() {
 
     override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
