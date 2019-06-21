@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.less.widget.group.RSoftInputLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:ignore="MissingDefaultResource"
+        android:id="@+id/base_soft_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <FrameLayout
+                android:id="@+id/top_wrap_layout"
+                app:layout_constraintTop_toTopOf="parent"
+                android:padding="@dimen/base_ldpi"
+                app:layout_constraintBottom_toTopOf="@id/base_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <com.angcyo.uiview.less.widget.AutoEditText
+                    android:id="@+id/url_edit"
+                    android:layout_width="match_parent"
+                    style="@style/BaseMainTextStyle"
+                    android:hint="请输入websocket连接地址"
+                    android:minHeight="@dimen/base_item_size"
+                    android:layout_marginRight="70dp"
+                    android:text="ws://116.7.249.36:8083/mqtt"
+                    android:layout_height="wrap_content"/>
+
+            <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/connect"
+                    android:layout_gravity="right|top"
+                    android:text="connect"
+                    android:padding="@dimen/base_hdpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+
+        <com.angcyo.uiview.less.widget.RSmartRefreshLayout
+                android:id="@+id/base_refresh_layout"
+                android:layout_width="match_parent"
+                app:layout_constraintTop_toBottomOf="@id/top_wrap_layout"
+                app:layout_constraintBottom_toTopOf="@id/bottom_wrap_layout"
+                android:layout_height="0dp">
+
+            <com.angcyo.uiview.less.recycler.RRecyclerView
+                    android:id="@+id/base_recycler_view"
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/base_hdpi"
+                    android:background="@drawable/base_dark_round_border_shape"
+                    android:layout_margin="@dimen/base_xhdpi"
+                    android:layout_height="match_parent"/>
+
+        </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
+
+        <FrameLayout
+                android:id="@+id/bottom_wrap_layout"
+                android:layout_width="match_parent"
+                android:padding="@dimen/base_ldpi"
+                tools:background="@color/transparent_dark80"
+                app:layout_constraintTop_toBottomOf="@id/base_refresh_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_height="wrap_content">
+
+            <com.angcyo.uiview.less.widget.AutoEditText
+                    android:id="@+id/input_edit"
+                    android:layout_width="match_parent"
+                    style="@style/BaseMainTextStyle"
+                    android:layout_marginRight="50dp"
+                    android:hint="请输入发送的内容"
+                    android:maxLines="3"
+                    android:minHeight="@dimen/base_item_size"
+                    android:layout_height="wrap_content"/>
+
+            <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/send"
+                    android:layout_gravity="right|bottom"
+                    android:text="send"
+                    android:padding="@dimen/base_hdpi"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
+</com.angcyo.uiview.less.widget.group.RSoftInputLayout>
