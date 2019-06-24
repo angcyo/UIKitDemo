@@ -97,13 +97,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
                 itemHolder.item(R.id.base_item_info_layout)?.apply {
                     setLeftDrawableRes(R.drawable.ic_logo_little)
                     setItemText("${itemPosition + 1}. $text")
-
-                    when (itemPosition) {
-                        2 -> setItemDarkText("99+")
-                        3 -> setItemDarkText("1")
-                        else -> setItemDarkText("")
-                    }
-
+                    
                     itemHolder.click(this) {
                         var cls: Class<out Fragment>? = fragment
                         val className = "com.angcyo.uikitdemo.ui.demo.${text?.split(" ")?.get(0)}"
