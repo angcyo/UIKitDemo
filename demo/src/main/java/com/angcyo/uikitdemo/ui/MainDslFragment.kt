@@ -50,7 +50,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("TouchDemo")
             renderMainItem("DialogDemo")
             renderMainItem("PictureSelectorDemo")
-            renderMainItem("OpencvOCRDemo")
+            renderMainItem("OpencvOCRDemo Gravity")
             renderMainItem("AutoCompleteDemo")
             renderMainItem("FileDownDemo")
             renderMainItem("CustomViewDemo1")
@@ -97,6 +97,12 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
                 itemHolder.item(R.id.base_item_info_layout)?.apply {
                     setLeftDrawableRes(R.drawable.ic_logo_little)
                     setItemText("${itemPosition + 1}. $text")
+
+                    when (itemPosition) {
+                        2 -> setItemDarkText("99+")
+                        3 -> setItemDarkText("1")
+                        else -> setItemDarkText("")
+                    }
 
                     itemHolder.click(this) {
                         var cls: Class<out Fragment>? = fragment

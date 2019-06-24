@@ -22,6 +22,149 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+    <com.angcyo.uiview.less.widget.group.RFlowLayout
+            android:id="@+id/flow_layout"
+            app:layout_constraintTop_toBottomOf="@id/text_view"
+            android:layout_width="match_parent"
+            android:padding="@dimen/base_hdpi"
+            app:r_flow_item_horizontal_space="@dimen/base_xhdpi"
+            app:r_flow_item_vertical_space="@dimen/base_xhdpi"
+            android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/l"
+                android:gravity="left"
+                android:text="L"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:gravity="top|left"
+                android:text="LT"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/t"
+                android:gravity="top"
+                android:text="T"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/tc"
+                android:gravity="top|center_horizontal"
+                android:text="TC"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/r"
+                android:gravity="right"
+                android:text="R"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:gravity="right|top"
+                android:text="TR"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/rc"
+                android:gravity="right|center_vertical"
+                android:text="RC"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:gravity="bottom"
+                android:text="B"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:gravity="bottom|left"
+                android:text="LB"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:gravity="bottom|right"
+                android:text="BR"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/bc"
+                android:gravity="bottom|center_horizontal"
+                android:text="BC"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/lb"
+                android:gravity="bottom"
+                android:text="LB"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/lc"
+                android:gravity="left|center_vertical"
+                android:text="LC"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/c"
+                android:gravity="center"
+                android:text="C"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/ch"
+                android:gravity="center_horizontal"
+                android:text="CH"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/cv"
+                android:gravity="center_vertical"
+                android:text="CV"
+                android:background="@color/transparent_dark40"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+
+        <TextView
+                android:id="@+id/log"
+                style="@style/BaseMainTextStyle"
+                android:text="log..."
+                android:background="@color/transparent_dark40"
+                android:layout_width="match_parent"
+                android:padding="@dimen/base_hdpi"
+                android:layout_height="wrap_content"/>
+
+    </com.angcyo.uiview.less.widget.group.RFlowLayout>
+
     <android.support.v7.widget.AppCompatImageView
             android:id="@+id/image_view"
             app:layout_constraintBottom_toBottomOf="parent"
