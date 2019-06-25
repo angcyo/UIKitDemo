@@ -65,7 +65,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
                 itemTag = "Last"
                 itemBind = { itemHolder, _, _ ->
                     itemHolder.tv(R.id.text_view).text = StringBuilder().append(RUtils.getIP(mAttachContext))
-                        .appendln().append(RUtils.getMobileIP()).appendln().append(Root.device_info(mAttachContext))
+                        .append(' ').append(RUtils.getMobileIP()).appendln().append(Root.device_info(mAttachContext))
 
                     itemHolder.click(R.id.text_view) {
                         RUtils.copyText(itemHolder.tv(R.id.text_view).text)
@@ -97,7 +97,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
                 itemHolder.item(R.id.base_item_info_layout)?.apply {
                     setLeftDrawableRes(R.drawable.ic_logo_little)
                     setItemText("${itemPosition + 1}. $text")
-                    
+
                     itemHolder.click(this) {
                         var cls: Class<out Fragment>? = fragment
                         val className = "com.angcyo.uikitdemo.ui.demo.${text?.split(" ")?.get(0)}"

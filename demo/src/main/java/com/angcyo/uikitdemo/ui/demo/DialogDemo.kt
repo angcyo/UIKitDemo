@@ -7,7 +7,9 @@ import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.kotlin.dialog.*
+import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.kotlin.toColor
+import com.angcyo.uiview.less.kotlin.toast_tip
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -259,16 +261,80 @@ class DialogDemo : AppBaseItemFragment() {
                 }
 
                 //popup
+                holder.click(R.id.bottom) {
+                    popupWindow(it) {
+                        layoutId = R.layout.item_dialog_demo
+                        background = ColorDrawable(Color.RED)
+                        exactlyHeight = true
+                        onDismiss = {
+                            L.i("...dismiss...")
+                            toast_tip("...dismiss...")
+                        }
+                        xoff = 200
+                        yoff = 200
+                    }
+                }
+                holder.click(R.id.bottom_popup) {
+                    popupWindow(it) {
+                        layoutId = R.layout.item_dialog_demo
+                        background = ColorDrawable(Color.RED)
+                        exactlyHeight = true
+                        onDismiss = {
+                            L.i("...dismiss...")
+                            toast_tip("...dismiss...")
+                        }
+                        xoff = 200
+                        yoff = 200
+                    }
+                }
                 holder.click(R.id.normal_popup) {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
                         onDismiss = {
                             L.i("...dismiss...")
+                            toast_tip("...dismiss...")
                         }
                     }
                 }
 
+                holder.click(R.id.width_full_popup) {
+                    popupWindow(it) {
+                        layoutId = R.layout.item_dialog_demo
+                        background = ColorDrawable(Color.RED)
+                        width = -1
+                        onDismiss = {
+                            L.i("...dismiss...")
+                            toast_tip("...dismiss...")
+                        }
+                    }
+                }
+
+                holder.click(R.id.full_popup) {
+                    popupWindow(it) {
+                        layoutId = R.layout.item_dialog_demo
+                        background = ColorDrawable(Color.RED)
+                        width = -1
+                        height = -1
+                        onDismiss = {
+                            L.i("...dismiss...")
+                            toast_tip("...dismiss...")
+                        }
+                    }
+                }
+
+                holder.click(R.id.full_popup2) {
+                    popupWindow(it) {
+                        layoutId = R.layout.item_dialog_demo
+                        width = -1
+                        background = ColorDrawable(getColor(R.color.transparent_dark40))
+                        exactlyHeight = true
+                        onDismiss = {
+                            L.i("...dismiss...")
+                            toast_tip("...dismiss...")
+                        }
+                    }
+                }
             }
 
             override fun getItemLayoutId(): Int {
