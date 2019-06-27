@@ -120,6 +120,27 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/option_dialog"
+                android:text="多级选项对话框"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/option_dialog2"
+                android:text="多级选项对话框(带半默认)"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/option_dialog3"
+                android:text="多级选项对话框(带全默认)"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
     <com.angcyo.uiview.less.widget.group.RFlowLayout

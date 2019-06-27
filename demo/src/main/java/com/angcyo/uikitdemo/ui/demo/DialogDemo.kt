@@ -14,6 +14,7 @@ import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.resources.RDrawable
+import com.angcyo.uiview.less.utils.RUtils
 import com.angcyo.uiview.less.utils.TopToast
 import com.bigkoo.pickerview.view.WheelTime
 import java.util.*
@@ -260,8 +261,57 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
+                holder.click(R.id.option_dialog) {
+                    optionDialog {
+                        dialogTitle = "多级选项选择"
+                        onLoadOptionList = { options, level, callback ->
+                            callback(loadOptionList(level))
+                        }
+                        onCheckOptionEnd = { options, level ->
+                            options.size == 4
+                        }
+                        onOptionResult = { _, optionList ->
+                            toast_tip(RUtils.connect(optionList))
+                            false
+                        }
+                    }
+                }
+                holder.click(R.id.option_dialog2) {
+                    optionDialog {
+                        dialogTitle = "多级选项选择(半默认)"
+                        optionList = mutableListOf("1级a", "2级b")
+                        onLoadOptionList = { options, level, callback ->
+                            callback(loadOptionList(level))
+                        }
+                        onCheckOptionEnd = { options, level ->
+                            options.size == 4
+                        }
+                        onOptionResult = { _, optionList ->
+                            toast_tip(RUtils.connect(optionList))
+                            false
+                        }
+                    }
+                }
+                holder.click(R.id.option_dialog3) {
+                    optionDialog {
+                        dialogTitle = "多级选项选择(全默认)"
+                        optionList = mutableListOf("1级a", "2级b", "3级c", "4级d")
+                        onLoadOptionList = { options, level, callback ->
+                            callback(loadOptionList(level))
+                        }
+                        onCheckOptionEnd = { options, level ->
+                            options.size == 4
+                        }
+                        onOptionResult = { _, optionList ->
+                            toast_tip(RUtils.connect(optionList))
+                            false
+                        }
+                    }
+                }
+
                 //popup
-                holder.click(R.id.bottom) {
+                holder.click(R.id.bottom)
+                {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -274,7 +324,8 @@ class DialogDemo : AppBaseItemFragment() {
                         yoff = 200
                     }
                 }
-                holder.click(R.id.bottom_popup) {
+                holder.click(R.id.bottom_popup)
+                {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -287,7 +338,8 @@ class DialogDemo : AppBaseItemFragment() {
                         yoff = 200
                     }
                 }
-                holder.click(R.id.normal_popup) {
+                holder.click(R.id.normal_popup)
+                {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -298,7 +350,8 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
-                holder.click(R.id.width_full_popup) {
+                holder.click(R.id.width_full_popup)
+                {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -310,7 +363,8 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
-                holder.click(R.id.full_popup) {
+                holder.click(R.id.full_popup)
+                {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -323,7 +377,8 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
-                holder.click(R.id.full_popup2) {
+                holder.click(R.id.full_popup2)
+                {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         width = -1
@@ -340,8 +395,24 @@ class DialogDemo : AppBaseItemFragment() {
             override fun getItemLayoutId(): Int {
                 return R.layout.item_dialog_demo
             }
-
         })
     }
 
+    fun loadOptionList(level: Int): MutableList<Any> {
+        val mutableList = when (level) {
+            0 -> mutableListOf("1级级级级级级级a", "1级级级级级级级b", "1级级级级级级c", "1级d", "1级e")
+            1 -> mutableListOf("2级a", "2级级级级级级级级级级b", "2级c", "2级d", "2级e")
+            2 -> mutableListOf("3级a", "3级级级级级级级级级b", "3级c", "3级d", "3级e")
+            3 -> mutableListOf("4级a", "4级级级级级级级级级级b", "4级c", "4级d", "4级级级级级级级级e")
+            else -> mutableListOf(
+                "${level + 1}级a",
+                "${level + 1}级b",
+                "${level + 1}级c",
+                "${level + 1}级d",
+                "${level + 1}级e"
+            )
+        } as MutableList<Any>
+
+        return mutableList
+    }
 }
