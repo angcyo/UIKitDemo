@@ -5,43 +5,49 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <FrameLayout
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="200dp"
             app:layout_behavior=".ui.behavior.AdjustOffsetBehavior"
-            android:background="@color/transparent_dark60">
+            android:background="@color/transparent_dark60"
+            android:layout_height="wrap_content">
 
-        <com.angcyo.uiview.less.widget.Button
-                android:text="LT"
-                android:layout_gravity="left"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+        <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="1:0.6">
 
-        <com.angcyo.uiview.less.widget.Button
-                android:text="RT"
-                android:layout_gravity="right|top"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <com.angcyo.uiview.less.widget.Button
+                    android:text="LT"
+                    android:layout_gravity="left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        <com.angcyo.uiview.less.widget.Button
-                android:text="LB"
-                android:layout_gravity="left|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <com.angcyo.uiview.less.widget.Button
+                    android:text="RT"
+                    android:layout_gravity="right|top"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        <com.angcyo.uiview.less.widget.Button
-                android:text="RB"
-                android:layout_gravity="right|bottom"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <com.angcyo.uiview.less.widget.Button
+                    android:text="LB"
+                    android:layout_gravity="left|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-        <com.angcyo.uiview.less.widget.Button
-                android:text="C"
-                android:layout_gravity="center"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            <com.angcyo.uiview.less.widget.Button
+                    android:text="RB"
+                    android:layout_gravity="right|bottom"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
 
-    </FrameLayout>
+            <com.angcyo.uiview.less.widget.Button
+                    android:text="C"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+        </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
 
     <com.angcyo.uiview.less.widget.RSmartRefreshLayout
             android:id="@+id/base_refresh_layout"
