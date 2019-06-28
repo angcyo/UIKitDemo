@@ -43,22 +43,20 @@
 
     </FrameLayout>
 
-    <!--<com.angcyo.uiview.less.widget.RSmartRefreshLayout-->
-    <!--android:id="@+id/base_refresh_layout"-->
-    <!--android:layout_width="match_parent"-->
-    <!--app:layout_constraintTop_toBottomOf="@id/top_wrap_layout"-->
-    <!--app:layout_constraintBottom_toTopOf="@id/bottom_wrap_layout"-->
-    <!--android:layout_height="0dp">-->
-
-    <com.angcyo.uiview.less.recycler.RRecyclerView
-            android:id="@+id/base_recycler_view"
+    <com.angcyo.uiview.less.widget.RSmartRefreshLayout
+            android:id="@+id/base_refresh_layout"
             android:layout_width="match_parent"
-            android:padding="@dimen/base_hdpi"
-            android:background="@drawable/base_dark_round_border_shape"
             app:layout_behavior=".ui.behavior.OffsetBehavior"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
 
-    <!--</com.angcyo.uiview.less.widget.RSmartRefreshLayout>-->
+        <com.angcyo.uiview.less.recycler.RRecyclerView
+                android:id="@+id/base_recycler_view"
+                android:layout_width="match_parent"
+                android:padding="@dimen/base_hdpi"
+                android:background="@drawable/base_dark_round_border_shape"
+                android:layout_height="match_parent"/>
+
+    </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
 
     <TextView
             style="@style/BaseMainTextStyle"

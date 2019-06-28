@@ -6,6 +6,7 @@ import android.support.v4.view.ViewCompat
 import android.support.v7.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 
 /**
  *
@@ -18,7 +19,7 @@ open class AdjustOffsetBehavior(val context: Context, attrs: AttributeSet? = nul
     CoordinatorLayout.Behavior<View>(context, attrs) {
 
     override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
-        return dependency is RecyclerView
+        return dependency is RecyclerView || dependency is SmartRefreshLayout
     }
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
