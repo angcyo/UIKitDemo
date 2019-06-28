@@ -84,7 +84,7 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                         }
                     }
 
-                    for (i in 0..5) {
+                    for (j in 0..5) {
                         renderItem {
                             itemLayoutId = R.layout.item_image_little
                         }
@@ -136,7 +136,7 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                         }
                     }
 
-                    for (i in 0..1) {
+                    for (j in 0..1) {
                         renderItem {
                             itemLayoutId = R.layout.item_image
                         }

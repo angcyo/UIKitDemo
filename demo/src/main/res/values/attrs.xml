@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LogBehavior_Layout">
+        <!--测试 Behavior属性-->
+        <attr name="behavior_test" format="dimension"/>
+    </declare-styleable>
+</resources>
