@@ -10,6 +10,7 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.angcyo.lib.L
+import com.angcyo.uikitdemo.BuildConfig
 import com.angcyo.uikitdemo.R
 
 /**
@@ -19,17 +20,14 @@ import com.angcyo.uikitdemo.R
  * @date 2019/06/28
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
-    constructor() : super() {
-        L.w("构造方法1")
-    }
+open class LogBehavior<T : View>(context: Context, attrs: AttributeSet? = null) :
+    CoordinatorLayout.Behavior<T>(context, attrs) {
+    var debug = BuildConfig.DEBUG
 
-    constructor(context: Context, attrs: AttributeSet? = null) : super(context, attrs) {
+    init {
         val array = context.obtainStyledAttributes(attrs, R.styleable.LogBehavior_Layout)
         val test = array.getDimensionPixelOffset(R.styleable.LogBehavior_Layout_behavior_test, 0)
         array.recycle()
-
-        L.w("构造方法2:$test")
     }
 
     override fun onNestedPreScroll(
@@ -42,7 +40,7 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         type: Int
     ) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
-        L.w("this....dx:$dx dy:$dy")
+        w("this....dx:$dx dy:$dy")
     }
 
     override fun onNestedScroll(
@@ -56,11 +54,11 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         type: Int
     ) {
         super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type)
-        L.w("this....dxC:$dxConsumed dyC:$dyConsumed dxUC$dxUnconsumed dyUC$dyUnconsumed")
+        w("this....dxC:$dxConsumed dyC:$dyConsumed dxUC:$dxUnconsumed dyUC:$dyUnconsumed")
     }
 
     override fun onSaveInstanceState(parent: CoordinatorLayout, child: T): Parcelable? {
-        L.w("this....")
+        w("this....")
         return super.onSaveInstanceState(parent, child)
     }
 
@@ -73,11 +71,11 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         type: Int
     ) {
         super.onNestedScrollAccepted(coordinatorLayout, child, directTargetChild, target, axes, type)
-        L.w("this....")
+        w("this....")
     }
 
     override fun getScrimColor(parent: CoordinatorLayout, child: T): Int {
-        L.w("this....")
+        w("this....")
         return super.getScrimColor(parent, child)
     }
 
@@ -89,12 +87,12 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         velocityY: Float,
         consumed: Boolean
     ): Boolean {
-        L.w("this....")
+        w("this....")
         return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed)
     }
 
     override fun onLayoutChild(parent: CoordinatorLayout, child: T, layoutDirection: Int): Boolean {
-        L.w("this...${child.javaClass.simpleName}...ld:$layoutDirection")
+        w("this...${child.javaClass.simpleName}...ld:$layoutDirection")
         return super.onLayoutChild(parent, child, layoutDirection)
     }
 
@@ -105,44 +103,44 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         velocityX: Float,
         velocityY: Float
     ): Boolean {
-        L.w("this....")
+        w("this....")
         return super.onNestedPreFling(coordinatorLayout, child, target, velocityX, velocityY)
     }
 
     override fun getInsetDodgeRect(parent: CoordinatorLayout, child: T, rect: Rect): Boolean {
-        L.w("this....")
+        w("this....")
         return super.getInsetDodgeRect(parent, child, rect)
     }
 
     override fun onDetachedFromLayoutParams() {
         super.onDetachedFromLayoutParams()
-        L.w("this....")
+        w("this....")
     }
 
     override fun onRestoreInstanceState(parent: CoordinatorLayout, child: T, state: Parcelable) {
         super.onRestoreInstanceState(parent, child, state)
-        L.w("this....")
+        w("this....")
     }
 
 
     override fun onStopNestedScroll(coordinatorLayout: CoordinatorLayout, child: T, target: View, type: Int) {
         super.onStopNestedScroll(coordinatorLayout, child, target, type)
-        L.w("this....")
+        w("this....")
     }
 
     override fun layoutDependsOn(parent: CoordinatorLayout, child: T, dependency: View): Boolean {
-        L.w("this....${child.javaClass.simpleName}...${dependency.javaClass.simpleName}")
+        w("this....${child.javaClass.simpleName}...${dependency.javaClass.simpleName}")
         return super.layoutDependsOn(parent, child, dependency)
     }
 
     override fun onDependentViewChanged(parent: CoordinatorLayout, child: T, dependency: View): Boolean {
-        L.w("this....")
+        w("this....")
         return super.onDependentViewChanged(parent, child, dependency)
     }
 
     override fun onDependentViewRemoved(parent: CoordinatorLayout, child: T, dependency: View) {
         super.onDependentViewRemoved(parent, child, dependency)
-        L.w("this....")
+        w("this....")
     }
 
     override fun onRequestChildRectangleOnScreen(
@@ -151,7 +149,7 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         rectangle: Rect,
         immediate: Boolean
     ): Boolean {
-        L.w("this....")
+        w("this....")
         return super.onRequestChildRectangleOnScreen(coordinatorLayout, child, rectangle, immediate)
     }
 
@@ -160,35 +158,35 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         child: T,
         insets: WindowInsetsCompat
     ): WindowInsetsCompat {
-        L.w("this...$insets")
+        w("this...$insets")
         return super.onApplyWindowInsets(coordinatorLayout, child, insets)
     }
 
     override fun blocksInteractionBelow(parent: CoordinatorLayout, child: T): Boolean {
-        L.w("this....")
+        w("this....")
         return super.blocksInteractionBelow(parent, child)
     }
 
     /**[blocksInteractionBelow]*/
     override fun getScrimOpacity(parent: CoordinatorLayout, child: T): Float {
         return super.getScrimOpacity(parent, child).apply {
-            L.w("this....scrimOpacity:$this")
+            w("this....scrimOpacity:$this")
         }
     }
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: T, ev: MotionEvent): Boolean {
-        L.w("this...${child.javaClass.simpleName}...${MotionEvent.actionToString(ev.actionMasked)}")
+        w("this...${child.javaClass.simpleName}...${MotionEvent.actionToString(ev.actionMasked)}")
         return super.onTouchEvent(parent, child, ev)
     }
 
     override fun onInterceptTouchEvent(parent: CoordinatorLayout, child: T, ev: MotionEvent): Boolean {
-        L.w("this...${child.javaClass.simpleName}...${MotionEvent.actionToString(ev.actionMasked)}")
+        w("this...${child.javaClass.simpleName}...${MotionEvent.actionToString(ev.actionMasked)}")
         return super.onInterceptTouchEvent(parent, child, ev)
     }
 
     override fun onAttachedToLayoutParams(params: CoordinatorLayout.LayoutParams) {
         super.onAttachedToLayoutParams(params)
-        L.w("this...")
+        w("this...")
     }
 
     /**
@@ -203,7 +201,7 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         axes: Int,
         type: Int
     ): Boolean {
-        L.w("this...${target.javaClass.simpleName} axes:$axes type:$type")
+        w("this...${target.javaClass.simpleName} axes:$axes type:$type")
         return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, axes, type)
     }
 
@@ -215,7 +213,7 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
         parentHeightMeasureSpec: Int,
         heightUsed: Int
     ): Boolean {
-        L.w("this...widthUsed:$widthUsed heightUsed:$heightUsed")
+        w("this...widthUsed:$widthUsed heightUsed:$heightUsed")
         return super.onMeasureChild(
             parent,
             child,
@@ -224,5 +222,11 @@ open class LogBehavior<T : View> : CoordinatorLayout.Behavior<T> {
             parentHeightMeasureSpec,
             heightUsed
         )
+    }
+
+    fun w(msg: String? = null) {
+        if (debug) {
+            L.w(msg ?: "")
+        }
     }
 }

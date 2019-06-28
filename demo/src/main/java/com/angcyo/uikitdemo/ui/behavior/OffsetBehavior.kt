@@ -5,6 +5,7 @@ import android.support.design.widget.CoordinatorLayout
 import android.support.v4.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
+import com.angcyo.uiview.less.kotlin.offsetTop
 import com.angcyo.uiview.less.utils.UI
 import kotlin.math.min
 
@@ -20,6 +21,10 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
     //当前Top偏移量
     var offsetTop = -1
 
+    init {
+        debug = false
+    }
+
     /**顶部最大偏移距离*/
     private fun getOffsetTopMax(parent: CoordinatorLayout, child: View): Int {
         var offsetTop = 0
@@ -30,6 +35,10 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
         return offsetTop
     }
 
+    /**
+     * 关闭嵌套的内嵌滚动
+     * [android:nestedScrollingEnabled="false"]
+     * */
     override fun onStartNestedScroll(
         coordinatorLayout: CoordinatorLayout,
         child: View,
@@ -38,6 +47,10 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
         axes: Int,
         type: Int
     ): Boolean {
+//        if (target != directTargetChild) {
+//            //关闭嵌套的内嵌滚动
+//            target.isNestedScrollingEnabled = false
+//        }
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
@@ -83,7 +96,7 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
                     val consumedY = min(-dy, offsetTopMax - offsetTop)
                     consumed[1] = -consumedY
 
-                    ViewCompat.offsetTopAndBottom(child, consumedY)
+                    child.offsetTop(consumedY)
                     offsetTop = child.top
                 }
             }
@@ -93,7 +106,7 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
                 val consumedY = min(dy, offsetTop)
                 consumed[1] = consumedY
 
-                ViewCompat.offsetTopAndBottom(child, -consumedY)
+                child.offsetTop(-consumedY)
                 offsetTop = child.top
             }
         }
