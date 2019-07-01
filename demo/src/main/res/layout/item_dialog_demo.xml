@@ -7,9 +7,41 @@
         tools:background="@color/transparent_dark60"
         android:layout_height="match_parent">
 
+    <RadioGroup
+            android:id="@+id/flow_style"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:checkedButton="@id/style_appcompat"
+            android:padding="@dimen/base_hdpi"
+            android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/style_appcompat"
+                android:text="AppCompatDialog"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/style_alert"
+                android:text="AlertDialog"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/style_sheet"
+                android:text="BottomSheetDialog"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </RadioGroup>
+
     <com.angcyo.uiview.less.widget.group.RFlowLayout
             android:id="@+id/flow_1"
             android:layout_width="match_parent"
+            app:layout_constraintTop_toBottomOf="@id/flow_style"
             android:padding="@dimen/base_hdpi"
             app:r_flow_item_horizontal_space="@dimen/base_hdpi"
             app:r_flow_item_vertical_space="@dimen/base_hdpi"
@@ -39,6 +71,13 @@
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/item_dialog"
                 android:text="Items对话框"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/item_dialog_full"
+                android:text="Items对话框(全屏)"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

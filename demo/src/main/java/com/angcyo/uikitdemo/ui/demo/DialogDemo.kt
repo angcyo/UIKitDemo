@@ -3,10 +3,14 @@ package com.angcyo.uikitdemo.ui.demo
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.view.Gravity
+import android.view.WindowManager
+import android.widget.RadioGroup
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
+import com.angcyo.uiview.less.base.helper.ActivityHelper
 import com.angcyo.uiview.less.kotlin.dialog.*
+import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.kotlin.toColor
 import com.angcyo.uiview.less.kotlin.toast_tip
@@ -27,9 +31,20 @@ import java.util.*
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class DialogDemo : AppBaseItemFragment() {
+
+    var dialogType = BaseDialogConfig.DIALOG_TYPE_APPCOMPAT
+
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         singleItems.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+                holder.v<RadioGroup>(R.id.flow_style).setOnCheckedChangeListener { group, checkedId ->
+                    dialogType = when (checkedId) {
+                        R.id.style_alert -> BaseDialogConfig.DIALOG_TYPE_ALERT_DIALOG
+                        R.id.style_sheet -> BaseDialogConfig.DIALOG_TYPE_BOTTOM_SHEET_DIALOG
+                        else -> BaseDialogConfig.DIALOG_TYPE_APPCOMPAT
+                    }
+                }
+
                 holder.click(R.id.normal_dialog) {
                     normalDialog {
                         dialogTitle = "标题"
@@ -44,6 +59,8 @@ class DialogDemo : AppBaseItemFragment() {
                         negativeButton { dialog, _ ->
                             dialog.dismiss()
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -61,6 +78,8 @@ class DialogDemo : AppBaseItemFragment() {
                         negativeButton { dialog, _ ->
                             dialog.dismiss()
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -81,9 +100,58 @@ class DialogDemo : AppBaseItemFragment() {
                             "Item10"
                         )
 
-                        onItemClick = { _, index, item ->
+                        onItemClick = { _, _, item ->
                             TopToast.show(item as CharSequence)
                             false
+                        }
+
+                        dialogType = this@DialogDemo.dialogType
+                    }
+                }
+
+                holder.click(R.id.item_dialog_full) {
+                    itemsDialog {
+                        dialogWidth = -1
+                        //指定dialogHeight 可以解决状态栏变黑, 但是~高度的计算会受到影响...
+                        dialogHeight = RUtils.getScreenHeight(activity)
+                        dialogBgDrawable = ColorDrawable(Color.TRANSPARENT)
+                        dialogTitle = "标题标题标题标题标题(全屏)"
+                        windowFlags = intArrayOf(
+                            WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS,
+                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
+                            WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION,
+                            WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN
+                        )
+
+                        items = mutableListOf(
+                            "Item1",
+                            "Item2",
+                            "Item3",
+                            "Item4",
+                            "Item5",
+                            "Item6",
+                            "Item7",
+                            "Item8",
+                            "Item9",
+                            "Item10"
+                        )
+
+                        onItemClick = { _, _, item ->
+                            TopToast.show(item as CharSequence)
+                            false
+                        }
+
+                        dialogType = this@DialogDemo.dialogType
+
+                        dialogInit = { dialog, dialogViewHolder ->
+                            ActivityHelper.enableLayoutFullScreen(dialog.window, true)
+
+                            dialogViewHolder.itemView.apply {
+                                fitsSystemWindows = false
+                                setBackgroundColor(Color.GREEN)
+                                setPadding(0, 0, 0, 0)
+                                layoutParams = WindowManager.LayoutParams(-1, -2)
+                            }
                         }
                     }
                 }
@@ -94,10 +162,12 @@ class DialogDemo : AppBaseItemFragment() {
 
                         items = mutableListOf("Item1", "Item2", "Item3")
 
-                        onItemClick = { _, index, item ->
+                        onItemClick = { _, _, item ->
                             TopToast.show(item as CharSequence)
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -108,10 +178,12 @@ class DialogDemo : AppBaseItemFragment() {
                         items = mutableListOf("Item1", "Item2", "Item3")
                         itemIcons = mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
 
-                        onItemClick = { _, index, item ->
+                        onItemClick = { _, _, item ->
                             TopToast.show(item as CharSequence)
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -123,10 +195,12 @@ class DialogDemo : AppBaseItemFragment() {
                         itemIcons = mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
                         itemTextGravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
 
-                        onItemClick = { _, index, item ->
+                        onItemClick = { _, _, item ->
                             TopToast.show(item as CharSequence)
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -140,10 +214,12 @@ class DialogDemo : AppBaseItemFragment() {
 
                         defaultIndex = 1
 
-                        onWheelItemSelector = { _, index, item ->
+                        onWheelItemSelector = { _, _, item ->
                             TopToast.show(item as CharSequence)
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -157,6 +233,8 @@ class DialogDemo : AppBaseItemFragment() {
                             TopToast.show(indexList.toString())
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -172,6 +250,8 @@ class DialogDemo : AppBaseItemFragment() {
                             TopToast.show(indexList.toString())
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -185,6 +265,8 @@ class DialogDemo : AppBaseItemFragment() {
                             TopToast.show(inputText)
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -196,6 +278,8 @@ class DialogDemo : AppBaseItemFragment() {
                             TopToast.show(inputText)
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -226,6 +310,8 @@ class DialogDemo : AppBaseItemFragment() {
                             gridItemBgDrawable = RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
                             gridItemText = "房屋相册"
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -237,6 +323,8 @@ class DialogDemo : AppBaseItemFragment() {
                             TopToast.show(WheelTime.dateFormat.format(date))
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -247,6 +335,8 @@ class DialogDemo : AppBaseItemFragment() {
                             TopToast.show(WheelTime.dateFormat.format(date))
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -258,6 +348,8 @@ class DialogDemo : AppBaseItemFragment() {
                             TopToast.show(WheelTime.dateFormat.format(date))
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -274,6 +366,8 @@ class DialogDemo : AppBaseItemFragment() {
                             toast_tip(RUtils.connect(optionList))
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
                 holder.click(R.id.option_dialog2) {
@@ -290,6 +384,8 @@ class DialogDemo : AppBaseItemFragment() {
                             toast_tip(RUtils.connect(optionList))
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
                 holder.click(R.id.option_dialog3) {
@@ -306,6 +402,8 @@ class DialogDemo : AppBaseItemFragment() {
                             toast_tip(RUtils.connect(optionList))
                             false
                         }
+
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -373,6 +471,9 @@ class DialogDemo : AppBaseItemFragment() {
                         onDismiss = {
                             L.i("...dismiss...")
                             toast_tip("...dismiss...")
+                        }
+                        popupInit = { popupWindow, popupViewHolder ->
+                            popupWindow.isClippingEnabled = false
                         }
                     }
                 }
