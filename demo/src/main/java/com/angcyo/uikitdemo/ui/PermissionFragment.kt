@@ -2,7 +2,7 @@ package com.angcyo.uikitdemo.ui
 
 import android.app.Activity
 import android.os.Bundle
-import android.support.v4.app.FragmentManager
+import androidx.fragment.app.FragmentManager
 import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.base.BaseFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
@@ -20,7 +20,7 @@ import com.angcyo.uiview.less.recycler.RBaseViewHolder
 class PermissionFragment : BaseFragment() {
 
     companion object {
-        fun show(fragmentManager: FragmentManager, layoutId: Int, config: PermissionConfig.() -> Unit) {
+        fun show(fragmentManager: androidx.fragment.app.FragmentManager, layoutId: Int, config: PermissionConfig.() -> Unit) {
             FragmentHelper.build(fragmentManager)
                 .parentLayoutId(layoutId)
                 .showFragment(PermissionFragment().apply {

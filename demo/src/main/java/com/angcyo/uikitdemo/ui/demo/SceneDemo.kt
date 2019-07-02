@@ -1,7 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
-import android.support.transition.*
-import android.support.v4.view.animation.FastOutSlowInInterpolator
+import androidx.transition.*
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import android.widget.RadioGroup
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R

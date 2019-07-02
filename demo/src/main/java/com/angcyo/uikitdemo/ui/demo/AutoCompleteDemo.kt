@@ -2,7 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.support.v7.widget.ListPopupWindow
+import androidx.appcompat.widget.ListPopupWindow
 import android.view.Gravity
 import android.view.KeyEvent
 import android.view.WindowManager

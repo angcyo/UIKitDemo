@@ -1,8 +1,8 @@
 package com.angcyo.uikitdemo.ui.behavior
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.v7.widget.RecyclerView
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.recyclerview.widget.RecyclerView
 import android.util.AttributeSet
 import android.view.View
 import com.angcyo.uiview.less.kotlin.offsetTopTo
@@ -22,11 +22,11 @@ open class AdjustOffsetBehavior(val context: Context, attrs: AttributeSet? = nul
         debug = false
     }
 
-    override fun layoutDependsOn(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
-        return dependency is RecyclerView || dependency is SmartRefreshLayout
+    override fun layoutDependsOn(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
+        return dependency is androidx.recyclerview.widget.RecyclerView || dependency is SmartRefreshLayout
     }
 
-    override fun onDependentViewChanged(parent: CoordinatorLayout, child: View, dependency: View): Boolean {
+    override fun onDependentViewChanged(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, dependency: View): Boolean {
         if (dependency.top in 0..child.measuredHeight) {
             val factor = (child.measuredHeight - dependency.top) * 1f / child.measuredHeight
             val newTop = -(factor / 2 * child.measuredHeight).toInt()

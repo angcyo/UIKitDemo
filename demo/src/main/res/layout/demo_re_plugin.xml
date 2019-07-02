@@ -9,7 +9,7 @@
               android:paddingBottom="@dimen/base_xxxhdpi"
               android:layout_height="wrap_content">
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_marginLeft="@dimen/base_hdpi"
             android:layout_marginRight="@dimen/base_hdpi"
@@ -24,9 +24,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_marginLeft="@dimen/base_hdpi"
             android:layout_marginRight="@dimen/base_hdpi"
             android:layout_marginTop="@dimen/base_hdpi"
@@ -42,9 +42,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
             android:layout_marginLeft="@dimen/base_hdpi"
             android:layout_marginRight="@dimen/base_hdpi"
             android:layout_marginTop="@dimen/base_hdpi"
@@ -60,7 +60,7 @@
                 android:inputType="textWebEmailAddress"
                 android:layout_height="wrap_content"/>
 
-    </android.support.design.widget.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
             android:padding="@dimen/base_hdpi"

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/voice_switch_view"
                 android:layout_gravity="center_vertical"
                 android:padding="10dp"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"/>
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/text_switch_view"
                 android:layout_gravity="center_vertical"
                 android:padding="10dp"
@@ -87,7 +87,7 @@
                 android:layout_weight="1"
                 android:layout_height="40dp"/>
 
-        <android.support.v7.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/voice_cancel_view"
                 android:layout_gravity="center_vertical"
                 android:padding="10dp"

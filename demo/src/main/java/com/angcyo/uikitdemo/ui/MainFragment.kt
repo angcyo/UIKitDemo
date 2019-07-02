@@ -2,7 +2,7 @@ package com.angcyo.uikitdemo.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.java.Java
@@ -217,17 +217,17 @@ class MainFragment : BaseDslItemFragment() {
         })
     }
 
-    fun initItem(holder: RBaseViewHolder, text: String, position: Int, fragment: Class<out Fragment>? = null) {
+    fun initItem(holder: RBaseViewHolder, text: String, position: Int, fragment: Class<out androidx.fragment.app.Fragment>? = null) {
         holder.item(R.id.base_item_info_layout).apply {
             setLeftDrawableRes(R.drawable.ic_logo_little)
             setItemText("${position + 1}. $text")
 
             holder.click(this) {
-                var cls: Class<out Fragment>? = fragment
+                var cls: Class<out androidx.fragment.app.Fragment>? = fragment
                 val className = "com.angcyo.uikitdemo.ui.demo.${text.split(" ")[0]}"
                 try {
                     if (fragment == null) {
-                        cls = Class.forName(className) as? Class<out Fragment>
+                        cls = Class.forName(className) as? Class<out androidx.fragment.app.Fragment>
                     }
                 } catch (e: Exception) {
                     Tip.tip("未找到类:\n$className")
@@ -271,7 +271,7 @@ class MainFragment : BaseDslItemFragment() {
         override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
         }
 
-        fun initItem(holder: RBaseViewHolder, text: String, position: Int, fragment: Class<out Fragment>? = null) {
+        fun initItem(holder: RBaseViewHolder, text: String, position: Int, fragment: Class<out androidx.fragment.app.Fragment>? = null) {
             this@MainFragment.initItem(holder, text, position, fragment)
         }
     }

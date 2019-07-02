@@ -1,8 +1,8 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
-import android.support.design.circularreveal.CircularRevealFrameLayout
-import android.support.design.circularreveal.CircularRevealWidget
+import com.google.android.material.circularreveal.CircularRevealFrameLayout
+import com.google.android.material.circularreveal.CircularRevealWidget
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import com.angcyo.lib.L

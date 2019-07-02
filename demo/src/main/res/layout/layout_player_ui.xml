@@ -22,7 +22,7 @@
             android:visibility="gone"
             android:layout_height="match_parent"/>
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/play_tip"
             app:srcCompat="@drawable/ic_play"
             android:visibility="gone"
@@ -30,7 +30,7 @@
             android:layout_width="15dp"
             android:layout_height="15dp"/>
 
-    <android.support.v7.widget.AppCompatImageView
+    <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/pause_tip"
             android:scaleType="center"
             app:srcCompat="@drawable/ic_pause"

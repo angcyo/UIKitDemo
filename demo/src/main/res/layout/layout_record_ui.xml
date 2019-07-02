@@ -9,7 +9,7 @@
         android:background="@drawable/base_round_tran80"
         android:layout_height="160dp">
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/record_tip_layout"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -50,7 +50,7 @@
                 android:text="00:00"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
             android:id="@+id/record_cancel_tip_image_view"

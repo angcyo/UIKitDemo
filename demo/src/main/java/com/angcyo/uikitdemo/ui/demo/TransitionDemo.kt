@@ -5,9 +5,9 @@ import android.content.Context
 import android.graphics.Matrix
 import android.graphics.RectF
 import android.os.Parcelable
-import android.support.transition.*
-import android.support.v4.app.SharedElementCallback
-import android.support.v4.view.ViewCompat
+import androidx.transition.*
+import androidx.core.app.SharedElementCallback
+import androidx.core.view.ViewCompat
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup

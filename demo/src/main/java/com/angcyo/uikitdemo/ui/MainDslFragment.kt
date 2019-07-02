@@ -1,7 +1,7 @@
 package com.angcyo.uikitdemo.ui
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.java.Java
@@ -87,7 +87,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
     public fun DslAdapter.renderMainItem(
         text: CharSequence? = null,
         topInsert: Int = 1 * dpi,
-        fragment: Class<out Fragment>? = null,
+        fragment: Class<out androidx.fragment.app.Fragment>? = null,
         init: DslAdapterItem.() -> Unit = {}
     ) {
         renderItem {
@@ -100,11 +100,11 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
                     setItemText("${itemPosition + 1}. $text")
 
                     itemHolder.click(this) {
-                        var cls: Class<out Fragment>? = fragment
+                        var cls: Class<out androidx.fragment.app.Fragment>? = fragment
                         val className = "com.angcyo.uikitdemo.ui.demo.${text?.split(" ")?.get(0)}"
                         try {
                             if (fragment == null) {
-                                cls = Class.forName(className) as? Class<out Fragment>
+                                cls = Class.forName(className) as? Class<out androidx.fragment.app.Fragment>
                             }
                         } catch (e: Exception) {
                             Tip.tip("未找到类:\n$className")

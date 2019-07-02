@@ -1,7 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.http.Rx
 import com.angcyo.lib.L
 import com.angcyo.okdownload.FDown
@@ -69,7 +69,7 @@ class FileDownDemo : AppBaseRecyclerFragment<DslAdapterItem>() {
 
         recyclerView?.onScroll {
             onRecyclerScrollStateChanged = { recyclerView, newState ->
-                if (newState == RecyclerView.SCROLL_STATE_IDLE) {
+                if (newState == androidx.recyclerview.widget.RecyclerView.SCROLL_STATE_IDLE) {
                     logAll()
                 }
             }

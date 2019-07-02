@@ -1,8 +1,8 @@
 package com.angcyo.uikitdemo.ui.behavior
 
 import android.content.Context
-import android.support.design.widget.CoordinatorLayout
-import android.support.v4.view.ViewCompat
+import androidx.coordinatorlayout.widget.CoordinatorLayout
+import androidx.core.view.ViewCompat
 import android.util.AttributeSet
 import android.view.View
 import com.angcyo.uiview.less.kotlin.offsetTop
@@ -26,7 +26,7 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
     }
 
     /**顶部最大偏移距离*/
-    private fun getOffsetTopMax(parent: CoordinatorLayout, child: View): Int {
+    private fun getOffsetTopMax(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View): Int {
         var offsetTop = 0
         val firstChild = parent.getChildAt(0)
         if (firstChild != child) {
@@ -40,7 +40,7 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
      * [android:nestedScrollingEnabled="false"]
      * */
     override fun onStartNestedScroll(
-        coordinatorLayout: CoordinatorLayout,
+        coordinatorLayout: androidx.coordinatorlayout.widget.CoordinatorLayout,
         child: View,
         directTargetChild: View,
         target: View,
@@ -54,13 +54,13 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
         return axes == ViewCompat.SCROLL_AXIS_VERTICAL
     }
 
-    override fun onLayoutChild(parent: CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
+    override fun onLayoutChild(parent: androidx.coordinatorlayout.widget.CoordinatorLayout, child: View, layoutDirection: Int): Boolean {
         val offsetTopMax = getOffsetTopMax(parent, child)
         if (offsetTopMax > 0) {
             if (offsetTop == -1) {
                 offsetTop = offsetTopMax
             }
-            val layoutParams: CoordinatorLayout.LayoutParams = child.layoutParams as CoordinatorLayout.LayoutParams
+            val layoutParams: androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams = child.layoutParams as androidx.coordinatorlayout.widget.CoordinatorLayout.LayoutParams
 
             val top = offsetTop + layoutParams.topMargin
             child.layout(
@@ -76,7 +76,7 @@ open class OffsetBehavior(val context: Context, attrs: AttributeSet? = null) : L
     }
 
     override fun onNestedPreScroll(
-        coordinatorLayout: CoordinatorLayout,
+        coordinatorLayout: androidx.coordinatorlayout.widget.CoordinatorLayout,
         child: View,
         target: View,
         dx: Int,
