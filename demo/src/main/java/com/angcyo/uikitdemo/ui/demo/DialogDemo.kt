@@ -10,7 +10,6 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.base.helper.ActivityHelper
 import com.angcyo.uiview.less.kotlin.dialog.*
-import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.kotlin.toColor
 import com.angcyo.uiview.less.kotlin.toast_tip
@@ -356,7 +355,7 @@ class DialogDemo : AppBaseItemFragment() {
                 holder.click(R.id.option_dialog) {
                     optionDialog {
                         dialogTitle = "多级选项选择"
-                        onLoadOptionList = { options, level, callback ->
+                        onLoadOptionList = { options, level, callback, _ ->
                             callback(loadOptionList(level))
                         }
                         onCheckOptionEnd = { options, level ->
@@ -374,7 +373,7 @@ class DialogDemo : AppBaseItemFragment() {
                     optionDialog {
                         dialogTitle = "多级选项选择(半默认)"
                         optionList = mutableListOf("1级a", "2级b")
-                        onLoadOptionList = { options, level, callback ->
+                        onLoadOptionList = { options, level, callback, _ ->
                             callback(loadOptionList(level))
                         }
                         onCheckOptionEnd = { options, level ->
@@ -392,7 +391,7 @@ class DialogDemo : AppBaseItemFragment() {
                     optionDialog {
                         dialogTitle = "多级选项选择(全默认)"
                         optionList = mutableListOf("1级a", "2级b", "3级c", "4级d")
-                        onLoadOptionList = { options, level, callback ->
+                        onLoadOptionList = { options, level, callback, _ ->
                             callback(loadOptionList(level))
                         }
                         onCheckOptionEnd = { options, level ->
@@ -422,8 +421,7 @@ class DialogDemo : AppBaseItemFragment() {
                         yoff = 200
                     }
                 }
-                holder.click(R.id.bottom_popup)
-                {
+                holder.click(R.id.bottom_popup) {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -436,8 +434,7 @@ class DialogDemo : AppBaseItemFragment() {
                         yoff = 200
                     }
                 }
-                holder.click(R.id.normal_popup)
-                {
+                holder.click(R.id.normal_popup) {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -448,8 +445,7 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
-                holder.click(R.id.width_full_popup)
-                {
+                holder.click(R.id.width_full_popup) {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -461,8 +457,7 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
-                holder.click(R.id.full_popup)
-                {
+                holder.click(R.id.full_popup) {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         background = ColorDrawable(Color.RED)
@@ -478,8 +473,7 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
-                holder.click(R.id.full_popup2)
-                {
+                holder.click(R.id.full_popup2) {
                     popupWindow(it) {
                         layoutId = R.layout.item_dialog_demo
                         width = -1
