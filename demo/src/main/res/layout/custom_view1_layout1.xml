@@ -87,5 +87,146 @@
         <com.angcyo.github.SwitchButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
+
+    <com.angcyo.uiview.less.widget.group.RFlowLayout
+            android:padding="@dimen/base_xhdpi"
+            app:r_flow_item_horizontal_space="@dimen/base_xhdpi"
+            app:r_flow_item_vertical_space="@dimen/base_xhdpi"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_lecjbQ.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="clock.json"
+                android:background="@color/transparent_dark20"
+                android:layout_width="100dp"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets8.lottiefiles.com/packages/lf20_0vyNDy.json"
+                android:layout_width="100dp"
+                android:scaleType="centerInside"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets9.lottiefiles.com/packages/lf20_b5PkTw.json"
+                android:layout_width="100dp"
+                android:scaleType="centerInside"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets1.lottiefiles.com/packages/lf20_g8SKoA.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets5.lottiefiles.com/packages/lf20_LmpRva.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/music_play"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets3.lottiefiles.com/packages/lf20_JrlZ72.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets4.lottiefiles.com/packages/lf20_hhgddi.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets10.lottiefiles.com/packages/lf20_oW6ABf.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets5.lottiefiles.com/packages/lf20_utwlLP.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets5.lottiefiles.com/datafiles/8UjWgBkqvEF5jNoFcXV4sdJ6PXpS6DwF7cK4tzpi/Check Mark Success/Check Mark Success Data.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets5.lottiefiles.com/datafiles/jXqHQIXI6oO6V47/data.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets7.lottiefiles.com/datafiles/jEgAWaDrrm6qdJx/data.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets10.lottiefiles.com/datafiles/i2nzLioK7edPaLx/data.json"
+                android:layout_width="100dp"
+                app:lottie_speed="0.5"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_url="https://assets1.lottiefiles.com/datafiles/OhIfcxnkLsj1Jxj/data.json"
+                android:layout_width="100dp"
+                android:background="@color/transparent_dark20"
+                android:layout_height="100dp"/>
+
+    </com.angcyo.uiview.less.widget.group.RFlowLayout>
+
+
 </LinearLayout>
