@@ -63,6 +63,10 @@ class PictureSelectorDemo : AppBaseItemFragment() {
                         .ofAll()
                         .multipleMode()
                         .setSelectionMedia(lastMedia)
+                        .config {
+                            showFileSize(true)
+                            maxFileSize(1024 * 1024 * 10) //10MB
+                        }
                         .doIt()
                 }
 
