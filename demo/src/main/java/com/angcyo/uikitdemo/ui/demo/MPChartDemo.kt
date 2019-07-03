@@ -22,7 +22,7 @@ import com.github.mikephil.charting.components.Legend
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
-import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.formatter.ValueFormatter
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet
 import java.util.*
 
@@ -140,7 +140,7 @@ class MPChartDemo : AppBaseItemFragment() {
                         setDrawGridLines(false)
                         labelRotationAngle = 45f
 
-                        valueFormatter = object : IAxisValueFormatter {
+                        valueFormatter = object : ValueFormatter() {
                             override fun getFormattedValue(value: Float, axis: AxisBase?): String {
                                 return "value:$value"
                             }
@@ -271,9 +271,11 @@ class MPChartDemo : AppBaseItemFragment() {
                     fillColor = getColor(R.color.colorAccent)
                     setValueTextColors(listOf(Color.RED, Color.YELLOW, Color.LTGRAY))
 
-                    setValueFormatter { value, entry, dataSetIndex, viewPortHandler ->
-                        "test$value"
-                    }
+                    setValueFormatter(object : ValueFormatter() {
+                        override fun getFormattedValue(value: Float, axis: AxisBase?): String {
+                            return "test:$value"
+                        }
+                    })
 
                     //axisDependency = YAxis.AxisDependency.RIGHT
                 },

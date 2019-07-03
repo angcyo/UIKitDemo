@@ -18,8 +18,10 @@ import com.angcyo.uiview.less.resources.ResUtil
 import com.github.mikephil.charting.charts.BarChart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
+import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.components.LimitLine
 import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.formatter.ValueFormatter
 import java.util.*
 
 /**
@@ -78,9 +80,11 @@ class MPChartDemo2 : AppBaseItemFragment() {
                         .setDrawYAxisLeftLineColor(Color.BLUE)
                         .setYAxisLeftGridDashedLine(20f, 20f, 0f)
                         .setYAxisLeftLineDashedLine(20f, 20f, 0f)
-                        .setXAxisValueFormatter { value, axis ->
-                            "Value:$value"
-                        }
+                        .setXAxisValueFormatter(object : ValueFormatter() {
+                            override fun getFormattedValue(value: Float, axis: AxisBase?): String {
+                                return "Value:$value"
+                            }
+                        })
                         .setXAxisLabelCount(3, false)
                         .addXAxisLimitLine(LimitLine(6f, "6Value"))
                         .addYAxisLeftLimitLine(LimitLine(7f, "7Value"))
