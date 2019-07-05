@@ -424,6 +424,7 @@ class DialogDemo : AppBaseItemFragment() {
                     calendarDialog {
                         dialogTitle = "日历选择"
                         onCalendarResult = calendarResult
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -435,6 +436,7 @@ class DialogDemo : AppBaseItemFragment() {
                         calendarList = mutableListOf(RCalendarView.today())
 
                         onCalendarResult = calendarResult
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
@@ -449,6 +451,7 @@ class DialogDemo : AppBaseItemFragment() {
                         calendarList = mutableListOf(Calendar(2019, 2, 1), Calendar(2019, 5, 1))
 
                         onCalendarResult = calendarResult
+                        dialogType = this@DialogDemo.dialogType
                     }
                 }
 
