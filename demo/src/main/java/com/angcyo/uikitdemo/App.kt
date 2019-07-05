@@ -6,13 +6,16 @@ import android.view.ViewGroup
 import com.angcyo.lib.L
 import com.angcyo.opencv.CardOcr
 import com.angcyo.rtbs.RTbs
+import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
 import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.kotlin.random
+import com.angcyo.uiview.less.kotlin.renderItem
 import com.angcyo.uiview.less.utils.RNetwork
 import com.angcyo.uiview.less.utils.RUtils.randomColor
+import com.angcyo.uiview.less.utils.TopToast
 
 /**
  *
@@ -52,5 +55,37 @@ fun ViewGroup.appendColorItem(size: Int = 100) {
         addView(View(context).apply {
             setBackgroundColor(randomColor(random))
         }, -1, 100 * dpi)
+    }
+}
+
+fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5) {
+    renderDslAdapter {
+        for (i in 0..groupCount) {
+            renderItem {
+                itemSpanCount = 4
+
+                itemIsGroupHead = true
+
+                itemLayoutId = R.layout.item_text
+
+                itemBind = { itemHolder, itemPosition, adapterItem ->
+                    L.i("bind...$itemPosition")
+
+                    itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
+
+                    itemHolder.clickItem {
+                        TopToast.show("点击位置:$itemPosition", -1)
+                    }
+
+                    itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
+                }
+            }
+
+            for (j in 0..subCount) {
+                renderItem {
+                    itemLayoutId = R.layout.item_image_little
+                }
+            }
+        }
     }
 }
