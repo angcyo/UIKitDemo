@@ -8,6 +8,8 @@ import android.os.SystemClock
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.LinearInterpolator
+import com.angcyo.uikitdemo.R
+import com.angcyo.uiview.less.kotlin.getColor
 import java.util.*
 
 /**
@@ -25,6 +27,9 @@ class RecordAnimView(context: Context, attributeSet: AttributeSet? = null) : Vie
         }
     }
 
+    var meterColor = Color.WHITE
+    var meterDarkColor = getColor(R.color.base_text_color_dark)
+
     val dp: Float by lazy {
         resources.displayMetrics.density
     }
@@ -39,6 +44,11 @@ class RecordAnimView(context: Context, attributeSet: AttributeSet? = null) : Vie
 
     //振幅的数量
     var count = 7
+        set(value) {
+            field = value
+            postInvalidate()
+        }
+
     //振幅之间的间隔
     var space = 6 * dp
     //var drawHeight = measuredHeight - paddingTop - paddingBottom
@@ -51,15 +61,18 @@ class RecordAnimView(context: Context, attributeSet: AttributeSet? = null) : Vie
     //最小振幅的宽度
     var minWidth = 20 * dp
 
-    //随机绘制的数量
     var drawCount = 1
+        set(value) {
+            field = value
+            postInvalidate()
+        }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
 
         var left = paddingLeft
         var bottom = measuredHeight - paddingBottom
-        for (i in 0 until drawCount) {
+        for (i in 0 until count) {
             temptRect.set(left.toFloat(), bottom - lineHeight, left + minWidth + i * widthStep, bottom.toFloat())
 
             bottom = (bottom - lineHeight - space).toInt()
@@ -71,6 +84,11 @@ class RecordAnimView(context: Context, attributeSet: AttributeSet? = null) : Vie
             temptPath.lineTo(temptRect.left, temptRect.bottom)
 
             //canvas.drawRect(temptRect, paint)
+            if (i < drawCount) {
+                paint.color = meterColor
+            } else {
+                paint.color = meterDarkColor
+            }
             canvas.drawPath(temptPath, paint)
         }
     }
@@ -116,12 +134,12 @@ class RecordAnimView(context: Context, attributeSet: AttributeSet? = null) : Vie
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
-        postDelayed(runnable, randomTime)
+        //postDelayed(runnable, randomTime)
     }
 
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
-        removeCallbacks(runnable)
+        //removeCallbacks(runnable)
     }
 
 }

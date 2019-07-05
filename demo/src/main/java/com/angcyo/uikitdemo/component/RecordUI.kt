@@ -6,6 +6,8 @@ import android.text.TextUtils
 import android.view.*
 import android.widget.TextView
 import com.angcyo.uikitdemo.R
+import com.angcyo.uikitdemo.ui.widget.RecordAnimView
+import com.angcyo.uiview.less.kotlin.find
 
 /**
  *  模仿微信录音对话框的UI
@@ -62,12 +64,20 @@ class RecordUI {
             showRecordTime(value)
         }
 
+    /**需要绘制的振幅数量*/
+    var onGetMeterCount: () -> Int = {
+        1
+    }
+
     val checkTimeRunnable: Runnable by lazy {
         Runnable {
             val time = System.currentTimeMillis()
             val millis = time - recordStartTime
 
             currentRecordTime = millis
+
+            //更新振幅
+            recordLayout?.find<RecordAnimView>(R.id.record_anim_view)?.drawCount = onGetMeterCount()
 
             if (maxRecordTime > 0 && millis >= maxRecordTime * 1000) {
                 //到达最大值

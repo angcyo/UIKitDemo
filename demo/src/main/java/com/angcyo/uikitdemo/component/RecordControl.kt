@@ -6,6 +6,7 @@ import android.view.View
 import com.angcyo.uiview.less.media.RRecord
 import com.angcyo.uiview.less.utils.Root
 import java.io.File
+import kotlin.math.max
 
 /**
  *
@@ -46,6 +47,15 @@ class RecordControl {
             when {
                 event.actionMasked == MotionEvent.ACTION_DOWN -> {
                     view.isSelected = true
+                    recordUI.onGetMeterCount = {
+                        var result = 1
+
+                        record?.let {
+                            result = 7 * it.maxAmplitude / 32768
+                        }
+
+                        max(1, result)
+                    }
                     recordUI.show(activity, v)
                     record?.stopPlayback()
                     record?.startRecord(Root.createFileName())
