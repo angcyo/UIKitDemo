@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+
+    <com.haibin.calendarview.RCalendarView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <CalendarView
+            android:background="@color/transparent_dark20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    <com.haibin.calendarview.CalendarView
+            android:background="@color/transparent_dark20"
+            android:layout_width="match_parent"
+            app:month_view_show_mode="mode_all"
+            android:layout_height="wrap_content"/>
+
+    <com.haibin.calendarview.CalendarView
+            android:background="@color/transparent_dark20"
+            android:layout_width="match_parent"
+            app:month_view_show_mode="mode_fix"
+            android:layout_height="wrap_content"/>
+
+    <com.haibin.calendarview.CalendarView
+            android:background="@color/transparent_dark20"
+            android:layout_width="match_parent"
+            app:month_view_show_mode="mode_only_current"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

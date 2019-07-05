@@ -10,14 +10,14 @@
     <RadioGroup
             android:id="@+id/flow_style"
             android:layout_width="match_parent"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:checkedButton="@id/style_appcompat"
             android:padding="@dimen/base_hdpi"
             android:layout_height="wrap_content">
 
         <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/style_appcompat"
-                android:text="AppCompatDialog"
+                android:text="AppCompat"
                 style="@style/BaseMainTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -31,7 +31,7 @@
 
         <androidx.appcompat.widget.AppCompatRadioButton
                 android:id="@+id/style_sheet"
-                android:text="BottomSheetDialog"
+                android:text="BottomSheet"
                 style="@style/BaseMainTextStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -176,6 +176,27 @@
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/option_dialog3"
                 android:text="多级选项对话框(带全默认)"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/calendar_dialog"
+                android:text="日历选择对话框"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/calendar_dialog1"
+                android:text="日历选择对话框(带默认1)"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/calendar_dialog2"
+                android:text="日历选择对话框(带默认2)"
                 style="@style/BaseSkinButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

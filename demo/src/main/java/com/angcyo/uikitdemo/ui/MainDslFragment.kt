@@ -59,6 +59,8 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("WebSocketDemo")
             renderMainItem("MqttDemo")
             renderMainItem("CoordinatorLayoutDemo")
+            renderMainItem("CalendarLayoutDemo")
+            renderMainItem("CalendarViewDemo")
 
             //last item
             renderMainItem {
