@@ -1,5 +1,6 @@
 package com.angcyo.uikitdemo
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -83,6 +84,16 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
 
             for (j in 0..subCount) {
                 renderItem {
+                    itemTopInsert = 10 * dpi
+                    itemBottomInsert = 5 * dpi
+                    onlyDrawOffsetArea = false
+                    eachDrawItemDecoration = { _, top, _, bottom ->
+                        if (top > 0) {
+                            itemDecorationColor = Color.BLUE
+                        } else if (bottom > 0) {
+                            itemDecorationColor = Color.GREEN
+                        }
+                    }
                     itemLayoutId = R.layout.item_image_little
                 }
             }
