@@ -76,6 +76,8 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
 
                     itemHolder.clickItem {
                         TopToast.show("点击位置:$itemPosition", -1)
+
+                        dslAdapter?.foldItem(adapterItem, adapterItem.itemGroupExtend)
                     }
 
                     itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend

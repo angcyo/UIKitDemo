@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
-import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.来点数据
 import com.angcyo.uiview.less.kotlin.getColor
@@ -14,6 +13,7 @@ import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
+
 
 /**
  *
@@ -27,7 +27,7 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
         super.initRecyclerView(recyclerView)
         recyclerView?.apply {
             layoutManager = MyLayoutManager()
-            setBackgroundColor(getColor(R.color.transparent_dark20))
+            setBackgroundColor(getColor(com.angcyo.uikitdemo.R.color.transparent_dark20))
         }
     }
 
@@ -38,13 +38,13 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
             }
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RBaseViewHolder {
-                L.e("onCreateViewHolder...测试消息 viewType:$viewType")
+                L.e("onCreateViewHolder...viewType:$viewType")
                 return super.onCreateViewHolder(parent, viewType)
             }
 
             override fun onBindViewHolder(holder: RBaseViewHolder, position: Int) {
                 super.onBindViewHolder(holder, position)
-                L.e("onBindViewHolder...测试消息 position:$position")
+                L.e("onBindViewHolder...position:$position")
             }
         }
     }
@@ -65,6 +65,16 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
         )
     }
 
+    override fun canScrollVertically(): Boolean {
+        return true
+    }
+
+    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
+        var realOffset = dy
+        offsetChildrenVertical(-realOffset)
+        return realOffset
+    }
+
     override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
         //super.onLayoutChildren(recycler, state)
         L.e("$state")
@@ -76,8 +86,12 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
         if (state.isPreLayout) {//state.isPreLayout()是支持动画的
             return
         }
+
+        L.e("before。child count = " + childCount + ";scrap count = ${recycler.scrapList.size}")
         //onLayoutChildren方法在RecyclerView 初始化时 会执行两遍
-        detachAndScrapAttachedViews(recycler);
+        detachAndScrapAttachedViews(recycler)
+        L.e("after。child count = " + childCount + ";scrap count = ${recycler.scrapList.size}")
+
         //初始化
 //        mVerticalOffset = 0;
 //        mFirstVisiPos = 0;
@@ -116,6 +130,27 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
             } else {
                 top = bottom
             }
+        }
+
+        L.e("childCount= [" + childCount + "]" + ",[recycler.getScrapList().size():" + recycler.scrapList.size)
+    }
+
+    /**
+     * @param dy 当前偏移的距离
+     * @return 针对 dy 偏移距离, 返回修正后, 允许偏移的最大距离 (滚动边界处理)
+     * */
+    fun fillVertical(recycler: RecyclerView.Recycler, state: RecyclerView.State, dy: Int): Int {
+        return dy
+    }
+
+    /**
+     * 回收需回收的Item。
+     */
+    private fun recycleChildren(recycler: RecyclerView.Recycler) {
+        val scrapList = recycler.scrapList
+        for (i in scrapList.indices) {
+            val holder = scrapList[i]
+            removeAndRecycleView(holder.itemView, recycler)
         }
     }
 }
