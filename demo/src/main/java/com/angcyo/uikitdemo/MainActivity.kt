@@ -6,6 +6,7 @@ import com.angcyo.uikitdemo.ui.MainDslFragment
 import com.angcyo.uiview.less.RCrashHandler
 import com.angcyo.uiview.less.base.BaseAppCompatActivity
 import com.angcyo.uiview.less.base.helper.FragmentHelper
+import com.angcyo.uiview.less.kotlin.enterPictureInPictureModeEx
 
 class MainActivity : BaseAppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,5 +30,10 @@ class MainActivity : BaseAppCompatActivity() {
             Manifest.permission.CAMERA,
             Manifest.permission.WAKE_LOCK
         )
+    }
+
+    override fun onUserLeaveHint() {
+        super.onUserLeaveHint()
+        enterPictureInPictureModeEx()
     }
 }

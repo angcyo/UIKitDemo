@@ -136,4 +136,13 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
         Java.main()
         Kotlin.main()
     }
+
+    override fun onPictureInPictureModeChanged(isInPictureInPictureMode: Boolean) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode)
+        if (isInPictureInPictureMode) {
+            hideTitleBar()
+        } else {
+            showTitleBar()
+        }
+    }
 }
