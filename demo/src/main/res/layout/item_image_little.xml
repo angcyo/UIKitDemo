@@ -1,12 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.AppCompatImageView
+<FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/image_view"
-        android:padding="@dimen/base_xhdpi"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:clickable="true"
-        android:scaleType="fitXY"
-        android:src="@drawable/peppq"
-        android:background="@drawable/base_bg_selector_v21"
-        android:layout_width="match_parent"
-        android:layout_height="120dp">
-</androidx.appcompat.widget.AppCompatImageView>
+        android:layout_height="wrap_content">
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/image_view"
+            android:padding="@dimen/base_xhdpi"
+            android:scaleType="fitXY"
+            android:src="@drawable/peppq"
+            android:background="@drawable/base_bg_selector_v21"
+            android:layout_width="match_parent"
+            android:layout_height="120dp">
+    </androidx.appcompat.widget.AppCompatImageView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/text_view"
+            style="@style/BaseMainTextStyle"
+            android:layout_gravity="center"
+            android:textColor="@color/base_white"
+            android:paddingLeft="@dimen/base_xhdpi"
+            android:paddingRight="@dimen/base_xhdpi"
+            android:background="@color/transparent_dark80"
+            tools:text="angcyo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+    </androidx.appcompat.widget.AppCompatTextView>
+</FrameLayout>

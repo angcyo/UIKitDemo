@@ -97,6 +97,10 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
                         }
                     }
                     itemLayoutId = R.layout.item_image_little
+
+                    itemBind = { itemHolder, itemPosition, adapterItem ->
+                        itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
+                    }
                 }
             }
         }

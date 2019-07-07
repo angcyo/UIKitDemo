@@ -13,6 +13,7 @@ import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
+import kotlin.math.max
 
 
 /**
@@ -69,8 +70,14 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
         return true
     }
 
+    /**保存总共滚动偏移量*/
+    var scrollVerticalOffset = 0L
+
     override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
-        var realOffset = dy
+        if (itemCount == 0 || dy == 0) {
+            return 0
+        }
+        val realOffset = fillVertical(recycler, state, dy)
         offsetChildrenVertical(-realOffset)
         return realOffset
     }
@@ -87,27 +94,115 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
             return
         }
 
-        L.e("before。child count = " + childCount + ";scrap count = ${recycler.scrapList.size}")
+        //填充childView
+        fillVertical(recycler, state, 0)
+    }
+
+    /**记录完成一次布局后, 顶部[item]的[position], 和底部[item]的[position]*/
+    var lastTopPosition = RecyclerView.NO_POSITION
+    var lastBottomPosition = RecyclerView.NO_POSITION
+    /**记录完成一次布局后, 顶部[item]的[height], 和底部[item]的[height], 包含[分割线]和[margin]*/
+    var lastTopViewHeight = 0
+    var lastBottomViewHeight = 0
+
+    /**
+     * 填充布局的时候, 一定要明确, 需要填充的第一个[item]的[position], 和 最后一个用完屏幕空间[item]的[position]
+     * 然后for循环, 一个一个布局.
+     * 并且要考虑 当前滚动的偏移量哦
+     *
+     * @param dy 当前偏移的距离
+     * @return 针对 dy 偏移距离, 返回修正后, 允许偏移的最大距离 (滚动边界处理)
+     * */
+    fun fillVertical(recycler: RecyclerView.Recycler, state: RecyclerView.State, dy: Int): Int {
+
+        L.e("before...child count = " + childCount + ";scrap count = ${recycler.scrapList.size}")
         //onLayoutChildren方法在RecyclerView 初始化时 会执行两遍
         detachAndScrapAttachedViews(recycler)
-        L.e("after。child count = " + childCount + ";scrap count = ${recycler.scrapList.size}")
+        L.e("after....child count = " + childCount + ";scrap count = ${recycler.scrapList.size}")
 
-        //初始化
-//        mVerticalOffset = 0;
-//        mFirstVisiPos = 0;
-//        mLastVisiPos = getItemCount();
+
+        //此次滚动后, 临时保存的总共偏移距离
+        var offsetVertical = scrollVerticalOffset + dy
+        //此次滚动, 能够允许偏移的最大距离
+        var offsetDy = dy
+
+        var firstLayoutItemPosition: Int
+
+        //第一步: 根据滚动偏移, 计算出第一个需要布局item的position.
+        //如果, 每个item的高度都一样, 并且不考虑 [itemDecoration] 的话. 那就太简单了. position=offsetVertical/itemHeight
+        //这里, 给自己挖个坑. 支持不同高度的item, 并且支持[itemDecoration].
+
+        //...瞎几把乱写+闭幕思过之后, 我想到了一个简洁方法.
+        //垂直滚动, 无非就2个方向, 向上滚, 向下滚.
+        //只要假设即向上, 也向下. 不就完了? 多余的之后回收一下就行了.
+
+
+//        if (lastTopPosition == RecyclerView.NO_POSITION || childCount == 0) {
+//            //之前还没有布局过, 那肯定从0开始
+//            firstLayoutItemPosition = 0
+//        } else {
+//            //之前已经布局过
+//            firstLayoutItemPosition = lastTopPosition
 //
-//        //初始化时调用 填充childView
-//        fill(recycler, state);
+//            //界面上第一个[child]
+//            val firstChildView = getChildAt(0)!!
+//            val layoutParams: RecyclerView.LayoutParams = firstChildView.layoutParams as RecyclerView.LayoutParams
+//            if (dy > 0) {
+//                //手指向上滑动
+//                val firstBottom = getDecoratedBottom(firstChildView) + layoutParams.bottomMargin
+//                if (offsetDy >= firstBottom) {
+//                    //当前的偏移量, 已经足以让第一个[child]滚出屏幕
+//                    firstLayoutItemPosition = getPosition(firstChildView) + 1
+//                }
+//            } else if (dy < 0) {
+//                //手指向下滑动
+//
+//                val firstTop = getDecoratedTop(firstChildView) - layoutParams.topMargin
+//                if (firstTop > offsetDy) {
+//                    //当前的偏移量, 已经足以让第一个[child]滚出屏幕
+//                    firstLayoutItemPosition = getPosition(firstChildView) - 1
+//                    offsetDy = firstTop
+//                }
+//            } else {
+//
+//            }
+//        }
 
-        val firstItemTop = paddingTop
+
+        if (lastTopPosition == RecyclerView.NO_POSITION) {
+            //之前还没有布局过, 那肯定从0开始
+            firstLayoutItemPosition = 0
+        } else {
+            //之前已经布局过
+            firstLayoutItemPosition = lastTopPosition
+
+            if (dy < 0) {
+                //手指向下滑动
+
+                val firstChildView = recycler.getViewForPosition(lastTopPosition)
+                val layoutParams: RecyclerView.LayoutParams = firstChildView.layoutParams as RecyclerView.LayoutParams
+
+                val firstTop = getDecoratedTop(firstChildView) - layoutParams.topMargin
+                if (firstTop > offsetDy) {
+                    //当前的偏移量, 已经足以让第一个[child]滚出屏幕
+                    firstLayoutItemPosition = getPosition(firstChildView) - 1
+                    offsetDy = firstTop
+                }
+            }
+        }
+
+        //上面只算出了开始[position], 结束的[position]通过循环, 动态计算
+
+        val firstItemTop: Int = (paddingTop - scrollVerticalOffset).toInt()
         var left = paddingLeft
         var top = firstItemTop
         var right = width - paddingRight
         var bottom = 0
 
-        val firstItemPosition = 0
-        for (position in firstItemPosition until itemCount) {
+        lastTopPosition = max(firstLayoutItemPosition, 0)
+
+        L.w("开始布局:$lastTopPosition  偏移:$scrollVerticalOffset")
+        for (position in lastTopPosition until itemCount) {
 
             //从各种缓存池中, 获取指定位置的 [View]
             val childView = recycler.getViewForPosition(position)
@@ -124,33 +219,42 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
             //布局[child]
             layoutDecoratedWithMargins(childView, left, top, right, bottom)
 
-            if (bottom - firstItemTop >= height - paddingTop - paddingBottom) {
+            L.w(
+                "pos:$position l:$left t:$top r:$right b:$bottom " +
+                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} " +
+                        "dy:$offsetDy sy:$scrollVerticalOffset"
+            )
+
+            if (top <= 0 && bottom > 0) {
+                lastTopPosition = position
+            }
+
+            if (bottom >= height - paddingBottom) {
                 //[RecyclerView] 没有空间可以布局了
+                lastBottomPosition = position
                 break
             } else {
                 top = bottom
             }
         }
 
-        L.e("childCount= [" + childCount + "]" + ",[recycler.getScrapList().size():" + recycler.scrapList.size)
-    }
+        L.w("结束布局:$lastTopPosition $lastBottomPosition -> ${lastBottomPosition - lastTopPosition} $childCount")
 
-    /**
-     * @param dy 当前偏移的距离
-     * @return 针对 dy 偏移距离, 返回修正后, 允许偏移的最大距离 (滚动边界处理)
-     * */
-    fun fillVertical(recycler: RecyclerView.Recycler, state: RecyclerView.State, dy: Int): Int {
-        return dy
+        recycleScrapList(recycler)
+
+        L.e("childCount= [" + childCount + "]" + ",[recycler.getScrapList().size():" + recycler.scrapList.size)
+
+        scrollVerticalOffset += offsetDy
+
+        return offsetDy
     }
 
     /**
      * 回收需回收的Item。
      */
-    private fun recycleChildren(recycler: RecyclerView.Recycler) {
-        val scrapList = recycler.scrapList
-        for (i in scrapList.indices) {
-            val holder = scrapList[i]
-            removeAndRecycleView(holder.itemView, recycler)
+    fun RecyclerView.LayoutManager.recycleScrapList(recycle: RecyclerView.Recycler) {
+        for (i in recycle.scrapList.size - 1 downTo 0) {
+            removeAndRecycleView(recycle.scrapList[i].itemView, recycle)
         }
     }
 }
