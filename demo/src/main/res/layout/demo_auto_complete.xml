@@ -2,6 +2,7 @@
 <com.angcyo.uiview.less.widget.group.RSoftInputLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -14,6 +15,13 @@
                 android:layout_width="match_parent"
                 android:padding="@dimen/base_xhdpi"
                 android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/text_view"
+                    style="@style/BaseMainTextStyle"
+                    tools:text="angcyo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
 
             <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"

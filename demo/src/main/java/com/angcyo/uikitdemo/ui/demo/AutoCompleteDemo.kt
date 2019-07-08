@@ -2,19 +2,20 @@ package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import androidx.appcompat.widget.ListPopupWindow
 import android.view.Gravity
-import android.view.KeyEvent
+import android.view.KeyEvent.*
 import android.view.WindowManager
 import android.widget.AutoCompleteTextView
-import android.widget.EditText
+import androidx.appcompat.widget.ListPopupWindow
+import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.kotlin.onFocusChange
-import com.angcyo.uiview.less.kotlin.setInputText
+import com.angcyo.uiview.less.kotlin.onTextChange
 import com.angcyo.uiview.less.recycler.adapter.RArrayAdapter
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.widget.AutoEditText
+import com.angcyo.uiview.less.widget.ExEditText
 import java.util.*
 
 /**
@@ -64,9 +65,11 @@ class AutoCompleteDemo : AppBaseItemFragment() {
 
                 val popupList = ListPopupWindow(mAttachContext)
                 popupList.setAdapter(adapter3)
-                holder.v<EditText>(R.id.input3).apply {
-//                    setOnKeyListener { v, keyCode, event ->
-//                        var result = false
+                holder.v<ExEditText>(R.id.input3).apply {
+                    setEnableMention(true)
+                    setOnKeyListener { v, keyCode, event ->
+                        var result = false
+                        L.i("keyDown:${keyCodeToString(keyCode)} ${actionToString(event.action)}")
 //                        if (popupList.isShowing) {
 //                            result = if (event.action == KeyEvent.ACTION_DOWN) {
 //                                popupList.onKeyDown(keyCode, event)
@@ -74,8 +77,26 @@ class AutoCompleteDemo : AppBaseItemFragment() {
 //                                popupList.onKeyUp(keyCode, event)
 //                            }
 //                        }
-//                        result
-//                    }
+                        result
+                    }
+
+                    onTextChange {
+                        val spannableText = text
+
+                        //remove previous spans
+                        val oldSpans =
+                            spannableText!!.getSpans(0, spannableText.length, Any::class.java)
+
+                        //ComposingText
+                        L.i("${selectionStart}:${selectionEnd} 文本改变:$it  ${layout.javaClass.simpleName} ${oldSpans.size}")
+
+                        holder.tv(R.id.text_view).text = buildString {
+                            oldSpans.forEach {
+                                append(it.javaClass.simpleName)
+                                appendln()
+                            }
+                        }
+                    }
 
                     onFocusChange {
                         if (it) {
@@ -113,4 +134,12 @@ class AutoCompleteDemo : AppBaseItemFragment() {
         }
     }
 
+    fun actionToString(action: Int): String {
+        when (action) {
+            ACTION_DOWN -> return "ACTION_DOWN"
+            ACTION_UP -> return "ACTION_UP"
+            ACTION_MULTIPLE -> return "ACTION_MULTIPLE"
+            else -> return action.toString()
+        }
+    }
 }
