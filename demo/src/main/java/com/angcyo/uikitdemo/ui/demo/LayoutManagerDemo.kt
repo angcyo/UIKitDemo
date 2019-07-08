@@ -6,7 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.来点数据
+import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getColor
+import com.angcyo.uiview.less.kotlin.recycleScrapList
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.RRecyclerView
 import com.angcyo.uiview.less.recycler.adapter.DslAdapter
@@ -27,7 +29,8 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
     override fun initRecyclerView(recyclerView: RRecyclerView?) {
         super.initRecyclerView(recyclerView)
         recyclerView?.apply {
-            layoutManager = MyLayoutManager()
+            setPadding(10 * dpi, 10 * dpi, 10 * dpi, 10 * dpi)
+            layoutManager = MyLayoutManager2()
             setBackgroundColor(getColor(com.angcyo.uikitdemo.R.color.transparent_dark20))
         }
     }
@@ -57,6 +60,63 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
     }
 }
 
+class MyLayoutManager2 : RecyclerView.LayoutManager() {
+    override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
+        return RecyclerView.LayoutParams(-2, -2)
+    }
+
+    override fun canScrollVertically(): Boolean {
+        return true
+    }
+
+    var scrollOffset = 0
+    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
+        val realDy = fill(recycler, state, dy)
+        scrollOffset += realDy
+        return realDy
+    }
+
+    override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
+        if (state.itemCount == 0 || state.isPreLayout) {
+            removeAndRecycleAllViews(recycler)
+            return
+        }
+
+        fill(recycler, state)
+    }
+
+    private fun fill(recycler: RecyclerView.Recycler, state: RecyclerView.State, dy: Int = 0): Int {
+        var offsetTop = paddingTop
+
+        //第一个布局的顶部位置, 和最后一个布局的底部位置
+        var firstLayoutTop = 0
+        var lastLayoutBottom = 0
+
+        var firstPosition = 0
+        var lastPosition = 0
+
+        if (childCount > 0) {
+            val firstView = getChildAt(0)
+            val lastView = getChildAt(childCount - 1)
+
+            firstPosition = getPosition(firstView!!)
+            lastPosition = getPosition(lastView!!)
+
+            firstLayoutTop = getDecoratedTop(firstView)
+            lastLayoutBottom = getDecoratedBottom(lastView)
+        }
+
+        detachAndScrapAttachedViews(recycler)
+
+        if (dy > 0) {
+            //
+        }
+
+        return 0
+    }
+}
+
+@Deprecated("未修复滚动")
 class MyLayoutManager : RecyclerView.LayoutManager() {
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
         L.e("generateDefaultLayoutParams...")
@@ -247,14 +307,5 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
         scrollVerticalOffset += offsetDy
 
         return offsetDy
-    }
-
-    /**
-     * 回收需回收的Item。
-     */
-    fun RecyclerView.LayoutManager.recycleScrapList(recycle: RecyclerView.Recycler) {
-        for (i in recycle.scrapList.size - 1 downTo 0) {
-            removeAndRecycleView(recycle.scrapList[i].itemView, recycle)
-        }
     }
 }
