@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
@@ -8,6 +9,7 @@ import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.来点数据
 import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getColor
+import com.angcyo.uiview.less.kotlin.getRecyclerViewPool
 import com.angcyo.uiview.less.kotlin.recycleScrapList
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.RRecyclerView
@@ -15,7 +17,9 @@ import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
+import kotlin.math.abs
 import kotlin.math.max
+import kotlin.math.min
 
 
 /**
@@ -26,11 +30,18 @@ import kotlin.math.max
  */
 
 class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
-    override fun initRecyclerView(recyclerView: RRecyclerView?) {
-        super.initRecyclerView(recyclerView)
+
+    override fun initDslRecyclerView(recyclerView: RRecyclerView?) {
+        //super.initDslRecyclerView(recyclerView)
         recyclerView?.apply {
+            setRecycledViewPool(getRecyclerViewPool())
+            addItemDecoration(baseDslItemDecoration)
+            //hoverItemDecoration.attachToRecyclerView(this)
+
             setPadding(10 * dpi, 10 * dpi, 10 * dpi, 10 * dpi)
+            layoutManager = MyLayoutManager()
             layoutManager = MyLayoutManager2()
+            layoutManager = MyLayoutManager3()
             setBackgroundColor(getColor(com.angcyo.uikitdemo.R.color.transparent_dark20))
         }
     }
@@ -48,7 +59,7 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
 
             override fun onBindViewHolder(holder: RBaseViewHolder, position: Int) {
                 super.onBindViewHolder(holder, position)
-                L.e("onBindViewHolder...position:$position")
+                //L.e("onBindViewHolder...position:$position")
             }
         }
     }
@@ -60,6 +71,268 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
     }
 }
 
+class MyLayoutManager3 : RecyclerView.LayoutManager() {
+    override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
+        return RecyclerView.LayoutParams(-2, -2)
+    }
+
+    override fun canScrollVertically(): Boolean {
+        return true
+    }
+
+    var verticallyScrollOffset = 0
+    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
+        val realDy = fill(recycler, state, dy)
+        offsetChildrenVertical(-realDy)
+        verticallyScrollOffset += realDy
+        return realDy
+    }
+
+    override fun onLayoutChildren(recycler: RecyclerView.Recycler, state: RecyclerView.State) {
+        fill(recycler, state)
+    }
+
+    private fun fill(recycler: RecyclerView.Recycler, state: RecyclerView.State, dy: Int = 0): Int {
+        L.i("$state")
+        if (state.itemCount == 0) {
+            removeAndRecycleAllViews(recycler)
+            return 0
+        }
+
+        if (state.isPreLayout) {
+            return 0
+        }
+
+        var topConsumed = paddingTop
+        var bottomConsumed = paddingBottom
+        var leftConsumed = paddingLeft
+        var rightConsumed = paddingRight
+
+        val viewWidth = width
+        val viewHeight = height
+
+        //开始布局的位置
+        var startPosition = 0
+        //开始布局的[Top]
+        var startTop = topConsumed
+
+        var layoutTop = startTop
+        var layoutLeft = leftConsumed
+        var layoutBottom = 0
+        var layoutRight = 0
+
+        var firstLayoutTop = 0
+        var lastLayoutBottom = 0
+
+        var firstPosition = RecyclerView.NO_POSITION
+        var lastPosition = RecyclerView.NO_POSITION
+
+        if (childCount > 0) {
+            val firstView = getChildAt(0)
+            val lastView = getChildAt(childCount - 1)
+
+            val firstLayoutParams: RecyclerView.LayoutParams = firstView!!.layoutParams as RecyclerView.LayoutParams
+            val lastLayoutParams: RecyclerView.LayoutParams = lastView!!.layoutParams as RecyclerView.LayoutParams
+
+            var firstLayoutTopMargin = 0
+            var lastLayoutBottomMargin = 0
+
+            firstLayoutTopMargin = firstLayoutParams.topMargin
+            lastLayoutBottomMargin = lastLayoutParams.bottomMargin
+
+            firstPosition = firstLayoutParams.viewAdapterPosition
+            lastPosition = lastLayoutParams.viewAdapterPosition
+
+            firstLayoutTop = getDecoratedTop(firstView) - firstLayoutTopMargin
+            lastLayoutBottom = getDecoratedBottom(lastView) + lastLayoutBottomMargin
+
+            //已经在界面上的[child],按照原来的位置布局
+            startPosition = firstPosition
+            startTop = firstLayoutTop
+        }
+
+        //临时缓存界面上所有的child(如果有).此方法不会触发 [onCreateViewHolder]
+        detachAndScrapAttachedViews(recycler)
+
+        //兼容滚动, 保持原有的[child]布局不变, 判断首页是否需要[add]或[remove]
+        //允许的最大滚动距离
+
+        var bottomUnconsumed = 0 //底部还有多少距离未消耗, 用来追加[child]
+        var realDy = dy
+        if (dy > 0) {
+            //手指向上滑动
+
+            //1.判断是否有距离允许滚动
+            if (lastPosition == state.itemCount - 1) {
+                //最后一个已经可见, 不够距离滚动
+                realDy = min(lastLayoutBottom + bottomConsumed - viewHeight, dy)
+            } else {
+                bottomUnconsumed = dy - (lastLayoutBottom + bottomConsumed - viewHeight)
+            }
+
+            //2.底部填充多出来的滚动空间
+            //如果在此处直接调用[addView]会影响[child]在[ViewGroup]中的位置, 所以先将剩余空间保存起来, 在布局之后[addView]
+
+        } else if (dy < 0) {
+            //手指向下滑动
+
+            //1.判断是否有距离允许滚动
+            var topUnconsumed = 0 //顶部还有多少距离未消耗, 用来追加[child]
+            if (firstPosition == 0) {
+                //第一个已经可见, 不够距离滚动
+                realDy = max(firstLayoutTop - topConsumed, dy)
+            } else {
+                topUnconsumed = abs(dy) - abs(firstLayoutTop - topConsumed)
+            }
+
+            //2.顶部填充多出来的滚动空间
+            layoutBottom = firstLayoutTop
+            while (topUnconsumed > 0 && firstPosition >= 0) {
+                attachView(recycler, firstPosition - 1) { childView, childLayoutParams ->
+
+                    layoutTop = layoutBottom - getDecoratedMeasuredHeight(childView) -
+                            childLayoutParams.bottomMargin - childLayoutParams.topMargin
+
+                    layoutRight = layoutLeft + getDecoratedMeasuredWidth(childView) +
+                            childLayoutParams.leftMargin + childLayoutParams.rightMargin
+
+                    //布局[child]
+                    layoutDecoratedWithMargins(
+                        childView,
+                        layoutLeft, layoutTop,
+                        layoutRight, layoutBottom
+                    )
+
+                    //消耗空间
+                    topUnconsumed -= layoutBottom - layoutTop
+
+                    layoutBottom = layoutTop
+
+                    firstPosition--
+                }
+            }
+            startTop = layoutBottom
+            startPosition = min(firstPosition, startPosition)
+
+            //3.由于往顶部[addView]会影响[child]在[ViewGroup]中的位置, 所以这里再一次清空所有[child], 重新按照正序布局
+            detachAndScrapAttachedViews(recycler)
+        }
+
+        layoutTop = startTop
+        layoutLeft = leftConsumed
+        layoutBottom = 0
+        layoutRight = 0
+
+        //标准状态时, 视图应该有的[child]
+        for (position in max(startPosition, 0) until state.itemCount) {
+            //从各种缓存池中, 获取指定位置的 [View]
+            val childView = recycler.getViewForPosition(position)
+            val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+
+            //将[child]添加到[RecyclerView]上
+            addView(childView)
+
+            //测量[child], 会考虑 [ItemDecoration] 所占得空间
+            measureChildWithMargins(childView, 0, 0)
+
+            layoutBottom = layoutTop + getDecoratedMeasuredHeight(childView) +
+                    childLayoutParams.bottomMargin + childLayoutParams.topMargin
+
+            layoutRight = layoutLeft + getDecoratedMeasuredWidth(childView) +
+                    childLayoutParams.leftMargin + childLayoutParams.rightMargin
+
+            //布局[child]
+            layoutDecoratedWithMargins(
+                childView,
+                layoutLeft, layoutTop,
+                layoutRight, layoutBottom
+            )
+
+            L.e(
+                "pos:$position l:$layoutLeft t:$layoutTop r:$layoutRight b:$layoutBottom " +
+                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} "
+            )
+
+            layoutTop = layoutBottom
+
+            if (layoutBottom >= viewHeight - bottomConsumed) {
+                //无剩余空间了
+                break
+            }
+        }
+
+        //滚动后, 填充底部多余出来的滚动空间
+        layoutTop = lastLayoutBottom
+        while (bottomUnconsumed > 0 && lastPosition < state.itemCount - 1) {
+            attachView(recycler, lastPosition + 1) { childView, childLayoutParams ->
+
+                layoutBottom = layoutTop + getDecoratedMeasuredHeight(childView) +
+                        childLayoutParams.bottomMargin + childLayoutParams.topMargin
+
+                layoutRight = layoutLeft + getDecoratedMeasuredWidth(childView) +
+                        childLayoutParams.leftMargin + childLayoutParams.rightMargin
+
+                //布局[child]
+                layoutDecoratedWithMargins(
+                    childView,
+                    layoutLeft, layoutTop,
+                    layoutRight, layoutBottom
+                )
+
+                //消耗空间
+                bottomUnconsumed -= layoutBottom - layoutTop
+
+                layoutTop = layoutBottom
+
+                lastPosition++
+            }
+        }
+
+        //回收不在可见范围之内的[child]
+        for (i in childCount - 1 downTo 0) {
+            val childView = getChildAt(i)!!
+            val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+
+            val top = getDecoratedTop(childView) - childLayoutParams.topMargin
+            val bottom = getDecoratedBottom(childView) + childLayoutParams.bottomMargin
+
+            if (top - realDy >= viewHeight - bottomConsumed || bottom - realDy <= 0) {
+                //底部超出 视图底部, 顶部超出 视图顶部
+                removeAndRecycleView(childView, recycler)
+                L.i("回收越界:${childLayoutParams.viewAdapterPosition}")
+            }
+        }
+
+        recycleScrapList(recycler)
+
+        L.e(
+            "childCount= [" + childCount + "]" +
+                    ",[recycler.getScrapList().size():" + recycler.scrapList.size
+        )
+
+        return realDy
+    }
+
+    private fun attachView(
+        recycler: RecyclerView.Recycler,
+        position: Int,
+        callback: (View, RecyclerView.LayoutParams) -> Unit
+    ) {
+        //从各种缓存池中, 获取指定位置的 [View]
+        val childView = recycler.getViewForPosition(position)
+        val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+
+        //将[child]添加到[RecyclerView]上
+        addView(childView)
+
+        //测量[child], 会考虑 [ItemDecoration] 所占得空间
+        measureChildWithMargins(childView, 0, 0)
+
+        callback.invoke(childView, childLayoutParams)
+    }
+}
+
+@Deprecated("未向下滚动")
 class MyLayoutManager2 : RecyclerView.LayoutManager() {
     override fun generateDefaultLayoutParams(): RecyclerView.LayoutParams {
         return RecyclerView.LayoutParams(-2, -2)
@@ -69,10 +342,11 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
         return true
     }
 
-    var scrollOffset = 0
+    var verticallyScrollOffset = 0
     override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
         val realDy = fill(recycler, state, dy)
-        scrollOffset += realDy
+        offsetChildrenVertical(-realDy)
+        verticallyScrollOffset += realDy
         return realDy
     }
 
@@ -86,33 +360,141 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
     }
 
     private fun fill(recycler: RecyclerView.Recycler, state: RecyclerView.State, dy: Int = 0): Int {
-        var offsetTop = paddingTop
+        var topConsumed = paddingTop
+        var bottomConsumed = paddingBottom
+        var leftConsumed = paddingLeft
+        var rightConsumed = paddingRight
+
+        val viewWidth = width
+        val viewHeight = height
 
         //第一个布局的顶部位置, 和最后一个布局的底部位置
-        var firstLayoutTop = 0
-        var lastLayoutBottom = 0
+        //由于这里是 先布局, 后滚动偏移, 所以, item的top值, 就是滚动之后的.
+        var firstLayoutTop = topConsumed
+        var lastLayoutBottom = topConsumed
 
         var firstPosition = 0
-        var lastPosition = 0
+        var lastPosition = RecyclerView.NO_POSITION
 
+        var firstLayoutTopMargin = 0
+        var lastLayoutBottomMargin = 0
         if (childCount > 0) {
             val firstView = getChildAt(0)
             val lastView = getChildAt(childCount - 1)
 
-            firstPosition = getPosition(firstView!!)
-            lastPosition = getPosition(lastView!!)
+            val firstLayoutParams: RecyclerView.LayoutParams = firstView!!.layoutParams as RecyclerView.LayoutParams
+            val lastLayoutParams: RecyclerView.LayoutParams = lastView!!.layoutParams as RecyclerView.LayoutParams
+
+            firstLayoutTopMargin = firstLayoutParams.topMargin
+            lastLayoutBottomMargin = lastLayoutParams.bottomMargin
+
+            firstPosition = firstLayoutParams.viewAdapterPosition
+            lastPosition = lastLayoutParams.viewAdapterPosition
 
             firstLayoutTop = getDecoratedTop(firstView)
             lastLayoutBottom = getDecoratedBottom(lastView)
         }
 
+        L.w(
+            "firstLayoutTop:${firstLayoutTop - firstLayoutTopMargin} lastLayoutBottom:${lastLayoutBottom + lastLayoutBottomMargin}" +
+                    " firstPosition:$firstPosition lastPosition:$lastPosition"
+        )
+
+        //允许的最大滚动距离
+        var realDy = dy
+        if (dy > 0) {
+            //手指向上滑动
+            //向上, 需要判断底部边界
+            if (lastPosition == state.itemCount - 1) {
+                //最后一个已经可见
+                realDy = min(lastLayoutBottom + lastLayoutBottomMargin + bottomConsumed - viewHeight, dy)
+            } else if (lastLayoutBottom + lastLayoutBottomMargin + bottomConsumed < viewHeight) {
+                //需要显示下一个item
+                ++lastPosition
+            }
+        } else if (dy < 0) {
+            //手指向下滑动
+            //向下, 需要判断顶部边界
+            if (firstPosition == 0) {
+                //第一个已经可见
+                realDy = max(firstLayoutTop - firstLayoutTopMargin - topConsumed, dy)
+            } else if (firstLayoutTop - firstLayoutTopMargin - topConsumed < dy) {
+                //需要显示下一个item
+                --firstPosition
+            }
+        }
+        //经过上面算法之后, 可以知道界面上需要布局item的起止位置.
+
+        L.i("dy:$dy rdy:$realDy sy:$verticallyScrollOffset")
+
+        //临时缓存界面上所有的child(如果有).此方法不会触发 [onCreateViewHolder]
         detachAndScrapAttachedViews(recycler)
 
-        if (dy > 0) {
-            //
+        var layoutTop = firstLayoutTop
+        var layoutBottom = 0
+        var layoutLeft = 0
+        var layoutRight = 0
+
+        for (position in firstPosition until state.itemCount) {
+            //从各种缓存池中, 获取指定位置的 [View]
+            val childView = recycler.getViewForPosition(position)
+            val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+
+            //将[child]添加到[RecyclerView]上
+            addView(childView)
+
+            //测量[child], 会考虑 [ItemDecoration] 所占得空间
+            measureChildWithMargins(childView, 0, 0)
+
+            layoutTop += childLayoutParams.topMargin
+            layoutBottom = layoutTop + getDecoratedMeasuredHeight(childView) + childLayoutParams.bottomMargin
+            layoutLeft = leftConsumed + childLayoutParams.leftMargin
+            layoutRight = layoutLeft + getDecoratedMeasuredWidth(childView)
+
+            //布局[child]
+            layoutDecoratedWithMargins(
+                childView,
+                layoutLeft, layoutTop,
+                layoutRight, layoutBottom
+            )
+
+            L.e(
+                "pos:$position l:$layoutLeft t:$layoutTop r:$layoutRight b:$layoutBottom " +
+                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} "
+            )
+
+            //判断[child]是否布局到视图外, 用于回收屏幕之外的[item]
+            if (dy < 0) {
+                if ((layoutTop - realDy) >= viewHeight - bottomConsumed) {
+                    //手指向下滚动 只需要判断回收底部的[child]
+                    removeAndRecycleView(childView, recycler)
+                }
+            } else if (dy > 0) {
+                if ((layoutBottom + realDy) <= topConsumed) {
+                    //手指向上滚动 只需要判断回收顶部的[child]
+                    removeAndRecycleView(childView, recycler)
+                }
+            }
+
+            layoutTop = layoutBottom
+
+            if (lastPosition == RecyclerView.NO_POSITION) {
+                if (layoutBottom + bottomConsumed >= viewHeight) {
+                    break
+                }
+            } else if (position == lastPosition) {
+                break
+            }
         }
 
-        return 0
+        recycleScrapList(recycler)
+
+        L.e(
+            "childCount= [" + childCount + "]" +
+                    ",[recycler.getScrapList().size():" + recycler.scrapList.size
+        )
+
+        return realDy
     }
 }
 

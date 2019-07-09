@@ -61,7 +61,7 @@ fun ViewGroup.appendColorItem(size: Int = 100) {
 
 fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5) {
     renderDslAdapter {
-        for (i in 0..groupCount) {
+        fun renderText() {
             renderItem {
                 itemSpanCount = 4
 
@@ -71,37 +71,53 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
 
                 itemBind = { itemHolder, itemPosition, adapterItem ->
                     L.i("bind...$itemPosition")
-
                     itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
+                    itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
 
                     itemHolder.clickItem {
-                        TopToast.show("点击位置:$itemPosition", -1)
+                        TopToast.show("点击位置:$itemPosition".apply {
+                            L.i(it)
+                        }, -1)
 
                         dslAdapter?.foldItem(adapterItem, adapterItem.itemGroupExtend)
                     }
-
-                    itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
                 }
             }
+        }
 
-            for (j in 0..subCount) {
-                renderItem {
-                    itemTopInsert = 10 * dpi
-                    itemBottomInsert = 5 * dpi
-                    onlyDrawOffsetArea = false
-                    eachDrawItemDecoration = { _, top, _, bottom ->
-                        if (top > 0) {
-                            itemDecorationColor = Color.BLUE
-                        } else if (bottom > 0) {
-                            itemDecorationColor = Color.GREEN
-                        }
-                    }
-                    itemLayoutId = R.layout.item_image_little
-
-                    itemBind = { itemHolder, itemPosition, adapterItem ->
-                        itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
+        fun renderImage() {
+            renderItem {
+                itemTopInsert = 10 * dpi
+                itemBottomInsert = 5 * dpi
+                onlyDrawOffsetArea = false
+                eachDrawItemDecoration = { _, top, _, bottom ->
+                    if (top > 0) {
+                        itemDecorationColor = Color.BLUE
+                    } else if (bottom > 0) {
+                        itemDecorationColor = Color.GREEN
                     }
                 }
+                itemLayoutId = R.layout.item_image_little
+
+                itemBind = { itemHolder, itemPosition, adapterItem ->
+                    L.i("bind...$itemPosition")
+                    itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
+
+                    itemHolder.clickItem {
+                        TopToast.show("点击位置:$itemPosition".apply {
+                            L.i(it)
+                        }, -1)
+                    }
+                }
+            }
+        }
+
+        renderImage()
+
+        for (i in 0..groupCount) {
+            renderText()
+            for (j in 0..subCount) {
+                renderImage()
             }
         }
     }
