@@ -5,11 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
+import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
+import com.angcyo.uikitdemo.ui.recycler.*
 import com.angcyo.uikitdemo.来点数据
+import com.angcyo.uiview.less.kotlin.dp
 import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getColor
-import com.angcyo.uiview.less.kotlin.getRecyclerViewPool
 import com.angcyo.uiview.less.kotlin.recycleScrapList
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.RRecyclerView
@@ -17,6 +19,7 @@ import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
+import com.angcyo.uiview.less.widget.RSpinner
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -31,10 +34,14 @@ import kotlin.math.min
 
 class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
 
+    override fun getContentLayoutId(): Int {
+        return R.layout.demo_layout_manager
+    }
+
     override fun initDslRecyclerView(recyclerView: RRecyclerView?) {
         //super.initDslRecyclerView(recyclerView)
         recyclerView?.apply {
-            setRecycledViewPool(getRecyclerViewPool())
+            //setRecycledViewPool(getRecyclerViewPool())
             addItemDecoration(baseDslItemDecoration)
             //hoverItemDecoration.attachToRecyclerView(this)
 
@@ -42,6 +49,7 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
             layoutManager = MyLayoutManager()
             layoutManager = MyLayoutManager2()
             layoutManager = MyLayoutManager3()
+
             setBackgroundColor(getColor(com.angcyo.uikitdemo.R.color.transparent_dark20))
         }
     }
@@ -68,6 +76,50 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         来点数据()
+
+        val layoutList = mutableListOf(
+            "MyLayoutManager3",//0
+            "CircleLayoutManager",//1
+            "CircleScaleLayoutManager",//2
+            "GalleryLayoutManager",//3
+            "LoopLayoutManager",//4
+            "RotateLayoutManager",//5
+            "ScaleLayoutManager",//6
+            "FocusLayoutManager",//7
+            "LinearLayoutManager",//8
+            "GridLayoutManager",//9
+            "StaggeredGridLayoutManager",//10
+            "TurnLayoutManager",//11
+            "CarouselLayoutManager",//12
+            "MyLayoutManager3"
+        )
+
+        viewHolder.v<RSpinner>(R.id.spinner).setStrings(layoutList) {
+            recyclerView.layoutManager = when (it) {
+                1 -> CircleLayoutManager(mAttachContext)
+                2 -> CircleScaleLayoutManager(mAttachContext)
+                3 -> GalleryLayoutManager(mAttachContext, 100 * dpi)
+                4 -> LoopLayoutManager(mAttachContext).apply {
+                    //infinite = true
+                }
+                5 -> RotateLayoutManager(mAttachContext, 100 * dpi)
+                6 -> ScaleLayoutManager(mAttachContext, 100 * dpi)
+                7 -> FocusLayoutManager.Builder()
+                    .layerPadding(20 * dp)
+                    .normalViewGap(20 * dp)
+                    .focusOrientation(FocusLayoutManager.FOCUS_TOP)
+                    .isAutoSelect(true)
+                    .maxLayerCount(3)
+                    .setOnFocusChangeListener { focusdPosition, lastFocusdPosition -> }
+                    .build()
+                8 -> RRecyclerView.LinearLayoutManagerWrap(mAttachContext)
+                9 -> RRecyclerView.GridLayoutManagerWrap(mAttachContext, 4)
+                10 -> RRecyclerView.StaggeredGridLayoutManagerWrap(4, RecyclerView.VERTICAL)
+                11 -> TurnLayoutManager(mAttachContext, 20 * dpi, 10 * dpi)
+                12 -> CarouselLayoutManager(mAttachContext, 100 * dpi)
+                else -> MyLayoutManager3()
+            }
+        }
     }
 }
 
@@ -99,7 +151,7 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
             return 0
         }
 
-        if (state.isPreLayout) {
+        if (childCount == 0 && state.isPreLayout) {
             return 0
         }
 
@@ -165,7 +217,12 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
             //1.判断是否有距离允许滚动
             if (lastPosition == state.itemCount - 1) {
                 //最后一个已经可见, 不够距离滚动
-                realDy = min(lastLayoutBottom + bottomConsumed - viewHeight, dy)
+                if (lastLayoutBottom <= viewHeight - bottomConsumed) {
+                    //没空间可以滚动, 总共[child]的高度, 加起来还不够视图的高度
+                    realDy = 0
+                } else {
+                    realDy = min(lastLayoutBottom + bottomConsumed - viewHeight, dy)
+                }
             } else {
                 bottomUnconsumed = dy - (lastLayoutBottom + bottomConsumed - viewHeight)
             }
@@ -180,7 +237,11 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
             var topUnconsumed = 0 //顶部还有多少距离未消耗, 用来追加[child]
             if (firstPosition == 0) {
                 //第一个已经可见, 不够距离滚动
-                realDy = max(firstLayoutTop - topConsumed, dy)
+                if (firstLayoutTop >= topConsumed) {
+                    realDy = 0
+                } else {
+                    realDy = max(firstLayoutTop - topConsumed, dy)
+                }
             } else {
                 topUnconsumed = abs(dy) - abs(firstLayoutTop - topConsumed)
             }
@@ -250,7 +311,8 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
 
             L.e(
                 "pos:$position l:$layoutLeft t:$layoutTop r:$layoutRight b:$layoutBottom " +
-                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} "
+                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} " +
+                        "isItemRemoved:${childLayoutParams.isItemRemoved} isItemChanged:${childLayoutParams.isItemChanged}"
             )
 
             layoutTop = layoutBottom
