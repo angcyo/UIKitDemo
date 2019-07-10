@@ -124,6 +124,22 @@
                         android:layout_height="wrap_content"/>
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <com.angcyo.uiview.less.widget.AutoEditText
+                        android:minHeight="@dimen/base_item_size"
+                        android:layout_width="match_parent"
+                        android:completionThreshold="1"
+                        app:r_auto_complete_text="angcyo1|angcyo2|angcyo3|angcyo4|"
+                        app:r_auto_complete_show_on_focus="true"
+                        app:r_auto_complete_focus_delay="160"
+                        android:hint="AutoEditText"
+                        android:layout_height="wrap_content"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </com.angcyo.uiview.less.widget.group.RSoftInputLayout>
