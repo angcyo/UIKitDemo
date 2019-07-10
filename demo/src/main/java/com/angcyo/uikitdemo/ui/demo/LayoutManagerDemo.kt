@@ -3,9 +3,9 @@ package com.angcyo.uikitdemo.ui.demo
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
-import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.ui.recycler.*
 import com.angcyo.uikitdemo.来点数据
@@ -20,6 +20,11 @@ import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.less.widget.RSpinner
+import com.dingmouren.layoutmanagergroup.echelon.EchelonLayoutManager
+import com.dingmouren.layoutmanagergroup.picker.PickerLayoutManager
+import com.dingmouren.layoutmanagergroup.skidright.SkidRightLayoutManager
+import com.dingmouren.layoutmanagergroup.slide.ItemTouchHelperCallback
+import com.dingmouren.layoutmanagergroup.slide.SlideLayoutManager
 import kotlin.math.abs
 import kotlin.math.max
 import kotlin.math.min
@@ -35,7 +40,7 @@ import kotlin.math.min
 class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
 
     override fun getContentLayoutId(): Int {
-        return R.layout.demo_layout_manager
+        return com.angcyo.uikitdemo.R.layout.demo_layout_manager
     }
 
     override fun initDslRecyclerView(recyclerView: RRecyclerView?) {
@@ -91,10 +96,29 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
             "StaggeredGridLayoutManager",//10
             "TurnLayoutManager",//11
             "CarouselLayoutManager",//12
+            "FlowLayoutManager",//13
+            "OverLayCardLayoutManager",//14
+            //https://github.com/DingMouRen/LayoutManagerGroup
+            "EchelonLayoutManager",//15
+            "SkidRightLayoutManager",//16
+            "SlideLayoutManager",//17
+            "PickerLayoutManager",//18
+            "ViewPagerLayoutManager",//19
+            "GalleryLayoutManager2",//20
             "MyLayoutManager3"
         )
 
-        viewHolder.v<RSpinner>(R.id.spinner).setStrings(layoutList) {
+        val renRenCallback = RenRenCallback()
+        val renRenItemTouchHelper = ItemTouchHelper(renRenCallback)
+
+        val slideItemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(baseAdapter, baseAdapter.allDatas))
+
+        viewHolder.v<RSpinner>(com.angcyo.uikitdemo.R.id.spinner).setStrings(layoutList) {
+            recyclerView.recycledViewPool.clear()
+            recyclerView.onFlingListener = null
+            renRenItemTouchHelper.attachToRecyclerView(null)
+            slideItemTouchHelper.attachToRecyclerView(null)
+
             recyclerView.layoutManager = when (it) {
                 1 -> CircleLayoutManager(mAttachContext)
                 2 -> CircleScaleLayoutManager(mAttachContext)
@@ -117,6 +141,22 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
                 10 -> RRecyclerView.StaggeredGridLayoutManagerWrap(4, RecyclerView.VERTICAL)
                 11 -> TurnLayoutManager(mAttachContext, 20 * dpi, 10 * dpi)
                 12 -> CarouselLayoutManager(mAttachContext, 100 * dpi)
+                13 -> FlowLayoutManager()
+                14 -> OverLayCardLayoutManager(mAttachContext).apply {
+                    renRenItemTouchHelper.attachToRecyclerView(recyclerView)
+                }
+                15 -> EchelonLayoutManager(mAttachContext)
+                16 -> SkidRightLayoutManager(0.8f, 0.8f)
+                17 -> SlideLayoutManager(slideItemTouchHelper).apply {
+                    slideItemTouchHelper.attachToRecyclerView(recyclerView)
+                }
+                18 -> PickerLayoutManager(mAttachContext, RecyclerView.VERTICAL, false)
+                19 -> com.dingmouren.layoutmanagergroup.viewpager.ViewPagerLayoutManager(
+                    mAttachContext,
+                    RecyclerView.VERTICAL,
+                    false
+                )
+                20 -> GalleryLayoutManager2(RecyclerView.VERTICAL)
                 else -> MyLayoutManager3()
             }
         }
