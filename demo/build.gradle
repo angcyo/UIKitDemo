@@ -29,8 +29,9 @@ dependencies {
     implementation project(allModule.rcode)
     implementation project(allModule.websocket)
     implementation project(allModule.mqtt)
+    implementation project(allModule.agora)
 
-    api 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
+    implementation 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
 }
 
 apply plugin: 'replugin-host-gradle'
