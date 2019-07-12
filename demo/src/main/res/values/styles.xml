@@ -9,6 +9,7 @@
         <item name="android:windowBackground">@drawable/window_bg_png</item>
         <!--<item name="android:windowTranslucentStatus">true</item>-->
         <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 
     <style name="TabItemStyle" parent="BaseMainTextStyle">

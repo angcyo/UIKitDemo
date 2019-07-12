@@ -7,8 +7,11 @@ import com.angcyo.http.Rx
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
+import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.renderItem
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import com.angcyo.uiview.less.recycler.adapter.DslAdapter
+import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 import com.angcyo.uiview.less.utils.NetStateChangeObserver
 import com.angcyo.uiview.less.utils.NetworkType
 import com.angcyo.uiview.less.utils.RNetwork
@@ -26,12 +29,7 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
                 L.e("RxJavaDemo:断网")
 
                 renderDslAdapter {
-                    renderItem {
-                        itemLayoutId = R.layout.base_item_info_layout
-                        itemBind = { itemHolder, _, _ ->
-                            itemHolder.item(R.id.base_item_info_layout).setItemText("RxJavaDemo:断网")
-                        }
-                    }
+                    renderDemoItem("RxJavaDemo:断网")
                 }
             }
 
@@ -39,12 +37,7 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
                 L.w("RxJavaDemo:网络->$networkType")
 
                 renderDslAdapter {
-                    renderItem {
-                        itemLayoutId = R.layout.base_item_info_layout
-                        itemBind = { itemHolder, _, _ ->
-                            itemHolder.item(R.id.base_item_info_layout).setItemText("RxJavaDemo:网络->$networkType")
-                        }
-                    }
+                    renderDemoItem("RxJavaDemo:网络->$networkType")
                 }
             }
         }
@@ -64,11 +57,12 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         renderDslAdapter {
-            renderItem {
-                itemLayoutId = R.layout.base_item_info_layout
-                itemBind = { itemHolder, _, _ ->
-
-                    itemHolder.item(R.id.base_item_info_layout).setItemText("operators")
+            renderDemoItem("operators") {
+                itemBind = { itemHolder, itemPosition, _ ->
+                    itemHolder.item(R.id.base_item_info_layout)?.apply {
+                        setLeftDrawableRes(R.drawable.ic_logo_little)
+                        setItemText("${itemPosition + 1}. operators")
+                    }
 
                     //http://reactivex.io/documentation/operators.html
                     itemHolder.clickItem {
@@ -109,11 +103,12 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
                 }
             }
 
-            renderItem {
-                itemLayoutId = R.layout.base_item_info_layout
-                itemBind = { itemHolder, _, _ ->
-
-                    itemHolder.item(R.id.base_item_info_layout).setItemText("Rx Base Test")
+            renderDemoItem("Rx Base Test") {
+                itemBind = { itemHolder, itemPosition, _ ->
+                    itemHolder.item(R.id.base_item_info_layout)?.apply {
+                        setLeftDrawableRes(R.drawable.ic_logo_little)
+                        setItemText("${itemPosition + 1}. Rx Base Test")
+                    }
 
                     //http://reactivex.io/documentation/operators.html
                     itemHolder.clickItem {
@@ -131,6 +126,26 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
                     }
                 }
             }
+        }
+    }
+
+    public fun DslAdapter.renderDemoItem(
+        text: CharSequence? = null,
+        topInsert: Int = 1 * dpi,
+        init: DslAdapterItem.() -> Unit = {}
+    ) {
+        renderItem {
+            itemTopInsert = topInsert
+            itemLayoutId = R.layout.base_item_info_layout
+
+            itemBind = { itemHolder, itemPosition, _ ->
+                itemHolder.item(R.id.base_item_info_layout)?.apply {
+                    setLeftDrawableRes(R.drawable.ic_logo_little)
+                    setItemText("${itemPosition + 1}. $text")
+                }
+            }
+
+            this.init()
         }
     }
 }
