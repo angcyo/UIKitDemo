@@ -10,10 +10,13 @@ import androidx.appcompat.widget.ListPopupWindow
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
+import com.angcyo.uiview.less.kotlin.appendln
 import com.angcyo.uiview.less.kotlin.onFocusChange
 import com.angcyo.uiview.less.kotlin.onTextChange
+import com.angcyo.uiview.less.kotlin.span
 import com.angcyo.uiview.less.recycler.adapter.RArrayAdapter
 import com.angcyo.uiview.less.recycler.item.SingleItem
+import com.angcyo.uiview.less.skin.SkinHelper
 import com.angcyo.uiview.less.widget.AutoEditText
 import com.angcyo.uiview.less.widget.ExEditText
 import java.util.*
@@ -90,11 +93,20 @@ class AutoCompleteDemo : AppBaseItemFragment() {
                         //ComposingText
                         L.i("${selectionStart}:${selectionEnd} 文本改变:$it  ${layout.javaClass.simpleName} ${oldSpans.size}")
 
-                        holder.tv(R.id.text_view).text = buildString {
+                        holder.tv(R.id.text_view).text = span {
                             oldSpans.forEach {
                                 append(it.javaClass.simpleName)
+                                append(" ")
+                                append("${spannableText.getSpanStart(it)}:${spannableText.getSpanEnd(it)}")
+                                setForegroundColor(SkinHelper.getSkin().themeColor)
+                                append(" ")
+                                append(spannableText.getSpanFlags(it).toString())
                                 appendln()
                             }
+                        }
+
+                        buildString {
+                            appendln()
                         }
                     }
 
