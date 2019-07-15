@@ -1,8 +1,8 @@
 package com.angcyo.uikitdemo.ui.demo
 
-import androidx.transition.*
-import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import android.widget.RadioGroup
+import androidx.interpolator.view.animation.FastOutSlowInInterpolator
+import androidx.transition.*
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
@@ -33,11 +33,21 @@ class SceneDemo : AppBaseItemFragment() {
                 holder.v<RadioGroup>(R.id.radio_group).setOnCheckedChangeListener { group, checkedId ->
                     val text = holder.tv(checkedId).text
                     transition = if (text == "TextScale") {
-                        Class.forName("android.support.design.internal.$text")
-                            .newInstance() as Transition
+                        try {
+                            Class.forName("android.support.design.internal.$text")
+                                .newInstance() as Transition
+                        } catch (e: Exception) {
+                            Class.forName("com.google.android.material.internal.$text")
+                                .newInstance() as Transition
+                        }
                     } else {
-                        Class.forName("android.support.transition.$text")
-                            .newInstance() as Transition
+                        try {
+                            Class.forName("android.support.transition.$text")
+                                .newInstance() as Transition
+                        } catch (e: Exception) {
+                            Class.forName("androidx.transition.$text")
+                                .newInstance() as Transition
+                        }
                     }
                 }
 
@@ -87,7 +97,7 @@ class SceneDemo : AppBaseItemFragment() {
                     }
 
                     holder.group(R.id.frame_layout).apply {
-//                        translationX = 100f
+                        //                        translationX = 100f
 //                        translationY = 100f
 
                         //ViewCompat.offsetLeftAndRight(this, 200)
