@@ -80,8 +80,6 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
     override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
-        来点数据()
-
         val layoutList = mutableListOf(
             "MyLayoutManager3",//0
             "CircleLayoutManager",//1
@@ -105,6 +103,8 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
             "PickerLayoutManager",//18
             "ViewPagerLayoutManager",//19
             "GalleryLayoutManager2",//20
+            //https://github.com/google/flexbox-layout
+            "FlexboxLayoutManager",//21
             "MyLayoutManager3"
         )
 
@@ -114,6 +114,7 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
         val slideItemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(baseAdapter, baseAdapter.allDatas))
 
         viewHolder.v<RSpinner>(com.angcyo.uikitdemo.R.id.spinner).setStrings(layoutList) {
+            recyclerView.adapter = null
             recyclerView.recycledViewPool.clear()
             recyclerView.onFlingListener = null
             renRenItemTouchHelper.attachToRecyclerView(null)
@@ -157,7 +158,16 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
                     false
                 )
                 20 -> GalleryLayoutManager2(RecyclerView.VERTICAL)
+                21 -> FlexboxLayoutManager(mAttachContext).apply {
+                    flexDirection = FlexDirection.COLUMN
+                    justifyContent = JustifyContent.FLEX_END
+                }
                 else -> MyLayoutManager3()
+            }
+
+            recyclerView.adapter = onCreateAdapter(null).apply {
+                baseDslAdapter = this as DslAdapter?
+                来点数据()
             }
         }
     }
