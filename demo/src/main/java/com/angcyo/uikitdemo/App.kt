@@ -79,7 +79,7 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
                             L.i(it)
                         }, -1)
 
-                        dslAdapter?.foldItem(adapterItem, adapterItem.itemGroupExtend)
+                        itemDslAdapter?.foldItem(adapterItem, adapterItem.itemGroupExtend)
                     }
                 }
             }
