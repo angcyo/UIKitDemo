@@ -68,8 +68,11 @@ public class WaveView extends View {
         if (ta.hasValue(R.styleable.WaveView_mwhWaves)) {
             setTag(ta.getString(R.styleable.WaveView_mwhWaves));
         } else if (getTag() == null) {
-            //int offsetX, int offsetY, float scaleX, float scaleY, int velocity,
-            setTag("0,0,1,1,40\n100,0,1,0.8,-30\n250,0,1,1.2,25\n");
+            //   offsetX, offsetY, scaleX,scaleY, velocity,
+            //setTag("0,0,1,1,40\n100,0,1,0.8,-30\n250,0,1,1.2,25");
+//            setTag("100,0,1,0.8,-30");
+            //setTag("70,25,1.4,1.4,-26\n100,5,1.4,1.2,15\n420,0,1.15,1,-10\n520,10,1.7,1.5,20\n220,0,1,1,-15");
+            setTag("0,0,1,1,45\n90,0,1,1,-70\n180,0,1,1,45");
         }
         ta.recycle();
     }
