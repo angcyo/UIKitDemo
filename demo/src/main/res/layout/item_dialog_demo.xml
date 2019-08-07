@@ -241,6 +241,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
+        <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/full_popup_title"
+                android:text="全屏Popup fix width TitleBar"
+                style="@style/BaseSkinButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
     <com.angcyo.uiview.less.widget.Button

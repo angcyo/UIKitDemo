@@ -534,6 +534,24 @@ class DialogDemo : AppBaseItemFragment() {
                         }
                     }
                 }
+
+                holder.click(R.id.full_popup_title) {
+                    popupWindow(titleBarLayout) {
+                        layoutId = R.layout.item_dialog_demo
+                        width = -1
+                        background = ColorDrawable(getColor(R.color.transparent_dark40))
+                        exactlyHeight = true
+                        onDismiss = {
+                            L.i("...dismiss...")
+                            toast_tip("...dismiss...")
+                        }
+
+                        popupInit = {popupWindow, popupViewHolder ->
+                            popupViewHolder.view(R.id.flow_style).setBackgroundColor(Color.RED)
+                            popupViewHolder.view(R.id.flow_1).setBackgroundColor(Color.RED)
+                        }
+                    }
+                }
             }
 
             override fun getItemLayoutId(): Int {

@@ -1,7 +1,9 @@
 package com.angcyo.uikitdemo
 
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import com.angcyo.lib.L
@@ -46,7 +48,9 @@ class App : PluginHostApplication() {
 
         RNetwork.init(this)
 
-        CardOcr.init(this)
+        if (!isGenymotion()) {
+            CardOcr.init(this)
+        }
     }
 }
 
@@ -122,3 +126,7 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
         }
     }
 }
+
+fun isGenymotion(): Boolean =
+    TextUtils.equals("genymotion", Build.MANUFACTURER.toLowerCase()) ||
+            Build.DEVICE?.startsWith("vbox") == true
