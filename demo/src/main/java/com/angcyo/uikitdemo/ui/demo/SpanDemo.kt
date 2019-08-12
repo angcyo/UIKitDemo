@@ -62,6 +62,22 @@ class SpanDemo : AppBaseItemFragment() {
                         it.setMaxSize(100 * dpi)
                     }
 
+                    .append(spanKey)
+                    .customSpan {
+                        RSpan.TextSpan().apply {
+                            setMinSize(100 * dpi)
+                            setBackgroundColor(Color.YELLOW)
+                            setForegroundColor(Color.RED)
+                        }
+                    }
+                    .append(spanValueNum)
+                    .customSpan {
+                        RSpan.TextSpan().apply {
+                            setMaxSize(80 * dpi)
+                            setForegroundColor(Color.BLUE)
+                        }
+                    }
+
 //                    .appendImage(R.drawable.ic_logo)
 //                    .append("测试文本")
 //                    .setForegroundColor(Color.RED)
