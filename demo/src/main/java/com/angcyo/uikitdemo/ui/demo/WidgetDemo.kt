@@ -1,8 +1,6 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
-import com.google.android.material.circularreveal.CircularRevealFrameLayout
-import com.google.android.material.circularreveal.CircularRevealWidget
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import com.angcyo.lib.L
@@ -11,6 +9,7 @@ import com.angcyo.uikitdemo.component.MarginTextSpan
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.base.dialog.HttpConfigDialog
 import com.angcyo.uiview.less.kotlin.dp
+import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
@@ -19,6 +18,8 @@ import com.angcyo.uiview.less.utils.RSpan
 import com.angcyo.uiview.less.utils.RUtils
 import com.angcyo.uiview.less.utils.SpanUtils
 import com.angcyo.uiview.less.utils.Tip
+import com.google.android.material.circularreveal.CircularRevealFrameLayout
+import com.google.android.material.circularreveal.CircularRevealWidget
 import java.util.*
 
 /**
@@ -49,9 +50,41 @@ class WidgetDemo : AppBaseItemFragment() {
                     setSpan(RSpan.TextSpan(), 6, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
                 }
 
+                val spanKey = "span key"
+                val spanValue =
+                    "span value .span value .span value .span value .span value.88888888@qq.com\n"
+                val spanValueNum = "888888888888888888888888888888888888888888888888@qq.com\n"
+
                 holder.tv(R.id.text4).text = RSpan.get()
-                    .append("测试文本")
+                    .appendMainText(spanKey)
                     .setMinSize(ResUtil.dpToPx(100F).toInt())
+                    .appendMainText(spanValue)
+                    .setForegroundColor(Color.RED)
+
+                    .appendMainText(spanKey)
+                    .setMinSize(ResUtil.dpToPx(100F).toInt())
+                    .appendMainText(spanValue)
+                    .setForegroundColor(Color.RED)
+
+                    .appendMainText(spanKey)
+                    .setMinSize(ResUtil.dpToPx(100F).toInt())
+                    .appendMainText(spanValue)
+                    .setForegroundColor(Color.RED)
+
+                    .appendMainText(spanKey)
+                    .setMinSize(ResUtil.dpToPx(100F).toInt())
+                    .appendMainText(spanValueNum)
+                    .setForegroundColor(Color.RED)
+                    .replaceText(spanValueNum)
+                    .setMaxSize(200 * dpi)
+
+                    .appendMainText(spanKey)
+                    .setMinSize(ResUtil.dpToPx(100F).toInt())
+                    .appendMainText(spanValueNum)
+                    .setForegroundColor(Color.RED)
+                    .replaceText(spanValueNum)
+                    .setMaxSize(200 * dpi)
+
                     .appendImage(R.drawable.ic_logo)
                     .append("测试文本")
                     .setForegroundColor(Color.RED)

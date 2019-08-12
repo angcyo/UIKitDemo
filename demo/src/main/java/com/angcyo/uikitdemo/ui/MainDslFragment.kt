@@ -1,7 +1,6 @@
 package com.angcyo.uikitdemo.ui
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.java.Java
@@ -26,13 +25,18 @@ import com.angcyo.uiview.less.utils.Tip
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class MainDslFragment : AppBaseDslRecyclerFragment() {
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         renderDslAdapter {
             renderMainItem("AdapterStatusDemo", 10 * dpi)
             renderMainItem("TabLayoutDemo")
             renderMainItem("WidgetDemo")
+            renderMainItem("SpanDemo")
             renderMainItem("TransitionDemo")
             renderMainItem("SceneDemo")
             renderMainItem("MPChartDemo")
@@ -70,8 +74,10 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
                 itemLayoutId = R.layout.item_last
                 itemTag = "Last"
                 itemBind = { itemHolder, _, _ ->
-                    itemHolder.tv(R.id.text_view).text = StringBuilder().append(RUtils.getIP(mAttachContext))
-                        .append(' ').append(RUtils.getMobileIP()).appendln().append(Root.device_info(mAttachContext))
+                    itemHolder.tv(R.id.text_view).text =
+                        StringBuilder().append(RUtils.getIP(mAttachContext))
+                            .append(' ').append(RUtils.getMobileIP()).appendln()
+                            .append(Root.device_info(mAttachContext))
 
                     itemHolder.click(R.id.text_view) {
                         RUtils.copyText(itemHolder.tv(R.id.text_view).text)
@@ -109,7 +115,8 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
                         val className = "com.angcyo.uikitdemo.ui.demo.${text?.split(" ")?.get(0)}"
                         try {
                             if (fragment == null) {
-                                cls = Class.forName(className) as? Class<out androidx.fragment.app.Fragment>
+                                cls =
+                                    Class.forName(className) as? Class<out androidx.fragment.app.Fragment>
                             }
                         } catch (e: Exception) {
                             Tip.tip("未找到类:\n$className")
