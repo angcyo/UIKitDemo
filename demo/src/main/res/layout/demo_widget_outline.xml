@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/text1"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xxhdpi"
+        android:background="@drawable/base_white_round_bg_5x"
+        android:padding="@dimen/base_xhdpi"
+        android:text="文本测试"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text2"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xxhdpi"
+        android:background="@drawable/base_white_round_bg_5x"
+        android:elevation="@dimen/base_elevation"
+        android:padding="@dimen/base_xhdpi"
+        android:text="文本测试"
+        app:layout_constraintLeft_toRightOf="@id/text1"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text3"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xxhdpi"
+        android:background="@drawable/base_white_round_bg_5x"
+        android:outlineAmbientShadowColor="@color/blue"
+        android:outlineProvider="background"
+        android:outlineSpotShadowColor="@color/base_red"
+        android:padding="@dimen/base_xhdpi"
+        android:text="文本测试"
+        app:layout_constraintLeft_toRightOf="@id/text2"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text4"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xxhdpi"
+        android:background="@drawable/base_white_round_bg_5x"
+        android:outlineAmbientShadowColor="@color/blue"
+        android:outlineProvider="bounds"
+        android:outlineSpotShadowColor="@color/base_red"
+        android:padding="@dimen/base_xhdpi"
+        android:text="文本测试"
+        app:layout_constraintLeft_toLeftOf="@id/text3"
+        app:layout_constraintTop_toBottomOf="@id/text3" />
+
+    <TextView
+        android:id="@+id/text5"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xxhdpi"
+        android:background="@drawable/base_white_round_bg_5x"
+        android:outlineAmbientShadowColor="@color/blue"
+        android:outlineProvider="paddedBounds"
+        android:outlineSpotShadowColor="@color/base_red"
+        android:padding="@dimen/base_xhdpi"
+        android:text="文本测试"
+        app:layout_constraintLeft_toLeftOf="@id/text4"
+        app:layout_constraintTop_toBottomOf="@id/text4" />
+
+
+    <FrameLayout
+        android:id="@+id/wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/base_red_c8381f">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:src="@drawable/image_placeholder" />
+
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
