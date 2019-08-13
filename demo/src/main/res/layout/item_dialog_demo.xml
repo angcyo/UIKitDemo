@@ -1,274 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        tools:background="@color/transparent_dark60"
-        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/transparent_dark60">
 
     <RadioGroup
-            android:id="@+id/flow_style"
-            android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:checkedButton="@id/style_appcompat"
-            android:padding="@dimen/base_hdpi"
-            android:layout_height="wrap_content">
+        android:id="@+id/flow_style"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:checkedButton="@id/style_appcompat"
+        android:orientation="horizontal"
+        android:padding="@dimen/base_hdpi">
 
         <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/style_appcompat"
-                android:text="AppCompat"
-                style="@style/BaseMainTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/style_appcompat"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AppCompat" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/style_alert"
-                android:text="AlertDialog"
-                style="@style/BaseMainTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/style_alert"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AlertDialog" />
 
         <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/style_sheet"
-                android:text="BottomSheet"
-                style="@style/BaseMainTextStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/style_sheet"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="BottomSheet" />
 
     </RadioGroup>
 
     <com.angcyo.uiview.less.widget.group.RFlowLayout
-            android:id="@+id/flow_1"
-            android:layout_width="match_parent"
-            app:layout_constraintTop_toBottomOf="@id/flow_style"
-            android:padding="@dimen/base_hdpi"
-            app:r_flow_item_horizontal_space="@dimen/base_hdpi"
-            app:r_flow_item_vertical_space="@dimen/base_hdpi"
-            android:layout_height="wrap_content">
+        android:id="@+id/flow_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/flow_style"
+        app:r_flow_item_horizontal_space="@dimen/base_hdpi"
+        app:r_flow_item_vertical_space="@dimen/base_hdpi">
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/normal_dialog"
-                android:text="普通确认对话框框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/normal_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通确认对话框框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/normal_ios_dialog"
-                android:text="普通IOS确认对话框框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/normal_ios_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通IOS确认对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/wheel_dialog"
-                android:text="Wheel选择对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/normal_ios_dialog2"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IOS对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/item_dialog"
-                android:text="Items对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/wheel_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wheel选择对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/item_dialog_full"
-                android:text="Items对话框(全屏)"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/item_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Items对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/menu_dialog"
-                android:text="菜单对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/item_dialog_full"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Items对话框(全屏)" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/menu_ico_dialog"
-                android:text="菜单对话框Ico"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/menu_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/menu_ico2_dialog"
-                android:text="菜单对话框Ico2"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/menu_ico_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单对话框Ico" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/menu_choice_dialog"
-                android:text="菜单单选确认对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/menu_ico2_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单对话框Ico2" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/menu_multi_dialog"
-                android:text="菜单多选确认对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/menu_choice_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单单选确认对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/input_single_dialog"
-                android:text="单行输入对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/menu_multi_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="菜单多选确认对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/input_multi_dialog"
-                android:text="多行输入对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/input_single_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="单行输入对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/grid_dialog"
-                android:text="网格对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/input_multi_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多行输入对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/all_dialog"
-                android:text="日期时间"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/grid_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="网格对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/date_dialog"
-                android:text="日期选择"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/all_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期时间" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/time_dialog"
-                android:text="时间选择"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/date_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日期选择" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/option_dialog"
-                android:text="多级选项对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/time_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="时间选择" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/option_dialog2"
-                android:text="多级选项对话框(带半默认)"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/option_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/option_dialog3"
-                android:text="多级选项对话框(带全默认)"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/option_dialog2"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框(带半默认)" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/calendar_dialog"
-                android:text="日历选择对话框"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/option_dialog3"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框(带全默认)" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/calendar_dialog1"
-                android:text="日历选择对话框(带默认1)"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/calendar_dialog"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日历选择对话框" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/calendar_dialog2"
-                android:text="日历选择对话框(带默认2)"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/calendar_dialog1"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日历选择对话框(带默认1)" />
+
+        <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/calendar_dialog2"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="日历选择对话框(带默认2)" />
 
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
     <com.angcyo.uiview.less.widget.group.RFlowLayout
-            android:id="@+id/flow_2"
-            android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/base_title_bar_item_size"
-            android:padding="@dimen/base_hdpi"
-            app:r_flow_item_horizontal_space="@dimen/base_hdpi"
-            app:r_flow_item_vertical_space="@dimen/base_hdpi"
-            app:layout_constraintTop_toBottomOf="@id/flow_1"
-            android:layout_height="wrap_content">
+        android:id="@+id/flow_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_title_bar_item_size"
+        android:padding="@dimen/base_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/flow_1"
+        app:r_flow_item_horizontal_space="@dimen/base_hdpi"
+        app:r_flow_item_vertical_space="@dimen/base_hdpi">
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/normal_popup"
-                android:text="普通Popup"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/normal_popup"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="普通Popup" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/width_full_popup"
-                android:text="Width全屏Popup"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/width_full_popup"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Width全屏Popup" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/full_popup"
-                android:text="全屏Popup"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/full_popup"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全屏Popup" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/full_popup2"
-                android:text="全屏Popup fix"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/full_popup2"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全屏Popup fix" />
 
         <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/full_popup_title"
-                android:text="全屏Popup fix width TitleBar"
-                style="@style/BaseSkinButtonStyle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+            android:id="@+id/full_popup_title"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="全屏Popup fix width TitleBar" />
 
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
     <com.angcyo.uiview.less.widget.Button
-            android:id="@+id/bottom_popup"
-            android:text="Bottom"
-            app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_margin="@dimen/base_item_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            style="@style/BaseSkinButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/bottom_popup"
+        style="@style/BaseSkinButtonStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_item_size"
+        android:text="Bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
-            android:id="@+id/bottom"
-            style="@style/BaseMainTextStyle"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/base_bg_selector_v21"
-            android:textColor="@color/transparent_dark60"
-            android:text="bottom"/>
+        android:id="@+id/bottom"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_bg_selector_v21"
+        android:text="bottom"
+        android:textColor="@color/transparent_dark60"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,13 +39,14 @@ class DialogDemo : AppBaseItemFragment() {
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         singleItems.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
-                holder.v<RadioGroup>(R.id.flow_style).setOnCheckedChangeListener { group, checkedId ->
-                    dialogType = when (checkedId) {
-                        R.id.style_alert -> BaseDialogConfig.DIALOG_TYPE_ALERT_DIALOG
-                        R.id.style_sheet -> BaseDialogConfig.DIALOG_TYPE_BOTTOM_SHEET_DIALOG
-                        else -> BaseDialogConfig.DIALOG_TYPE_APPCOMPAT
+                holder.v<RadioGroup>(R.id.flow_style)
+                    .setOnCheckedChangeListener { group, checkedId ->
+                        dialogType = when (checkedId) {
+                            R.id.style_alert -> BaseDialogConfig.DIALOG_TYPE_ALERT_DIALOG
+                            R.id.style_sheet -> BaseDialogConfig.DIALOG_TYPE_BOTTOM_SHEET_DIALOG
+                            else -> BaseDialogConfig.DIALOG_TYPE_APPCOMPAT
+                        }
                     }
-                }
 
                 holder.click(R.id.normal_dialog) {
                     normalDialog {
@@ -69,6 +70,24 @@ class DialogDemo : AppBaseItemFragment() {
                 holder.click(R.id.normal_ios_dialog) {
                     normalIosDialog {
                         dialogTitle = "标题"
+                        dialogMessage = "内容"
+
+                        positiveButton { dialog, _ ->
+                            TopToast.show("Test...")
+
+                            dialog.cancel()
+                        }
+
+                        negativeButton { dialog, _ ->
+                            dialog.dismiss()
+                        }
+
+                        dialogType = this@DialogDemo.dialogType
+                    }
+                }
+
+                holder.click(R.id.normal_ios_dialog2) {
+                    normalIosDialog {
                         dialogMessage = "内容"
 
                         positiveButton { dialog, _ ->
@@ -178,7 +197,8 @@ class DialogDemo : AppBaseItemFragment() {
                         //dialogTitle = "你要干啥?"
 
                         items = mutableListOf("Item1", "Item2", "Item3")
-                        itemIcons = mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
+                        itemIcons =
+                            mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
 
                         onItemClick = { _, _, item ->
                             TopToast.show(item as CharSequence)
@@ -194,7 +214,8 @@ class DialogDemo : AppBaseItemFragment() {
                         //dialogTitle = "你要干啥?"
 
                         items = mutableListOf("Item1", "Item2", "Item3")
-                        itemIcons = mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
+                        itemIcons =
+                            mutableListOf(R.drawable.ic_delete_photo, R.drawable.ic_delete_photo)
                         itemTextGravity = Gravity.LEFT or Gravity.CENTER_VERTICAL
 
                         onItemClick = { _, _, item ->
@@ -289,27 +310,32 @@ class DialogDemo : AppBaseItemFragment() {
                     gridDialog {
                         appendItem {
                             gridItemIcon = R.drawable.ic_building_collect
-                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
+                            gridItemBgDrawable =
+                                RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
                             gridItemText = "走 访"
                         }
                         appendItem {
                             gridItemIcon = R.drawable.ic_building_collect
-                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
+                            gridItemBgDrawable =
+                                RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
                             gridItemText = "添加人口"
                         }
                         appendItem {
                             gridItemIcon = R.drawable.ic_building_collect
-                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#F5BA00".toColor()).get()
+                            gridItemBgDrawable =
+                                RDrawable.get(requireContext()).circle("#F5BA00".toColor()).get()
                             gridItemText = "注销人口"
                         }
                         appendItem {
                             gridItemIcon = R.drawable.ic_building_collect
-                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
+                            gridItemBgDrawable =
+                                RDrawable.get(requireContext()).circle("#00BA8A".toColor()).get()
                             gridItemText = "房屋信息"
                         }
                         appendItem {
                             gridItemIcon = R.drawable.ic_building_collect
-                            gridItemBgDrawable = RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
+                            gridItemBgDrawable =
+                                RDrawable.get(requireContext()).circle("#3796F6".toColor()).get()
                             gridItemText = "房屋相册"
                         }
 
@@ -546,7 +572,7 @@ class DialogDemo : AppBaseItemFragment() {
                             toast_tip("...dismiss...")
                         }
 
-                        popupInit = {popupWindow, popupViewHolder ->
+                        popupInit = { popupWindow, popupViewHolder ->
                             popupViewHolder.view(R.id.flow_style).setBackgroundColor(Color.RED)
                             popupViewHolder.view(R.id.flow_1).setBackgroundColor(Color.RED)
                         }
