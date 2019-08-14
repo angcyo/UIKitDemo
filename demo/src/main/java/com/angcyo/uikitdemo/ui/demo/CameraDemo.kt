@@ -76,6 +76,7 @@ class CameraDemo : AppBaseTitleFragment() {
                 .showFragment(CodeScanFragment().apply {
                     onScanResult = {
                         viewHolder.tv(R.id.text_view).text = it
+                        true
                     }
                 })
                 .doIt()
