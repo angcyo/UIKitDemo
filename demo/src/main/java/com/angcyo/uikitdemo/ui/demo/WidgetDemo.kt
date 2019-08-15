@@ -1,11 +1,11 @@
 package com.angcyo.uikitdemo.ui.demo
 
-import android.graphics.Color
-import android.graphics.Outline
+import android.graphics.*
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.view.View
+import android.view.View.*
 import android.view.ViewOutlineProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
@@ -29,6 +29,7 @@ import java.util.*
 import kotlin.math.max
 import kotlin.math.min
 
+
 /**
  *
  * Email:angcyo@126.com
@@ -36,10 +37,6 @@ import kotlin.math.min
  * @date 2019/02/23
  */
 class WidgetDemo : AppBaseDslRecyclerFragment() {
-
-    override fun getRecyclerViewPool(): RecyclerView.RecycledViewPool? {
-        return null
-    }
 
     override fun onInitBaseView(
         viewHolder: RBaseViewHolder,
@@ -50,6 +47,55 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
 
         val circleClipOutline = CircleClipOutline()
         renderDslAdapter {
+            dslItem(R.layout.demo_widget_grayscale) {
+                itemBind = { itemHolder, _, _ ->
+                    //变灰, 界面灰度处理
+                    val matrix = ColorMatrix()
+                    matrix.setSaturation(0f)//饱和度 0灰色 100过度彩色，50正常
+                    val filter = ColorMatrixColorFilter(matrix)
+                    val paint = Paint()
+                    paint.colorFilter = filter
+
+                    val decorView = activity?.window?.decorView
+
+                    itemHolder.view(R.id.root_layout).apply {
+                        L.e(
+                            "LayoutType1: ${when (layerType) {
+                                LAYER_TYPE_SOFTWARE -> "LAYER_TYPE_SOFTWARE"
+                                LAYER_TYPE_HARDWARE -> "LAYER_TYPE_HARDWARE"
+                                else -> "LAYER_TYPE_NONE"
+                            }
+                            }"
+                        )
+
+                        L.e(
+                            "LayoutType2: ${when (decorView?.layerType) {
+                                LAYER_TYPE_SOFTWARE -> "LAYER_TYPE_SOFTWARE"
+                                LAYER_TYPE_HARDWARE -> "LAYER_TYPE_HARDWARE"
+                                else -> "LAYER_TYPE_NONE"
+                            }
+                            }"
+                        )
+                        setLayerType(LAYER_TYPE_SOFTWARE, paint)
+                    }
+
+                    itemHolder.click(R.id.image_view) {
+                        decorView?.setLayerType(LAYER_TYPE_SOFTWARE, paint)
+                        itemHolder.view(R.id.root_layout).setLayerType(LAYER_TYPE_SOFTWARE, paint)
+                    }
+
+                    itemHolder.click(R.id.button2) {
+                        itemHolder.view(R.id.root_layout).setLayerType(LAYER_TYPE_SOFTWARE, paint)
+                    }
+
+                    //恢复变灰
+                    itemHolder.click(R.id.button1) {
+                        decorView?.setLayerType(LAYER_TYPE_NONE, null)
+                        itemHolder.view(R.id.root_layout).setLayerType(LAYER_TYPE_NONE, null)
+                    }
+                }
+            }
+
             dslItem(R.layout.demo_widget_outline) {
                 itemBind = { itemHolder, _, _ ->
                     itemHolder.view(R.id.wrap_layout).apply {
@@ -70,14 +116,19 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
                             .appendImage(R.drawable.ic_logo)
                             .append("测试文本")
                             .setForegroundColor(Color.RED)
-                            .appendImage(R.drawable.ic_logo, SpanUtils.ALIGN_CENTER)
+                            .appendImage(
+                                R.drawable.ic_logo,
+                                SpanUtils.ALIGN_CENTER
+                            )
                             .create()
 
-                    itemHolder.tv(R.id.text2).text = itemHolder.tv(R.id.text1).text
-                    itemHolder.tv(R.id.text3).text = SpannableStringBuilder("测试文本\n测试文本").apply {
-                        setSpan(RSpan.TextSpan(), 1, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                        setSpan(RSpan.TextSpan(), 6, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    }
+                    itemHolder.tv(R.id.text2).text =
+                        itemHolder.tv(R.id.text1).text
+                    itemHolder.tv(R.id.text3).text =
+                        SpannableStringBuilder("测试文本\n测试文本").apply {
+                            setSpan(RSpan.TextSpan(), 1, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                            setSpan(RSpan.TextSpan(), 6, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
 
                     val spanKey = "span key"
                     val spanValue =
@@ -119,7 +170,10 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
                         .setForegroundColor(Color.RED)
                         .setMinSize(ResUtil.dpToPx(5700F).toInt())
                         .setBackgroundColor(Color.YELLOW)
-                        .appendImage(R.drawable.ic_logo, SpanUtils.ALIGN_CENTER)
+                        .appendImage(
+                            R.drawable.ic_logo,
+                            SpanUtils.ALIGN_CENTER
+                        )
                         .create()
 
                     itemHolder.click(R.id.button1) {
@@ -155,7 +209,8 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
                         Tip.tip(getMonthEndTime())
                     }
 
-                    val revealLayout: CircularRevealFrameLayout = itemHolder.v(R.id.reveal_layout)
+                    val revealLayout: CircularRevealFrameLayout =
+                        itemHolder.v(R.id.reveal_layout)
                     revealLayout.post {
                         revealLayout.buildCircularRevealCache()
                         //revealLayout.circularRevealScrimColor = Color.RED
@@ -170,20 +225,22 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
                         revealLayout.destroyCircularRevealCache()
                     }
 
-                    itemHolder.tv(R.id.time_view).text = SpannableStringBuilder("22:22:22").apply {
-                        setSpan(
-                            RSpan.TextSpan().apply {
-                                setOffsetY(-2 * dp)
-                            },
-                            2,
-                            3,
-                            Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
-                        )
-                    }
+                    itemHolder.tv(R.id.time_view).text =
+                        SpannableStringBuilder("22:22:22").apply {
+                            setSpan(
+                                RSpan.TextSpan().apply {
+                                    setOffsetY(-2 * dp)
+                                },
+                                2,
+                                3,
+                                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                            )
+                        }
 
-                    itemHolder.tv(R.id.time_view2).text = SpannableStringBuilder("22:22:22").apply {
-                        setSpan(MarginTextSpan(-2 * dp), 2, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
-                    }
+                    itemHolder.tv(R.id.time_view2).text =
+                        SpannableStringBuilder("22:22:22").apply {
+                            setSpan(MarginTextSpan(-2 * dp), 2, 3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                        }
                 }
             }
         }

@@ -23,9 +23,6 @@ import java.util.*
  * @date 2019-8-12
  */
 class SpanDemo : AppBaseItemFragment() {
-    override fun getRecyclerViewPool(): RecyclerView.RecycledViewPool? {
-        return null
-    }
 
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         singleItems.add(object : SingleItem() {
