@@ -8,6 +8,7 @@ import com.angcyo.opencv.CardOcrScanFragment
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.iview.ChoiceIView
+import com.angcyo.uiview.less.kotlin.gravityFlag
 import com.angcyo.uiview.less.kotlin.toBitmap
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import java.util.*
@@ -67,10 +68,27 @@ class OpencvOCRDemo : AppBaseItemFragment() {
                                     append(gravityToString(gravity))
 
                                     appendln()
-                                    val absoluteGravity = getAbsoluteGravity(gravity, LayoutDirection.LTR)
+                                    val absoluteGravity =
+                                        getAbsoluteGravity(gravity, LayoutDirection.LTR)
                                     append(absoluteGravity)
                                     appendln()
                                     append(gravityToString(absoluteGravity))
+
+                                    appendln()
+                                    absoluteGravity.gravityFlag().forEachIndexed { index, byte ->
+                                        append(
+                                            when (index) {
+                                                1 -> "T"
+                                                2 -> "R"
+                                                3 -> "B"
+                                                4 -> "C"
+                                                else -> "L"
+                                            }
+                                        )
+                                        append(":")
+                                        append(byte)
+                                        append(" ")
+                                    }
                                 }
                             }
                         }
