@@ -5,10 +5,10 @@
     android:layout_height="100dp"
     android:background="@color/base_red">
 
-    <ImageView
+    <com.angcyo.uiview.less.widget.GlideImageView
         android:id="@+id/image_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/base_100dpi"
+        android:layout_height="match_parent"
         android:layout_gravity="bottom|center_horizontal"
         android:src="@drawable/base_tip_ok" />
 

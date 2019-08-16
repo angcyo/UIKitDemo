@@ -4,13 +4,14 @@ import android.graphics.*
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.text.Spanned
+import android.text.TextUtils
 import android.view.View
 import android.view.View.*
 import android.view.ViewOutlineProvider
-import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.component.MarginTextSpan
+import com.angcyo.uikitdemo.component.RScreenshotObserver
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.base.dialog.HttpConfigDialog
 import com.angcyo.uiview.less.kotlin.anim
@@ -49,6 +50,11 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
         renderDslAdapter {
             dslItem(R.layout.demo_widget_grayscale) {
                 itemBind = { itemHolder, _, _ ->
+                    //截图图片
+                    if (!TextUtils.isEmpty(screenshotPath)) {
+                        itemHolder.giv(R.id.image_view).url = screenshotPath
+                    }
+
                     //变灰, 界面灰度处理
                     val matrix = ColorMatrix()
                     matrix.setSaturation(0f)//饱和度 0灰色 100过度彩色，50正常
@@ -244,6 +250,28 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
                 }
             }
         }
+    }
+
+    var screenshotPath: String? = null
+    var screenshotObserver = RScreenshotObserver()
+
+    override fun onFragmentShow(bundle: Bundle?) {
+        super.onFragmentShow(bundle)
+
+        screenshotObserver.observe(requireActivity().contentResolver) {
+            screenshotPath = it
+            baseDslAdapter.notifyItemChanged(0)
+        }
+    }
+
+    override fun onFragmentHide() {
+        super.onFragmentHide()
+        screenshotObserver.unObserve()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        screenshotObserver.release()
     }
 
     class CircleClipOutline : ViewOutlineProvider() {
