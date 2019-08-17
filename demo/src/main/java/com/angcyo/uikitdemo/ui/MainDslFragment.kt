@@ -68,6 +68,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("CalendarViewDemo")
             renderMainItem("LayoutManagerDemo")
             renderMainItem("AgoraDemo")
+            renderMainItem("ViewPager2Demo")
 
             //last item
             renderMainItem {
