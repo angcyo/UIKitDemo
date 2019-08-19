@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.angcyo.uiview.less.widget.group.RSoftInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/base_soft_input_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/transparent_dark20">
+    android:background="@color/transparent_dark20"
+    android:padding="@dimen/base_xxhdpi"
+    app:r_default_soft_input_height="200dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/base_dark_red"
         android:orientation="vertical">
 
         <com.angcyo.uiview.less.widget.RSmartRefreshLayout
@@ -85,5 +89,11 @@
             android:text="右下" />
 
     </FrameLayout>
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="right|center_horizontal"
+        android:src="@drawable/image_placeholder" />
 
 </com.angcyo.uiview.less.widget.group.RSoftInputLayout>
