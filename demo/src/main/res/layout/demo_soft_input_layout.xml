@@ -1,38 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.angcyo.uiview.less.widget.group.RSoftInputLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/base_soft_input_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<com.angcyo.uiview.less.widget.group.RSoftInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/base_soft_input_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent_dark20">
 
     <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <com.angcyo.uiview.less.widget.RSmartRefreshLayout
-                android:id="@+id/base_refresh_layout"
-                tools:ignore="MissingDefaultResource"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="0dp">
+            android:id="@+id/base_refresh_layout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            tools:ignore="MissingDefaultResource">
 
             <com.angcyo.uiview.less.recycler.RRecyclerView
-                    android:id="@+id/base_recycler_view"
-                    android:layout_width="match_parent"
-                    android:background="@drawable/base_dark_round_border_shape"
-                    android:layout_margin="@dimen/base_xhdpi"
-                    android:layout_height="match_parent"/>
+                android:id="@+id/base_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/base_xhdpi"
+                android:background="@drawable/base_dark_round_border_shape" />
 
         </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
 
-        <com.angcyo.uiview.less.widget.ExEditText
-                android:minHeight="50dp"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minHeight="50dp">
+
+            <com.angcyo.uiview.less.widget.ExEditText
+                android:id="@+id/edit_text"
                 style="@style/BaseMainTextStyle"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_marginRight="60dp"
+                android:minHeight="50dp" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/emoji_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|center_vertical"
+                android:text="emoji" />
+        </FrameLayout>
 
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/emoji_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.angcyo.uiview.less.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="左上" />
+
+        <com.angcyo.uiview.less.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:text="右上" />
+
+        <com.angcyo.uiview.less.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="居中" />
+
+        <com.angcyo.uiview.less.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:text="左下" />
+
+        <com.angcyo.uiview.less.widget.Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:text="右下" />
+
+    </FrameLayout>
 
 </com.angcyo.uiview.less.widget.group.RSoftInputLayout>

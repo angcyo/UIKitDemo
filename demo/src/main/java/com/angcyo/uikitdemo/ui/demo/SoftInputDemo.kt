@@ -1,14 +1,19 @@
 package com.angcyo.uikitdemo.ui.demo
 
+import android.app.Activity
 import android.os.Bundle
+import android.view.View
+import android.widget.EditText
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.kotlin.nowTime
 import com.angcyo.uiview.less.kotlin.renderItem
+import com.angcyo.uiview.less.kotlin.showSoftInput
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.skin.SkinHelper
 import com.angcyo.uiview.less.utils.RSpan
+import com.angcyo.uiview.less.widget.Button
 import com.angcyo.uiview.less.widget.group.RSoftInputLayout
 
 /**
@@ -24,11 +29,21 @@ class SoftInputDemo : AppBaseDslRecyclerFragment() {
         return R.layout.demo_soft_input_layout
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
-        viewHolder.v<RSoftInputLayout>(R.id.base_soft_input_layout)
-            .addOnEmojiLayoutChangeListener { isEmojiShow, isKeyboardShow, height ->
+        floatTitleBar(true, true)
+
+        viewHolder.v<RSoftInputLayout>(R.id.base_soft_input_layout).apply {
+            addOnEmojiLayoutChangeListener { isEmojiShow, isKeyboardShow, height ->
+                if (isKeyboardShow) {
+                    viewHolder.view(R.id.emoji_button).isSelected = false
+                }
+
                 baseDslAdapter.renderItem {
                     itemLayoutId = R.layout.base_single_text_layout
                     itemData = nowTime()
@@ -50,5 +65,25 @@ class SoftInputDemo : AppBaseDslRecyclerFragment() {
                 recyclerView.scrollToLastBottom(true)
                 baseDslAdapter.updateAllItem()
             }
+
+
+            viewHolder.click(R.id.emoji_button) {
+                if (it.isSelected) {
+                    viewHolder.view(R.id.edit_text).showSoftInput()
+                } else {
+                    showEmojiLayout()
+                }
+
+                it.isSelected = !it.isSelected
+            }
+        }
+    }
+
+    override fun hideSoftInputOnTouchDown(touchDownView: View?): Boolean {
+        return touchDownView !is EditText && touchDownView !is Button
+    }
+
+    override fun onBackPressed(activity: Activity): Boolean {
+        return baseViewHolder.v<RSoftInputLayout>(R.id.base_soft_input_layout).requestBackPressed()
     }
 }
