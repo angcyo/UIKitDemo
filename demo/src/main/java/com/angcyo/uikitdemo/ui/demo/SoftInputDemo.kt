@@ -4,6 +4,7 @@ import android.app.Activity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
+import android.widget.ImageView
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.kotlin.getColor
@@ -36,7 +37,7 @@ class SoftInputDemo : AppBaseDslRecyclerFragment() {
     ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
-        floatTitleBar(true, true)
+        floatTitleBar(true, false)
 
         viewHolder.v<RSoftInputLayout>(R.id.base_soft_input_layout).apply {
             addOnEmojiLayoutChangeListener { isEmojiShow, isKeyboardShow, height ->
@@ -66,7 +67,6 @@ class SoftInputDemo : AppBaseDslRecyclerFragment() {
                 baseDslAdapter.updateAllItem()
             }
 
-
             viewHolder.click(R.id.emoji_button) {
                 if (it.isSelected) {
                     viewHolder.view(R.id.edit_text).showSoftInput()
@@ -76,11 +76,20 @@ class SoftInputDemo : AppBaseDslRecyclerFragment() {
 
                 it.isSelected = !it.isSelected
             }
+
+            viewHolder.click(R.id.image_view_left) {
+                showEmojiLayout()
+            }
+
+            viewHolder.click(R.id.image_view_right) {
+                //viewHolder.itemView.setHeight(500 * dpi)
+                hideEmojiLayout()
+            }
         }
     }
 
     override fun hideSoftInputOnTouchDown(touchDownView: View?): Boolean {
-        return touchDownView !is EditText && touchDownView !is Button
+        return touchDownView !is EditText && touchDownView !is Button && touchDownView !is ImageView
     }
 
     override fun onBackPressed(activity: Activity): Boolean {

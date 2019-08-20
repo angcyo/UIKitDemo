@@ -1,99 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.angcyo.uiview.less.widget.group.RSoftInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/base_soft_input_layout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/transparent_dark20"
-    android:padding="@dimen/base_xxhdpi"
-    app:r_default_soft_input_height="200dp">
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:layout_width="match_parent"-->
+<!--    android:layout_height="match_parent"-->
+<!--    android:paddingRight="40dp"-->
+<!--    android:paddingTop="40dp"-->
+<!--    android:paddingLeft="40dp">-->
 
-    <LinearLayout
+    <com.angcyo.uiview.less.widget.group.RSoftInputLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/base_soft_input_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/base_dark_red"
-        android:orientation="vertical">
+        android:background="@color/transparent_dark20"
+        app:r_default_soft_input_height="100dp">
 
-        <com.angcyo.uiview.less.widget.RSmartRefreshLayout
-            android:id="@+id/base_refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:ignore="MissingDefaultResource">
 
-            <com.angcyo.uiview.less.recycler.RRecyclerView
-                android:id="@+id/base_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="@dimen/base_xhdpi"
-                android:background="@drawable/base_dark_round_border_shape" />
-
-        </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="50dp">
+            android:background="@color/base_dark_red"
+            android:orientation="vertical">
 
             <com.angcyo.uiview.less.widget.ExEditText
-                android:id="@+id/edit_text"
                 style="@style/BaseMainTextStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="60dp"
+                android:inputType="textWebPassword"
                 android:minHeight="50dp" />
 
+            <com.angcyo.uiview.less.widget.RSmartRefreshLayout
+                android:id="@+id/base_refresh_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:ignore="MissingDefaultResource">
+
+                <com.angcyo.uiview.less.recycler.RRecyclerView
+                    android:id="@+id/base_recycler_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/base_xhdpi"
+                    android:background="@drawable/base_dark_round_border_shape" />
+
+            </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp">
+
+                <com.angcyo.uiview.less.widget.ExEditText
+                    android:id="@+id/edit_text"
+                    style="@style/BaseMainTextStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="60dp"
+                    android:minHeight="50dp" />
+
+                <com.angcyo.uiview.less.widget.Button
+                    android:id="@+id/emoji_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right|center_vertical"
+                    android:text="emoji" />
+            </FrameLayout>
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/emoji_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
             <com.angcyo.uiview.less.widget.Button
-                android:id="@+id/emoji_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right|center_vertical"
-                android:text="emoji" />
+                android:text="左上" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="右上" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="居中" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:text="左下" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom"
+                android:text="右下" />
+
         </FrameLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/image_view_left"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/image_placeholder" />
 
-    <FrameLayout
-        android:id="@+id/emoji_layout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <ImageView
+            android:id="@+id/image_view_right"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="right|center_horizontal"
+            android:src="@drawable/image_placeholder" />
 
-        <com.angcyo.uiview.less.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="左上" />
+    </com.angcyo.uiview.less.widget.group.RSoftInputLayout>
 
-        <com.angcyo.uiview.less.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:text="右上" />
-
-        <com.angcyo.uiview.less.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="居中" />
-
-        <com.angcyo.uiview.less.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="左下" />
-
-        <com.angcyo.uiview.less.widget.Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right|bottom"
-            android:text="右下" />
-
-    </FrameLayout>
-
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="right|center_horizontal"
-        android:src="@drawable/image_placeholder" />
-
-</com.angcyo.uiview.less.widget.group.RSoftInputLayout>
+<!--</FrameLayout>-->
