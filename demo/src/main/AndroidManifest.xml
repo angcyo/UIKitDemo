@@ -19,6 +19,7 @@
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize|fontScale|smallestScreenSize|density|screenLayout"
             android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustResize"
             android:supportsPictureInPicture="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
