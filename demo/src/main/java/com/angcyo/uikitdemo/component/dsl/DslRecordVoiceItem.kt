@@ -43,7 +43,17 @@ open class DslRecordVoiceItem : DslAdapterItem() {
     /**允许的最大录制时长*/
     var maxRecordTime = -1L
 
+    /**可以用来控制显示浮窗播放器*/
     var activity: AppCompatActivity? = null
+
+    /**界面destroy周期监听*/
+    var lifecycle: Lifecycle? = null
+        get() {
+            if (field == null) {
+                return activity?.lifecycle
+            }
+            return field
+        }
 
     private val activityDestroyObserver: ActivityDestroyObserver by lazy {
         ActivityDestroyObserver()
@@ -63,20 +73,20 @@ open class DslRecordVoiceItem : DslAdapterItem() {
     private var playStatus = RPlayer.STATE_NORMAL
 
     override var onItemViewAttachedToWindow: (itemHolder: RBaseViewHolder) -> Unit = {
-        activity?.lifecycle?.addObserver(activityDestroyObserver)
+        lifecycle?.addObserver(activityDestroyObserver)
         itemLocalMedia?.let {
-            if (isPlaying(it.path)) {
+            if (isPlaying(it.loadUrl)) {
                 playStatus = RPlayer.STATE_PLAYING
             }
         }
     }
 
     override var onItemViewDetachedToWindow: (itemHolder: RBaseViewHolder) -> Unit = {
-        activity?.lifecycle?.removeObserver(activityDestroyObserver)
+        lifecycle?.removeObserver(activityDestroyObserver)
         if (VoicePlayControl.playControl != null && itemLocalMedia != null) {
-            if (VoicePlayControl.playControl?.player?.playUrl == itemLocalMedia?.path ||
+            if (VoicePlayControl.playControl?.player?.playUrl == itemLocalMedia?.loadUrl ||
                 VoicePlayControl.playControl?.player?.playUrl == PlayControl.getVoiceLocalPath(
-                    itemLocalMedia?.path ?: ""
+                    itemLocalMedia?.loadUrl ?: ""
                 )
             ) {
                 VoicePlayControl.playControl?.onPlayerStatusChangeListener = null
@@ -93,13 +103,13 @@ open class DslRecordVoiceItem : DslAdapterItem() {
         //缓存时长
         if (itemRecordVoiceDuration == -1) {
             itemLocalMedia?.let {
-                itemRecordVoiceDuration = RecordUI.getRecordTime(it.path)
+                itemRecordVoiceDuration = RecordUI.getRecordTime(it.loadUrl)
             }
         }
 
         //恢复播放状态
         itemLocalMedia?.let {
-            if (isPlaying(it.path)) {
+            if (isPlaying(it.loadUrl)) {
                 playStatus = RPlayer.STATE_PLAYING
 
                 VoicePlayControl.playControl?.onPlayerStatusChangeListener =
@@ -112,18 +122,18 @@ open class DslRecordVoiceItem : DslAdapterItem() {
         //播放语音
         itemHolder.clickItem {
             itemLocalMedia?.let {
-                if (isPlaying(it.path)) {
+                if (isPlaying(it.loadUrl)) {
                     VoicePlayControl.stop()
                     return@clickItem
                 }
 
                 //上一个语音播放状态清除
                 VoicePlayControl.playControl?.onPlayerStatusChangeListener?.invoke(
-                    it.path,
+                    it.loadUrl,
                     RPlayer.STATE_STOP
                 )
 
-                VoicePlayControl.playVoice(activity, it.path)
+                VoicePlayControl.playVoice(activity, it.loadUrl)
 
                 //监听本次语音播放状态
                 VoicePlayControl.playControl?.onPlayerStatusChangeListener =
