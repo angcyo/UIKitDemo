@@ -36,8 +36,8 @@ class PlayerUI {
     /**
      * 显示界面
      * */
-    fun show(activity: Activity, status: Int = STATUS_LOADING) {
-        if (rootLayout != null) {
+    fun show(activity: Activity?, status: Int = STATUS_LOADING) {
+        if (rootLayout != null || activity == null) {
             //已经显示
             return
         }

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_marginLeft="@dimen/base_padding_left"
+        android:layout_marginTop="@dimen/base_ldpi"
+        android:layout_marginRight="@dimen/base_padding_left"
+        android:layout_marginBottom="@dimen/base_ldpi"
+        android:background="@drawable/record_voice_selector"
+        android:clickable="true"
+        android:minWidth="70dp">
+
+    <com.angcyo.uikitdemo.component.widget.VoiceView
+            android:id="@+id/voice_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/base_hdpi"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:r_voice_color="#999999" />
+
+    <TextView
+            android:id="@+id/text_view"
+            style="@style/BaseDarkTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/default_text_little_size"
+            app:layout_constraintBottom_toBottomOf="@id/voice_view"
+            app:layout_constraintLeft_toRightOf="@id/voice_view"
+            app:layout_constraintTop_toTopOf="@id/voice_view"
+            tools:text="30&apos;&apos;" />
+
+</android.support.constraint.ConstraintLayout>

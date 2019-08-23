@@ -7,7 +7,8 @@ import android.graphics.Paint
 import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
-import com.angcyo.uiview.less.kotlin.dp
+import com.angcyo.uikitdemo.R
+import com.angcyo.uiview.less.kotlin.dpi
 
 /**
  * 语音播放提示控件
@@ -16,8 +17,9 @@ import com.angcyo.uiview.less.kotlin.dp
  * @date 2019/04/17
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(context, attributeSet) {
-    val paint: Paint by lazy {
+class VoiceView(context: Context, attributeSet: AttributeSet? = null) :
+    View(context, attributeSet) {
+    private val paint: Paint by lazy {
         Paint(Paint.ANTI_ALIAS_FLAG).apply {
             style = Paint.Style.STROKE
         }
@@ -32,24 +34,24 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
     /**
      * 线的厚度
      * */
-    var width = 2 * dp
+    var lineWidth = 2 * dpi
 
     /**线之间的间隙*/
-    var space = 1 * dp
+    var lineSpace = 1 * dpi
 
     /**每增加一根线, 起始角度偏移多少度*/
     var stepAngle = 3
 
     /**每增加一根线, 高度增加多少*/
-    var stepHeight = 4
+    var stepHeight = 4 * dpi
 
     /**线开始的角度偏移*/
     var startAngle = 40f
 
     /**线的数量*/
-    var count = 2
+    var lineCount = 2
 
-    var drawCount = -1
+    private var drawCount = -1
 
     init {
         paint.color = color
@@ -57,6 +59,24 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
 
     val tempRectF: RectF by lazy {
         RectF()
+    }
+
+    init {
+        val array = context.obtainStyledAttributes(attributeSet, R.styleable.VoiceView)
+        color = array.getColor(R.styleable.VoiceView_r_voice_color, color)
+        lineWidth =
+            array.getDimensionPixelOffset(R.styleable.VoiceView_r_voice_line_width, lineWidth)
+        lineSpace =
+            array.getDimensionPixelOffset(R.styleable.VoiceView_r_voice_line_space, lineSpace)
+        stepHeight =
+            array.getDimensionPixelOffset(R.styleable.VoiceView_r_voice_step_height, stepHeight)
+        stepAngle =
+            array.getInt(R.styleable.VoiceView_r_voice_step_angle, stepAngle)
+        lineCount =
+            array.getInt(R.styleable.VoiceView_r_voice_line_count, lineCount)
+        startAngle =
+            array.getInt(R.styleable.VoiceView_r_voice_start_angle, startAngle.toInt()).toFloat()
+        array.recycle()
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -70,13 +90,14 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
         if (widthMode != MeasureSpec.EXACTLY) {
             //wrap_content unspecified
             //widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(measureDrawWidth(widthSize, widthMode), View.MeasureSpec.EXACTLY);
-            widthSize = (paddingLeft + paddingRight + width * 2 * (count + 2) + space * (count - 1)).toInt()
+            widthSize =
+                paddingLeft + paddingRight + lineWidth * 2 * (lineCount + 2) + lineSpace * (lineCount - 1)
         }
 
         if (heightMode != MeasureSpec.EXACTLY) {
             //wrap_content unspecified
             //heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(measureDrawHeight(heightSize, heightMode), View.MeasureSpec.EXACTLY);
-            heightSize = (paddingTop + paddingBottom + width * count * 4).toInt()
+            heightSize = paddingTop + paddingBottom + lineWidth * lineCount * 4
         }
 
         setMeasuredDimension(widthSize, heightSize)
@@ -86,27 +107,33 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
         super.onDraw(canvas)
 
         val drawHeight = measuredHeight - paddingTop - paddingBottom
-        val cr = width
-        val cx = paddingLeft + cr
-        val cy = paddingTop + drawHeight / 2
+        val cr: Float = lineWidth.toFloat()
+        val cx: Float = paddingLeft + cr
+        val cy: Float = (paddingTop + drawHeight / 2).toFloat()
 
         //最小的圆点
         paint.style = Paint.Style.FILL
         paint.strokeWidth = 0f
-        canvas.drawCircle(cx, cy.toFloat(), cr, paint)
+        canvas.drawCircle(cx, cy, cr, paint)
 
         //扇形
         paint.style = Paint.Style.STROKE
-        paint.strokeWidth = width
+        paint.strokeWidth = lineWidth.toFloat()
 
-        for (i in 1..(if (drawCount >= 0) drawCount else count)) {
+        for (i in 1..(if (drawCount >= 0) drawCount else lineCount)) {
             tempRectF.set(
-                cx - cr - space * i - width / 2 * i - width * (i - 1),
-                cy - cr - stepHeight * dp * i,
-                cx + cr + space * i + width / 2 * i + width * (i - 1),
-                cy + cr + stepHeight * dp * i
+                cx - cr - lineSpace * i - lineWidth / 2 * i - lineWidth * (i - 1),
+                cy - cr - stepHeight * i,
+                cx + cr + lineSpace * i + lineWidth / 2 * i + lineWidth * (i - 1),
+                cy + cr + stepHeight * i
             )
-            canvas.drawArc(tempRectF, -startAngle - stepAngle * i, startAngle * 2 + stepAngle * 2 * i, false, paint)
+            canvas.drawArc(
+                tempRectF,
+                -startAngle - stepAngle * i,
+                startAngle * 2 + stepAngle * 2 * i,
+                false,
+                paint
+            )
         }
     }
 
@@ -127,10 +154,11 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
         }
     }
 
-    val playRunnable: Runnable by lazy {
+    private val playRunnable: Runnable by lazy {
         Runnable {
+            isPlaying = true
 
-            if (drawCount < 0 || drawCount >= count) {
+            if (drawCount < 0 || drawCount >= lineCount) {
                 drawCount = -1
             }
 
@@ -141,11 +169,17 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
         }
     }
 
+    private var isPlaying = false
+
     /**
      * 开始播放动画
      * */
     fun play() {
+        if (isPlaying) {
+            return
+        }
         stop()
+        isPlaying = true
         post(playRunnable)
     }
 
@@ -153,6 +187,7 @@ class VoiceView(context: Context, attributeSet: AttributeSet? = null) : View(con
      * 停止动画
      * */
     fun stop() {
+        isPlaying = false
         removeCallbacks(playRunnable)
         drawCount = -1
         postInvalidateOnAnimation()

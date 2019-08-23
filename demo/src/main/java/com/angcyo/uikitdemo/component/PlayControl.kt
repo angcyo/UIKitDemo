@@ -4,9 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.media.AudioManager
 import com.angcyo.okdownload.FDown
+import com.angcyo.okdownload.FDownListener
 import com.angcyo.uiview.less.RApplication
+import com.angcyo.uiview.less.kotlin.isFileExists
 import com.angcyo.uiview.less.media.RPlayer
 import com.angcyo.uiview.less.media.SimplePlayerListener
+import com.liulishuo.okdownload.DownloadTask
 
 /**
  *
@@ -36,6 +39,10 @@ class PlayControl {
         fun abandonAudioFocus(context: Context) {
             val audioManager = context.getSystemService(Context.AUDIO_SERVICE) as AudioManager
             audioManager.abandonAudioFocus(null)//放弃焦点
+        }
+
+        fun getVoiceLocalPath(url: String): String {
+            return FDown.defaultDownloadPath(url)
         }
     }
 
@@ -89,12 +96,27 @@ class PlayControl {
         }
     }
 
-    fun play(activity: Activity, url: String) {
+    fun play(activity: Activity?, url: String) {
         playerUI.show(activity)
-        player.startPlay(url)
+
+        if (url.isFileExists()) {
+            //本地视频
+            player.startPlay(url)
+        } else if (FDown.isCompleted(url)) {
+            //视频已经下载好了
+            player.startPlay(getVoiceLocalPath(url))
+        } else {
+            //开始下载视频
+            download(url) {
+                if (player.playState() == RPlayer.STATE_INIT) {
+                    player.startPlay(it)
+                }
+            }
+        }
     }
 
     fun release() {
+        stop()
         player.release()
         playerUI.hide()
     }
@@ -103,6 +125,11 @@ class PlayControl {
         if (player.isPlaying()) {
             player.pausePlay()
         }
+    }
+
+    fun stop() {
+        player.stopPlay()
+        FDown.cancel(lastDownTaskIt)
     }
 
     fun resume() {
@@ -117,29 +144,34 @@ class PlayControl {
      * 指定的url, 是否正在播放中
      * */
     fun isPlaying(url: String): Boolean {
-        return (player.playUrl == url /*||
-                player.playUrl == FDown.Builder.defaultDownloadPath(url)*/) && player.isPlaying()
+        return (player.playUrl == url ||
+                player.playUrl == getVoiceLocalPath(url)) && player.isPlaying()
     }
 
     fun isPause(url: String): Boolean {
-        return (player.playUrl == url /*||
-                player.playUrl == FDown.Builder.defaultDownloadPath(url)*/) && player.isPause()
+        return (player.playUrl == url ||
+                player.playUrl == getVoiceLocalPath(url)) && player.isPause()
     }
 
-//    fun download(url: String, onFilePath: ((String) -> Unit) = {}) {
-//        if (url.startsWith("http")) {
-//            FDown.build(url).download(object : FDownListener() {
-//                override fun onCompleted(task: BaseDownloadTask) {
-//                    super.onCompleted(task)
-//                    onFilePath.invoke(task.path)
-//                }
-//            })
-//        } else {
-//            File(url).apply {
-//                if (exists()) {
-//                    onFilePath.invoke(absolutePath)
-//                }
-//            }
-//        }
-//    }
+    private var lastDownTaskIt = 0
+    private var lastDownUrl = ""
+
+    /**下载文件*/
+    private fun download(url: String, callback: (path: String) -> Unit) {
+        if (lastDownUrl != url) {
+            FDown.cancel(lastDownTaskIt)
+        }
+        lastDownTaskIt = FDown.down(url, object : FDownListener() {
+            override fun onTaskEnd(
+                task: DownloadTask,
+                isCompleted: Boolean,
+                realCause: Exception?
+            ) {
+                super.onTaskEnd(task, isCompleted, realCause)
+                if (isCompleted) {
+                    callback.invoke(task.file!!.absolutePath)
+                }
+            }
+        }).id
+    }
 }
