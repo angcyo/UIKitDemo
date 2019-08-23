@@ -14,7 +14,7 @@
     </item>
     <item>
         <shape>
-            <corners android:radius="@dimen/base_round_radius"/>
+            <corners android:radius="@dimen/base_round_radius_max"/>
             <stroke android:width="@dimen/base_line_px" android:color="@color/wt_line"/>
             <solid android:color="@color/base_white" />
         </shape>

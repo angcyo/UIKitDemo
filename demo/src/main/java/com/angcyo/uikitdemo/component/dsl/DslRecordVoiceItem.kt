@@ -38,7 +38,7 @@ open class DslRecordVoiceItem : DslAdapterItem() {
     var itemRecordVoiceDuration = -1
 
     /**最小item宽度*/
-    var itemMinWidth = 70 * dpi
+    var itemMinWidth = 80 * dpi
 
     /**允许的最大录制时长*/
     var maxRecordTime = -1L
@@ -54,6 +54,11 @@ open class DslRecordVoiceItem : DslAdapterItem() {
             }
             return field
         }
+
+    /**是否显示删除按钮*/
+    var itemShowDelete = false
+
+    var onItemDelete: (LocalMedia) -> Boolean = { true }
 
     private val activityDestroyObserver: ActivityDestroyObserver by lazy {
         ActivityDestroyObserver()
@@ -165,6 +170,16 @@ open class DslRecordVoiceItem : DslAdapterItem() {
         } else {
             if (playStatus == RPlayer.STATE_PLAYING) {
                 itemHolder.v<VoiceView>(R.id.voice_view).play()
+            }
+        }
+
+        //删除
+        itemHolder.visible(R.id.delete_view, itemShowDelete)
+        itemHolder.click(R.id.delete_view) {
+            itemLocalMedia?.let {
+                if (onItemDelete(it)) {
+                    itemDslAdapter?.deleteItem(this)
+                }
             }
         }
     }
