@@ -1,6 +1,10 @@
 package com.angcyo.uikitdemo.component.dsl
 
 import android.app.Activity
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.OnLifecycleEvent
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.component.PlayControl
 import com.angcyo.uikitdemo.component.RecordUI
@@ -39,7 +43,11 @@ open class DslRecordVoiceItem : DslAdapterItem() {
     /**允许的最大录制时长*/
     var maxRecordTime = -1L
 
-    var activity: Activity? = null
+    var activity: AppCompatActivity? = null
+
+    private val activityDestroyObserver: ActivityDestroyObserver by lazy {
+        ActivityDestroyObserver()
+    }
 
     private val onPlayerStatusChangeListener: (url: String, status: Int) -> Unit = { url, status ->
         if (status == RPlayer.STATE_PAUSE ||
@@ -55,6 +63,7 @@ open class DslRecordVoiceItem : DslAdapterItem() {
     private var playStatus = RPlayer.STATE_NORMAL
 
     override var onItemViewAttachedToWindow: (itemHolder: RBaseViewHolder) -> Unit = {
+        activity?.lifecycle?.addObserver(activityDestroyObserver)
         itemLocalMedia?.let {
             if (isPlaying(it.path)) {
                 playStatus = RPlayer.STATE_PLAYING
@@ -63,6 +72,7 @@ open class DslRecordVoiceItem : DslAdapterItem() {
     }
 
     override var onItemViewDetachedToWindow: (itemHolder: RBaseViewHolder) -> Unit = {
+        activity?.lifecycle?.removeObserver(activityDestroyObserver)
         if (VoicePlayControl.playControl != null && itemLocalMedia != null) {
             if (VoicePlayControl.playControl?.player?.playUrl == itemLocalMedia?.path ||
                 VoicePlayControl.playControl?.player?.playUrl == PlayControl.getVoiceLocalPath(
@@ -91,6 +101,9 @@ open class DslRecordVoiceItem : DslAdapterItem() {
         itemLocalMedia?.let {
             if (isPlaying(it.path)) {
                 playStatus = RPlayer.STATE_PLAYING
+
+                VoicePlayControl.playControl?.onPlayerStatusChangeListener =
+                    onPlayerStatusChangeListener
             }
         }
 
@@ -143,6 +156,13 @@ open class DslRecordVoiceItem : DslAdapterItem() {
             if (playStatus == RPlayer.STATE_PLAYING) {
                 itemHolder.v<VoiceView>(R.id.voice_view).play()
             }
+        }
+    }
+
+    inner class ActivityDestroyObserver : LifecycleObserver {
+        @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+        fun release() {
+            VoicePlayControl.release()
         }
     }
 }
