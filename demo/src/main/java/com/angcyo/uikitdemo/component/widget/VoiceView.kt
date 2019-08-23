@@ -10,7 +10,7 @@ import android.view.View
 import com.angcyo.uiview.less.kotlin.dp
 
 /**
- *
+ * 语音播放提示控件
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2019/04/17

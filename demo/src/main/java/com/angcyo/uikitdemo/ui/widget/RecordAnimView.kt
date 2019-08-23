@@ -13,7 +13,7 @@ import com.angcyo.uiview.less.kotlin.getColor
 import java.util.*
 
 /**
- *
+ * 语音录制, 音频振幅提示控件
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2019/04/13

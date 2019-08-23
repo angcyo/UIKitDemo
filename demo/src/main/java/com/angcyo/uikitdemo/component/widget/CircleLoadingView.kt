@@ -8,7 +8,7 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.kotlin.dp
 
 /**
- *
+ * 王者荣耀loading动画控件
  * Email:angcyo@126.com
  * @author angcyo
  * @date 2019/04/17

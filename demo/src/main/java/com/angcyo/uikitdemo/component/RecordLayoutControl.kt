@@ -124,14 +124,11 @@ class RecordLayoutControl {
         //touch事件监听
         recordControl.wrap(parent.findViewById(R.id.voice_input_view), parent.context as Activity, {
             player.stopPlay()
+            true
         }) {
             recordTime = recordControl.recordUI.currentRecordTime
             val time = (recordTime / 1000).toInt()
-            recordFile = File(
-                it.parent,
-                "${it.name.noExtName()}_t_${time}.${it.name.extName()}"
-            )
-            it.renameTo(recordFile)
+            recordFile = recordControl.rename(it)
 
             showVoiceLayout()
 

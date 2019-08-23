@@ -3,6 +3,8 @@ package com.angcyo.uikitdemo.component
 import android.app.Activity
 import android.view.MotionEvent
 import android.view.View
+import com.angcyo.uiview.less.kotlin.extName
+import com.angcyo.uiview.less.kotlin.noExtName
 import com.angcyo.uiview.less.media.RRecord
 import com.angcyo.uiview.less.utils.Root
 import java.io.File
@@ -25,7 +27,8 @@ class RecordControl {
      * */
     fun wrap(
         view: View, activity: Activity,
-        onRecordStart: () -> Unit = {}, onRecordEnd: (voiceFile: File) -> Unit = {}
+        onRecordStart: () -> Boolean = { true } /*返回true, 表示可以开始录制*/,
+        onRecordEnd: (voiceFile: File) -> Unit = {}
     ) {
         if (record == null) {
             record = RRecord(activity, Root.getAppExternalFolder("Record"))
@@ -46,28 +49,35 @@ class RecordControl {
         view.setOnTouchListener { v, event ->
             when {
                 event.actionMasked == MotionEvent.ACTION_DOWN -> {
-                    view.isSelected = true
-                    recordUI.onGetMeterCount = {
-                        var result = 1
+                    if (onRecordStart.invoke()) {
+                        view.isSelected = true
+                        recordUI.onGetMeterCount = {
+                            var result = 1
 
-                        record?.let {
-                            result = 7 * it.maxAmplitude / 32768
+                            record?.let {
+                                result = 7 * it.maxAmplitude / 32768
+                            }
+
+                            max(1, result)
                         }
-
-                        max(1, result)
+                        recordUI.show(activity, v, event.rawY)
+                        record?.stopPlayback()
+                        record?.startRecord(Root.createFileName())
+                    } else {
+                        view.isSelected = false
                     }
-                    recordUI.show(activity, v)
-                    record?.stopPlayback()
-                    record?.startRecord(Root.createFileName())
-                    onRecordStart.invoke()
                 }
                 event.actionMasked == MotionEvent.ACTION_UP ||
                         event.actionMasked == MotionEvent.ACTION_CANCEL -> {
-                    onEnd(recordUI.isCancel)
+                    if (view.isSelected) {
+                        onEnd(recordUI.isCancel)
+                    }
                 }
 
                 event.actionMasked == MotionEvent.ACTION_MOVE -> {
-                    recordUI.checkCancel(event)
+                    if (view.isSelected) {
+                        recordUI.checkCancel(event)
+                    }
                 }
             }
             //L.i("Touch:${event.actionMasked} x:${event.x}  y:${event.y} rawY:${event.rawY}")
@@ -82,5 +92,17 @@ class RecordControl {
     fun release() {
         recordUI.hide()
         record?.release()
+    }
+
+    /**用录制时间重命名文件*/
+    fun rename(sampleFile: File): File {
+        val recordTime = recordUI.currentRecordTime
+        val time = (recordTime / 1000).toInt()
+        val recordFile = File(
+            sampleFile.parent,
+            "${sampleFile.name.noExtName()}_t_${time}.${sampleFile.name.extName()}"
+        )
+        sampleFile.renameTo(recordFile)
+        return recordFile
     }
 }

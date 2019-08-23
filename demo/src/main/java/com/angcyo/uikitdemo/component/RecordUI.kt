@@ -7,7 +7,10 @@ import android.view.*
 import android.widget.TextView
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.widget.RecordAnimView
+import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.find
+import com.angcyo.uiview.less.kotlin.frameParams
+import com.angcyo.uiview.less.utils.RUtils
 
 /**
  *  模仿微信录音对话框的UI
@@ -29,7 +32,8 @@ class RecordUI {
             }
             var result = -1
             try {
-                val end = url.split("_t_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+                val end =
+                    url.split("_t_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                 val index = end.indexOf(".")
                 if (index != -1) {
                     result = Integer.parseInt(end.substring(0, index))
@@ -42,11 +46,36 @@ class RecordUI {
 
             return result
         }
+
+        /**
+         * 00:00的格式输出, 如果有小时: 01:00:00
+         */
+        fun formatTime(millisecond: Long /*毫秒*/): String {
+            val mill = millisecond / 1000
+
+            val min = mill / 60
+            val hour = min / 60
+
+            val h = hour % 24
+            val m = min % 60
+            val s = mill % 60
+
+            val builder = StringBuilder()
+            if (hour > 0) {
+                builder.append(if (h >= 10) h else "0$h")
+                builder.append(":")
+            }
+            builder.append(if (m >= 10) m else "0$m")
+            builder.append(":")
+            builder.append(if (s >= 10) s else "0$s")
+
+            return builder.toString()
+        }
     }
 
-    var parent: ViewGroup? = null
-    var recordLayout: ViewGroup? = null
-    var touchView: View? = null
+    private var parent: ViewGroup? = null
+    private var recordLayout: ViewGroup? = null
+    private var touchView: View? = null
 
     var recordStartTime = 0L
 
@@ -69,7 +98,7 @@ class RecordUI {
         1
     }
 
-    val checkTimeRunnable: Runnable by lazy {
+    private val checkTimeRunnable: Runnable by lazy {
         Runnable {
             val time = System.currentTimeMillis()
             val millis = time - recordStartTime
@@ -95,25 +124,42 @@ class RecordUI {
      * */
     var onMaxRecordTime: Runnable? = null
 
+    private var touchDownY = -1f
     /**
      * @param activity 用来附着显示界面的Activity
      * @param touchView 用来请求拦截Touch事件
      * */
-    fun show(activity: Activity, touchView: View? = null) {
+    fun show(activity: Activity, touchView: View? = null, touchY: Float = -1f) {
         touchView?.parent?.requestDisallowInterceptTouchEvent(true)
 
         if (recordLayout != null) {
 
         } else {
             this.touchView = touchView
+            touchDownY = touchY
 
             parent = activity.window.findViewById(Window.ID_ANDROID_CONTENT)
 
             recordLayout = LayoutInflater.from(activity)
                 .inflate(R.layout.layout_record_ui, parent, false) as? ViewGroup
 
+            if (touchY >= 0) {
+                recordLayout?.find<View>(R.id.record_wrap_layout)?.apply {
+                    layoutParams = layoutParams.frameParams {
+                        if (isViewPreferBottom()) {
+                            //在屏幕的下方按下
+                            gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
+                            topMargin = ((touchY - 160 * dpi) / 2).toInt()
+                        } else {
+                            //在屏幕的上方按下
+                            val screenHeight = RUtils.getScreenHeight()
+                            gravity = Gravity.CENTER_HORIZONTAL or Gravity.BOTTOM
+                            bottomMargin = ((screenHeight - touchY - 160 * dpi) / 2).toInt()
+                        }
+                    }
+                }
+            }
             parent?.addView(recordLayout)
-
             recordStartTime = System.currentTimeMillis()
             touchView?.post(checkTimeRunnable)
         }
@@ -137,6 +183,11 @@ class RecordUI {
      * 视图是否在屏幕偏下的位置
      * */
     fun isViewPreferBottom(): Boolean {
+        if (touchDownY >= 0) {
+            val screenHeight = RUtils.getScreenHeight()
+            return touchDownY >= screenHeight / 2f
+        }
+
         var result = false
         touchView?.let { view ->
             val height = view.resources.displayMetrics.heightPixels
@@ -157,20 +208,23 @@ class RecordUI {
                 val height = view.resources.displayMetrics.heightPixels
                 view.getGlobalVisibleRect(tempRect)
 
-                var cancel = false
-                if (isViewPreferBottom()) {
-                    //当前View 在屏幕中下位置
-
-                    cancel = tempRect.centerY() - event.rawY > height / 3
+                val startY: Int = if (touchDownY >= 0) {
+                    touchDownY.toInt()
                 } else {
-                    cancel = event.rawY - tempRect.centerY() > height / 3
+                    tempRect.centerY()
+                }
+
+                val cancel = if (isViewPreferBottom()) {
+                    //当前View 在屏幕中下位置
+                    startY - event.rawY > height / 3
+                } else {
+                    event.rawY - startY > height / 3
                 }
 
                 showCancel(cancel)
             }
         }
     }
-
 
     /**
      * 是否触发了取消
@@ -219,30 +273,5 @@ class RecordUI {
                 timeView.text = formatTime(millis)
             }
         }
-    }
-
-    /**
-     * 00:00的格式输出, 如果有小时: 01:00:00
-     */
-    fun formatTime(millisecond: Long /*毫秒*/): String {
-        val mill = millisecond / 1000
-
-        val min = mill / 60
-        val hour = min / 60
-
-        val h = hour % 24
-        val m = min % 60
-        val s = mill % 60
-
-        val builder = StringBuilder()
-        if (hour > 0) {
-            builder.append(if (h >= 10) h else "0$h")
-            builder.append(":")
-        }
-        builder.append(if (m >= 10) m else "0$m")
-        builder.append(":")
-        builder.append(if (s >= 10) s else "0$s")
-
-        return builder.toString()
     }
 }
