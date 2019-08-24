@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.component.dsl
 
 import android.app.Activity
+import android.view.Gravity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
@@ -60,7 +61,7 @@ open class DslRecordVoiceItem : DslAdapterItem() {
     var itemShowDelete = false
 
     /**重力*/
-    var itemGravity: Int = Gravity.RIGHT or Gravity.CENTER_VERTICAL
+    var itemGravity: Int = Gravity.LEFT or Gravity.CENTER_VERTICAL
 
     var onItemDelete: (LocalMedia) -> Boolean = { true }
 
