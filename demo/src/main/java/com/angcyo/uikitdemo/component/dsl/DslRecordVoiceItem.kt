@@ -13,7 +13,6 @@ import com.angcyo.uikitdemo.component.dsl.VoicePlayControl.isPlaying
 import com.angcyo.uikitdemo.component.widget.VoiceView
 import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.frameParams
-import com.angcyo.uiview.less.kotlin.setWidth
 import com.angcyo.uiview.less.media.RPlayer
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
@@ -130,11 +129,11 @@ open class DslRecordVoiceItem : DslAdapterItem() {
         itemHolder.tv(R.id.text_view).text = "$itemRecordVoiceDuration\""
 
         //播放语音
-        itemHolder.clickItem {
+        itemHolder.click(R.id.content_wrap_layout) {
             itemLocalMedia?.let {
                 if (isPlaying(it.loadUrl)) {
                     VoicePlayControl.stop()
-                    return@clickItem
+                    return@click
                 }
 
                 //上一个语音播放状态清除
