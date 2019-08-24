@@ -11,6 +11,7 @@ import com.angcyo.uikitdemo.component.RecordUI
 import com.angcyo.uikitdemo.component.dsl.VoicePlayControl.isPlaying
 import com.angcyo.uikitdemo.component.widget.VoiceView
 import com.angcyo.uiview.less.kotlin.dpi
+import com.angcyo.uiview.less.kotlin.frameParams
 import com.angcyo.uiview.less.kotlin.setWidth
 import com.angcyo.uiview.less.media.RPlayer
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -57,6 +58,9 @@ open class DslRecordVoiceItem : DslAdapterItem() {
 
     /**是否显示删除按钮*/
     var itemShowDelete = false
+
+    /**重力*/
+    var itemGravity: Int = Gravity.RIGHT or Gravity.CENTER_VERTICAL
 
     var onItemDelete: (LocalMedia) -> Boolean = { true }
 
@@ -162,7 +166,10 @@ open class DslRecordVoiceItem : DslAdapterItem() {
                 }
             }
         }
-        itemHolder.itemView.setWidth(itemWidth)
+        itemHolder.view(R.id.content_wrap_layout).frameParams {
+            width = itemWidth
+            gravity = itemGravity
+        }
 
         //播放状态判断
         if (itemLocalMedia == null || VoicePlayControl.playControl == null || playStatus != RPlayer.STATE_PLAYING) {

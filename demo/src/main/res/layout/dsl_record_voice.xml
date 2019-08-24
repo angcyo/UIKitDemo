@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_marginLeft="@dimen/base_padding_left"
@@ -10,9 +14,10 @@
         android:layout_marginBottom="@dimen/base_ldpi"
         android:background="@drawable/record_voice_selector"
         android:clickable="true"
-        android:minWidth="70dp">
+        android:minWidth="70dp"
+        tools:layout_gravity="right|center_vertical">
 
-    <com.angcyo.uikitdemo.component.widget.VoiceView
+        <com.angcyo.uikitdemo.component.widget.VoiceView
             android:id="@+id/voice_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -22,7 +27,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:r_voice_color="#999999" />
 
-    <TextView
+        <TextView
             android:id="@+id/text_view"
             style="@style/BaseDarkTextStyle"
             android:layout_width="wrap_content"
@@ -33,7 +38,7 @@
             app:layout_constraintTop_toTopOf="@id/voice_view"
             tools:text="30&apos;&apos;" />
 
-    <androidx.appcompat.widget.AppCompatImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/delete_view"
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -47,4 +52,5 @@
             app:layout_constraintTop_toTopOf="@id/voice_view"
             app:srcCompat="@drawable/ic_image_remove" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
