@@ -1,37 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.angcyo.uiview.less.recycler.RRecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
 
     <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
             android:layout_marginBottom="60dp"
-            android:layout_height="wrap_content">
+            android:orientation="horizontal">
 
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/linear_button"
-                android:text="Linear"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/base_hdpi"
                 android:paddingLeft="@dimen/base_ldpi"
                 android:paddingRight="@dimen/base_ldpi"
-                android:layout_marginRight="@dimen/base_hdpi"
-                android:layout_height="wrap_content"/>
+                android:text="Linear" />
 
         <com.angcyo.uiview.less.widget.Button
                 android:id="@+id/grid_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/base_hdpi"
                 android:paddingLeft="@dimen/base_ldpi"
                 android:paddingRight="@dimen/base_ldpi"
-                android:layout_marginRight="@dimen/base_hdpi"
-                android:text="Grid"
+                android:text="Grid" />
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+                android:id="@+id/multi_box"
+                style="@style/BaseMainTextStyle"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:text="多选" />
 
     </LinearLayout>
 

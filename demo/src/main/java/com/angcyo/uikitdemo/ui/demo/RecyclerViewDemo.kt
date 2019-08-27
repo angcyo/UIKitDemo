@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.ui.demo
 
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.CompoundButton
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
@@ -9,7 +10,10 @@ import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.recycler.HoverItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
+import com.angcyo.uiview.less.recycler.adapter.RModelAdapter
+import com.angcyo.uiview.less.recycler.adapter.SelectModelListener
 import com.angcyo.uiview.less.utils.TopToast
 
 /**
@@ -24,7 +28,11 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
         return R.layout.demo_recycler_view
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
         gridLayoutTest()
 
@@ -36,9 +44,74 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
             linearLayoutTest()
         }
 
+        //单选 多选 切换.
+        viewHolder.click(R.id.multi_box) {
+            if (it is CompoundButton) {
+                if (it.isChecked) {
+                    (baseViewHolder.rv(R.id.recycler_view)?.adapter as? DslAdapter)?.selectorModel =
+                        RModelAdapter.MODEL_MULTI
+                } else {
+                    (baseViewHolder.rv(R.id.recycler_view)?.adapter as? DslAdapter)?.run {
+                        selectorModel =
+                            RModelAdapter.MODEL_SINGLE
+                        selectorMinLimit = 0
+                    }
+                }
+            }
+
+        }
+
         baseViewHolder.rv(R.id.recycler_view).apply {
             noItemAnim()
             HoverItemDecoration().attachToRecyclerView(this)
+        }
+    }
+
+
+    fun DslAdapter.renderImage() {
+        renderItem {
+            itemLayoutId = R.layout.item_image
+        }
+    }
+
+    fun DslAdapter.renderImageLittle() {
+        renderItem {
+            itemLayoutId = R.layout.item_image_little
+
+            itemBind = { itemHolder, itemPosition, adapterItem ->
+                itemHolder.tv(R.id.text_view).text = "$itemPosition $itemIsSelect"
+
+                itemHolder.clickItem {
+                    adapterItem.itemIsSelect = !adapterItem.itemIsSelect
+                }
+            }
+        }
+    }
+
+    fun DslAdapter.renderText() {
+        renderItem {
+            itemSpanCount = 4
+
+            itemIsGroupHead = true
+
+            itemLayoutId = R.layout.item_text
+
+            itemBind = { itemHolder, itemPosition, adapterItem ->
+                L.i("bind...$itemPosition")
+
+                itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
+
+                itemHolder.clickItem {
+                    TopToast.show("点击位置:$itemPosition", -1)
+                }
+
+                itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
+
+                itemHolder.click(R.id.check_box) {
+                    //TopToast.show("CheckBox:$itemPosition", -1)
+                    itemDslAdapter?.foldItem(adapterItem, adapterItem.itemGroupExtend)
+                }
+            }
         }
     }
 
@@ -50,44 +123,19 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
             }
 
             dslAdapter(4) {
-                val dslAdapter = this
+
+                selectorModel = RModelAdapter.MODEL_SINGLE
+
+                addOnSelectorModelListener(SelectModelListener())
+
                 for (i in 0..2) {
-                    renderItem {
-                        itemLayoutId = R.layout.item_image_little
-                    }
+                    renderImageLittle()
                 }
 
                 for (i in 0..5) {
-
-                    renderItem {
-                        itemSpanCount = 4
-
-                        itemIsGroupHead = true
-
-                        itemLayoutId = R.layout.item_text
-
-                        itemBind = { itemHolder, itemPosition, adapterItem ->
-                            L.i("bind...$itemPosition")
-
-                            itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
-
-                            itemHolder.clickItem {
-                                TopToast.show("点击位置:$itemPosition", -1)
-                            }
-
-                            itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
-
-                            itemHolder.click(R.id.check_box) {
-                                //TopToast.show("CheckBox:$itemPosition", -1)
-                                dslAdapter.foldItem(adapterItem, adapterItem.itemGroupExtend)
-                            }
-                        }
-                    }
-
+                    renderText()
                     for (j in 0..5) {
-                        renderItem {
-                            itemLayoutId = R.layout.item_image_little
-                        }
+                        renderImageLittle()
                     }
                 }
 
@@ -105,41 +153,15 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
             }
 
             dslAdapter {
-                val dslAdapter = this
-
                 for (i in 0..2) {
-                    renderItem {
-                        itemLayoutId = R.layout.item_image
-                    }
+                    renderImage()
                 }
 
                 for (i in 0..5) {
-
-                    renderItem {
-                        itemLayoutId = R.layout.item_text
-
-                        itemIsGroupHead = true
-
-                        itemBind = { itemHolder, itemPosition, adapterItem ->
-                            itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
-
-                            itemHolder.clickItem {
-                                TopToast.show("点击位置:$itemPosition", -1)
-                            }
-
-                            itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
-
-                            itemHolder.click(R.id.check_box) {
-                                //TopToast.show("CheckBox:$itemPosition", -1)
-                                dslAdapter.foldItem(adapterItem, adapterItem.itemGroupExtend)
-                            }
-                        }
-                    }
+                    renderText()
 
                     for (j in 0..1) {
-                        renderItem {
-                            itemLayoutId = R.layout.item_image
-                        }
+                        renderImage()
                     }
                 }
 
