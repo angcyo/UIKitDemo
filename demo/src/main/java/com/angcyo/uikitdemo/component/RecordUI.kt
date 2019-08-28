@@ -79,10 +79,11 @@ class RecordUI {
 
     var recordStartTime = 0L
 
-    /**
-     * 需要限制最大录制的时长 秒
-     * */
+    /**需要限制最大录制的时长 秒, -1不限制*/
     var maxRecordTime = -1L
+
+    /**需要限制最小录制的时长 秒, -1不限制*/
+    var minRecordTime = -1L
 
     /**
      * 当前录制的时间, 毫秒
@@ -98,10 +99,13 @@ class RecordUI {
         1
     }
 
+    //最后一次记录的录制时间, 毫秒
+    private var recordTimeLast = 0L
+
     private val checkTimeRunnable: Runnable by lazy {
         Runnable {
-            val time = System.currentTimeMillis()
-            val millis = time - recordStartTime
+            recordTimeLast = System.currentTimeMillis()
+            val millis = recordTimeLast - recordStartTime
 
             currentRecordTime = millis
 
@@ -168,6 +172,7 @@ class RecordUI {
     }
 
     fun hide() {
+        touchView?.removeCallbacks(checkTimeRunnable)
         touchView?.parent?.requestDisallowInterceptTouchEvent(false)
         parent?.removeView(recordLayout)
         recordLayout = null
@@ -230,6 +235,18 @@ class RecordUI {
      * 是否触发了取消
      * */
     var isCancel = false
+
+    /**是否是最小录制时间内*/
+    val isMinRecordTime = false
+        get() {
+            val millis = recordTimeLast - recordStartTime
+
+            if (minRecordTime > 0 && millis < minRecordTime * 1000) {
+                //未达到
+                return true
+            }
+            return field
+        }
 
     /**
      * 触发 取消录音提示

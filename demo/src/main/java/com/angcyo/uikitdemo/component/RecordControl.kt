@@ -5,6 +5,7 @@ import android.view.MotionEvent
 import android.view.View
 import com.angcyo.uiview.less.kotlin.extName
 import com.angcyo.uiview.less.kotlin.noExtName
+import com.angcyo.uiview.less.kotlin.toast_tip
 import com.angcyo.uiview.less.media.RRecord
 import com.angcyo.uiview.less.utils.Root
 import java.io.File
@@ -70,7 +71,12 @@ class RecordControl {
                 event.actionMasked == MotionEvent.ACTION_UP ||
                         event.actionMasked == MotionEvent.ACTION_CANCEL -> {
                     if (view.isSelected) {
-                        onEnd(recordUI.isCancel)
+                        if (recordUI.isMinRecordTime) {
+                            toast_tip("至少需要录制 " + recordUI.minRecordTime + " 秒")
+                            onEnd(true)
+                        } else {
+                            onEnd(recordUI.isCancel)
+                        }
                     }
                 }
 
