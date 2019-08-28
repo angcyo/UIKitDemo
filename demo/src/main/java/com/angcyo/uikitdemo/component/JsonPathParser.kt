@@ -1,6 +1,5 @@
 package com.angcyo.uikitdemo.component
 
-import androidx.annotation.VisibleForTesting
 import com.google.gson.JsonParseException
 import com.google.gson.stream.JsonReader
 import com.google.gson.stream.JsonToken.*
@@ -10,7 +9,6 @@ import java.io.IOException
 import java.io.StringReader
 import java.io.StringWriter
 import java.math.BigDecimal
-import java.util.regex.Pattern
 
 
 /**
@@ -18,20 +16,19 @@ import java.util.regex.Pattern
  */
 object JsonPathParser {
 
-    @VisibleForTesting
-    const val FILE_REGEX = "([a-zA-Z]:)?(\\\\[a-zA-Z0-9_.-]+)+"
-
     /**
      * 读取出所有文件的路径，返回map
      * @return 使用jsonPath作为key, 文件路径作为value。
      */
-    fun read(json: String): MutableMap<String, String> {
+    fun read(
+        json: String,
+        need: (path: String, value: String) -> Unit
+    ) {
         val reader = JsonReader(StringReader(json))
-        val resultMap = mutableMapOf<String, String>()
-        read(reader, resultMap)
+        read(reader, need)
         reader.safeClose()
-        return resultMap
     }
+
 
     /**
      * 将字符串写入到path中（使用Gson遍历的方式）
@@ -48,7 +45,10 @@ object JsonPathParser {
         return resultJson
     }
 
-    private fun read(reader: JsonReader, map: MutableMap<String, String>) {
+    private fun read(
+        reader: JsonReader,
+        check: (path: String, value: String) -> Unit
+    ) {
         while (true) {
             when (reader.peek()) {
                 BEGIN_ARRAY -> reader.beginArray()
@@ -57,11 +57,10 @@ object JsonPathParser {
                 END_OBJECT -> reader.endObject()
                 NAME -> reader.nextName()
                 STRING -> {
-                    val jsonPath = reader.path
                     val value = reader.nextString()
-                    if (value.isFilePath()) {
-                        map[jsonPath] = value
-                    }
+                    val jsonPath = reader.path
+
+                    check(jsonPath, value)
                 }
                 NUMBER -> reader.nextDouble()
                 BOOLEAN -> reader.nextBoolean()
@@ -121,11 +120,6 @@ object JsonPathParser {
             }
         }
     }
-
-    /**
-     * 判断字符串是否是文件路径。这个正则只能做简单校验是否是文件路径，无法判断文件路径是否合法。
-     */
-    private fun String.isFilePath(): Boolean = Pattern.matches(FILE_REGEX, this)
 
     private fun Closeable.safeClose() {
         try {
