@@ -26,14 +26,14 @@ class RecordUI {
         /**
          * 从url中, 获取录制的音频时长
          */
-        fun getRecordTime(url: String): Int {
+        fun getRecordTime(url: String?): Int {
             if (TextUtils.isEmpty(url)) {
                 return -1
             }
             var result = -1
             try {
                 val end =
-                    url.split("_t_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
+                    url!!.split("_t_".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()[1]
                 val index = end.indexOf(".")
                 if (index != -1) {
                     result = Integer.parseInt(end.substring(0, index))
