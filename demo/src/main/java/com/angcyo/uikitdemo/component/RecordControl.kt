@@ -7,6 +7,7 @@ import com.angcyo.uiview.less.kotlin.extName
 import com.angcyo.uiview.less.kotlin.noExtName
 import com.angcyo.uiview.less.kotlin.toast_tip
 import com.angcyo.uiview.less.media.RRecord
+import com.angcyo.uiview.less.utils.RCacheManager
 import com.angcyo.uiview.less.utils.Root
 import java.io.File
 import kotlin.math.max
@@ -32,7 +33,9 @@ class RecordControl {
         onRecordEnd: (voiceFile: File) -> Unit = {}
     ) {
         if (record == null) {
-            record = RRecord(activity, Root.getAppExternalFolder("Record"))
+            val folder = Root.getAppExternalFolder("Record")
+            record = RRecord(activity, folder)
+            RCacheManager.instance().addCachePath(folder)
         }
 
         fun onEnd(isCancel: Boolean) {
