@@ -8,6 +8,7 @@ import com.angcyo.http.HttpSubscriber
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.RHost
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
+import com.angcyo.uiview.less.base.helper.ActivityHelper
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.component.FileSelectorFragment
 import com.angcyo.uiview.less.kotlin.*
@@ -17,6 +18,7 @@ import com.angcyo.uiview.less.recycler.item.Item
 import com.angcyo.uiview.less.recycler.item.SingleItem
 import com.angcyo.uiview.less.utils.RUtils
 import com.angcyo.uiview.less.utils.Tip
+import com.qihoo360.replugin.RePlugin
 import com.qihoo360.replugin.model.PluginInfo
 import java.util.*
 
@@ -30,6 +32,21 @@ import java.util.*
 class RePluginDemo : AppBaseItemFragment() {
 
     var showFromRect = RUtils.screenCenterRect((100 * dp).toInt(), (200 * dp).toInt())
+
+    init {
+        //默认值
+        "plugin_name_edit".hawkPutList("com.wayto.smart.community.plugin")
+        "plugin_name_edit".hawkPutList("com.wayto.reservoir.patrol.plugin")
+        "plugin_name_edit".hawkPutList("com.angcyo.plugin1")
+        "plugin_name_edit".hawkPutList("com.angcyo.plugin2")
+
+        "start_activity_edit".hawkPutList("com.wayto.smart.community.plugin.MainActivity")
+        "start_activity_edit".hawkPutList("com.wayto.reservoir.patrol.plugin.SplashActivity")
+        "start_activity_edit".hawkPutList("com.angcyo.plugin1.MainActivity")
+        "start_activity_edit".hawkPutList("com.angcyo.plugin2.MainActivity")
+
+        "start_activity_class".hawkPutList("com.angcyo.uikitdemo.loader.a.ActivityN1NRNTS2")
+    }
 
     override fun onCreateAnimation(transit: Int, enter: Boolean, nextAnim: Int): Animation? {
         if (enter) {
@@ -45,6 +62,7 @@ class RePluginDemo : AppBaseItemFragment() {
     fun updateAdapter(holder: RBaseViewHolder) {
         holder.auto(R.id.plugin_name_edit, "plugin_name_edit".hawkGetList(), true)
         holder.auto(R.id.start_activity_edit, "start_activity_edit".hawkGetList(), true)
+        holder.auto(R.id.start_activity_class, "start_activity_class".hawkGetList(), true)
     }
 
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
@@ -52,26 +70,33 @@ class RePluginDemo : AppBaseItemFragment() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
 
                 holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
-                holder.eV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.MainActivity")
+                holder.eV(R.id.start_activity_edit)
+                    .setInputText("com.wayto.smart.community.plugin.MainActivity")
 
                 updateAdapter(holder)
 
                 //预设按钮
                 holder.click(R.id.test1) {
-                    holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
-                    holder.eV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test1Activity")
+                    holder.eV(R.id.plugin_name_edit)
+                        .setInputText("com.wayto.smart.community.plugin")
+                    holder.eV(R.id.start_activity_edit)
+                        .setInputText("com.wayto.smart.community.plugin.Test1Activity")
                 }
                 holder.click(R.id.test2) {
-                    holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
-                    holder.eV(R.id.start_activity_edit).setInputText("com.wayto.smart.community.plugin.Test2Activity")
+                    holder.eV(R.id.plugin_name_edit)
+                        .setInputText("com.wayto.smart.community.plugin")
+                    holder.eV(R.id.start_activity_edit)
+                        .setInputText("com.wayto.smart.community.plugin.Test2Activity")
                 }
                 holder.click(R.id.test3) {
                     holder.eV(R.id.plugin_name_edit).setInputText("com.angcyo.plugin1")
-                    holder.eV(R.id.start_activity_edit).setInputText("com.angcyo.plugin1.MainActivity")
+                    holder.eV(R.id.start_activity_edit)
+                        .setInputText("com.angcyo.plugin1.MainActivity")
                 }
                 holder.click(R.id.test4) {
                     holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.plugin1")
-                    holder.eV(R.id.start_activity_edit).setInputText("com.wayto.plugin1.MainActivity")
+                    holder.eV(R.id.start_activity_edit)
+                        .setInputText("com.wayto.plugin1.MainActivity")
                 }
 
                 //选择插件
@@ -103,8 +128,8 @@ class RePluginDemo : AppBaseItemFragment() {
                         }
                     }
 
-                    "plugin_name_edit".hawkPutList(holder.eV(R.id.plugin_name_edit).string())
-                    "start_activity_edit".hawkPutList(holder.eV(R.id.start_activity_edit).string())
+                    "plugin_name_edit".hawkPutList(holder.eV(R.id.plugin_name_edit).string().trim())
+                    "start_activity_edit".hawkPutList(holder.eV(R.id.start_activity_edit).string().trim())
 
                     updateAdapter(holder)
 
@@ -134,11 +159,55 @@ class RePluginDemo : AppBaseItemFragment() {
             override fun getItemLayoutId(): Int {
                 return R.layout.demo_re_plugin
             }
+        })
 
+        singleItems.add(object : SingleItem() {
+            override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
+
+                holder.eV(R.id.start_activity_class)
+                    .setInputText("com.angcyo.uikitdemo.loader.a.ActivityN1NRNTS2")
+
+                updateAdapter(holder)
+
+                //启动宿主Activity
+                holder.click(R.id.start_activity_button) {
+                    if (holder.eV(R.id.start_activity_class).checkEmpty()) return@click
+
+                    "start_activity_class".hawkPutList(holder.eV(R.id.start_activity_class).string().trim())
+
+                    try {
+
+                        val className = holder.eV(R.id.start_activity_class).string().trim()
+
+                        //val forName = Class.forName(className)
+
+                        val componentName = RePlugin.createComponentName(
+                            "com.angcyo.uikitdemo",
+                            className
+                        )
+
+                        ActivityHelper.build(mAttachContext)
+                            //.setClass(forName as Class<out Activity>)
+                            .setComponent(componentName)
+                            .defaultEnterAnim()
+                            .doIt()
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+
+            override fun getItemLayoutId(): Int {
+                return R.layout.demo_re_plugin2
+            }
         })
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         transitionFromRect(showFromRect, viewHolder.itemView as ViewGroup)
