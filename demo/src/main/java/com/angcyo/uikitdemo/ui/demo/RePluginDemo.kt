@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -35,15 +36,16 @@ class RePluginDemo : AppBaseItemFragment() {
 
     init {
         //默认值
-        "plugin_name_edit".hawkPutList("com.wayto.smart.community.plugin")
-        "plugin_name_edit".hawkPutList("com.wayto.reservoir.patrol.plugin")
         "plugin_name_edit".hawkPutList("com.angcyo.plugin1")
         "plugin_name_edit".hawkPutList("com.angcyo.plugin2")
+        "plugin_name_edit".hawkPutList("com.wayto.smart.community.plugin")
+        "plugin_name_edit".hawkPutList("com.wayto.reservoir.patrol.plugin")
 
-        "start_activity_edit".hawkPutList("com.wayto.smart.community.plugin.MainActivity")
-        "start_activity_edit".hawkPutList("com.wayto.reservoir.patrol.plugin.SplashActivity")
         "start_activity_edit".hawkPutList("com.angcyo.plugin1.MainActivity")
         "start_activity_edit".hawkPutList("com.angcyo.plugin2.MainActivity")
+        "start_activity_edit".hawkPutList("com.wayto.smart.community.plugin.MainActivity")
+        "start_activity_edit".hawkPutList("com.wayto.reservoir.patrol.plugin.SplashActivity")
+        "start_activity_edit".hawkPutList("com.wayto.reservoir.patrol.plugin.TestActivity")
 
         "start_activity_class".hawkPutList("com.angcyo.uikitdemo.loader.a.ActivityN1NRNTS2")
     }
@@ -69,9 +71,9 @@ class RePluginDemo : AppBaseItemFragment() {
         singleItems.add(object : SingleItem() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
 
-                holder.eV(R.id.plugin_name_edit).setInputText("com.wayto.smart.community.plugin")
+                holder.eV(R.id.plugin_name_edit).setInputText("plugin_name_edit".hawkGetList().first())
                 holder.eV(R.id.start_activity_edit)
-                    .setInputText("com.wayto.smart.community.plugin.MainActivity")
+                    .setInputText("start_activity_edit".hawkGetList().first())
 
                 updateAdapter(holder)
 
@@ -146,6 +148,8 @@ class RePluginDemo : AppBaseItemFragment() {
                             }
                         }
                     })
+
+                    holder.focus<View>(R.id.base_soft_input_layout)
                 }
 
                 //卸载插件
@@ -165,7 +169,7 @@ class RePluginDemo : AppBaseItemFragment() {
             override fun onBindView(holder: RBaseViewHolder, posInData: Int, itemDataBean: Item?) {
 
                 holder.eV(R.id.start_activity_class)
-                    .setInputText("com.angcyo.uikitdemo.loader.a.ActivityN1NRNTS2")
+                    .setInputText("start_activity_class".hawkGetList().first())
 
                 updateAdapter(holder)
 
