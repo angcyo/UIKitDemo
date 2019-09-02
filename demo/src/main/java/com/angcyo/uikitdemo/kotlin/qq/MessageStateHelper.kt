@@ -58,6 +58,11 @@ object MessageStateHelper {
                                     }
                                 }
                             }
+
+                            if (from == MESSAGE_STATE_FINISH || to == MESSAGE_STATE_FINISH) {
+                                //已完全的消息, 不缓存, 节约资源
+                                messageStateMap.remove(msgId)
+                            }
                         }
                         MESSAGE_CHECK_TIMEOUT -> {
 
