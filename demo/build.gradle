@@ -14,7 +14,7 @@ android {
             //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     productFlavors {
         _min {
@@ -36,7 +36,8 @@ dependencies {
     implementation 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation 'androidx.viewpager2:viewpager2:1.0.0-beta03'
 }
