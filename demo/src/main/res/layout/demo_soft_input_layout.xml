@@ -20,7 +20,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/base_dark_red"
+            android:background="@color/base_red_tran"
             android:orientation="vertical">
 
             <com.angcyo.uiview.less.widget.ExEditText

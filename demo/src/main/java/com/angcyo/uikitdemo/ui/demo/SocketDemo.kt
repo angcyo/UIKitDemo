@@ -21,9 +21,14 @@ open class SocketDemo : AppBaseDslRecyclerFragment() {
         return R.layout.demo_websocket_layout
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
+        //tcp 地址不能用 / 结尾
         viewHolder.auto(
             R.id.url_edit,
             mutableListOf("tcp://116.7.249.36:1883", "ws://116.7.249.36:8083/mqtt"),
@@ -78,7 +83,7 @@ open class SocketDemo : AppBaseDslRecyclerFragment() {
     }
 
     open fun connect(url: String) {
-
+        baseDslAdapter.renderTextItem("开始连接.$url")
     }
 
     open fun sendText(text: String) {

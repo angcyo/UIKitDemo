@@ -18,14 +18,14 @@ class MqttDemo : SocketDemo() {
             password = "public"
 
             onConnectComplete = { _, _ ->
-                baseDslAdapter.renderTextItem("已连接.")
+                baseDslAdapter.renderTextItem("已连接.$serverURI")
                 baseDslAdapter.renderTextItem("订阅:$topic")
 
                 mqtt.subscribe(topic)
             }
 
             onConnectionLost = {
-                baseDslAdapter.renderTextItem("连接断开.")
+                baseDslAdapter.renderTextItem("连接断开.$serverURI")
             }
 
             onMessageArrived = { topic, message ->
