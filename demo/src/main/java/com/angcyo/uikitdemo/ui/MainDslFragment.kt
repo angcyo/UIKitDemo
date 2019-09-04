@@ -35,7 +35,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
         renderDslAdapter {
             renderMainItem("AdapterStatusDemo", 10 * dpi)
             renderMainItem("TabLayoutDemo")
-            renderMainItem("WidgetDemo")
+            renderMainItem("WidgetDemo Screenshot Grayscale")
             renderMainItem("SpanDemo")
             renderMainItem("TransitionDemo")
             renderMainItem("SceneDemo")
