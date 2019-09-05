@@ -1,5 +1,6 @@
 package com.angcyo.uikitdemo
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -19,6 +20,7 @@ import com.angcyo.uiview.less.kotlin.renderItem
 import com.angcyo.uiview.less.utils.RNetwork
 import com.angcyo.uiview.less.utils.RUtils.randomColor
 import com.angcyo.uiview.less.utils.TopToast
+import me.weishu.reflection.Reflection
 
 /**
  *
@@ -40,7 +42,8 @@ class App : PluginHostApplication() {
         BaseUI.uiFragment = object : BaseUI.DefaultUIFragment() {
             override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
                 super.initBaseTitleLayout(titleFragment, arguments)
-                titleFragment.contentControl().selector().setBackgroundColor(getColor(R.color.line_color))
+                titleFragment.contentControl().selector()
+                    .setBackgroundColor(getColor(R.color.line_color))
             }
         }
 
@@ -51,6 +54,11 @@ class App : PluginHostApplication() {
         if (!isGenymotion()) {
             CardOcr.init(this)
         }
+    }
+
+    override fun attachBaseContext(base: Context?) {
+        super.attachBaseContext(base)
+        Reflection.unseal(base)
     }
 }
 
