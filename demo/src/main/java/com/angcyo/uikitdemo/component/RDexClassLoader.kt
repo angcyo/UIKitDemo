@@ -23,6 +23,9 @@ class RDexClassLoader(
     companion object {
         const val R_DEX_PATH = "r_dex"
 
+        /**
+         * 构建 [RDexClassLoader]
+         * */
         fun create(
             context: Context,
             dexPath: String,
@@ -45,24 +48,36 @@ class RDexClassLoader(
         }
     }
 
-    fun createObject(clsName: String): Any? {
+    /**创建对象*/
+    fun <T> createObject(clsName: String): T? {
         val clazz = try {
             Class.forName(clsName, true, this)
         } catch (e: Exception) {
             e.printStackTrace()
             null
         }
-        return clazz?.newInstance()
+        return clazz?.newInstance() as? T
     }
 
-    fun invokeWith(clsName: String, doIt: Any.() -> Unit) {
-        createObject(clsName)?.doIt()
+    /**获取成员变量*/
+    fun <T> readField(obj: Any, fieldName: String): T? {
+        return ReflectUtils.readField(obj.javaClass, obj, fieldName) as? T
     }
 
-    fun invokeMethod(
+    /**设置成员变量*/
+    fun writeField(obj: Any, fieldName: String, value: Any? = null) {
+        ReflectUtils.writeField(obj.javaClass, obj, fieldName, value)
+    }
+
+    fun <T> invokeWith(clsName: String, doIt: T.() -> Unit) {
+        createObject<T>(clsName)?.doIt()
+    }
+
+    /**调用成员方法*/
+    fun <T> invokeMethod(
         obj: Any, methodName: String,
         methodParamTypes: Array<Class<*>>? = null, vararg args: Any
-    ): Any? {
+    ): T? {
         return ReflectUtils.invokeMethod(
             this,
             obj.javaClass.name,
@@ -70,6 +85,6 @@ class RDexClassLoader(
             obj,
             methodParamTypes,
             *args
-        )
+        ) as? T
     }
 }

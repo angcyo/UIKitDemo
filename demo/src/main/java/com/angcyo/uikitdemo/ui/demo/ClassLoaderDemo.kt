@@ -89,8 +89,8 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
                             itemHolder.eV(R.id.dex_path_edit).string()
                         )
 
-                        loader.invokeWith(itemHolder.eV(R.id.class_name_edit).string()) {
-                            L.i("方法返回:${loader.invokeMethod(
+                        loader.invokeWith<Any>(itemHolder.eV(R.id.class_name_edit).string()) {
+                            L.i("方法返回:${loader.invokeMethod<Any>(
                                 this, itemHolder.eV(R.id.method_name_edit).string(),
                                 arrayOf(Int::class.java, String::class.java), 100, "angcyo"
                             )}".apply {
@@ -116,8 +116,8 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
                             itemHolder.eV(R.id.dex_path_edit).string()
                         )
 
-                        loader.invokeWith(itemHolder.eV(R.id.class_name_edit).string()) {
-                            (this as? Fragment)?.run { show(this) }
+                        loader.invokeWith<Fragment>(itemHolder.eV(R.id.class_name_edit).string()) {
+                            show(this)
                         }
                     }
 
@@ -138,9 +138,8 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
                             itemHolder.eV(R.id.dex_path_edit).string()
                         )
 
-                        loader.invokeWith(itemHolder.eV(R.id.class_name_edit).string()) {
-                            (this as? DslAdapterItem)?.run { dslCustomItem(this) }
-
+                        loader.invokeWith<DslAdapterItem>(itemHolder.eV(R.id.class_name_edit).string()) {
+                            dslCustomItem(this)
                         }
                     }
                 }
