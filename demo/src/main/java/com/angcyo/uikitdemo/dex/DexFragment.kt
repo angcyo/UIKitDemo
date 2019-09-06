@@ -1,7 +1,10 @@
 package com.angcyo.uikitdemo.dex
 
 import android.os.Bundle
+import android.view.ViewGroup
+import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.demo.ClassLoaderDemo
+import com.angcyo.uiview.less.kotlin.getData
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.dslitem.dslCustomItem
 
@@ -27,5 +30,15 @@ class DexFragment : ClassLoaderDemo() {
         renderDslAdapter {
             dslCustomItem(DexItem())
         }
+    }
+
+    override fun onPostCreateView(
+        container: ViewGroup?,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
+        super.onPostCreateView(container, arguments, savedInstanceState)
+
+        baseViewHolder.tv(R.id.result_text_view)?.text = "数据接收:${getData(String::class.java)}"
     }
 }

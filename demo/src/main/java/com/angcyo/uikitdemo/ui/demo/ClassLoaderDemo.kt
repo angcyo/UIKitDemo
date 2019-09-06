@@ -117,7 +117,9 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
                         )
 
                         loader.invokeWith<Fragment>(itemHolder.eV(R.id.class_name_edit).string()) {
-                            show(this)
+                            show(this) {
+                                putData("传递过来的参数:${nowTimeString()}")
+                            }
                         }
                     }
 
