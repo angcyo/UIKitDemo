@@ -13,9 +13,35 @@ import org.junit.Test
  */
 class TimeTickTest {
 
+    fun String?.orEmpty(): String = if (this.isNullOrEmpty()) "isEmpty" else this
+    fun (String?).orEmpty2(): String = if (this.isNullOrEmpty()) "isEmpty2" else this
+
     @Test
     fun testTick() {
-        L.i("开始测试....")
+        var test: String? = null
+        L.i("开始测试...." + test.orEmpty())
+        test = "test"
+        L.i("开始测试...." + test.orEmpty())
+        test = null
+        L.i("开始测试...." + test.orEmpty())
+
+        test = null
+        L.i("开始测试2....${test.orEmpty()}")
+        test = "test"
+        L.i("开始测试2....${test.orEmpty()}")
+        test = null
+        L.i("开始测试2....${test.orEmpty()}")
+
+
+        var test2: String? = null
+        L.i("开始测试2....${test2.orEmpty()}")
+        test = "test"
+        L.i("开始测试2....${test2.orEmpty()}")
+        test = null
+        L.i("开始测试2....${test2.orEmpty()}")
+        return
+
+        1/0
 
         val timeTick = TimeTick()
 

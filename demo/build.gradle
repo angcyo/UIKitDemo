@@ -2,7 +2,7 @@ ext {
     APP_NAME = "UIKitDemo"
 }
 
-apply from:allGradle.appName
+apply from: allGradle.appName
 
 apply from: allGradle.key
 
@@ -10,7 +10,8 @@ android {
     defaultConfig {
         ndk {
             // 设置支持的SO库架构
-            abiFilters 'armeabi-v7a', 'x86' //'armeabi', 'armeabi-v7a', 'x86', 'x86_64'//, 'arm64-v8a'
+            abiFilters 'armeabi-v7a', 'x86'
+            //'armeabi', 'armeabi-v7a', 'x86', 'x86_64'//, 'arm64-v8a'
             //, 'x86', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
         }
 
@@ -60,3 +61,5 @@ repluginHostConfig {
 
 //apply from: allGradle.xml
 //apply from: allGradle.xml2
+
+apply from: allGradle.makeDex
