@@ -25,6 +25,7 @@ class RDexClassLoader(
 
         /**
          * 构建 [RDexClassLoader]
+         * @param dexPath 多个路径, 请使用 [java.io.File.pathSeparator] ":" 分隔
          * */
         fun create(
             context: Context,
