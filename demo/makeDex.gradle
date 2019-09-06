@@ -27,11 +27,10 @@ ext.dexConfig = [
 
         //需要打包的包名(包含包名下的所有类)
         "includePackageNames": [
-                "com/angcyo/uikitdemo/dex",
-                "com/angcyo/uikitdemo/dex2"
+                "com/angcyo/uikitdemo/dex"
         ],
         //文件名 (默认是工程名+时间的组合)
-        "dexFileName"        : "",
+        "dexFileName"        : "dex",
         //当前版本
         "versionCode"        : "1",
         "versionName"        : "v1.0.0",

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/base_xxxhdpi">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_hdpi"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:layout_marginRight="@dimen/base_hdpi">
+
+        <com.angcyo.uiview.less.widget.ExEditText
+            android:id="@+id/dex_path_edit"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Dex路径"
+            android:inputType="textWebEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_hdpi"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:layout_marginRight="@dimen/base_hdpi">
+
+        <com.angcyo.uiview.less.widget.AutoEditText
+            android:id="@+id/class_name_edit"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:hint="加载的类名"
+            android:inputType="textWebEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_hdpi"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:layout_marginRight="@dimen/base_hdpi">
+
+        <com.angcyo.uiview.less.widget.AutoEditText
+            android:id="@+id/method_name_edit"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:completionThreshold="0"
+            android:hint="需要调用的方法"
+            android:inputType="textWebEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.angcyo.uiview.less.widget.Button
+        android:id="@+id/selector_file_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:minHeight="@dimen/base_item_size"
+        android:text="选择Dex"
+        app:r_button_style="ROUND_GRADIENT_RECT" />
+
+    <com.angcyo.uiview.less.widget.Button
+        android:id="@+id/start_invoke_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:minHeight="@dimen/base_item_size"
+        android:text="调用方法"
+        app:r_button_style="ROUND_GRADIENT_RECT" />
+
+    <com.angcyo.uiview.less.widget.Button
+        android:id="@+id/start_fragment_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:minHeight="@dimen/base_item_size"
+        android:text="启动Dex中的Fragment"
+        app:r_button_style="ROUND_GRADIENT_RECT" />
+
+    <com.angcyo.uiview.less.widget.Button
+        android:id="@+id/start_item_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_hdpi"
+        android:minHeight="@dimen/base_item_size"
+        android:text="显示Dex中的DslAdapterItem"
+        app:r_button_style="ROUND_GRADIENT_RECT" />
+
+    <!--    <com.angcyo.uiview.less.widget.Button-->
+    <!--        android:id="@+id/uninstall_plugin_button"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_margin="@dimen/base_hdpi"-->
+    <!--        android:minHeight="@dimen/base_item_size"-->
+    <!--        android:text="卸载插件"-->
+    <!--        app:r_button_style="ROUND_GRADIENT_RECT" />-->
+
+    <com.angcyo.uiview.less.widget.RTextView
+        android:id="@+id/result_text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark20" />
+
+</LinearLayout>

@@ -10,7 +10,13 @@ import com.angcyo.lib.L
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class KotlinDexClass {
-    fun kotlinDex() {
+    fun kotlinDex(): String {
         L.i("kotlin文件")
+        return "kotlin文件, 方法:kotlinDex"
+    }
+
+    fun kotlinDex2(num: Int, string: String): String {
+        L.i("kotlin文件")
+        return "kotlin文件, 方法:kotlinDex2 参数:num:$num string:$string"
     }
 }

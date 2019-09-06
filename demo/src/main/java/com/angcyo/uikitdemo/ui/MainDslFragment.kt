@@ -49,6 +49,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("TBSDemo")
             renderMainItem("CameraDemo")
             renderMainItem("RePluginDemo")
+            renderMainItem("ClassLoaderDemo")
             renderMainItem("WaveDemo")
             renderMainItem("RecyclerViewDemo")
             renderMainItem("TouchDemo")
