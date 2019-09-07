@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <SurfaceView
+        android:id="@+id/base_preview_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/default_base_black" />
+
+    <com.angcyo.rcode.ViewfinderView
+        android:id="@+id/base_viewfinder_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/status_bar_height"
+        android:orientation="vertical">
+
+        <com.angcyo.uiview.less.widget.ExEditText
+            android:id="@+id/baidu_api_key"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="百度API KEY"
+            android:textColor="@color/base_white" />
+
+        <com.angcyo.uiview.less.widget.ExEditText
+            android:id="@+id/baidu_secret_key"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="百度SECRET KEY"
+            android:textColor="@color/base_white" />
+
+        <com.angcyo.uiview.less.widget.ExEditText
+            android:id="@+id/ali_app_code"
+            style="@style/BaseMainTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="阿里云APP CODE"
+            android:textColor="@color/base_white" />
+
+    </LinearLayout>
+
+    <com.angcyo.uiview.less.widget.group.RSoftInputLayout
+        android:id="@+id/base_soft_input_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:padding="@dimen/base_hdpi">
+
+            <com.angcyo.uiview.less.widget.RTextView
+                android:id="@+id/code_view"
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/base_hdpi"
+                android:textColor="@color/base_white" />
+
+            <com.angcyo.uiview.less.widget.ExEditText
+                android:id="@+id/sql_edit"
+                style="@style/BaseMainTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="SQL模版"
+                android:text="UPDATE asset set Barcode = '%1' where CorporationId = 100097 and `Name` = '%2'"
+                android:textColor="@color/base_white"
+                app:layout_constraintTop_toBottomOf="@id/code_view" />
+
+            <com.angcyo.uiview.less.widget.RTextView
+                android:id="@+id/result_text_view1"
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/base_35dpi"
+                android:paddingTop="@dimen/base_xhdpi"
+                android:paddingBottom="@dimen/base_xhdpi"
+                android:text="扫码结果:"
+                android:textColor="@color/base_white"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/result_text_view2"
+                app:layout_constraintTop_toBottomOf="@id/sql_edit" />
+
+            <com.angcyo.uiview.less.widget.RTextView
+                android:id="@+id/result_text_view2"
+                style="@style/BaseDarkTextStyle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_xhdpi"
+                android:background="@drawable/base_bg_selector"
+                android:minHeight="@dimen/base_35dpi"
+                android:paddingTop="@dimen/base_xhdpi"
+                android:paddingBottom="@dimen/base_xhdpi"
+                android:text="OCR结果:"
+                android:textColor="@color/base_white"
+                app:layout_constraintLeft_toRightOf="@id/result_text_view1"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/result_text_view1" />
+
+            <RadioGroup
+                android:id="@+id/group"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@id/baidu_api"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/result_text_view1">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/baidu_api"
+                    style="@style/BaseDarkTextStyle"
+                    android:layout_width="@dimen/base_0dpi"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="35dp"
+                    android:paddingTop="@dimen/base_xhdpi"
+                    android:paddingBottom="@dimen/base_xhdpi"
+                    android:text="百度API"
+                    android:textColor="@color/base_white" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/ali_api"
+                    style="@style/BaseDarkTextStyle"
+                    android:layout_width="@dimen/base_0dpi"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:minHeight="35dp"
+                    android:paddingTop="@dimen/base_xhdpi"
+                    android:paddingBottom="@dimen/base_xhdpi"
+                    android:text="阿里API"
+                    android:textColor="@color/base_white" />
+
+            </RadioGroup>
+
+            <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/save_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/base_40dpi"
+                android:text="保存"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/clear_button"
+                app:layout_constraintTop_toBottomOf="@id/group" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/clear_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_xhdpi"
+                android:minHeight="@dimen/base_40dpi"
+                android:text="删除所有"
+                app:layout_constraintLeft_toRightOf="@id/save_button"
+                app:layout_constraintRight_toLeftOf="@id/next_button"
+                app:layout_constraintTop_toTopOf="@id/save_button"
+                app:r_gradient_start_color="@color/base_red_dark" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/next_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_xhdpi"
+                android:minHeight="@dimen/base_40dpi"
+                android:text="下一个"
+                app:layout_constraintLeft_toRightOf="@id/clear_button"
+                app:layout_constraintRight_toLeftOf="@id/copy_button"
+                app:layout_constraintTop_toTopOf="@id/save_button" />
+
+            <com.angcyo.uiview.less.widget.Button
+                android:id="@+id/copy_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/base_xhdpi"
+                android:minHeight="@dimen/base_40dpi"
+                android:text="分享/复制"
+                app:layout_constraintLeft_toRightOf="@id/next_button"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/save_button"
+                app:r_gradient_start_color="@color/base_red_dark" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.angcyo.uiview.less.widget.group.RSoftInputLayout>
+</FrameLayout>

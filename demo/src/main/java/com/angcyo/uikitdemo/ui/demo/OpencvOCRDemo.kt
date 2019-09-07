@@ -1,16 +1,22 @@
 package com.angcyo.uikitdemo.ui.demo
 
+import android.graphics.BitmapFactory
 import android.util.LayoutDirection
 import android.view.Gravity.*
 import android.view.View
 import android.widget.TextView
+import com.angcyo.http.Rx
+import com.angcyo.lib.L
 import com.angcyo.opencv.CardOcrScanFragment
+import com.angcyo.rcode.CodeScanFragment
+import com.angcyo.rcode.scan.FrameDataDecode
+import com.angcyo.tesstwo.NetOcr
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseItemFragment
 import com.angcyo.uiview.less.iview.ChoiceIView
-import com.angcyo.uiview.less.kotlin.gravityFlag
-import com.angcyo.uiview.less.kotlin.toBitmap
+import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.recycler.item.SingleItem
+import com.google.gson.JsonObject
 import java.util.*
 
 /**
@@ -21,17 +27,72 @@ import java.util.*
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class OpencvOCRDemo : AppBaseItemFragment() {
+
+    val netOcr = NetOcr()
+
     override fun onCreateItems(singleItems: ArrayList<SingleItem>) {
         dslCreateItem {
             singleItemLayoutId = R.layout.demo_open_cv
 
             singleItemBind = { holder, posInData, singItem ->
+
+                //open cv ocr 识别身份证号码
                 holder.click(R.id.ocr_button) {
                     CardOcrScanFragment.show(parentFragmentManager()) {
                         holder.tv(R.id.text_view).text = "$it"
 
                         holder.imgV(R.id.image_view).setImageBitmap(it.base64bitmap.toBitmap())
                     }
+                }
+
+                //百度云 ocr 文字识别
+
+                holder.click(R.id.baidu_button) {
+                    //netOcr.ocrBaidu()
+                    FrameDataDecode.iFrameDataDecode = FrameDataDecode.IFrameDataDecode { data ->
+                        //                        netOcr.ocrBaiduBasic(data) {
+//                            it.fromJson(JsonObject::class.java)?.getArray("words_result")?.forEach {
+//                                it.getString("words")?.replace(" ","")?.apply {
+//                                    if (this.length >= 9 && this.pattern("^[a-zA-Z0-9]+\$")) {
+//                                        L.w("识别到:$this")
+//                                    }
+//                                }
+//                            }
+//                            null
+//                        }
+
+                        netOcr.ocrAliyun(data) {
+                            it.fromJson(JsonObject::class.java)?.getArray("prism_wordsInfo")
+                                ?.forEach {
+                                    it.getString("word")?.replace(" ", "")?.apply {
+                                        L.i("匹配:$this")
+
+                                        if (this.length >= 9 && this.pattern("^[a-zA-Z0-9]+\$")) {
+                                            L.w("识别到:$this")
+                                        }
+                                    }
+                                }
+                            null
+                        }
+
+                        Rx.onMain {
+                            holder.imgV(R.id.image_view)
+                                .setImageBitmap(
+                                    BitmapFactory.decodeByteArray(
+                                        data,
+                                        0,
+                                        data.size
+                                    ).rotate()
+                                )
+                        }
+                    }
+
+                    show(CodeScanFragment().apply {
+                        onScanResult = {
+                            holder.tv(R.id.result_text_view).text = it
+                            true
+                        }
+                    })
                 }
 
                 ChoiceIView.get(holder.group(R.id.flow_layout)).apply {

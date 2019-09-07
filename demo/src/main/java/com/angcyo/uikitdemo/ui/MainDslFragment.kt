@@ -55,7 +55,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("TouchDemo")
             renderMainItem("DialogDemo")
             renderMainItem("PictureSelectorDemo")
-            renderMainItem("OpencvOCRDemo Gravity")
+            renderMainItem("OpencvOCRDemo OCR Gravity")
             renderMainItem("AutoCompleteDemo")
             renderMainItem("FileDownDemo")
             renderMainItem("CustomViewDemo1")
@@ -70,6 +70,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("LayoutManagerDemo")
             renderMainItem("AgoraDemo")
             renderMainItem("ViewPager2Demo")
+            renderMainItem("ScanOCRDemo")
 
             //last item
             renderMainItem {

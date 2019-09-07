@@ -1,174 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <com.angcyo.uiview.less.widget.Button
-            android:id="@+id/ocr_button"
-            android:layout_margin="@dimen/base_xhdpi"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="OCR识别"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/ocr_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:text="OCR识别"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.angcyo.uiview.less.widget.Button
+        android:id="@+id/baidu_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_xhdpi"
+        android:text="百度OCR"
+        app:layout_constraintLeft_toRightOf="@id/ocr_button"
+        app:layout_constraintTop_toTopOf="@id/ocr_button" />
+
+    <com.angcyo.uiview.less.widget.RTextView
+        android:id="@+id/result_text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:background="@color/transparent_dark20"
+        app:layout_constraintTop_toBottomOf="@id/ocr_button" />
 
     <TextView
-            android:id="@+id/text_view"
-            app:layout_constraintTop_toBottomOf="@id/ocr_button"
-            app:layout_constraintLeft_toLeftOf="parent"
-            style="@style/BaseMainTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ocr_button" />
 
     <com.angcyo.uiview.less.widget.group.RFlowLayout
-            android:id="@+id/flow_layout"
-            app:layout_constraintTop_toBottomOf="@id/text_view"
+        android:id="@+id/flow_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/base_hdpi"
+        app:layout_constraintTop_toBottomOf="@id/text_view"
+        app:r_flow_item_horizontal_space="@dimen/base_xhdpi"
+        app:r_flow_item_vertical_space="@dimen/base_xhdpi">
+
+        <TextView
+            android:id="@+id/l"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="left"
+            android:text="L" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="top|left"
+            android:text="LT" />
+
+        <TextView
+            android:id="@+id/t"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="top"
+            android:text="T" />
+
+        <TextView
+            android:id="@+id/tc"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="top|center_horizontal"
+            android:text="TC" />
+
+        <TextView
+            android:id="@+id/r"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="right"
+            android:text="R" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="right|top"
+            android:text="TR" />
+
+        <TextView
+            android:id="@+id/rc"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="right|center_vertical"
+            android:text="RC" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="bottom"
+            android:text="B" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="bottom|left"
+            android:text="LB" />
+
+        <TextView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="bottom|right"
+            android:text="BR" />
+
+        <TextView
+            android:id="@+id/bc"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="bottom|center_horizontal"
+            android:text="BC" />
+
+        <TextView
+            android:id="@+id/lb"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="bottom"
+            android:text="LB" />
+
+        <TextView
+            android:id="@+id/lc"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="left|center_vertical"
+            android:text="LC" />
+
+        <TextView
+            android:id="@+id/c"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="center"
+            android:text="C" />
+
+        <TextView
+            android:id="@+id/ch"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="center_horizontal"
+            android:text="CH" />
+
+        <TextView
+            android:id="@+id/cv"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@color/transparent_dark40"
+            android:gravity="center_vertical"
+            android:text="CV" />
+
+        <TextView
+            android:id="@+id/log"
+            style="@style/BaseMainTextStyle"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent_dark40"
             android:padding="@dimen/base_hdpi"
-            app:r_flow_item_horizontal_space="@dimen/base_xhdpi"
-            app:r_flow_item_vertical_space="@dimen/base_xhdpi"
-            android:layout_height="wrap_content">
-
-        <TextView
-                android:id="@+id/l"
-                android:gravity="left"
-                android:text="L"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:gravity="top|left"
-                android:text="LT"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/t"
-                android:gravity="top"
-                android:text="T"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/tc"
-                android:gravity="top|center_horizontal"
-                android:text="TC"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/r"
-                android:gravity="right"
-                android:text="R"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:gravity="right|top"
-                android:text="TR"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/rc"
-                android:gravity="right|center_vertical"
-                android:text="RC"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:gravity="bottom"
-                android:text="B"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:gravity="bottom|left"
-                android:text="LB"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:gravity="bottom|right"
-                android:text="BR"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/bc"
-                android:gravity="bottom|center_horizontal"
-                android:text="BC"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/lb"
-                android:gravity="bottom"
-                android:text="LB"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/lc"
-                android:gravity="left|center_vertical"
-                android:text="LC"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/c"
-                android:gravity="center"
-                android:text="C"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/ch"
-                android:gravity="center_horizontal"
-                android:text="CH"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/cv"
-                android:gravity="center_vertical"
-                android:text="CV"
-                android:background="@color/transparent_dark40"
-                android:layout_width="60dp"
-                android:layout_height="60dp"/>
-
-        <TextView
-                android:id="@+id/log"
-                style="@style/BaseMainTextStyle"
-                android:text="log..."
-                android:background="@color/transparent_dark40"
-                android:layout_width="match_parent"
-                android:padding="@dimen/base_hdpi"
-                android:layout_height="wrap_content"/>
+            android:text="log..." />
 
     </com.angcyo.uiview.less.widget.group.RFlowLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_view"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/image_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
