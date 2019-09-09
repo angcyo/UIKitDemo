@@ -26,6 +26,9 @@ class ScanOCRDemo : CodeScanFragment() {
     }
 
     private val KEY_DATA_SAVE = "key_data_save"
+    private val LAST_API_KEY = "last_api_key"
+    private val LAST_SECRET_KEY = "last_secret_key"
+    private val LAST_APP_CODE = "last_app_code"
 
     private val netOcr = NetOcr()
     private var netOcrType = 1 //1:百度 2:阿里云
@@ -40,6 +43,10 @@ class ScanOCRDemo : CodeScanFragment() {
     ) {
         super.initBaseView(viewHolder, arguments, savedInstanceState)
 
+        viewHolder.tv(R.id.baidu_api_key).text = LAST_API_KEY.hawkGet()
+        viewHolder.tv(R.id.baidu_secret_key).text = LAST_SECRET_KEY.hawkGet()
+        viewHolder.tv(R.id.ali_app_code).text = LAST_APP_CODE.hawkGet()
+
         viewHolder.click(R.id.save_button) {
             val baiduApiKey =
                 viewHolder.tv(R.id.baidu_api_key).string().orDefault(NetOcr.BAIDU_API_KEY)
@@ -49,6 +56,13 @@ class ScanOCRDemo : CodeScanFragment() {
 
             if (baiduApiKey != NetOcr.BAIDU_API_KEY || baiduSecretKey != NetOcr.BAIDU_SECRET_KEY) {
                 netOcr.resetBaiduApi(baiduApiKey.toString(), baiduSecretKey.toString())
+
+                LAST_API_KEY.hawkPut(baiduApiKey)
+                LAST_SECRET_KEY.hawkPut(baiduSecretKey)
+            }
+
+            if (appCode != NetOcr.ALI_APPCODE) {
+                LAST_APP_CODE.hawkPut(appCode)
             }
 
             NetOcr.ALI_APPCODE = "$appCode"

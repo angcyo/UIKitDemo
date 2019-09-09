@@ -59,50 +59,67 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.angcyo.uiview.less.widget.Button
-        android:id="@+id/selector_file_button"
+    <androidx.appcompat.widget.AppCompatCheckBox
+        android:id="@+id/check_box"
+        style="@style/BaseMainTextStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_hdpi"
-        android:minHeight="@dimen/base_item_size"
-        android:text="选择Dex"
-        app:r_button_style="ROUND_GRADIENT_RECT" />
+        android:minHeight="40dp"
+        android:text="优化使用Host中的类" />
 
-    <com.angcyo.uiview.less.widget.Button
-        android:id="@+id/start_invoke_button"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_hdpi"
-        android:minHeight="@dimen/base_item_size"
-        android:text="调用方法"
-        app:r_button_style="ROUND_GRADIENT_RECT" />
+        android:orientation="horizontal">
 
-    <com.angcyo.uiview.less.widget.Button
-        android:id="@+id/start_fragment_button"
+        <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/selector_file_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_hdpi"
+            android:layout_weight="1"
+            android:minHeight="@dimen/base_item_size"
+            android:text="选择Dex"
+            app:r_button_style="ROUND_GRADIENT_RECT" />
+
+        <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/start_invoke_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_hdpi"
+            android:layout_weight="1"
+            android:minHeight="@dimen/base_item_size"
+            android:text="调用方法"
+            app:r_button_style="ROUND_GRADIENT_RECT" />
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_hdpi"
-        android:minHeight="@dimen/base_item_size"
-        android:text="启动Dex中的Fragment"
-        app:r_button_style="ROUND_GRADIENT_RECT" />
+        android:orientation="horizontal">
 
-    <com.angcyo.uiview.less.widget.Button
-        android:id="@+id/start_item_button"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/base_hdpi"
-        android:minHeight="@dimen/base_item_size"
-        android:text="显示Dex中的DslAdapterItem"
-        app:r_button_style="ROUND_GRADIENT_RECT" />
+        <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/start_fragment_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_hdpi"
+            android:layout_weight="1"
+            android:minHeight="@dimen/base_item_size"
+            android:text="启动Dex中的\nFragment"
+            app:r_button_style="ROUND_GRADIENT_RECT" />
 
-    <!--    <com.angcyo.uiview.less.widget.Button-->
-    <!--        android:id="@+id/uninstall_plugin_button"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_margin="@dimen/base_hdpi"-->
-    <!--        android:minHeight="@dimen/base_item_size"-->
-    <!--        android:text="卸载插件"-->
-    <!--        app:r_button_style="ROUND_GRADIENT_RECT" />-->
+        <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/start_item_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/base_hdpi"
+            android:layout_weight="1"
+            android:minHeight="@dimen/base_item_size"
+            android:text="显示Dex中的\nDslAdapterItem"
+            app:r_button_style="ROUND_GRADIENT_RECT" />
+
+    </LinearLayout>
 
     <com.angcyo.uiview.less.widget.RTextView
         android:id="@+id/result_text_view"

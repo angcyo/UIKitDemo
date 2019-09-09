@@ -32,12 +32,17 @@ ext.dexConfig = [
         //文件名 (默认是工程名+时间的组合)
         "dexFileName"        : "dex",
         //当前版本
-        "versionCode"        : "1",
-        "versionName"        : "v1.0.0",
+        "versionCode"        : "2",
+        "versionName"        : "v1.0.1",
 
-        //内部使用
+        //-------------内部使用--------------
+
+        //jar文件输出路径
         "jarPath"            : "",
-        "dexPath"            : ""
+        //dex文件输出路径
+        "dexPath"            : "",
+        //dex默认文件后缀
+        "dexSuffix"          : ".r.dex"
 ]
 
 
@@ -49,7 +54,7 @@ task _makeDex() {
     }
 
     doLast {
-        println "打包完成:$dexConfig.dexPath"
+        System.err.println "打包完成:$dexConfig.dexPath"
     }
 }
 
@@ -81,7 +86,8 @@ task makeJar(dependsOn: ['compileApkReleaseJavaWithJavac'], type: Jar) {
 
     if (dexConfig.dexFileName.isEmpty()) {
         archiveBaseName.set(project.name)
-        def time = new Date().format("yyyy-MM-dd_HH-mm", TimeZone.getTimeZone("Asia/Shanghai"))
+        def time = new Date()
+                .format("yyyy-MM-dd_HH-mm", TimeZone.getTimeZone("Asia/Shanghai"))
         archiveAppendix.set(time)
     } else {
         archiveBaseName.set(dexConfig.dexFileName)
@@ -110,7 +116,8 @@ task makeJar(dependsOn: ['compileApkReleaseJavaWithJavac'], type: Jar) {
 
     //写入jar文件中的 META-INF/MANIFEST.MF 文件的信息
     manifest {
-        attributes["Build-Time"] = new Date().format("yyyy-MM-dd_HH-mm-ss", TimeZone.getTimeZone("Asia/Shanghai"))
+        attributes["Build-Time"] = new Date()
+                .format("yyyy-MM-dd_HH-mm-ss", TimeZone.getTimeZone("Asia/Shanghai"))
         attributes["Author"] = "angcyo"
         attributes["Copyright"] = "Wayto"
         attributes["versionName"] = dexConfig.versionName
@@ -128,7 +135,9 @@ task jarToDex(dependsOn: ['makeJar'], type: Exec) {
         //jar文件对象
         def srcFile = file(dexConfig.jarPath)
         //需要生成的dex文件对象
-        def desFile = file(srcFile.parent + "/" + srcFile.name.substring(0, srcFile.name.lastIndexOf(".")) + ".dex")
+        def desFile = file(srcFile.parent + "/" +
+                srcFile.name.substring(0, srcFile.name.lastIndexOf(".")) +
+                dexConfig.dexSuffix)
 
         dexConfig.dexPath = desFile.getAbsolutePath()
 

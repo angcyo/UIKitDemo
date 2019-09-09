@@ -4,15 +4,18 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
-import com.angcyo.uikitdemo.component.RDexClassLoader
+import com.angcyo.uikitdemo.component.loader.RDex
+import com.angcyo.uikitdemo.component.loader.invokeMethod
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.component.FileSelectorFragment
 import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
+import com.angcyo.uiview.less.recycler.dslitem.DslTextInfoItem
 import com.angcyo.uiview.less.recycler.dslitem.dslCustomItem
 import com.angcyo.uiview.less.recycler.dslitem.dslItem
+import com.angcyo.uiview.less.utils.Root
 
 /**
  *
@@ -25,13 +28,17 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
 
     init {
         //默认值
-        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.JavaDexClass")
-        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.KotlinDexClass")
-        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.DexItem")
-        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.DexFragment")
+        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.JavaDexClass", false)
+        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.KotlinDexClass", false)
+        "class_name_edit".hawkPutList(
+            "com.angcyo.uiview.less.recycler.dslitem.DslTextInfoItem",
+            false
+        )
+        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.DexItem", false)
+        "class_name_edit".hawkPutList("com.angcyo.uikitdemo.dex.DexFragment", false)
 
-        "method_name_edit".hawkPutList("javaDex")
-        "method_name_edit".hawkPutList("kotlinDex2")
+        "method_name_edit".hawkPutList("javaDex", false)
+        "method_name_edit".hawkPutList("kotlinDex2", false)
     }
 
     override fun onInitBaseView(
@@ -40,6 +47,8 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
+
+        RDex.init(mAttachContext, Root.sd())
 
         renderDslAdapter {
             dslItem(R.layout.demo_class_loader) {
@@ -84,15 +93,15 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
                         "class_name_edit".hawkPutList(itemHolder.eV(R.id.class_name_edit).string())
                         "method_name_edit".hawkPutList(itemHolder.eV(R.id.method_name_edit).string())
 
-                        val loader = RDexClassLoader.create(
-                            mAttachContext,
-                            itemHolder.eV(R.id.dex_path_edit).string()
-                        )
-
-                        loader.invokeWith<Any>(itemHolder.eV(R.id.class_name_edit).string()) {
-                            L.i("方法返回:${loader.invokeMethod<Any>(
-                                this, itemHolder.eV(R.id.method_name_edit).string(),
-                                arrayOf(Int::class.java, String::class.java), 100, "angcyo"
+                        RDex.invokeWith<Any>(
+                            itemHolder.eV(R.id.class_name_edit).string(),
+                            itemHolder.cb(R.id.check_box).isChecked
+                        ) {
+                            L.i("方法返回:${invokeMethod<Any>(
+                                itemHolder.eV(R.id.method_name_edit).string(),
+                                arrayOf(Int::class.java, String::class.java),
+                                nowTime().toInt(),
+                                "angcyo:${nowTimeString()}"
                             )}".apply {
                                 itemHolder.tv(R.id.result_text_view).text = this
                             })
@@ -111,12 +120,10 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
 
                         "class_name_edit".hawkPutList(itemHolder.eV(R.id.class_name_edit).string())
 
-                        val loader = RDexClassLoader.create(
-                            mAttachContext,
-                            itemHolder.eV(R.id.dex_path_edit).string()
-                        )
-
-                        loader.invokeWith<Fragment>(itemHolder.eV(R.id.class_name_edit).string()) {
+                        RDex.invokeWith<Fragment>(
+                            itemHolder.eV(R.id.class_name_edit).string(),
+                            itemHolder.cb(R.id.check_box).isChecked
+                        ) {
                             show(this) {
                                 putData("传递过来的参数:${nowTimeString()}")
                             }
@@ -135,13 +142,16 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
 
                         "class_name_edit".hawkPutList(itemHolder.eV(R.id.class_name_edit).string())
 
-                        val loader = RDexClassLoader.create(
-                            mAttachContext,
-                            itemHolder.eV(R.id.dex_path_edit).string()
-                        )
-
-                        loader.invokeWith<DslAdapterItem>(itemHolder.eV(R.id.class_name_edit).string()) {
-                            dslCustomItem(this)
+                        RDex.invokeWith<DslAdapterItem>(
+                            itemHolder.eV(R.id.class_name_edit).string(),
+                            itemHolder.cb(R.id.check_box).isChecked
+                        ) {
+                            dslCustomItem(this) {
+                                if (this is DslTextInfoItem) {
+                                    itemInfoText = "itemDarkText"
+                                    itemDarkText = "itemDarkText"
+                                }
+                            }
                         }
                     }
                 }

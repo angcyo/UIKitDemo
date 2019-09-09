@@ -1,5 +1,6 @@
 package com.angcyo.uikitdemo.dex
 
+import com.angcyo.uikitdemo.BuildConfig
 import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.kotlin.hawkGet
 import com.angcyo.uiview.less.kotlin.hawkGetList
@@ -35,7 +36,19 @@ class DexItem : DslAdapterItem() {
         itemHolder.eV(R.id.dex_path_edit)
             .setInputText("dex_path_edit".hawkGet())
 
-        itemHolder.tv(R.id.result_text_view).text = "来自Dex中的DslAdapterItem."
+        itemHolder.tv(R.id.result_text_view).text = buildString {
+            append("BuildTime:")
+            append(BuildConfig.BUILD_TIME)
+            appendln()
+            append("hashCode:")
+            append(this@DexItem.javaClass.hashCode())
+            appendln()
+            append("加载类名:")
+            append(this@DexItem.javaClass.name)
+            appendln()
+            append("来自:")
+            append(this@DexItem.javaClass.classLoader?.javaClass?.name)
+        }
 
         itemHolder.click(R.id.selector_file_button) {
             toast_tip("选择文件")
