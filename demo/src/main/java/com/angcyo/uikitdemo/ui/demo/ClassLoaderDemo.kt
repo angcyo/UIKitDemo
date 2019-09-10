@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
+import com.angcyo.uikitdemo.component.loader.IDexObserver
 import com.angcyo.uikitdemo.component.loader.RDex
 import com.angcyo.uikitdemo.component.loader.invokeMethod
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
@@ -49,6 +50,13 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         RDex.init(mAttachContext, Root.sd())
+        RDex.observers.add(object : IDexObserver {
+            override fun onParseConfigEnd(rDex: RDex) {
+                baseDslAdapter?.notifyItemChanged(0)
+
+                RDex.observers.remove(this)
+            }
+        })
 
         renderDslAdapter {
             dslItem(R.layout.demo_class_loader) {
@@ -62,7 +70,11 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
                     itemHolder.eV(R.id.method_name_edit)
                         .setInputText("method_name_edit".hawkGetList().first())
                     itemHolder.eV(R.id.dex_path_edit)
-                        .setInputText("dex_path_edit".hawkGet())
+                        .setInputText(
+                            RDex.dexParse.getAllDexPath().orDefault(
+                                "dex_path_edit".hawkGet() ?: ""
+                            )
+                        )
 
                     //选择Dex
                     itemHolder.click(R.id.selector_file_button) {
@@ -81,12 +93,7 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
 
                     //调用方法
                     itemHolder.click(R.id.start_invoke_button) {
-                        if (itemHolder.checkEmpty(
-                                R.id.dex_path_edit,
-                                R.id.class_name_edit,
-                                R.id.method_name_edit
-                            )
-                        ) {
+                        if (itemHolder.checkEmpty(R.id.class_name_edit, R.id.method_name_edit)) {
                             return@click
                         }
 
@@ -110,11 +117,7 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
 
                     //启动Fragment
                     itemHolder.click(R.id.start_fragment_button) {
-                        if (itemHolder.checkEmpty(
-                                R.id.dex_path_edit,
-                                R.id.class_name_edit
-                            )
-                        ) {
+                        if (itemHolder.checkEmpty(R.id.class_name_edit)) {
                             return@click
                         }
 
@@ -132,11 +135,7 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
 
                     //显示DslAdapterItem
                     itemHolder.click(R.id.start_item_button) {
-                        if (itemHolder.checkEmpty(
-                                R.id.dex_path_edit,
-                                R.id.class_name_edit
-                            )
-                        ) {
+                        if (itemHolder.checkEmpty(R.id.class_name_edit)) {
                             return@click
                         }
 

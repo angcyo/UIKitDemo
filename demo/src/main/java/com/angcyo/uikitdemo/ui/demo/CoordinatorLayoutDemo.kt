@@ -1,13 +1,10 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
-import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.来点数据
-import com.angcyo.uiview.less.kotlin.renderItem
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
-import com.angcyo.uiview.less.utils.TopToast
 
 /**
  *
@@ -18,11 +15,25 @@ import com.angcyo.uiview.less.utils.TopToast
  */
 
 class CoordinatorLayoutDemo : AppBaseDslRecyclerFragment() {
-    override fun getContentLayoutId(): Int {
-        return R.layout.demo_coordinator_layout
+
+    companion object {
+        var count = 0
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun getContentLayoutId(): Int {
+        return when {
+            count % 2 == 0 -> R.layout.demo_coordinator_layout2
+            else -> R.layout.demo_coordinator_layout
+        }.apply {
+            count++
+        }
+    }
+
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         来点数据()

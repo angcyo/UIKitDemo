@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.component.loader
 
 import android.content.Context
+import androidx.annotation.UiThread
 import com.angcyo.http.Rx
 import com.angcyo.lib.L
 import rx.Subscription
@@ -16,8 +17,9 @@ import java.io.File
 object RDex {
 
     var configFactory: IDexConfigFactory = DefaultDexConfigFactory()
-
     var dexParse: IDexParse = DefaultDexParse()
+
+    val observers = mutableSetOf<IDexObserver>()
 
     lateinit var dexClassLoader: RDexClassLoader
     lateinit var appClassLoader: ClassLoader
@@ -31,12 +33,25 @@ object RDex {
     fun init(context: Context, folder: String) {
         appClassLoader = context.classLoader
         parseSubscription?.unsubscribe()
+
+        Rx.onMain {
+            observers.forEach {
+                it.onParseConfigStart(this)
+            }
+        }
+
         parseSubscription = Rx.back {
             loadInner(folder)
             dexParse.onParseConfigEnd()
 
             dexClassLoader = RDexClassLoader.create(context, dexParse.getAllDexPath(), null)
             parseSubscription = null
+
+            Rx.onMain {
+                observers.forEach {
+                    it.onParseConfigEnd(this)
+                }
+            }
         }
     }
 
@@ -84,6 +99,18 @@ object RDex {
         return createObject<T>(clsName, onlyHost)?.apply {
             this.doIt()
         }
+    }
+}
+
+interface IDexObserver {
+    @UiThread
+    fun onParseConfigStart(rDex: RDex) {
+
+    }
+
+    @UiThread
+    fun onParseConfigEnd(rDex: RDex) {
+
     }
 }
 

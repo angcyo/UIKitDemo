@@ -64,7 +64,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("RegularPatternDemo")
             renderMainItem("WebSocketDemo")
             renderMainItem("MqttDemo")
-            renderMainItem("CoordinatorLayoutDemo")
+            renderMainItem("CoordinatorLayoutDemo ++")
             renderMainItem("CalendarLayoutDemo")
             renderMainItem("CalendarViewDemo")
             renderMainItem("LayoutManagerDemo")
