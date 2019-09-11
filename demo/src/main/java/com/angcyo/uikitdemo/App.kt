@@ -126,9 +126,9 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
 
         renderImage()
 
-        for (i in 0..groupCount) {
+        for (i in 0 until groupCount) {
             renderText()
-            for (j in 0..subCount) {
+            for (j in 0 until subCount) {
                 renderImage()
             }
         }

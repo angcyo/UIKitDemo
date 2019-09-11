@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:background="@color/base_white">
+
+    <FrameLayout
+        android:id="@+id/content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:background="@color/base_link_color"
+        app:layout_behavior="com.angcyo.uiview.less.widget.behavior.ContentBehavior"
+        app:layout_content_layout_state="LAYOUT_FLAG_OFFSET|LAYOUT_FLAG_PADDING_TOP"
+        app:layout_depends_layout_index="1">
+
+        <include layout="@layout/emoji_layout" />
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/title_layout"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:background="@color/base_red_dark">
+
+        <include layout="@layout/emoji_layout" />
+
+    </FrameLayout>
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

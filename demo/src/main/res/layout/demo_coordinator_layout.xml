@@ -7,7 +7,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            app:layout_behavior=".ui.behavior.AdjustOffsetBehavior"
+            app:layout_behavior="com.angcyo.uiview.less.widget.behavior.AdjustOffsetBehavior"
             android:background="@color/transparent_dark60"
             android:layout_height="wrap_content">
 
@@ -52,7 +52,7 @@
     <com.angcyo.uiview.less.widget.RSmartRefreshLayout
             android:id="@+id/base_refresh_layout"
             android:layout_width="match_parent"
-            app:layout_behavior=".ui.behavior.OffsetBehavior"
+            app:layout_behavior="com.angcyo.uiview.less.widget.behavior.OffsetBehavior"
             android:layout_height="match_parent">
 
         <com.angcyo.uiview.less.recycler.RRecyclerView

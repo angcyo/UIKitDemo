@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.less.widget.group.RCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.angcyo.uiview.less.widget.behavior.FollowOffsetBehavior"
+        app:layout_depends_layout_index="1">
+
+        <include layout="@layout/demo_coordinator_title_layout" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.angcyo.uiview.less.widget.behavior.OffsetBehavior">
+
+        <include layout="@layout/base_recycler_fragment_layout" />
+    </FrameLayout>
+
+    <!--标题栏-->
+    <com.angcyo.uiview.less.widget.group.TitleBarLayout
+        android:id="@+id/base_title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_behavior="com.angcyo.uiview.less.widget.behavior.ColorBehavior"
+        app:layout_color_to="@color/base_red"
+        app:layout_depends_layout_index="1">
+
+        <!--动态添加-->
+    </com.angcyo.uiview.less.widget.group.TitleBarLayout>
+
+</com.angcyo.uiview.less.widget.group.RCoordinatorLayout>

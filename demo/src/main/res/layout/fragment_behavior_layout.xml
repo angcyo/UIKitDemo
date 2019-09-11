@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.angcyo.uiview.less.widget.group.RCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingDefaultResource">
+
+    <!--内容布局-->
+    <FrameLayout
+        android:id="@+id/base_content_wrapper_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.angcyo.uiview.less.widget.behavior.ContentBehavior"
+        app:layout_content_layout_state="LAYOUT_FLAG_OFFSET"
+        app:layout_depends_layout_index="1"
+        tools:background="@color/base_orange_dark" />
+
+    <!--标题栏-->
+    <com.angcyo.uiview.less.widget.group.TitleBarLayout
+        android:id="@+id/base_title_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:background="@color/transparent_dark">
+
+        <!--动态添加-->
+    </com.angcyo.uiview.less.widget.group.TitleBarLayout>
+
+    <!--标题栏下面的阴影-->
+    <View
+        android:id="@+id/base_title_shadow_view"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="@drawable/base_title_shadow" />
+
+</com.angcyo.uiview.less.widget.group.RCoordinatorLayout>
