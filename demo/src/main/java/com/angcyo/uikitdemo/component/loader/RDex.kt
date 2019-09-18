@@ -75,6 +75,16 @@ object RDex {
      * @param onlyHost 是否只加载宿主中的类
      * */
     fun <T> createObject(clsName: String, onlyHost: Boolean = false): T? {
+        return loadClass(clsName, onlyHost)?.newInstance() as? T
+    }
+
+    fun <T> invokeWith(clsName: String, onlyHost: Boolean = false, doIt: T.() -> Unit): T? {
+        return createObject<T>(clsName, onlyHost)?.apply {
+            this.doIt()
+        }
+    }
+
+    fun loadClass(clsName: String, onlyHost: Boolean = false): Class<*>? {
         val clazz = try {
             when {
                 parseSubscription != null -> {
@@ -92,13 +102,7 @@ object RDex {
             e.printStackTrace()
             null
         }
-        return clazz?.newInstance() as? T
-    }
-
-    fun <T> invokeWith(clsName: String, onlyHost: Boolean = false, doIt: T.() -> Unit): T? {
-        return createObject<T>(clsName, onlyHost)?.apply {
-            this.doIt()
-        }
+        return clazz
     }
 }
 
@@ -113,6 +117,9 @@ interface IDexObserver {
 
     }
 }
+
+public fun String?.loadClass(onlyHost: Boolean = false): Class<*>? =
+    if (this == null) null else RDex.loadClass(this, onlyHost)
 
 public fun <T> String?.createObject(onlyHost: Boolean = false): T? =
     if (this == null) null else RDex.createObject(this, onlyHost)
