@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.annotation.UiThread
 import com.angcyo.http.Rx
 import com.angcyo.lib.L
+import com.angcyo.uiview.less.utils.Root
 import rx.Subscription
 import java.io.File
+import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * 外部dex, 加载管理类
@@ -19,18 +21,28 @@ object RDex {
     var configFactory: IDexConfigFactory = DefaultDexConfigFactory()
     var dexParse: IDexParse = DefaultDexParse()
 
-    val observers = mutableSetOf<IDexObserver>()
+    private val observers = mutableSetOf<IDexObserver>()
 
     lateinit var dexClassLoader: RDexClassLoader
     lateinit var appClassLoader: ClassLoader
 
     private var parseSubscription: Subscription? = null
+    private var parseStateAtomicBoolean: AtomicBoolean? = null
 
     /**
      * 初始化
      * @param folder 外部dex所在的文件夹, 多个路径使用 [java.io.File.pathSeparator]
      * */
-    fun init(context: Context, folder: String) {
+    fun init(
+        context: Context,
+        folder: String = Root.getAppExternalFolder("dex")
+    ) {
+        if (parseStateAtomicBoolean == null) {
+            parseStateAtomicBoolean = AtomicBoolean(true)
+        } else {
+            parseStateAtomicBoolean?.set(true)
+        }
+
         appClassLoader = context.classLoader
         parseSubscription?.unsubscribe()
 
@@ -47,6 +59,7 @@ object RDex {
             dexClassLoader = RDexClassLoader.create(context, dexParse.getAllDexPath(), null)
             parseSubscription = null
 
+            parseStateAtomicBoolean?.set(false)
             Rx.onMain {
                 observers.forEach {
                     it.onParseConfigEnd(this)
@@ -54,6 +67,9 @@ object RDex {
             }
         }
     }
+
+    fun isParseEnd(): Boolean =
+        parseStateAtomicBoolean != null && parseStateAtomicBoolean?.get() == false
 
     private fun loadInner(folder: String, depth: Int = 0 /*路径深度*/) {
         val folderFile = File(folder)
@@ -67,6 +83,22 @@ object RDex {
                 }
             }
         }
+    }
+
+    fun observer(observer: IDexObserver) {
+        observers.add(observer)
+
+        if (isParseEnd()) {
+            Rx.onMain {
+                observers.forEach {
+                    it.onParseConfigEnd(this)
+                }
+            }
+        }
+    }
+
+    fun unObserver(observer: IDexObserver) {
+        observers.remove(observer)
     }
 
     /**
