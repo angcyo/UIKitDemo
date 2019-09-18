@@ -114,8 +114,8 @@ interface IDexObserver {
     }
 }
 
-public fun <T> String?.createObject(clsName: String, onlyHost: Boolean = false): T? =
-    RDex.createObject(clsName, onlyHost)
+public fun <T> String?.createObject(onlyHost: Boolean = false): T? =
+    if (this == null) null else RDex.createObject(this, onlyHost)
 
 public fun <T> String?.invokeWith(onlyHost: Boolean = false, doIt: T.() -> Unit): T? =
     RDex.invokeWith(this ?: "", onlyHost, doIt)
