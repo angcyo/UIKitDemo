@@ -50,11 +50,11 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         RDex.init(mAttachContext, Root.sd())
-        RDex.observers.add(object : IDexObserver {
+        RDex.observer(object : IDexObserver {
             override fun onParseConfigEnd(rDex: RDex) {
                 baseDslAdapter?.notifyItemChanged(0)
 
-                RDex.observers.remove(this)
+                RDex.unObserver(this)
             }
         })
 
