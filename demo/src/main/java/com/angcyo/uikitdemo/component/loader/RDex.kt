@@ -90,9 +90,7 @@ object RDex {
 
         if (isParseEnd()) {
             Rx.onMain {
-                observers.forEach {
-                    it.onParseConfigEnd(this)
-                }
+                observer.onParseConfigEnd(this)
             }
         }
     }
