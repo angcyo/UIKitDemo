@@ -1,43 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:padding="@dimen/base_xhdpi"
-              android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/base_xhdpi">
 
     <com.angcyo.uiview.less.widget.AutoEditText
-            android:id="@+id/pattern_edit"
-            style="@style/BaseMainTextStyle"
-            android:hint="正则表达式"
-            android:layout_width="match_parent"
-            android:completionThreshold="0"
-            android:inputType="textWebEmailAddress"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/pattern_edit"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionThreshold="0"
+        android:gravity="bottom"
+        android:hint="正则表达式"
+        android:inputType="textWebEmailAddress"
+        android:minHeight="@dimen/base_50dpi" />
 
     <com.angcyo.uiview.less.widget.AutoEditText
-            android:id="@+id/content_edit"
-            style="@style/BaseMainTextStyle"
-            android:hint="匹配内容"
-            android:layout_width="match_parent"
-            android:completionThreshold="0"
-            android:inputType="textWebEmailAddress"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/content_edit"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:completionThreshold="0"
+        android:gravity="bottom"
+        android:hint="匹配内容"
+        android:inputType="textWebEmailAddress"
+        android:minHeight="@dimen/base_50dpi" />
 
     <com.angcyo.uiview.less.widget.Button
-            android:id="@+id/matcher_button"
-            android:text="匹配"
-            android:layout_margin="@dimen/base_xhdpi"
-            app:r_button_style="ROUND_GRADIENT_RECT"
-            android:minHeight="@dimen/base_item_size"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/matcher_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/base_xhdpi"
+        android:minHeight="@dimen/base_item_size"
+        android:text="匹配"
+        app:r_button_style="ROUND_GRADIENT_RECT" />
 
     <com.angcyo.uiview.less.widget.RTextView
-            android:id="@+id/text_view"
-            style="@style/BaseMainTextStyle"
-            android:hint="正则表达式"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="正则表达式结果:" />
 
 </LinearLayout>
