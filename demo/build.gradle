@@ -63,3 +63,4 @@ repluginHostConfig {
 //apply from: allGradle.xml2
 
 apply from: allGradle.makeDex
+apply from: allGradle.excludeDex

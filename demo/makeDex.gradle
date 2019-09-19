@@ -1,3 +1,5 @@
+import java.util.regex.Pattern
+
 /**
  * Email:angcyo@126.com
  *
@@ -30,7 +32,12 @@ ext.dexConfig = [
 
         //需要打包的包名(包含包名下的所有类)
         "includePackageNames": [
-                "com/angcyo/uikitdemo/dex"
+                "com/angcyo/uikitdemo/dex/"
+        ],
+        //需要排除的包名, 也可以是正则表达式
+        "excludePackageNames": [
+                "com/angcyo/uikitdemo/dex/dex2/",
+                ".*Item.*"
         ],
         //文件名 (默认是工程名+时间的组合)
         "dexFileName"        : "dex",
@@ -48,7 +55,6 @@ ext.dexConfig = [
         "dexSuffix"          : ".r.dex"
 ]
 
-
 task _makeDex() {
     dependsOn("jarToDex")
 
@@ -57,10 +63,9 @@ task _makeDex() {
     }
 
     doLast {
-        System.err.println "打包完成:$dexConfig.dexPath"
+        error "打包完成:$dexConfig.dexPath"
     }
 }
-
 
 /**
  * 这里的依赖任务`compileApkReleaseJavaWithJavac`请根据"compile(.*)JavaWithJavac"匹配规则
@@ -69,9 +74,9 @@ task _makeDex() {
  * 此任务执行后, 才会生成kotlin语言对应的 .class 文件.
  * */
 task makeJar(dependsOn: ['compileApkReleaseJavaWithJavac'], type: Jar) {
-
     //需要打包进jar的包名(此包名下的所有class)
     def includePackageNames = dexConfig.includePackageNames
+    def excludePackageNames = dexConfig.excludePackageNames
 
     //编译类型 风味类型
     def buildFlavors = "apkRelease"
@@ -110,10 +115,33 @@ task makeJar(dependsOn: ['compileApkReleaseJavaWithJavac'], type: Jar) {
     //exclude
 
     include { fileTree ->
-        includePackageNames.any {
-            it.startsWith(fileTree.path)
-        } || includePackageNames.any {
-            fileTree.path.startsWith(it)
+//        includePackageNames.any {
+//            it.startsWith(fileTree.path)
+//        } || includePackageNames.any {
+//            fileTree.path.startsWith(it)
+//        }
+
+        if (fileTree.isDirectory()) {
+            true
+        } else {
+            def classPath = fileTree.path
+
+            def include = includePackageNames.any {
+                classPath.startsWith(it)
+            }
+
+            if (include) {
+                include = !excludePackageNames.any {
+                    classPath.startsWith(it) ||
+                            Pattern.compile(it).matcher(classPath).matches()
+                }
+            }
+
+            if (include) {
+                error "包含: $classPath"
+            }
+
+            include
         }
     }
 
@@ -179,4 +207,8 @@ task jarToDex(dependsOn: ['makeJar'], type: Exec) {
         //设置参数到cmd命令行
         args list
     }
+}
+
+static def error(Object msg) {
+    System.err.println msg
 }
