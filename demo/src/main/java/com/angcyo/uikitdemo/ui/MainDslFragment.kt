@@ -72,6 +72,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("AgoraDemo")
             renderMainItem("ViewPager2Demo")
             renderMainItem("ScanOCRDemo")
+            renderMainItem("NfcDemo")
 
             //last item
             renderMainItem {

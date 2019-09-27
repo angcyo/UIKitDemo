@@ -13,7 +13,12 @@ class MainActivity : BaseAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         //FragmentHelper.restoreShow(this, supportFragmentManager, R.id.fragment_layout, MainFragment::class.java)
-        FragmentHelper.restoreOnlyShow(this, supportFragmentManager, R.id.fragment_layout, MainDslFragment::class.java)
+        FragmentHelper.restoreOnlyShow(
+            this,
+            supportFragmentManager,
+            R.id.fragment_layout,
+            MainDslFragment::class.java
+        )
 
         checkPermissions()
     }
@@ -34,6 +39,8 @@ class MainActivity : BaseAppCompatActivity() {
 
     override fun onUserLeaveHint() {
         super.onUserLeaveHint()
-        enterPictureInPictureModeEx()
+        if (FragmentHelper.getFragmentsCount(supportFragmentManager) <= 1) {
+            enterPictureInPictureModeEx()
+        }
     }
 }
