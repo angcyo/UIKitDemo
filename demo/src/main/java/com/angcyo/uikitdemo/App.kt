@@ -11,6 +11,7 @@ import com.angcyo.lib.L
 import com.angcyo.opencv.CardOcr
 import com.angcyo.rtbs.RTbs
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
+import com.angcyo.uiview.less.base.BaseDslRecyclerFragment
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
 import com.angcyo.uiview.less.kotlin.dpi
@@ -42,7 +43,7 @@ class App : PluginHostApplication() {
         BaseUI.uiFragment = object : BaseUI.DefaultUIFragment() {
             override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
                 super.initBaseTitleLayout(titleFragment, arguments)
-                titleFragment.contentControl().selector()
+                titleFragment.rootControl().selector()
                     .setBackgroundColor(getColor(R.color.line_color))
             }
         }
@@ -71,7 +72,7 @@ fun ViewGroup.appendColorItem(size: Int = 100) {
     }
 }
 
-fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5) {
+fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5) {
     renderDslAdapter {
         fun renderText() {
             renderItem {
@@ -112,7 +113,7 @@ fun AppBaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int =
                 itemLayoutId = R.layout.item_image_little
 
                 itemBind = { itemHolder, itemPosition, adapterItem ->
-                    L.i("bind...$itemPosition")
+                    L.v("bind...$itemPosition")
                     itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
 
                     itemHolder.clickItem {
