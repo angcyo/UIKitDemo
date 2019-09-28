@@ -6,6 +6,7 @@ import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapter
+import com.angcyo.uiview.less.utils.ScrollLockHelper
 
 /**
  *
@@ -57,20 +58,25 @@ open class SocketDemo : AppBaseDslRecyclerFragment() {
                     baseDslAdapter.renderTextItem(it)
                     sendText(it)
                 }
+
+                this@SocketDemo.recyclerView?.scrollToLastBottom(false)
             }
         }
+
+        //ScrollLockHelper().lock(recyclerView)
     }
 
     public fun DslAdapter.renderTextItem(text: CharSequence? = null) {
         renderItem {
             itemTopInsert = 1 * dpi
             itemLayoutId = R.layout.item_single_text
+            itemData = text
             itemBind = { itemHolder, _, _ ->
-                itemHolder.tv(R.id.text_view).text = text
+                itemHolder.tv(R.id.text_view).text = itemData?.toString()
             }
         }
 
-        this@SocketDemo.recyclerView?.scrollToLastBottom(false)
+        //this@SocketDemo.recyclerView?.scrollToLastBottom(false)
     }
 
     override fun onDestroy() {
