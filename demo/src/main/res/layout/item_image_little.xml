@@ -12,7 +12,7 @@
             android:background="@drawable/base_bg_selector_v21"
             android:padding="@dimen/base_xhdpi"
             android:scaleType="fitXY"
-            android:src="@drawable/peppq"></androidx.appcompat.widget.AppCompatImageView>
+            android:src="@drawable/peppq"/>
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/text_view"
@@ -24,5 +24,5 @@
             android:paddingLeft="@dimen/base_xhdpi"
             android:paddingRight="@dimen/base_xhdpi"
             android:textColor="@color/base_white"
-            tools:text="angcyo"></androidx.appcompat.widget.AppCompatTextView>
+            tools:text="angcyo"/>
 </FrameLayout>
