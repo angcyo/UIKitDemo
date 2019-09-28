@@ -1,9 +1,14 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
+import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.来点数据
 import com.angcyo.uiview.less.base.BaseBehaviorDslRecyclerFragment
+import com.angcyo.uiview.less.kotlin.coordinatorParams
+import com.angcyo.uiview.less.kotlin.dpi
+import com.angcyo.uiview.less.kotlin.renderEmptyItem
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import com.angcyo.uiview.less.widget.behavior.BackgroundBehavior
 
 /**
  *
@@ -19,6 +24,10 @@ class BaseBehaviorDslDemo : BaseBehaviorDslRecyclerFragment() {
         return false
     }
 
+    override fun getBehaviorBgLayoutId(): Int {
+        return R.layout.behavior_demo_background
+    }
+
     override fun onInitBaseView(
         viewHolder: RBaseViewHolder,
         arguments: Bundle?,
@@ -26,6 +35,16 @@ class BaseBehaviorDslDemo : BaseBehaviorDslRecyclerFragment() {
     ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
-        来点数据()
+        enableRefreshAffect()
+
+        viewHolder.vg(R.id.base_behavior_bg_layout).coordinatorParams {
+            (behavior as? BackgroundBehavior)?.childHeight = 380 * dpi
+        }
+
+        renderDslAdapter {
+            renderEmptyItem(340 * dpi)
+        }
+
+        来点数据(2, 5)
     }
 }
