@@ -10,7 +10,6 @@ import android.view.ViewGroup
 import com.angcyo.lib.L
 import com.angcyo.opencv.CardOcr
 import com.angcyo.rtbs.RTbs
-import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.base.BaseDslRecyclerFragment
 import com.angcyo.uiview.less.base.BaseTitleFragment
 import com.angcyo.uiview.less.base.BaseUI
@@ -43,8 +42,9 @@ class App : PluginHostApplication() {
         BaseUI.uiFragment = object : BaseUI.DefaultUIFragment() {
             override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
                 super.initBaseTitleLayout(titleFragment, arguments)
+                titleFragment.viewResConfig.fragmentBackgroundColor = getColor(R.color.line_color)
                 titleFragment.rootControl().selector()
-                    .setBackgroundColor(getColor(R.color.line_color))
+                    .setBackgroundColor(titleFragment.viewResConfig.fragmentBackgroundColor)
             }
         }
 
