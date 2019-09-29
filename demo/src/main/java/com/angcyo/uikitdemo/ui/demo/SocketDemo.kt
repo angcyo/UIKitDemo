@@ -1,7 +1,6 @@
 package com.angcyo.uikitdemo.ui.demo
 
 import android.os.Bundle
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.angcyo.uikitdemo.BuildConfig
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
@@ -85,7 +84,7 @@ open class SocketDemo : AppBaseDslRecyclerFragment() {
             }
         }
 
-        scrollHelper.lockLastPosition {
+        scrollHelper.lockPosition {
             scrollAnim = true
         }
         scrollHelper.log(recyclerView)
