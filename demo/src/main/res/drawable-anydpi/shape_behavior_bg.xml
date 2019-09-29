@@ -33,8 +33,8 @@
 
     <item
         android:bottom="-300dp"
-        android:left="-90dp"
-        android:right="150dp"
+        android:left="-180dp"
+        android:right="250dp"
         android:top="130dp">
         <shape android:shape="oval">
             <solid android:color="#0affffff" />
