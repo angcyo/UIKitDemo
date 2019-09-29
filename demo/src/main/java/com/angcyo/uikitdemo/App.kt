@@ -42,9 +42,12 @@ class App : PluginHostApplication() {
         BaseUI.uiFragment = object : BaseUI.DefaultUIFragment() {
             override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
                 super.initBaseTitleLayout(titleFragment, arguments)
+                titleFragment.viewResConfig.titleTextColor = Color.WHITE
                 titleFragment.viewResConfig.fragmentBackgroundColor = getColor(R.color.line_color)
                 titleFragment.rootControl().selector()
                     .setBackgroundColor(titleFragment.viewResConfig.fragmentBackgroundColor)
+                    .selector(R.id.base_title_view)
+                    .setTextColor(titleFragment.viewResConfig.titleTextColor)
             }
         }
 
