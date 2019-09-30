@@ -1,5 +1,6 @@
 package com.angcyo.uikitdemo.ui.demo
 
+import android.graphics.Color
 import android.os.Bundle
 import com.angcyo.uikitdemo.BuildConfig
 import com.angcyo.uikitdemo.R
@@ -108,7 +109,10 @@ open class SocketDemo : AppBaseDslRecyclerFragment() {
 
     public fun DslAdapter.renderTextItem(text: CharSequence? = null) {
         renderItem {
-            itemTopInsert = 1 * dpi
+            itemTopInsert = 4 * dpi
+            itemBottomInsert = 4 * dpi
+            onlyDrawOffsetArea = false
+            //itemDecorationColor = Color.RED
             itemLayoutId = R.layout.item_single_text
             itemData = text
             itemBind = { itemHolder, position, _ ->

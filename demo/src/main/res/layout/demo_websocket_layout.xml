@@ -62,7 +62,9 @@
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/base_xhdpi"
                 android:background="@drawable/base_dark_round_border_shape"
-                android:padding="@dimen/base_hdpi" />
+                android:paddingTop="@dimen/base_xxhdpi"
+                android:paddingLeft="@dimen/base_hdpi"
+                android:paddingRight="@dimen/base_hdpi"/>
 
         </com.angcyo.uiview.less.widget.RSmartRefreshLayout>
 
