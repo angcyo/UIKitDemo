@@ -39,7 +39,6 @@ class SpanDemo : AppBaseDslRecyclerFragment() {
 
         val radius = 5 * dp
 
-
         renderDslAdapter {
             dslItem(R.layout.demo_span) {
                 itemBind = { itemHolder, _, _ ->
@@ -47,19 +46,28 @@ class SpanDemo : AppBaseDslRecyclerFragment() {
                         append("左边文本")
                         customSpan {
                             textSpan {
-                                setSpanWeight(0.5f)
+                                setSpanWeight(0.3f)
                                 setForegroundColor(Color.GREEN)
                                 //setTextGravity(Gravity.CENTER)
                                 setBackground(Color.BLACK, radius)
                                 setPaddingHorizontal(2 * dp)
                             }
                         }
+                        append("中间文本")
+                        customSpan {
+                            textSpan {
+                                setSpanWeight(0.3f)
+                                setForegroundColor(Color.BLUE)
+                                setTextGravity(Gravity.CENTER)
+                                setBackground(Color.YELLOW, radius)
+                            }
+                        }
                         append("右边文本")
                         customSpan {
                             textSpan {
-                                setSpanWeight(0.5f)
-                                setForegroundColor(Color.BLUE)
-                                setTextGravity(Gravity.CENTER)
+                                setSpanWeight(0.4f)
+                                setForegroundColor(Color.RED)
+                                setTextGravity(Gravity.END)
                                 setBackground(Color.YELLOW, radius)
                             }
                         }
