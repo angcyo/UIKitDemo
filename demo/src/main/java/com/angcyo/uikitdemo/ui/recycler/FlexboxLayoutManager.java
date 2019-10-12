@@ -44,6 +44,9 @@ import androidx.recyclerview.widget.RecyclerView;
  * LayoutManager for the {@link RecyclerView}. This class is intended to be used within a
  * {@link RecyclerView} and offers the same capabilities of measure/layout its children
  * as the {@link FlexboxLayout}.
+ *
+ * https://github.com/google/flexbox-layout
+ * 2019-10-12
  */
 public class FlexboxLayoutManager extends RecyclerView.LayoutManager implements FlexContainer,
         RecyclerView.SmoothScroller.ScrollVectorProvider {
