@@ -40,10 +40,16 @@ class App : PluginHostApplication() {
         L.init(!isApk(), "angcyo_" + hashCode())
 
         BaseUI.uiFragment = object : BaseUI.DefaultUIFragment() {
-            override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
-                super.initBaseTitleLayout(titleFragment, arguments)
+
+            override fun initFragment(titleFragment: com.angcyo.uiview.less.base.BaseTitleFragment) {
+                super.initFragment(titleFragment)
                 titleFragment.viewResConfig.titleTextColor = Color.WHITE
                 titleFragment.viewResConfig.fragmentBackgroundColor = getColor(R.color.line_color)
+            }
+
+            override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
+                super.initBaseTitleLayout(titleFragment, arguments)
+
                 titleFragment.rootControl().selector()
                     .setBackgroundColor(titleFragment.viewResConfig.fragmentBackgroundColor)
                     .selector(R.id.base_title_view)
