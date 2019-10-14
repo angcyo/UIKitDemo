@@ -1,35 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="vertical"
-              android:padding="@dimen/base_xhdpi"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/base_xhdpi">
 
     <com.angcyo.uiview.less.widget.RTextView
-            style="@style/BaseMainTextStyle"
-            android:layout_width="match_parent"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:background="@drawable/base_round_border_shape"
-            app:r_is_scroll_text="true"
-            app:r_is_scroll_text_circle="false"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="调试数据:乐天大厦天台违建 已被处理，请复核！乐天大厦天台违建 已被处理，请复核！"/>
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/base_round_border_shape"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="调试数据:乐天大厦天台违建 已被处理，请复核！乐天大厦天台违建 已被处理，请复核！"
+        app:layout_constraintTop_toTopOf="parent"
+        app:r_is_scroll_text="true"
+        app:r_is_scroll_text_circle="false" />
 
     <com.angcyo.uiview.less.widget.RTextView
-            style="@style/BaseMainTextStyle"
-            android:layout_width="match_parent"
-            android:singleLine="true"
-            android:ellipsize="end"
-            android:background="@drawable/base_round_border_shape"
-            android:layout_marginLeft="@dimen/base_40dpi"
-            android:layout_marginTop="@dimen/base_hdpi"
-            app:r_is_scroll_text="true"
-            app:r_is_scroll_text_circle="false"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            android:text="樊琴处置了一条重大隐患2019070060，类型为一般/城市与社区绿道/指示牌，位于大三村228号"/>
+        style="@style/BaseMainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/base_40dpi"
+        android:layout_marginTop="@dimen/base_hdpi"
+        android:background="@drawable/base_round_border_shape"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:text="樊琴处置了一条重大隐患2019070060，类型为一般/城市与社区绿道/指示牌，位于大三村228号"
+        app:layout_constraintTop_toTopOf="parent"
+        app:r_is_scroll_text="true"
+        app:r_is_scroll_text_circle="false" />
 
+    <FrameLayout
+        android:id="@+id/wrap_layout"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:background="@color/transparent_dark20">
+
+        <FrameLayout
+            android:id="@+id/test1"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="left|center_vertical"
+            android:background="@color/base_red">
+
+            <View
+                android:id="@+id/test2"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="20dp"
+                android:background="@color/blue" />
+        </FrameLayout>
+
+        <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|left"
+            android:text="GetRect1" />
+
+        <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:text="GetRect2" />
+
+    </FrameLayout>
+
+    <com.angcyo.uiview.less.widget.RDrawTextView
+        android:id="@+id/draw_text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark80"
+        app:r_draw_text_string="的我都发asdf阿萨德刚的我都发asdf阿萨德刚的我都发asdf阿萨德刚的我都发asdf阿萨德刚的我都发asdf阿萨德刚" />
 </LinearLayout>

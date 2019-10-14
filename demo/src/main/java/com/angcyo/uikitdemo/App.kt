@@ -2,8 +2,8 @@ package com.angcyo.uikitdemo
 
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
-import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
@@ -41,19 +41,12 @@ class App : PluginHostApplication() {
 
         BaseUI.uiFragment = object : BaseUI.DefaultUIFragment() {
 
-            override fun initFragment(titleFragment: com.angcyo.uiview.less.base.BaseTitleFragment) {
+            override fun initFragment(titleFragment: BaseTitleFragment) {
                 super.initFragment(titleFragment)
                 titleFragment.viewResConfig.titleTextColor = Color.WHITE
                 titleFragment.viewResConfig.fragmentBackgroundColor = getColor(R.color.line_color)
-            }
-
-            override fun initBaseTitleLayout(titleFragment: BaseTitleFragment, arguments: Bundle?) {
-                super.initBaseTitleLayout(titleFragment, arguments)
-
-                titleFragment.rootControl().selector()
-                    .setBackgroundColor(titleFragment.viewResConfig.fragmentBackgroundColor)
-                    .selector(R.id.base_title_view)
-                    .setTextColor(titleFragment.viewResConfig.titleTextColor)
+                titleFragment.viewResConfig.fragmentBackgroundDrawable =
+                    ColorDrawable(titleFragment.viewResConfig.fragmentBackgroundColor)
             }
         }
 
@@ -92,7 +85,7 @@ fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5)
                 itemLayoutId = R.layout.item_text
 
                 itemBind = { itemHolder, itemPosition, adapterItem ->
-                    L.i("bind...$itemPosition")
+                    L.d("bind...$itemPosition")
                     itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
                     itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
 
