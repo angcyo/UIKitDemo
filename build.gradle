@@ -20,6 +20,8 @@ buildscript {
         classpath 'com.qihoo360.replugin:replugin-host-gradle:' + replugin_version
 
         //classpath 'com.qihoo360.replugin:replugin-plugin-gradle:' + replugin_version
+
+        classpath "io.objectbox:objectbox-gradle-plugin:$objectboxVersion"
     }
 }
 
