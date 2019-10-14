@@ -8,6 +8,7 @@ import android.text.TextUtils
 import android.view.View
 import android.view.ViewGroup
 import com.angcyo.lib.L
+import com.angcyo.objectbox.RBox
 import com.angcyo.opencv.CardOcr
 import com.angcyo.rtbs.RTbs
 import com.angcyo.uiview.less.base.BaseDslRecyclerFragment
@@ -49,6 +50,8 @@ class App : PluginHostApplication() {
                     ColorDrawable(titleFragment.viewResConfig.fragmentBackgroundColor)
             }
         }
+
+        RBox.init(this, BuildConfig.APPLICATION_ID, BuildConfig.SCHEMA, BuildConfig.SHOW_DEBUG)
 
         RTbs.init(this, BuildConfig.SHOW_DEBUG)
 

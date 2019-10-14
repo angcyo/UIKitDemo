@@ -1,5 +1,8 @@
 package com.angcyo.uikitdemo
 
+import com.angcyo.objectbox.RBox
+import io.objectbox.Box
+
 /**
  *
  * Email:angcyo@126.com
@@ -13,3 +16,9 @@ object AppEx {
 
 public fun isRelease() = BuildConfig.BUILD_TYPE.equals("release", true)
 public fun isDebug() = BuildConfig.BUILD_TYPE.equals("debug", true)
+
+public fun <T> boxOf(entityClass: Class<T>, init: Box<T>.() -> Unit = {}): Box<T> {
+    val box = RBox.get(BuildConfig.APPLICATION_ID).boxFor(entityClass)
+    box.init()
+    return box
+}

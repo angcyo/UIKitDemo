@@ -1,4 +1,5 @@
 ext {
+    application_id = "com.angcyo.uikitdemo"
     APP_NAME = "UIKitDemo"
 }
 
@@ -33,6 +34,7 @@ dependencies {
     implementation project(allModule.websocket)
     implementation project(allModule.mqtt)
     implementation project(allModule.agora)
+    implementation project(allModule.objectbox)
 
     implementation 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
 
@@ -56,6 +58,8 @@ repluginHostConfig {
     useAppCompat = true
 }
 
+apply plugin: 'kotlin-kapt'
+apply plugin: 'io.objectbox'
 
 //apply from: allGradle.v7a
 
