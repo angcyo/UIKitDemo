@@ -76,4 +76,11 @@
         android:layout_height="wrap_content"
         android:background="@color/transparent_dark80"
         app:r_draw_text_string="的我都发asdf阿萨德刚的我都发asdf阿萨德刚的我都发asdf阿萨德刚的我都发asdf阿萨德刚的我都发asdf阿萨德刚" />
+
+    <com.angcyo.uiview.less.widget.RDrawTextView
+        android:id="@+id/draw_text2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent_dark60"
+        app:r_draw_text_string="" />
 </LinearLayout>

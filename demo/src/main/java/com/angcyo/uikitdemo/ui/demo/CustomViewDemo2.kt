@@ -5,6 +5,7 @@ import android.os.Bundle
 import com.angcyo.lib.L
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
+import com.angcyo.uiview.less.base.helper.ViewGroupHelper
 import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.widget.RDrawTextView
@@ -31,10 +32,18 @@ class CustomViewDemo2 : AppBaseDslRecyclerFragment() {
                     itemHolder.click(R.id.button1) {
                         itemHolder.tv(R.id.button1).text = itemHolder.view(R.id.test1)
                             .getLocationInParent(itemHolder.view(R.id.wrap_layout)).toString()
+                            .apply {
+                                ViewGroupHelper.build(itemHolder.itemView).selector(R.id.draw_text1)
+                                    .setText(this)
+                            }
                     }
                     itemHolder.click(R.id.button2) {
                         itemHolder.tv(R.id.button2).text = itemHolder.view(R.id.test2)
                             .getLocationInParent(itemHolder.view(R.id.wrap_layout)).toString()
+                            .apply {
+                                ViewGroupHelper.build(itemHolder.itemView).selector(R.id.draw_text2)
+                                    .setText(this)
+                            }
                     }
 
                     itemHolder.v<RDrawTextView>(R.id.draw_text1).apply {
