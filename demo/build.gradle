@@ -5,6 +5,14 @@ ext {
 
 apply from: allGradle.appName
 
+ext.versionConfig = [
+        "androidx.core:core"                       : "1.0.0",
+        "androidx.annotation:annotation"           : "1.0.0",
+        "androidx.arch.core:core-common"           : "2.0.0",
+        "org.jetbrains.kotlin:kotlin-stdlib"       : "1.3.50",
+        "org.jetbrains.kotlin:kotlin-stdlib-common": "1.3.50",
+]
+
 apply from: allGradle.key
 
 android {
