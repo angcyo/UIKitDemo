@@ -6,6 +6,7 @@ import com.angcyo.uikitdemo.来点数据
 import com.angcyo.uiview.less.base.BaseBehaviorDslRecyclerFragment
 import com.angcyo.uiview.less.kotlin.coordinatorParams
 import com.angcyo.uiview.less.kotlin.dpi
+import com.angcyo.uiview.less.kotlin.nextInt
 import com.angcyo.uiview.less.kotlin.renderEmptyItem
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.widget.behavior.BackgroundBehavior
@@ -45,6 +46,7 @@ class BaseBehaviorDslDemo : BaseBehaviorDslRecyclerFragment() {
             renderEmptyItem(340 * dpi)
         }
 
-        来点数据(2, 5)
+        来点数据(nextInt(1, 5), nextInt(2, 10))
+//        来点数据(1, 2)
     }
 }
