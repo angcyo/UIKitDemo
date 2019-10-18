@@ -6,12 +6,9 @@ ext {
 apply from: allGradle.appName
 
 ext.versionConfig = [
-        "androidx.core:core"                       : "1.1.0-rc02",
-        "androidx.annotation:annotation"           : "1.1.0",
-        "androidx.arch.core:core-common"           : "2.1.0-rc01",
-        "org.jetbrains.kotlin:kotlin-stdlib"       : "1.3.50",
-        "org.jetbrains.kotlin:kotlin-stdlib-common": "1.3.50",
+        "androidx.recyclerview:recyclerview": "1.0.0",
 ]
+
 
 apply from: allGradle.key
 
@@ -47,13 +44,21 @@ dependencies {
     implementation 'com.qihoo360.replugin:replugin-host-lib:' + replugin_version
 
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
-    implementation 'androidx.viewpager2:viewpager2:1.0.0-beta03'
+    implementation androidx.viewpager2
 
     //https://github.com/tiann/FreeReflection
     implementation 'me.weishu:free_reflection:2.1.0'
+
+    //https://github.com/airbnb/lottie-android
+    //https://jcenter.bintray.com/com/airbnb/android/lottie/
+    def lottieVersion = "3.1.0"
+    implementation("com.airbnb.android:lottie:$lottieVersion") {
+        exclude group: 'androidx.appcompat'
+        exclude group: 'androidx.annotation'
+    }
 }
 
 apply plugin: 'replugin-host-gradle'

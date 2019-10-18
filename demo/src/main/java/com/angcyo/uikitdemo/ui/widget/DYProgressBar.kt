@@ -109,7 +109,7 @@ class DYProgressBar(context: Context, attributeSet: AttributeSet? = null) : View
         postInvalidate()
     }
 
-    override fun onVisibilityChanged(changedView: View?, visibility: Int) {
+    override fun onVisibilityChanged(changedView: View, visibility: Int) {
         super.onVisibilityChanged(changedView, visibility)
         if (visibility != View.VISIBLE) {
             stopAnimator()
