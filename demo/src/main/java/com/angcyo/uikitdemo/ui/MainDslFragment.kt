@@ -75,6 +75,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("NfcDemo")
             renderMainItem("BaseBehaviorDslDemo")
             renderMainItem("BaseCollapsingBehaviorDslDemo")
+            renderMainItem("DslAdapterDemo")
 
             //last item
             renderMainItem {

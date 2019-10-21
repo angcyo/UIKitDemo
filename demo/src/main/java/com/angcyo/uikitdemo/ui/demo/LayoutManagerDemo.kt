@@ -60,7 +60,7 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
     }
 
     override fun onCreateAdapter(datas: MutableList<DslAdapterItem>?): RBaseAdapter<DslAdapterItem> {
-        return object : DslAdapter(mAttachContext, datas) {
+        return object : DslAdapter(datas) {
             init {
                 dslDateFilter = DslDateFilter(this)
             }
@@ -77,7 +77,11 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
         }
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         val layoutList = mutableListOf(
@@ -111,7 +115,8 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
         val renRenCallback = RenRenCallback()
         val renRenItemTouchHelper = ItemTouchHelper(renRenCallback)
 
-        val slideItemTouchHelper = ItemTouchHelper(ItemTouchHelperCallback(baseAdapter, baseAdapter.allDatas))
+        val slideItemTouchHelper =
+            ItemTouchHelper(ItemTouchHelperCallback(baseAdapter, baseAdapter.allDatas))
 
         viewHolder.v<RSpinner>(com.angcyo.uikitdemo.R.id.spinner).setStrings(layoutList) {
             recyclerView.adapter = null
@@ -183,7 +188,11 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
     }
 
     var verticallyScrollOffset = 0
-    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
+    override fun scrollVerticallyBy(
+        dy: Int,
+        recycler: RecyclerView.Recycler,
+        state: RecyclerView.State
+    ): Int {
         val realDy = fill(recycler, state, dy)
         offsetChildrenVertical(-realDy)
         verticallyScrollOffset += realDy
@@ -233,8 +242,10 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
             val firstView = getChildAt(0)
             val lastView = getChildAt(childCount - 1)
 
-            val firstLayoutParams: RecyclerView.LayoutParams = firstView!!.layoutParams as RecyclerView.LayoutParams
-            val lastLayoutParams: RecyclerView.LayoutParams = lastView!!.layoutParams as RecyclerView.LayoutParams
+            val firstLayoutParams: RecyclerView.LayoutParams =
+                firstView!!.layoutParams as RecyclerView.LayoutParams
+            val lastLayoutParams: RecyclerView.LayoutParams =
+                lastView!!.layoutParams as RecyclerView.LayoutParams
 
             var firstLayoutTopMargin = 0
             var lastLayoutBottomMargin = 0
@@ -338,7 +349,8 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
         for (position in max(startPosition, 0) until state.itemCount) {
             //从各种缓存池中, 获取指定位置的 [View]
             val childView = recycler.getViewForPosition(position)
-            val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+            val childLayoutParams: RecyclerView.LayoutParams =
+                childView.layoutParams as RecyclerView.LayoutParams
 
             //将[child]添加到[RecyclerView]上
             addView(childView)
@@ -361,7 +373,9 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
 
             L.e(
                 "pos:$position l:$layoutLeft t:$layoutTop r:$layoutRight b:$layoutBottom " +
-                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} " +
+                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(
+                            childView
+                        )} " +
                         "isItemRemoved:${childLayoutParams.isItemRemoved} isItemChanged:${childLayoutParams.isItemChanged}"
             )
 
@@ -403,7 +417,8 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
         //回收不在可见范围之内的[child]
         for (i in childCount - 1 downTo 0) {
             val childView = getChildAt(i)!!
-            val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+            val childLayoutParams: RecyclerView.LayoutParams =
+                childView.layoutParams as RecyclerView.LayoutParams
 
             val top = getDecoratedTop(childView) - childLayoutParams.topMargin
             val bottom = getDecoratedBottom(childView) + childLayoutParams.bottomMargin
@@ -432,7 +447,8 @@ class MyLayoutManager3 : RecyclerView.LayoutManager() {
     ) {
         //从各种缓存池中, 获取指定位置的 [View]
         val childView = recycler.getViewForPosition(position)
-        val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+        val childLayoutParams: RecyclerView.LayoutParams =
+            childView.layoutParams as RecyclerView.LayoutParams
 
         //将[child]添加到[RecyclerView]上
         addView(childView)
@@ -455,7 +471,11 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
     }
 
     var verticallyScrollOffset = 0
-    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
+    override fun scrollVerticallyBy(
+        dy: Int,
+        recycler: RecyclerView.Recycler,
+        state: RecyclerView.State
+    ): Int {
         val realDy = fill(recycler, state, dy)
         offsetChildrenVertical(-realDy)
         verticallyScrollOffset += realDy
@@ -494,8 +514,10 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
             val firstView = getChildAt(0)
             val lastView = getChildAt(childCount - 1)
 
-            val firstLayoutParams: RecyclerView.LayoutParams = firstView!!.layoutParams as RecyclerView.LayoutParams
-            val lastLayoutParams: RecyclerView.LayoutParams = lastView!!.layoutParams as RecyclerView.LayoutParams
+            val firstLayoutParams: RecyclerView.LayoutParams =
+                firstView!!.layoutParams as RecyclerView.LayoutParams
+            val lastLayoutParams: RecyclerView.LayoutParams =
+                lastView!!.layoutParams as RecyclerView.LayoutParams
 
             firstLayoutTopMargin = firstLayoutParams.topMargin
             lastLayoutBottomMargin = lastLayoutParams.bottomMargin
@@ -519,7 +541,8 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
             //向上, 需要判断底部边界
             if (lastPosition == state.itemCount - 1) {
                 //最后一个已经可见
-                realDy = min(lastLayoutBottom + lastLayoutBottomMargin + bottomConsumed - viewHeight, dy)
+                realDy =
+                    min(lastLayoutBottom + lastLayoutBottomMargin + bottomConsumed - viewHeight, dy)
             } else if (lastLayoutBottom + lastLayoutBottomMargin + bottomConsumed < viewHeight) {
                 //需要显示下一个item
                 ++lastPosition
@@ -550,7 +573,8 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
         for (position in firstPosition until state.itemCount) {
             //从各种缓存池中, 获取指定位置的 [View]
             val childView = recycler.getViewForPosition(position)
-            val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+            val childLayoutParams: RecyclerView.LayoutParams =
+                childView.layoutParams as RecyclerView.LayoutParams
 
             //将[child]添加到[RecyclerView]上
             addView(childView)
@@ -559,7 +583,8 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
             measureChildWithMargins(childView, 0, 0)
 
             layoutTop += childLayoutParams.topMargin
-            layoutBottom = layoutTop + getDecoratedMeasuredHeight(childView) + childLayoutParams.bottomMargin
+            layoutBottom =
+                layoutTop + getDecoratedMeasuredHeight(childView) + childLayoutParams.bottomMargin
             layoutLeft = leftConsumed + childLayoutParams.leftMargin
             layoutRight = layoutLeft + getDecoratedMeasuredWidth(childView)
 
@@ -572,7 +597,9 @@ class MyLayoutManager2 : RecyclerView.LayoutManager() {
 
             L.e(
                 "pos:$position l:$layoutLeft t:$layoutTop r:$layoutRight b:$layoutBottom " +
-                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} "
+                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(
+                            childView
+                        )} "
             )
 
             //判断[child]是否布局到视图外, 用于回收屏幕之外的[item]
@@ -627,7 +654,11 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
     /**保存总共滚动偏移量*/
     var scrollVerticalOffset = 0L
 
-    override fun scrollVerticallyBy(dy: Int, recycler: RecyclerView.Recycler, state: RecyclerView.State): Int {
+    override fun scrollVerticallyBy(
+        dy: Int,
+        recycler: RecyclerView.Recycler,
+        state: RecyclerView.State
+    ): Int {
         if (itemCount == 0 || dy == 0) {
             return 0
         }
@@ -734,7 +765,8 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
                 //手指向下滑动
 
                 val firstChildView = recycler.getViewForPosition(lastTopPosition)
-                val layoutParams: RecyclerView.LayoutParams = firstChildView.layoutParams as RecyclerView.LayoutParams
+                val layoutParams: RecyclerView.LayoutParams =
+                    firstChildView.layoutParams as RecyclerView.LayoutParams
 
                 val firstTop = getDecoratedTop(firstChildView) - layoutParams.topMargin
                 if (firstTop > offsetDy) {
@@ -760,7 +792,8 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
 
             //从各种缓存池中, 获取指定位置的 [View]
             val childView = recycler.getViewForPosition(position)
-            val childLayoutParams: RecyclerView.LayoutParams = childView.layoutParams as RecyclerView.LayoutParams
+            val childLayoutParams: RecyclerView.LayoutParams =
+                childView.layoutParams as RecyclerView.LayoutParams
 
             //将[child]添加到[RecyclerView]上
             addView(childView)
@@ -775,7 +808,9 @@ class MyLayoutManager : RecyclerView.LayoutManager() {
 
             L.w(
                 "pos:$position l:$left t:$top r:$right b:$bottom " +
-                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(childView)} " +
+                        "w:${getDecoratedMeasuredWidth(childView)} h:${getDecoratedMeasuredHeight(
+                            childView
+                        )} " +
                         "dy:$offsetDy sy:$scrollVerticalOffset"
             )
 

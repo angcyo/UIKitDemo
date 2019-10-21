@@ -10,10 +10,7 @@ import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.recycler.HoverItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseItemDecoration
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
-import com.angcyo.uiview.less.recycler.adapter.DslAdapter
-import com.angcyo.uiview.less.recycler.adapter.DslDateFilter
-import com.angcyo.uiview.less.recycler.adapter.RModelAdapter
-import com.angcyo.uiview.less.recycler.adapter.SelectModelListener
+import com.angcyo.uiview.less.recycler.adapter.*
 import com.angcyo.uiview.less.utils.TopToast
 
 /**
@@ -48,14 +45,9 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
         viewHolder.click(R.id.multi_box) {
             if (it is CompoundButton) {
                 if (it.isChecked) {
-                    (baseViewHolder.rv(R.id.recycler_view)?.adapter as? DslAdapter)?.selectorModel =
-                        RModelAdapter.MODEL_MULTI
+                    baseViewHolder.rv(R.id.recycler_view)?.multiModel()
                 } else {
-                    (baseViewHolder.rv(R.id.recycler_view)?.adapter as? DslAdapter)?.run {
-                        selectorModel =
-                            RModelAdapter.MODEL_SINGLE
-                        selectorMinLimit = 0
-                    }
+                    baseViewHolder.rv(R.id.recycler_view)?.singleModel()
                 }
             }
 
@@ -79,10 +71,10 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
             itemLayoutId = R.layout.item_image_little
 
             itemBind = { itemHolder, itemPosition, adapterItem ->
-                itemHolder.tv(R.id.text_view).text = "$itemPosition $itemIsSelect"
+                itemHolder.tv(R.id.text_view).text = "$itemPosition $itemIsSelected"
 
                 itemHolder.clickItem {
-                    adapterItem.itemIsSelect = !adapterItem.itemIsSelect
+                    adapterItem.itemIsSelected = !adapterItem.itemIsSelected
                 }
             }
         }
@@ -109,7 +101,7 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
 
                 itemHolder.click(R.id.check_box) {
                     //TopToast.show("CheckBox:$itemPosition", -1)
-                    itemDslAdapter?.foldItem(adapterItem, adapterItem.itemGroupExtend)
+                    adapterItem.itemGroupExtend = !adapterItem.itemGroupExtend
                 }
             }
         }
@@ -124,9 +116,9 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
 
             dslAdapter(4) {
 
-                selectorModel = RModelAdapter.MODEL_SINGLE
+                singleModel()
 
-                addOnSelectorModelListener(SelectModelListener())
+                //addOnSelectorModelListener(SelectModelListener())
 
                 for (i in 0..2) {
                     renderImageLittle()
