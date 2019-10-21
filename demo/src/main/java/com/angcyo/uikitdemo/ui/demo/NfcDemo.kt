@@ -8,6 +8,7 @@ import com.angcyo.uiview.less.R
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.kotlin.copy
 import com.angcyo.uiview.less.kotlin.dpi
+import com.angcyo.uiview.less.manager.RNotifier
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.dslitem.dslTextInfoItem
 
@@ -86,5 +87,9 @@ class NfcDemo : AppBaseDslRecyclerFragment() {
         super.onFragmentNotFirstShow(bundle)
         notifyItemChangedByTag("first")
         notifyItemChangedByTag("tag")
+
+        RNfc.getNfcTag(mAttachContext, arguments)?.apply {
+            RNotifier.instance().vibrate(longArrayOf(200), false)
+        }
     }
 }
