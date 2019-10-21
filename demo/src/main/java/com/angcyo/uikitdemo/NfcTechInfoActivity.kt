@@ -14,7 +14,7 @@ import com.angcyo.uiview.less.base.helper.FragmentHelper
  * @date 2019/09/26
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-class NfcTechActivity : BasePermissionActivity() {
+class NfcTechInfoActivity : BasePermissionActivity() {
     override fun toMain() {
         FragmentHelper.restoreOnlyShow(
             this,

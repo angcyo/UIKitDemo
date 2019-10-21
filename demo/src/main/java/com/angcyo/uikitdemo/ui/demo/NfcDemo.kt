@@ -5,6 +5,7 @@ import com.angcyo.uikitdemo.component.RNfc
 import com.angcyo.uikitdemo.component.toLog
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uiview.less.R
+import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.kotlin.copy
 import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
@@ -18,6 +19,15 @@ import com.angcyo.uiview.less.recycler.dslitem.dslTextInfoItem
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 class NfcDemo : AppBaseDslRecyclerFragment() {
+
+    override fun needBackItem(): Boolean {
+        return true
+    }
+
+    override fun configBackBuilder(builder: FragmentHelper.Builder) {
+        builder.setFinishActivity(true)
+    }
+
     override fun onInitBaseView(
         viewHolder: RBaseViewHolder,
         arguments: Bundle?,
