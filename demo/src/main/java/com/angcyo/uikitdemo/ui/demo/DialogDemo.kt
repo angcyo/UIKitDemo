@@ -385,13 +385,14 @@ class DialogDemo : AppBaseItemFragment() {
                 holder.click(R.id.option_dialog_single) {
                     optionDialog {
                         dialogTitle = "多级选项选择Single"
+                        singleOption = true
 
                         if (index++ > 1) {
                             optionList = mutableListOf("1级e")
                         }
 
                         onLoadOptionList = { options, level, callback, _ ->
-                            callback(loadOptionList(level))
+                            callback(mutableListOf("1级a", "1级b", "1级e"))
                         }
                         onCheckOptionEnd = { options, level ->
                             true
