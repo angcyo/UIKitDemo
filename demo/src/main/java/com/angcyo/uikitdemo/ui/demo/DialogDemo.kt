@@ -381,6 +381,29 @@ class DialogDemo : AppBaseItemFragment() {
                     }
                 }
 
+                var index = 0
+                holder.click(R.id.option_dialog_single) {
+                    optionDialog {
+                        dialogTitle = "多级选项选择Single"
+
+                        if (index++ > 1) {
+                            optionList = mutableListOf("1级e")
+                        }
+
+                        onLoadOptionList = { options, level, callback, _ ->
+                            callback(loadOptionList(level))
+                        }
+                        onCheckOptionEnd = { options, level ->
+                            true
+                        }
+                        onOptionResult = { _, optionList ->
+                            toast_tip(RUtils.connect(optionList))
+                            false
+                        }
+
+                        dialogType = this@DialogDemo.dialogType
+                    }
+                }
                 holder.click(R.id.option_dialog) {
                     optionDialog {
                         dialogTitle = "多级选项选择"
@@ -586,7 +609,7 @@ class DialogDemo : AppBaseItemFragment() {
         })
     }
 
-    fun loadOptionList(level: Int): MutableList<Any> {
+    fun loadOptionList(level: Int): MutableList<out Any> {
         val mutableList = when (level) {
             0 -> mutableListOf("1级级级级级级级a", "1级级级级级级级b", "1级级级级级级c", "1级d", "1级e")
             1 -> mutableListOf("2级a", "2级级级级级级级级级级b", "2级c", "2级d", "2级e")
@@ -599,8 +622,7 @@ class DialogDemo : AppBaseItemFragment() {
                 "${level + 1}级d",
                 "${level + 1}级e"
             )
-        } as MutableList<Any>
-
+        }
         return mutableList
     }
 }

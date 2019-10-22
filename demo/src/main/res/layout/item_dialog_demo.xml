@@ -166,6 +166,13 @@
             android:text="时间选择" />
 
         <com.angcyo.uiview.less.widget.Button
+            android:id="@+id/option_dialog_single"
+            style="@style/BaseSkinButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="多级选项对话框Single" />
+
+        <com.angcyo.uiview.less.widget.Button
             android:id="@+id/option_dialog"
             style="@style/BaseSkinButtonStyle"
             android:layout_width="wrap_content"
