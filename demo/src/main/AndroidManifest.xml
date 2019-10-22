@@ -43,6 +43,8 @@
             android:label="@string/app_name"
             android:launchMode="singleTop" />
 
+        <!--android:screenOrientation=""-->
+        <!--android8 透明的activity 不允许请求屏幕方向-->
         <!--NFC标签发现跳板-->
         <activity
             android:name=".HandleNfcTech"
