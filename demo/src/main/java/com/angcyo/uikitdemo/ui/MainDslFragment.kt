@@ -47,7 +47,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("FozuLayoutDemo")
             renderMainItem("RecordPlayerDemo")
             renderMainItem("TBSDemo")
-            renderMainItem("CameraDemo")
+            renderMainItem("CameraDemo QRCode RNetwork")
             renderMainItem("RePluginDemo")
             renderMainItem("ClassLoaderDemo")
             renderMainItem("WaveDemo")
