@@ -6,6 +6,9 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.java.Java
 import com.angcyo.uikitdemo.kotlin.Kotlin
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
+import com.angcyo.uikitdemo.ui.demo.DialogDemo
+import com.angcyo.uiview.less.ContainerActivity
+import com.angcyo.uiview.less.base.helper.ActivityHelper
 import com.angcyo.uiview.less.base.helper.FragmentHelper
 import com.angcyo.uiview.less.component.FileSelectorFragment
 import com.angcyo.uiview.less.kotlin.dpi
@@ -13,6 +16,7 @@ import com.angcyo.uiview.less.kotlin.renderItem
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
+import com.angcyo.uiview.less.recycler.dslitem.dslTextInfoItem
 import com.angcyo.uiview.less.utils.RUtils
 import com.angcyo.uiview.less.utils.Root
 import com.angcyo.uiview.less.utils.Tip
@@ -76,6 +80,17 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("BaseBehaviorDslDemo")
             renderMainItem("BaseCollapsingBehaviorDslDemo")
             renderMainItem("DslAdapterDemo")
+
+//            dslTextInfoItem {
+//                itemInfoText = "测试"
+//                itemClickListener = {
+//                    ActivityHelper.build(mAttachContext)
+//                        .defaultEnterAnim()
+//                        .setClass(ContainerActivity::class.java)
+//                        .setTargetFragment(DialogDemo::class.java)
+//                        .start()
+//                }
+//            }
 
             //last item
             renderMainItem {
