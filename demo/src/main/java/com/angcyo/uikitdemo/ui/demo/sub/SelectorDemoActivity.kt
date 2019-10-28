@@ -171,7 +171,7 @@ class SelectorDemoActivity : AppBaseDslRecyclerFragment() {
                 }
             }
 
-            dslDateFilter?.also {
+            dslDataFilter?.also {
                 it.addDispatchUpdatesListener(object : OnDispatchUpdatesListener {
                     override fun onDispatchUpdatesAfter(dslAdapter: DslAdapter) {
                         it.removeDispatchUpdatesListener(this)
