@@ -92,7 +92,7 @@ class SelectorDemoActivity : AppBaseDslRecyclerFragment() {
         val spanCount = 4
         val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
             override fun getSpanSize(position: Int): Int {
-                return if (!baseDslAdapter.dslAdapterStatusItem.isNoStatus() ||
+                return if (!baseDslAdapter.dslAdapterStatusItem.isInAdapterStatus() ||
                     baseDslAdapter.getItemData(position)?.itemIsGroupHead == true
                 ) {
                     spanCount
