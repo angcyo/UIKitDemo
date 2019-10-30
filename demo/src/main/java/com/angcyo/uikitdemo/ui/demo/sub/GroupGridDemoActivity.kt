@@ -6,6 +6,7 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.ui.item.DslDemoItem
 import com.angcyo.uiview.less.kotlin.dpi
+import com.angcyo.uiview.less.kotlin.dslSpanSizeLookup
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.*
 import com.angcyo.uiview.less.recycler.dslitem.DslAdapterStatusItem
@@ -29,21 +30,12 @@ class GroupGridDemoActivity : AppBaseDslRecyclerFragment() {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         val spanCount = 4
-        val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (!baseDslAdapter.dslAdapterStatusItem.isInAdapterStatus() ||
-                    baseDslAdapter.getItemData(position)?.itemIsGroupHead == true
-                ) {
-                    spanCount
-                } else {
-                    1
-                }
-            }
-        }
+        val spanSizeLookup: GridLayoutManager.SpanSizeLookup
 
-        recyclerView.layoutManager = GridLayoutManager(mAttachContext, spanCount).apply {
-            this.spanSizeLookup = spanSizeLookup
-        }
+        recyclerView.layoutManager =
+            GridLayoutManager(mAttachContext, spanCount).apply {
+                spanSizeLookup = dslSpanSizeLookup(baseDslAdapter)
+            }
 
         baseDslAdapter.setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_LOADING)
 

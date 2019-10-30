@@ -1,16 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
-        android:padding="6dp"
-        android:layout_height="wrap_content">
+<com.angcyo.uiview.less.widget.group.RConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="6dp">
 
     <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_view"
-            android:scaleType="centerCrop"
-            android:layout_width="match_parent"
-            app:layout_constraintDimensionRatio="1:1"
-            android:layout_height="0dp"/>
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        android:background="@drawable/base_bg_selector_v21"
+        android:src="@drawable/peppq"
+        app:layout_constraintDimensionRatio="1:1" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/text_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/base_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="文本" />
+
+</com.angcyo.uiview.less.widget.group.RConstraintLayout>

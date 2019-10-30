@@ -3,6 +3,9 @@ package com.angcyo.uikitdemo.ui.base
 import android.os.Bundle
 import com.angcyo.uiview.less.base.BaseDslRecyclerFragment
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import com.angcyo.uiview.less.recycler.adapter.DslAdapter
+import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
+import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
 
 /**
  *
@@ -18,11 +21,22 @@ open class AppBaseDslRecyclerFragment : BaseDslRecyclerFragment() {
         return false
     }
 
+    override fun onAdapterRefresh(baseAdapter: RBaseAdapter<DslAdapterItem>): Boolean {
+        if (baseAdapter is DslAdapter) {
+            return false
+        }
+        return super.onAdapterRefresh(baseAdapter)
+    }
+
     override fun onUIDelayLoadData() {
         super.onUIDelayLoadData()
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
         enableRefreshAffect()
     }

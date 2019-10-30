@@ -74,6 +74,14 @@ class DslAdapterDemo : AppBaseDslRecyclerFragment() {
                 itemTopInsert = 4 * dpi
             }
 
+            dslItem(DslDemoItem()) {
+                itemText = "StaggeredGridLayout"
+                onItemClick = {
+                    start(StaggeredGridLayoutActivity::class.java)
+                }
+                itemTopInsert = 4 * dpi
+            }
+
             renderEmptyItem()
 
             dslItem(DslDemoItem()) {

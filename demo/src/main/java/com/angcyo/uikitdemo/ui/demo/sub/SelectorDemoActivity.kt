@@ -2,11 +2,13 @@ package com.angcyo.uikitdemo.ui.demo.sub
 
 import android.graphics.Color
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.ui.item.DslDemoItem
 import com.angcyo.uiview.less.kotlin.dpi
+import com.angcyo.uiview.less.kotlin.dslSpanSizeLookup
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.*
 import com.angcyo.uiview.less.recycler.dslitem.DslAdapterStatusItem
@@ -88,23 +90,10 @@ class SelectorDemoActivity : AppBaseDslRecyclerFragment() {
             baseDslAdapter.itemSelectorHelper.selectorAll(SelectorParams(selector = (!isSelectorAll).toSelectOption()))
         }
 
-        //设置span size
-        val spanCount = 4
-        val spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
-            override fun getSpanSize(position: Int): Int {
-                return if (!baseDslAdapter.dslAdapterStatusItem.isInAdapterStatus() ||
-                    baseDslAdapter.getItemData(position)?.itemIsGroupHead == true
-                ) {
-                    spanCount
-                } else {
-                    1
-                }
+        recyclerView.layoutManager =
+            GridLayoutManager(mAttachContext, 4).apply {
+                dslSpanSizeLookup(baseDslAdapter)
             }
-        }
-
-        recyclerView.layoutManager = GridLayoutManager(mAttachContext, spanCount).apply {
-            this.spanSizeLookup = spanSizeLookup
-        }
 
         //渲染adapter数据
         renderDslAdapter {
@@ -121,6 +110,8 @@ class SelectorDemoActivity : AppBaseDslRecyclerFragment() {
                 onBaseRefresh(null)
             }
         }
+
+        Toast.makeText(mAttachContext, "长按Item, 可以滑动选择", Toast.LENGTH_LONG).show()
     }
 
     override fun onBaseLoadData() {

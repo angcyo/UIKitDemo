@@ -87,7 +87,7 @@ fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5)
 
                 itemLayoutId = R.layout.item_text
 
-                itemBind = { itemHolder, itemPosition, adapterItem ->
+                onItemBindOverride = { itemHolder, itemPosition, adapterItem ->
                     L.d("bind...$itemPosition")
                     itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
                     itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
@@ -119,7 +119,7 @@ fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5)
                 }
                 itemLayoutId = R.layout.item_image_little
 
-                itemBind = { itemHolder, itemPosition, adapterItem ->
+                onItemBindOverride = { itemHolder, itemPosition, adapterItem ->
                     L.v("bind...$itemPosition")
                     itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
 
