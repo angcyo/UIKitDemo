@@ -27,10 +27,6 @@ import java.util.*
  */
 class StaggeredGridLayoutActivity : AppBaseDslRecyclerFragment() {
 
-    override fun getRecyclerViewPool(): RecyclerView.RecycledViewPool? {
-        return null
-    }
-
     override fun onInitBaseView(
         viewHolder: RBaseViewHolder,
         arguments: Bundle?,
