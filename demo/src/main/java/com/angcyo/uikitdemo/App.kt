@@ -92,6 +92,10 @@ fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5)
                     itemHolder.tv(R.id.text_view).text = "位置$itemPosition"
                     itemHolder.cV(R.id.check_box).isChecked = !adapterItem.itemGroupExtend
 
+                    itemHolder.click(R.id.check_box) {
+                        itemHolder.clickView(itemHolder.itemView)
+                    }
+
                     itemHolder.clickItem {
                         TopToast.show("点击位置:$itemPosition".apply {
                             L.i(it)
