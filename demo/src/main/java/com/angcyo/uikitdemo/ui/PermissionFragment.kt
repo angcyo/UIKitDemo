@@ -46,7 +46,7 @@ class PermissionFragment : BaseFragment() {
                 renderItem {
                     itemLayoutId = R.layout.item_permission_layout
 
-                    itemBind = { itemHolder, itemPosition, _ ->
+                    onItemBindOverride = { itemHolder, itemPosition, _ ->
                         itemHolder.imgV(R.id.image_view).setImageResource(permissionConfig.permissionIco[itemPosition])
                         itemHolder.tv(R.id.text_view).text = permissionConfig.permissionDes[itemPosition]
                     }

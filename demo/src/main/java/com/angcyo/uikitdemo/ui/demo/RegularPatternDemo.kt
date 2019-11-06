@@ -38,7 +38,7 @@ class RegularPatternDemo : AppBaseDslRecyclerFragment() {
             renderItem {
                 itemLayoutId = R.layout.demo_regular_pattern_layout
 
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     itemHolder.auto(R.id.pattern_edit, "pattern_edit".hawkGetList(), true)
                         ?.setInputText("pattern_edit".hawkGetList().first())
                     itemHolder.auto(R.id.content_edit, "content_edit".hawkGetList(), true)

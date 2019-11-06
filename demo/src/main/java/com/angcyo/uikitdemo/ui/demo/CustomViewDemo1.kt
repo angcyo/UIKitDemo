@@ -31,7 +31,7 @@ class CustomViewDemo1 : AppBaseDslRecyclerFragment() {
             renderItem {
                 itemLayoutId = R.layout.custom_view1_layout1
 
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     itemHolder.v<DYProgressBar>(R.id.dy_progress_bar).startAnimator()
                     itemHolder.v<HSProgressView>(R.id.hs_progress_view1).baseDraw.setProgress(50)
                     itemHolder.v<HSProgressView>(R.id.hs_progress_view2).startAnimator()

@@ -48,7 +48,7 @@ class SoftInputDemo : AppBaseDslRecyclerFragment() {
                 baseDslAdapter.renderItem {
                     itemLayoutId = R.layout.base_single_text_layout
                     itemData = nowTime()
-                    itemBind = { itemHolder, itemPosition, _ ->
+                    onItemBindOverride = { itemHolder, itemPosition, _ ->
                         itemHolder.tv(R.id.base_text_view).text = RSpan.get("$itemData->\n")
                             .append("isEmojiShow:").append(isEmojiShow.toString())
                             .append(" isKeyboardShow:").append(isKeyboardShow.toString())

@@ -41,7 +41,7 @@ class SpanDemo : AppBaseDslRecyclerFragment() {
 
         renderDslAdapter {
             dslItem(R.layout.demo_span) {
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     itemHolder.tv(R.id.text3).text = span {
                         append("左边文本")
                         customSpan {
@@ -93,7 +93,7 @@ class SpanDemo : AppBaseDslRecyclerFragment() {
             }
 
             dslItem(R.layout.demo_span) {
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
 
                     itemHolder.tv(R.id.text3).text = span {
                         append(spanKey)

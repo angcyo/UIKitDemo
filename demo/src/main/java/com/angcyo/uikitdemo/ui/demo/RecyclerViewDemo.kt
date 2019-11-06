@@ -70,7 +70,7 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
         renderItem {
             itemLayoutId = R.layout.item_image_little
 
-            itemBind = { itemHolder, itemPosition, adapterItem ->
+            onItemBindOverride = { itemHolder, itemPosition, adapterItem ->
                 itemHolder.tv(R.id.text_view).text = "$itemPosition $itemIsSelected"
 
                 itemHolder.clickItem {
@@ -88,7 +88,7 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
 
             itemLayoutId = R.layout.item_text
 
-            itemBind = { itemHolder, itemPosition, adapterItem ->
+            onItemBindOverride = { itemHolder, itemPosition, adapterItem ->
                 L.i("bind...$itemPosition")
 
                 itemHolder.tv(R.id.text_view).text = "位置$itemPosition"

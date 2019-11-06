@@ -60,7 +60,7 @@ open class ClassLoaderDemo : AppBaseDslRecyclerFragment() {
 
         renderDslAdapter {
             dslItem(R.layout.demo_class_loader) {
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
 
                     itemHolder.auto(R.id.class_name_edit, "class_name_edit".hawkGetList(), true)
                     itemHolder.auto(R.id.method_name_edit, "method_name_edit".hawkGetList(), true)

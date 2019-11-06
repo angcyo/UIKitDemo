@@ -58,7 +58,7 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
 
         renderDslAdapter {
             renderDemoItem("operators") {
-                itemBind = { itemHolder, itemPosition, _ ->
+                onItemBindOverride = { itemHolder, itemPosition, _ ->
                     itemHolder.item(R.id.base_item_info_layout)?.apply {
                         setLeftDrawableRes(R.drawable.ic_logo_little)
                         setItemText("${itemPosition + 1}. operators")
@@ -104,7 +104,7 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
             }
 
             renderDemoItem("Rx Base Test") {
-                itemBind = { itemHolder, itemPosition, _ ->
+                onItemBindOverride = { itemHolder, itemPosition, _ ->
                     itemHolder.item(R.id.base_item_info_layout)?.apply {
                         setLeftDrawableRes(R.drawable.ic_logo_little)
                         setItemText("${itemPosition + 1}. Rx Base Test")
@@ -138,7 +138,7 @@ class RxJavaDemo : AppBaseDslRecyclerFragment() {
             itemTopInsert = topInsert
             itemLayoutId = R.layout.base_item_info_layout
 
-            itemBind = { itemHolder, itemPosition, _ ->
+            onItemBindOverride = { itemHolder, itemPosition, _ ->
                 itemHolder.item(R.id.base_item_info_layout)?.apply {
                     setLeftDrawableRes(R.drawable.ic_logo_little)
                     setItemText("${itemPosition + 1}. $text")

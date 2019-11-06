@@ -115,7 +115,7 @@ open class SocketDemo : AppBaseDslRecyclerFragment() {
             //itemDecorationColor = Color.RED
             itemLayoutId = R.layout.item_single_text
             itemData = text
-            itemBind = { itemHolder, position, _ ->
+            onItemBindOverride = { itemHolder, position, _ ->
                 itemHolder.tv(R.id.text_view).text = "$itemData $position"
             }
         }

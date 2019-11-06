@@ -132,7 +132,7 @@ class PictureSelectorDemo : AppBaseItemFragment() {
                 list.forEach { media ->
                     renderItem {
                         itemLayoutId = R.layout.item_image_layout
-                        itemBind = { itemHolder, itemPosition, adapterItem ->
+                        onItemBindOverride = { itemHolder, itemPosition, adapterItem ->
                             itemHolder.imageView(R.id.image_view)
                                 .load(media.filePath) {
 

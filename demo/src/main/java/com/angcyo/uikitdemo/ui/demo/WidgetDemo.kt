@@ -49,7 +49,7 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
         val circleClipOutline = CircleClipOutline()
         renderDslAdapter {
             dslItem(R.layout.demo_widget_grayscale) {
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     //截图图片
                     if (!TextUtils.isEmpty(screenshotPath)) {
                         itemHolder.giv(R.id.image_view).url = screenshotPath
@@ -103,7 +103,7 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
             }
 
             dslItem(R.layout.demo_widget_outline) {
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     itemHolder.view(R.id.wrap_layout).apply {
                         outlineProvider = circleClipOutline
                         anim(duration = 3000) {
@@ -116,7 +116,7 @@ class WidgetDemo : AppBaseDslRecyclerFragment() {
             }
 
             dslItem(R.layout.demo_widget) {
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     itemHolder.tv(R.id.text1).text =
                         RSpan.get().append("测试文本")
                             .appendImage(R.drawable.ic_logo)

@@ -81,7 +81,7 @@ class FileDownDemo : AppBaseRecyclerFragment<DslAdapterItem>() {
                 var listener: FDownListener? = null
 
                 itemLayoutId = R.layout.item_file_down_all
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     FDown.removeListener(listener)
                     listener = object : FDownListener(false) {
                         override fun onTaskStart(task: DownloadTask) {
@@ -132,7 +132,7 @@ class FileDownDemo : AppBaseRecyclerFragment<DslAdapterItem>() {
                         var listener: FDownListener? = null
 
                         itemLayoutId = R.layout.item_file_down
-                        itemBind = { itemHolder, itemPosition, _ ->
+                        onItemBindOverride = { itemHolder, itemPosition, _ ->
                             itemHolder.v<SimpleProgressBar>(R.id.down_progress_bar).setProgress(0)
 
                             itemHolder.tv(R.id.down_url).text = downUrl

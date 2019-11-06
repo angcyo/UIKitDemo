@@ -96,7 +96,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem {
                 itemLayoutId = R.layout.item_last
                 itemTag = "Last"
-                itemBind = { itemHolder, _, _ ->
+                onItemBindOverride = { itemHolder, _, _ ->
                     itemHolder.tv(R.id.text_view).text =
                         StringBuilder().append(RUtils.getIP(mAttachContext))
                             .append(' ').append(RUtils.getMobileIP()).appendln()
@@ -128,7 +128,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             itemTopInsert = topInsert
             itemLayoutId = R.layout.base_item_info_layout
 
-            itemBind = { itemHolder, itemPosition, _ ->
+            onItemBindOverride = { itemHolder, itemPosition, _ ->
                 itemHolder.item(R.id.base_item_info_layout)?.apply {
                     setLeftDrawableRes(R.drawable.ic_logo_little)
                     setItemText("${itemPosition + 1}. $text")
