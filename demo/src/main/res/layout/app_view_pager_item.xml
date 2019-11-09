@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.angcyo.uiview.less.widget.group.RTabLayout
+        android:id="@+id/tab_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:background="@color/transparent_dark"
+        app:r_indicator_type="TYPE_BOTTOM_FLOW_LINE"
+        app:r_indicator_width="10dp">
+
+        <TextView
+            style="@style/TabItemStyle"
+            android:layout_margin="0dp"
+            android:text="文1" />
+
+        <TextView
+            style="@style/TabItemStyle"
+            android:layout_margin="0dp"
+            android:text="文本测试2" />
+
+        <TextView
+            style="@style/TabItemStyle"
+            android:layout_margin="0dp"
+            android:text="文本3" />
+
+        <TextView
+            style="@style/TabItemStyle"
+            android:layout_margin="0dp"
+            android:text="文本测试4" />
+
+        <TextView
+            style="@style/TabItemStyle"
+            android:layout_margin="0dp"
+            android:text="文本测试5" />
+
+        <TextView
+            style="@style/TabItemStyle"
+            android:layout_margin="0dp"
+            android:text="文本测试6" />
+
+        <TextView
+            style="@style/TabItemStyle"
+            android:layout_margin="0dp"
+            android:text="文本测试7" />
+
+    </com.angcyo.uiview.less.widget.group.RTabLayout>
+
+    <com.angcyo.uiview.less.widget.pager.RViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/base_xhdpi"
+        android:layout_weight="1"
+        tools:background="@color/transparent_dark20" />
+
+</LinearLayout>

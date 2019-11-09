@@ -8,6 +8,7 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseDslRecyclerFragment
 import com.angcyo.uikitdemo.ui.demo.sub.*
 import com.angcyo.uikitdemo.ui.item.DslDemoItem
+import com.angcyo.uikitdemo.ui.item.DslViewPagerItem
 import com.angcyo.uiview.less.base.BaseFragment
 import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.renderEmptyItem
@@ -16,6 +17,7 @@ import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 import com.angcyo.uiview.less.recycler.dslitem.DslAdapterStatusItem
 import com.angcyo.uiview.less.recycler.dslitem.dslItem
+import com.angcyo.uiview.less.widget.pager.RFragmentAdapter
 
 /**
  *
@@ -32,6 +34,8 @@ class DslAdapterDemo : AppBaseDslRecyclerFragment() {
         savedInstanceState: Bundle?
     ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
+
+        smartRefreshLayout?.isEnabled = false
 
         renderDslAdapter {
             setAdapterStatus(DslAdapterStatusItem.ADAPTER_STATUS_LOADING)
@@ -132,6 +136,22 @@ class DslAdapterDemo : AppBaseDslRecyclerFragment() {
             this - DslAdapterItem() - DslAdapterItem() - DslAdapterItem() - DslAdapterItem()
 
             renderEmptyItem()
+
+            //嵌套ViewPager测试
+
+            this + DslViewPagerItem().apply {
+                pagerAdapter = RFragmentAdapter(
+                    childFragmentManager,
+                    listOf(
+                        RecyclerViewDemo(),
+                        LoadMoreActivity(),
+                        SpanDemo(),
+                        WidgetDemo(),
+                        SoftInputDemo(),
+                        ViewPager2Demo()
+                    )
+                )
+            }
 
             //模拟网络延迟
             viewHolder.postDelay(1000) {
