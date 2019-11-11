@@ -130,8 +130,6 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                         renderImageLittle()
                     }
                 }
-
-                dslDataFilter = DslDataFilter(this)
             }
         }
     }
@@ -156,8 +154,6 @@ class RecyclerViewDemo : AppBaseTitleFragment() {
                         renderImage()
                     }
                 }
-
-                dslDataFilter = DslDataFilter(this)
             }
 
             addItemDecoration(RBaseItemDecoration(10 * dpi, Color.GREEN))

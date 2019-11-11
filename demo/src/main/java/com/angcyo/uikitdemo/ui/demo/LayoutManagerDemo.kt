@@ -17,7 +17,6 @@ import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.RRecyclerView
 import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
-import com.angcyo.uiview.less.recycler.adapter.DslDataFilter
 import com.angcyo.uiview.less.recycler.adapter.RBaseAdapter
 import com.angcyo.uiview.less.widget.RSpinner
 import com.dingmouren.layoutmanagergroup.echelon.EchelonLayoutManager
@@ -61,9 +60,6 @@ class LayoutManagerDemo : AppBaseDslRecyclerFragment() {
 
     override fun onCreateAdapter(datas: MutableList<DslAdapterItem>?): RBaseAdapter<DslAdapterItem> {
         return object : DslAdapter(datas) {
-            init {
-                dslDataFilter = DslDataFilter(this)
-            }
 
             override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RBaseViewHolder {
                 L.e("onCreateViewHolder...viewType:$viewType")
