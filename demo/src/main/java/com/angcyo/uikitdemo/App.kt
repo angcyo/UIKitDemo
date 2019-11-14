@@ -18,6 +18,7 @@ import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.kotlin.getColor
 import com.angcyo.uiview.less.kotlin.random
 import com.angcyo.uiview.less.kotlin.renderItem
+import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.utils.RNetwork
 import com.angcyo.uiview.less.utils.RUtils.randomColor
 import com.angcyo.uiview.less.utils.TopToast
@@ -77,8 +78,8 @@ fun ViewGroup.appendColorItem(size: Int = 100) {
     }
 }
 
-fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5) {
-    renderDslAdapter {
+fun DslAdapter.来点数据(groupCount: Int = 5, subCount: Int = 5) {
+    this.apply {
         fun renderText() {
             renderItem {
                 itemSpanCount = 4
@@ -144,6 +145,12 @@ fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5)
                 renderImage()
             }
         }
+    }
+}
+
+fun BaseDslRecyclerFragment.来点数据(groupCount: Int = 5, subCount: Int = 5) {
+    renderDslAdapter {
+        this.来点数据(groupCount, subCount)
     }
 }
 
