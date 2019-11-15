@@ -80,6 +80,8 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("BaseBehaviorDslDemo")
             renderMainItem("BaseCollapsingBehaviorDslDemo")
             renderMainItem("DslAdapterDemo")
+            renderMainItem("LinkageBehaviorDemo")
+            renderMainItem("RefreshBehaviorDemo")
 
 //            dslTextInfoItem {
 //                itemInfoText = "测试"
