@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.behavior
 
 import android.animation.ValueAnimator
+import android.view.MotionEvent
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
@@ -12,7 +13,6 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.utils.UI
 import com.angcyo.uiview.less.widget.behavior.BaseDependsBehavior
-import kotlin.math.max
 import kotlin.math.min
 
 /**
@@ -42,8 +42,8 @@ class RefreshHeaderBehavior : BaseDependsBehavior<View>() {
                 if (value == REFRESH_ING) {
                     //通知刷新中...
                     L.i("刷新回调")
-                } else {
-                    onRefreshCallback.onContentStopScroll()
+                } else if (value == REFRESH_NORMAL) {
+                    onFinishSpinner()
                 }
             }
         }
@@ -91,21 +91,15 @@ class RefreshHeaderBehavior : BaseDependsBehavior<View>() {
         } ?: false
     }
 
-    //最后一次布局时, child的top坐标
-    var _childLastTop = 0
-
-    override fun onLayoutChild(
-        parent: CoordinatorLayout,
-        child: View,
-        layoutDirection: Int
-    ): Boolean {
-        _childLastTop = child.top
-        return super.onLayoutChild(parent, child, layoutDirection)
-    }
+    var _isFirstLayout = true
 
     override fun onLayoutChildAfter(parent: CoordinatorLayout, child: View, layoutDirection: Int) {
         super.onLayoutChildAfter(parent, child, layoutDirection)
-        _followLayout()
+        if (_isFirstLayout) {
+            _currentChildOffsetTop = -child.measuredHeight
+        }
+        _isFirstLayout = false
+        child.offsetTopTo(_currentChildOffsetTop)
     }
 
     override fun onDependentViewChanged(
@@ -114,7 +108,21 @@ class RefreshHeaderBehavior : BaseDependsBehavior<View>() {
         dependency: View
     ): Boolean {
         super.onDependentViewChanged(parent, child, dependency)
-        return _followLayout()
+        child.offsetTopTo(_currentChildOffsetTop)
+        return false
+    }
+
+    override fun onInterceptTouchEvent(
+        parent: CoordinatorLayout,
+        child: View,
+        ev: MotionEvent
+    ): Boolean {
+        if (ev.actionMasked == MotionEvent.ACTION_DOWN) {
+            (scrollTargetView as? RecyclerView)?.stopScroll()
+            animator?.cancel()
+            animator = null
+        }
+        return super.onInterceptTouchEvent(parent, child, ev)
     }
 
     override fun onStartNestedScroll(
@@ -153,8 +161,10 @@ class RefreshHeaderBehavior : BaseDependsBehavior<View>() {
             type
         )
         scrollTargetView = target
-        onRefreshCallback.onContentStartScroll()
     }
+
+    //顶部覆盖滚动的距离
+    var _overScrollTop = 0
 
     override fun onNestedPreScroll(
         coordinatorLayout: CoordinatorLayout,
@@ -167,20 +177,24 @@ class RefreshHeaderBehavior : BaseDependsBehavior<View>() {
     ) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
 
-        dependsLayout?.let {
-            onRefreshCallback.onContentPreScroll(target, dy, consumed)
+        if (dy > 0) {
+            //向上滚动
+            if (_overScrollTop < 0) {
+                consumed[1] = min(_overScrollTop.abs(), dy)
+                _overScrollTop += consumed[1]
+                onMoveSpinner(consumed[1])
+            }
+        } else if (dy < 0) {
+            //向下滚动
+            if (!UI.canChildScrollUp(target)) {
+                (scrollTargetView as? RecyclerView)?.stopScroll()
+                //顶部没有可滚动空间
+                consumed[1] = dy
+                L.e("$_overScrollTop $dy ${child.measuredHeight}")
+                _overScrollTop += consumed[1]
+                onMoveSpinner(consumed[1])
+            }
         }
-    }
-
-    override fun onNestedFling(
-        coordinatorLayout: CoordinatorLayout,
-        child: View,
-        target: View,
-        velocityX: Float,
-        velocityY: Float,
-        consumed: Boolean
-    ): Boolean {
-        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed)
     }
 
     override fun onStopNestedScroll(
@@ -190,106 +204,71 @@ class RefreshHeaderBehavior : BaseDependsBehavior<View>() {
         type: Int
     ) {
         super.onStopNestedScroll(coordinatorLayout, child, target, type)
-        onRefreshCallback.onContentStopScroll()
+        onFinishSpinner()
     }
 
-    //跟随刷新内容控制的位置
-    fun _followLayout(): Boolean {
-        return dependsLayout?.run {
-            onRefreshCallback.onContentViewChanged()
-        } ?: false
-    }
-}
+    var _currentChildOffsetTop = 0
 
-open class OnRefreshCallback(val behavior: RefreshHeaderBehavior) {
+    /**移动[Spinner]*/
+    open fun onMoveSpinner(dy: Int) {
+        L.e("move $dy")
+        if (refreshStatus == REFRESH_NORMAL) {
+            refreshStatus = REFRESH_DRAG
+        }
+
+        child?.offsetTop(-dy)
+        _currentChildOffsetTop = child?.top ?: _currentChildOffsetTop
+        content?.offsetTopTo(child?.bottom ?: 0)
+
+        onRefreshCallback.onMoveSpinner(dy)
+    }
 
     var animator: ValueAnimator? = null
 
-    /**
-     * 当[content]布局位置发生改变时回调
-     *
-     * @return 如果改变了 [child]的大小, 则返回true
-     * */
-    open fun onContentViewChanged(): Boolean {
-        behavior.apply {
-            child!!.offsetTopTo(content!!.top - child!!.measuredHeight)
-        }
-        return false
-    }
-
-    /**当[content]即将开始滚动时回调*/
-    open fun onContentStartScroll() {
-        if (behavior.refreshStatus != RefreshHeaderBehavior.REFRESH_ING) {
-            behavior.refreshStatus = RefreshHeaderBehavior.REFRESH_DRAG
-        }
-        animator?.cancel()
-    }
-
-    //Y轴滚动的距离
-    open fun _getScrollY(): Int {
-        return behavior.content!!.top
-    }
-
-    /**当[content]想要滚动时回调*/
-    open fun onContentPreScroll(target: View, dy: Int, consumed: IntArray) {
+    open fun onFinishSpinner() {
         animator?.cancel()
 
-        val scrollY = _getScrollY()
+        var endOverScrollTop = 0
 
-        if (dy > 0) {
-            //向上滚动
-            if (scrollY > 0) {
-                consumed[1] = min(scrollY, dy)
-                onMoveView(consumed[1])
+        when {
+            refreshStatus == REFRESH_NORMAL -> {
+                //刷新完成
             }
-        } else if (dy < 0) {
-            //向下滚动
-            if (!UI.canChildScrollUp(target)) {
-                //顶部没有可滚动空间
-                val factor = scrollY * 1f / behavior.content!!.measuredHeight
-                val f = max(0.0, 1.0 - 0.6 - factor)
-                consumed[1] = dy
-                onMoveView((dy * f).toInt())
+            child!!.bottom >= child!!.measuredHeight -> {
+                //触发刷新
+                endOverScrollTop = -child!!.measuredHeight
+
+                refreshStatus = REFRESH_ING
+            }
+            else -> {
+                //回到默认
             }
         }
-    }
 
-    /**当[content]停止滚动时回调*/
-    open fun onContentStopScroll() {
-        val scrollY = _getScrollY()
-
-        if (scrollY == 0) {
+        if (_overScrollTop == endOverScrollTop) {
             return
         }
-        val childHeight = behavior.child!!.measuredHeight
 
-        val endY =
-            if (scrollY >= childHeight && behavior.refreshStatus != RefreshHeaderBehavior.REFRESH_NORMAL) {
-                //达到了刷新阈值
-                behavior.refreshStatus = RefreshHeaderBehavior.REFRESH_ING
-                childHeight
-            } else {
-                //未达到阈值, 回退到默认状态
-                0
-            }
-
-        animator = ValueAnimator.ofInt(scrollY, endY).apply {
+        animator = ValueAnimator.ofInt(_overScrollTop, endOverScrollTop).apply {
             addUpdateListener {
-                onMoveView(_getScrollY() - it.animatedValue as Int)
+                val value = it.animatedValue as Int
+                val dy = value - _overScrollTop
+                _overScrollTop = value
+
+                onMoveSpinner(dy)
             }
             duration = 300
             interpolator = DecelerateInterpolator()
             start()
         }
     }
+}
+
+open class OnRefreshCallback(val behavior: RefreshHeaderBehavior) {
 
     /**用来移动[content]或者[child]*/
-    open fun onMoveView(dy: Int) {
-        if (dy < 0) {
-            (behavior.scrollTargetView as? RecyclerView)?.stopScroll()
-        }
-
-        behavior.content!!.offsetTop(-dy)
+    open fun onMoveSpinner(dy: Int) {
+        //behavior.content!!.offsetTopTo(-behavior._overScrollTop)
 
         val textView = behavior.child?.find<TextView>(R.id.text_view)
         val loadView = behavior.child?.find<View>(R.id.arc_loading_view)
@@ -299,7 +278,7 @@ open class OnRefreshCallback(val behavior: RefreshHeaderBehavior) {
         } else {
             loadView?.gone()
 
-            val top = _getScrollY()
+            val top = behavior._overScrollTop.abs()
             val childHeight = behavior.child!!.measuredHeight
             if (top >= childHeight) {
                 textView?.text = "释放刷新"
@@ -316,55 +295,35 @@ open class OnRefreshCallback(val behavior: RefreshHeaderBehavior) {
 
 open class OnRefreshCallback2(behavior: RefreshHeaderBehavior) : OnRefreshCallback(behavior) {
 
-    override fun _getScrollY(): Int {
-        return behavior.child!!.bottom
-    }
-
-    var _childLastTop = 0
-    var isFirst = true
-
-    override fun onContentViewChanged(): Boolean {
-
-        behavior.apply {
-            if (isFirst) {
-                _childLastTop = -child!!.measuredHeight
-            }
-            child!!.offsetTopTo(_childLastTop)
-        }
-
-        isFirst = false
-        return false
-    }
-
-    override fun onMoveView(dy: Int) {
-        if (dy < 0) {
-            (behavior.scrollTargetView as? RecyclerView)?.stopScroll()
-        }
-
-        L.e("offset $dy")
-
-        behavior.child!!.offsetTopTo(-dy)
-        _childLastTop = behavior.child!!.top
-
-        val textView = behavior.child?.find<TextView>(R.id.text_view)
-        val loadView = behavior.child?.find<View>(R.id.arc_loading_view)
-        if (behavior.refreshStatus == RefreshHeaderBehavior.REFRESH_ING) {
-            textView?.text = "正在刷新"
-            loadView?.visible()
-        } else {
-            loadView?.gone()
-
-            val top = _getScrollY()
-            val childHeight = behavior.child!!.measuredHeight
-            if (top >= childHeight) {
-                textView?.text = "释放刷新"
-            } else {
-                textView?.text = "下拉刷新"
-            }
-        }
-
-        behavior.child?.find<View>(R.id.button)?.setOnClickListener {
-            behavior.refreshStatus = RefreshHeaderBehavior.REFRESH_NORMAL
-        }
+    override fun onMoveSpinner(dy: Int) {
+//        if (dy < 0) {
+//            (behavior.scrollTargetView as? RecyclerView)?.stopScroll()
+//        }
+//
+//        L.e("offset $dy")
+//
+//        behavior.child!!.offsetTopTo(-dy)
+//        _childLastTop = behavior.child!!.top
+//
+//        val textView = behavior.child?.find<TextView>(R.id.text_view)
+//        val loadView = behavior.child?.find<View>(R.id.arc_loading_view)
+//        if (behavior.refreshStatus == RefreshHeaderBehavior.REFRESH_ING) {
+//            textView?.text = "正在刷新"
+//            loadView?.visible()
+//        } else {
+//            loadView?.gone()
+//
+//            val top = _getScrollY()
+//            val childHeight = behavior.child!!.measuredHeight
+//            if (top >= childHeight) {
+//                textView?.text = "释放刷新"
+//            } else {
+//                textView?.text = "下拉刷新"
+//            }
+//        }
+//
+//        behavior.child?.find<View>(R.id.button)?.setOnClickListener {
+//            behavior.refreshStatus = RefreshHeaderBehavior.REFRESH_NORMAL
+//        }
     }
 }
