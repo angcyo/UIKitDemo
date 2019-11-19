@@ -4,6 +4,7 @@ import android.view.MotionEvent
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
+import androidx.core.widget.NestedScrollView
 import androidx.recyclerview.widget.RecyclerView
 import com.angcyo.lib.L
 import com.angcyo.uiview.less.kotlin.*
@@ -36,6 +37,13 @@ class StickHeaderBehavior : BaseDependsBehavior<View>() {
     var _topFlingRecyclerView: RecyclerView? = null
     var _bottomFlingRecyclerView: RecyclerView? = null
 
+    var _recyclerViewScrollListener = object : RecyclerView.OnScrollListener() {
+        override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+            super.onScrolled(recyclerView, dx, dy)
+            _onRecyclerViewScroll(recyclerView, dy, intArrayOf(0, 0))
+        }
+    }
+
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
         child: View,
@@ -62,14 +70,37 @@ class StickHeaderBehavior : BaseDependsBehavior<View>() {
         ev: MotionEvent
     ): Boolean {
         if (ev.isDown()) {
-            topRecyclerView?.stopScroll()
-            bottomRecyclerView?.stopScroll()
+            topRecyclerView?.apply {
+                stopScroll()
+                removeOnScrollListener(_recyclerViewScrollListener)
+            }
+            bottomRecyclerView?.apply {
+                stopScroll()
+                removeOnScrollListener(_recyclerViewScrollListener)
+            }
+
             _bottomFlingRecyclerView?.stopScroll()
             _bottomFlingRecyclerView = null
+
             _topFlingRecyclerView?.stopScroll()
             _topFlingRecyclerView = null
         }
         return super.onInterceptTouchEvent(parent, child, ev)
+    }
+
+    override fun onNestedFling(
+        coordinatorLayout: CoordinatorLayout,
+        child: View,
+        target: View,
+        velocityX: Float,
+        velocityY: Float,
+        consumed: Boolean
+    ): Boolean {
+        if (target is RecyclerView) {
+            target.removeOnScrollListener(_recyclerViewScrollListener)
+            target.addOnScrollListener(_recyclerViewScrollListener)
+        }
+        return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed)
     }
 
     override fun onStartNestedScroll(
@@ -102,47 +133,41 @@ class StickHeaderBehavior : BaseDependsBehavior<View>() {
     ) {
         super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type)
 
+        if (target is RecyclerView) {
+            _onRecyclerViewScroll(target, dy, consumed)
+        } else if (target is NestedScrollView) {
+
+        }
+    }
+
+    fun _onRecyclerViewScroll(recyclerView: RecyclerView, dy: Int, consumed: IntArray) {
         if (dy > 0) {
             //手指向上滚动
-            if (target == topRecyclerView) {
-                if (!UI.canChildScrollDown(target)) {
+            if (recyclerView == topRecyclerView) {
+                if (!UI.canChildScrollDown(recyclerView)) {
                     if (!moveLayout(dy)) {
                         consumed[1] = dy
                     }
                 }
-            } else if (target == bottomRecyclerView) {
+            } else if (recyclerView == bottomRecyclerView) {
                 if (!moveLayout(dy)) {
                     consumed[1] = dy
                 }
             }
         } else if (dy < 0) {
             //手指向下滚动
-            if (target == topRecyclerView) {
+            if (recyclerView == topRecyclerView) {
                 if (!moveLayout(dy)) {
                     consumed[1] = dy
                 }
-            } else if (target == bottomRecyclerView) {
-                if (!UI.canChildScrollUp(target)) {
+            } else if (recyclerView == bottomRecyclerView) {
+                if (!UI.canChildScrollUp(recyclerView)) {
                     if (!moveLayout(dy)) {
                         consumed[1] = dy
                     }
                 }
             }
         }
-
-//        if (target == topRecyclerView) {
-//            if (dy > 0) {
-//                if (!moveLayout(dy)) {
-//                    consumed[1] = dy
-//                }
-//            }
-//        } else if (target == bottomRecyclerView) {
-//            if (dy < 0) {
-//                if (!moveLayout(dy)) {
-//                    consumed[1] = dy
-//                }
-//            }
-//        }
     }
 
     override fun onNestedScroll(
