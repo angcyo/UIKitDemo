@@ -23,18 +23,33 @@ class ViewPager2Demo : AppBaseTitleFragment() {
         return R.layout.demo_view_pager2
     }
 
-    override fun onInitBaseView(viewHolder: RBaseViewHolder, arguments: Bundle?, savedInstanceState: Bundle?) {
+    override fun onInitBaseView(
+        viewHolder: RBaseViewHolder,
+        arguments: Bundle?,
+        savedInstanceState: Bundle?
+    ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
         viewHolder.v<ViewPager2>(R.id.view_pager2).apply {
-            viewHolder.tab(R.id.tab_layout).onTabLayoutListener = object : RTabLayout.OnTabLayoutListener() {
-                override fun onTabSelector(tabLayout: RTabLayout, fromIndex: Int, toIndex: Int) {
-                    super.onTabSelector(tabLayout, fromIndex, toIndex)
-                    setCurrentItem(toIndex, true)
+            viewHolder.tab(R.id.tab_layout).onTabLayoutListener =
+                object : RTabLayout.OnTabLayoutListener() {
+                    override fun onTabSelector(
+                        tabLayout: RTabLayout,
+                        fromIndex: Int,
+                        toIndex: Int
+                    ) {
+                        super.onTabSelector(tabLayout, fromIndex, toIndex)
+                        setCurrentItem(toIndex, true)
+                    }
                 }
-            }
 
-            val fragmentList = mutableListOf(SpanDemo(), WidgetDemo(), SoftInputDemo(), ViewPager2Demo())
+            val fragmentList = mutableListOf(
+                RecyclerViewDemo(),
+                SpanDemo(),
+                WidgetDemo(),
+                SoftInputDemo(),
+                ViewPager2Demo()
+            )
 
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrollStateChanged(state: Int) {
@@ -44,10 +59,15 @@ class ViewPager2Demo : AppBaseTitleFragment() {
                     L.i("-->$state")
                 }
 
-                override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                override fun onPageScrolled(
+                    position: Int,
+                    positionOffset: Float,
+                    positionOffsetPixels: Int
+                ) {
                     super.onPageScrolled(position, positionOffset, positionOffsetPixels)
 
-                    viewHolder.tab(R.id.tab_layout).onPageScrolled(position, positionOffset, positionOffsetPixels)
+                    viewHolder.tab(R.id.tab_layout)
+                        .onPageScrolled(position, positionOffset, positionOffsetPixels)
                     L.i("-->$position $positionOffset $positionOffsetPixels")
                 }
 

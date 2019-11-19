@@ -438,6 +438,8 @@ class DialogDemo : AppBaseItemFragment() {
                         }
 
                         dialogType = this@DialogDemo.dialogType
+
+                        anySelector = true
                     }
                 }
                 holder.click(R.id.option_dialog3) {
