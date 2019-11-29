@@ -1,4 +1,4 @@
-package com.angcyo.uikitdemo.ui.item
+package com.angcyo.uikitdemo.ui.demo.sub
 
 import android.graphics.Color
 import android.os.Bundle

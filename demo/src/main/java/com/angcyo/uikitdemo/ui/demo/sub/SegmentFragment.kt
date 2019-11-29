@@ -2,7 +2,6 @@ package com.angcyo.uikitdemo.ui.demo.sub
 
 import android.os.Bundle
 import com.angcyo.uikitdemo.R
-import com.angcyo.uikitdemo.ui.item.BaseTabLayoutFragment
 import com.angcyo.uikitdemo.ui.item.DslSegmentTabLayoutItem
 import com.angcyo.uikitdemo.ui.item.DslTabViewPagerItem
 import com.angcyo.uiview.less.dsl.tablayout.DslTabLayout

@@ -1,6 +1,7 @@
 package com.angcyo.uikitdemo.ui.item
 
 import com.angcyo.uikitdemo.R
+import com.angcyo.uikitdemo.ui.demo.sub.randomColor
 import com.angcyo.uiview.less.dsl.tablayout.DslTabLayout
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem

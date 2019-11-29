@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.angcyo.uikitdemo.R
+import com.angcyo.uikitdemo.ui.demo.sub.getColorFragmentList
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 
