@@ -53,7 +53,7 @@ dependencies {
 
     //https://github.com/airbnb/lottie-android
     //https://jcenter.bintray.com/com/airbnb/android/lottie/
-    def lottieVersion = "3.1.0"
+    def lottieVersion = "3.2.0"
     implementation("com.airbnb.android:lottie:$lottieVersion") {
         exclude group: 'androidx.appcompat'
         exclude group: 'androidx.annotation'

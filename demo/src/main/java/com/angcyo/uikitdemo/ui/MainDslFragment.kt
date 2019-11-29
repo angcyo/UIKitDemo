@@ -80,6 +80,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("BaseBehaviorDslDemo")
             renderMainItem("BaseCollapsingBehaviorDslDemo")
             renderMainItem("DslAdapterDemo")
+            renderMainItem("DslTabLayoutDemo")
             renderMainItem("LinkageBehaviorDemo")
             renderMainItem("RefreshBehaviorDemo")
 

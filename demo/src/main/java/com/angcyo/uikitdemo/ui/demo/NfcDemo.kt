@@ -68,7 +68,7 @@ class NfcDemo : AppBaseDslRecyclerFragment() {
                     }
                 }
 
-                itemClickListener = {
+                onItemClick = {
                     itemInfoText?.copy()
                 }
             }
@@ -76,7 +76,8 @@ class NfcDemo : AppBaseDslRecyclerFragment() {
             dslTextInfoItem {
                 itemTopInsert = 1 * dpi
                 itemInfoText = "打开设置"
-                itemClickListener = {
+
+                onItemClick = {
                     RNfc.startNfcSetting(requireActivity())
                 }
             }

@@ -2,12 +2,21 @@ package com.angcyo.uikitdemo.ui.widget;
 
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
-import android.graphics.*;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Outline;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.Rect;
+import android.graphics.Region;
 import android.graphics.drawable.Drawable;
+import android.util.AttributeSet;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import android.util.AttributeSet;
+
 import com.angcyo.lib.L;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -20,6 +29,7 @@ import java.io.IOException;
  * @date 2019/04/13
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
+@Deprecated
 public class BaseDrawable extends Drawable {
 
     protected Paint paint;
@@ -30,18 +40,6 @@ public class BaseDrawable extends Drawable {
 
     @Override
     public void draw(@NonNull Canvas canvas) {
-        L.i("...");
-    }
-
-    @Override
-    public void setAlpha(int alpha) {
-
-        L.i("...");
-    }
-
-    @Override
-    public void setColorFilter(@Nullable ColorFilter colorFilter) {
-
         L.i("...");
     }
 
@@ -71,15 +69,15 @@ public class BaseDrawable extends Drawable {
     }
 
     @Override
-    public void setChangingConfigurations(int configs) {
-        super.setChangingConfigurations(configs);
-        L.i("...");
-    }
-
-    @Override
     public int getChangingConfigurations() {
         L.i("...");
         return super.getChangingConfigurations();
+    }
+
+    @Override
+    public void setChangingConfigurations(int configs) {
+        super.setChangingConfigurations(configs);
+        L.i("...");
     }
 
     @Override
@@ -89,15 +87,15 @@ public class BaseDrawable extends Drawable {
     }
 
     @Override
-    public void setFilterBitmap(boolean filter) {
-        super.setFilterBitmap(filter);
-        L.i("...");
-    }
-
-    @Override
     public boolean isFilterBitmap() {
         L.i("...");
         return super.isFilterBitmap();
+    }
+
+    @Override
+    public void setFilterBitmap(boolean filter) {
+        super.setFilterBitmap(filter);
+        L.i("...");
     }
 
     @Nullable
@@ -144,6 +142,12 @@ public class BaseDrawable extends Drawable {
     }
 
     @Override
+    public void setAlpha(int alpha) {
+
+        L.i("...");
+    }
+
+    @Override
     public void setColorFilter(int color, @NonNull PorterDuff.Mode mode) {
         super.setColorFilter(color, mode);
         L.i("...");
@@ -172,6 +176,12 @@ public class BaseDrawable extends Drawable {
     public ColorFilter getColorFilter() {
         L.i("...");
         return super.getColorFilter();
+    }
+
+    @Override
+    public void setColorFilter(@Nullable ColorFilter colorFilter) {
+
+        L.i("...");
     }
 
     @Override
@@ -237,15 +247,15 @@ public class BaseDrawable extends Drawable {
     }
 
     @Override
-    public void setAutoMirrored(boolean mirrored) {
-        super.setAutoMirrored(mirrored);
-        L.i("...");
-    }
-
-    @Override
     public boolean isAutoMirrored() {
         L.i("...");
         return super.isAutoMirrored();
+    }
+
+    @Override
+    public void setAutoMirrored(boolean mirrored) {
+        super.setAutoMirrored(mirrored);
+        L.i("...");
     }
 
     @Override
