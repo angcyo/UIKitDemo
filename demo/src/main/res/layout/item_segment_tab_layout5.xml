@@ -32,7 +32,7 @@
         app:tab_enable_gradient_color="true"
         app:tab_item_is_equ_width="true"
         app:tab_select_color="@color/white"
-        tools:dsl_default_index="0">
+        tools:tab_default_index="0">
 
         <TextView
             style="@style/TabCommonItemStyle"
