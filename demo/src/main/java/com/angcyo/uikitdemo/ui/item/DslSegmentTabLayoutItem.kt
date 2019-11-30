@@ -2,6 +2,7 @@ package com.angcyo.uikitdemo.ui.item
 
 import com.angcyo.uikitdemo.R
 import com.angcyo.uiview.less.dsl.tablayout.DslTabLayout
+import com.angcyo.uiview.less.kotlin.dpi
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
 import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 
@@ -15,6 +16,7 @@ import com.angcyo.uiview.less.recycler.adapter.DslAdapterItem
 class DslSegmentTabLayoutItem : DslAdapterItem() {
 
     init {
+        itemTopInsert = 10 * dpi
         itemLayoutId = R.layout.item_segment_tab_layout
     }
 
