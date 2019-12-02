@@ -14,11 +14,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
+import com.angcyo.lib.L;
 import com.angcyo.uiview.less.utils.NetStateChangeObserver;
 import com.angcyo.uiview.less.utils.NetworkType;
 import com.angcyo.uiview.less.utils.RNetwork;
 
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  * 系统位置回调, 获取处理类
@@ -250,7 +253,14 @@ public class RLocation {
         if (locationListener != null) {
             locationListener.onLocationStart(provider);
         }
-        locationManager.requestLocationUpdates(provider, minTime, minDistance, internalLocationListener);
+        //获取所有可用的位置提供器
+        List<String> providers = locationManager.getAllProviders();
+        if (providers.contains(provider)) {
+            locationManager.requestLocationUpdates(provider, minTime, minDistance, internalLocationListener);
+        } else {
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, minTime, minDistance, internalLocationListener);
+        }
+
     }
 
     //切换定位方式
@@ -292,17 +302,17 @@ public class RLocation {
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {//定位状态监听
-
+            L.i("onStatusChanged==" + provider + "   status==" + status);
         }
 
         @Override
         public void onProviderEnabled(String provider) {//定位状态可用监听
-
+            L.i("onProviderEnabled==" + provider);
         }
 
         @Override
         public void onProviderDisabled(String provider) {//定位状态不可用监听
-
+            L.i("onProviderDisabled==" + provider);
         }
     };
 
