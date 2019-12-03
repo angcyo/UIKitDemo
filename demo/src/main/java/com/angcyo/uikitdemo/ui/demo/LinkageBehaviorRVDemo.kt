@@ -5,8 +5,10 @@ import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
 import com.angcyo.uikitdemo.ui.behavior.StickHeaderBehavior
 import com.angcyo.uikitdemo.ui.demo.sub.LoadMoreActivity
+import com.angcyo.uikitdemo.来点数据
 import com.angcyo.uiview.less.kotlin.coordinatorParams
 import com.angcyo.uiview.less.recycler.RBaseViewHolder
+import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.widget.pager.RFragmentAdapter
 
 /**
@@ -16,9 +18,9 @@ import com.angcyo.uiview.less.widget.pager.RFragmentAdapter
  * @date 2019/12/02
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
-class LinkageBehaviorDemo2 : AppBaseTitleFragment() {
+class LinkageBehaviorRVDemo : AppBaseTitleFragment() {
     override fun getContentLayoutId(): Int {
-        return R.layout.demo_linkage_behavior_layout2
+        return R.layout.demo_linkage_behavior_layout_rv
     }
 
     override fun onInitBaseView(
@@ -30,8 +32,12 @@ class LinkageBehaviorDemo2 : AppBaseTitleFragment() {
 
         val stickHeaderBehavior = StickHeaderBehavior(mAttachContext)
 
-        val topWrapLayout = viewHolder.view(R.id.top_wrap_layout)
-        topWrapLayout.coordinatorParams {
+        val topRecyclerView = viewHolder.rv(R.id.top_recycler_view)
+        topRecyclerView.adapter = DslAdapter().apply {
+            来点数据()
+        }
+
+        topRecyclerView.coordinatorParams {
             behavior = stickHeaderBehavior
         }
 

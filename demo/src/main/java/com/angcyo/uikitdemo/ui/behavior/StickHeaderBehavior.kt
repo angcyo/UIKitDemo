@@ -8,7 +8,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.ViewCompat
 import androidx.core.view.forEachIndexed
 import androidx.recyclerview.widget.RecyclerView
-import com.angcyo.lib.L
 import com.angcyo.uiview.less.kotlin.*
 import com.angcyo.uiview.less.utils.UI
 import com.angcyo.uiview.less.widget.behavior.BaseDependsBehavior
@@ -34,7 +33,7 @@ class StickHeaderBehavior(
     var _touchSlop = 0
 
     init {
-        showLog = true
+        showLog = false
 
         val vc = ViewConfiguration.get(context)
         _minFlingVelocity = vc.scaledMinimumFlingVelocity
@@ -45,6 +44,7 @@ class StickHeaderBehavior(
     var lastLayoutTop = 0
 
     var _childView: View? = null
+    var _parentView: ViewGroup? = null
     var _pagerWrapView: View? = null
 
     /**头部[RecyclerView]*/
@@ -54,7 +54,35 @@ class StickHeaderBehavior(
     val bottomRecyclerView: RecyclerView?
         get() = _pagerWrapView?.findRecyclerView()
 
-    //<editor-fold desc="初始化">
+    //<editor-fold desc="可操作方法">
+
+    /**To完全展开状态*/
+    fun stickToOpen() {
+        _overScroller.startScroll(0, 0, 0, -childHeight)
+        _lastScrollY = _overScroller.currY
+        _childView?.post(this)
+    }
+
+    /**To完全关闭状态*/
+    fun stickToClose() {
+        _overScroller.startScroll(0, 0, 0, childHeight)
+        _lastScrollY = _overScroller.currY
+        _childView?.post(this)
+    }
+
+    /**是否处于完全打开状态*/
+    fun isStickOpen(): Boolean {
+        return lastLayoutTop == 0
+    }
+
+    /**是否处于完全关闭状态*/
+    fun isStickClose(): Boolean {
+        return childHeight == -lastLayoutTop
+    }
+
+    //</editor-fold desc="可操作方法">
+
+    //<editor-fold desc="基础方法">
 
     override fun layoutDependsOn(
         parent: CoordinatorLayout,
@@ -113,7 +141,7 @@ class StickHeaderBehavior(
         _layoutTop(parent, lastLayoutTop)
     }
 
-    //</editor-fold desc="初始化">
+    //</editor-fold desc="基础方法">
 
     //<editor-fold desc="布局滚动">
 
@@ -147,7 +175,7 @@ class StickHeaderBehavior(
             return true
         }
 
-        L.w("_scrollBy:$dy")
+        //L.w("_scrollBy:$dy")
 
         _layoutTop(parent, lastLayoutTop - dy)
 
@@ -161,12 +189,14 @@ class StickHeaderBehavior(
     //<editor-fold desc="手势滚动监听">
 
     var _lastScrollY = 0
+    val childHeight: Int
+        get() = _childView?.measuredHeight ?: 0
 
     override fun run() {
         if (_overScroller.computeScrollOffset()) {
             val velocity = _overScroller.currVelocity
             val dy = _overScroller.currY - _lastScrollY
-            L.e("v:$velocity currY:${_overScroller.currY} lastY:$_lastScrollY lastLayoutTop:$lastLayoutTop dy:$dy")
+            //L.e("v:$velocity currY:${_overScroller.currY} lastY:$_lastScrollY lastLayoutTop:$lastLayoutTop dy:$dy")
 
             _lastScrollY = _overScroller.currY
 
@@ -174,17 +204,13 @@ class StickHeaderBehavior(
                 if (dy > 0) {
                     bottomRecyclerView?.fling(0, velocity.toInt())
                 } else {
+                    //多余的fling操作
                     //bottomRecyclerView?.fling(0, -velocity.toInt())
                 }
                 _overScroller.abortAnimation()
             } else {
                 _childView?.post(this@StickHeaderBehavior)
             }
-
-//            _childView?.post(this@StickHeaderBehavior)
-
-
-            //_onNestedViewScroll(_parentView, null, _overScroller.currY - lastLayoutTop, _consumed)
         }
     }
 
@@ -204,16 +230,9 @@ class StickHeaderBehavior(
             ): Boolean {
                 val absY = abs(velocityY)
 
-                if (absY > _minFlingVelocity && _nestedScrollView == null) {
-                    fun velocity(velocity: Int): Int {
-                        return if (velocity > 0) {
-                            clamp(velocity, _minFlingVelocity, _maxFlingVelocity)
-                        } else {
-                            clamp(velocity, -_maxFlingVelocity, -_minFlingVelocity)
-                        }
-                    }
+                if (absY > _minFlingVelocity && _nestedScrollView == null && _handleTouch) {
 
-                    val vY = velocity(-velocityY.toInt())
+                    val vY = _velocity(-velocityY.toInt())
 
                     if (velocityY > 0) {
                         //Y轴向下fling
@@ -225,7 +244,7 @@ class StickHeaderBehavior(
                     }
 
                     val minY = 0
-                    val maxY = _childView?.measuredHeight ?: 0
+                    val maxY = childHeight
 
                     _overScroller.fling(
                         0,
@@ -242,7 +261,7 @@ class StickHeaderBehavior(
 
                     _lastScrollY = _overScroller.currY
 
-                    L.w("velocityY:$velocityY vY:$vY lastY:$_lastScrollY")
+                    //L.w("velocityY:$velocityY vY:$vY lastY:$_lastScrollY")
 
                     _childView?.post(this@StickHeaderBehavior)
                     return true
@@ -259,9 +278,13 @@ class StickHeaderBehavior(
                 val absX = abs(distanceX)
                 val absY = abs(distanceY)
 
+                if (absX > absY && absX > _touchSlop) {
+                    _handleTouch = false
+                    return false
+                }
+
                 if (absY > absX && absY > _touchSlop) {
-                    //handle = onScrollChange(distanceX)
-                    L.e("onScroll:$distanceX $distanceY")
+                    //L.e("onScroll:$distanceX $distanceY")
 
                     if (_nestedScrollView == null) {
                         //_onNestedViewScroll(_parentView, null, distanceY.toInt(), _consumed)
@@ -281,14 +304,20 @@ class StickHeaderBehavior(
         })
     }
 
-    var _parentView: ViewGroup? = null
-    val _consumed = intArrayOf(0, 0)
+    fun _velocity(velocity: Int): Int {
+        return if (velocity > 0) {
+            clamp(velocity, _minFlingVelocity, _maxFlingVelocity)
+        } else {
+            clamp(velocity, -_maxFlingVelocity, -_minFlingVelocity)
+        }
+    }
 
     fun _onTouchDown() {
+        _handleTouch = true
         _overScroller.abortAnimation()
         _nestedScrollView?.apply {
 
-            L.e("停止滚动...${this.simpleName()}")
+            //L.e("停止滚动...${this.simpleName()}")
 
             this.stopNestedScroll()
             if (this is RecyclerView) {
@@ -296,23 +325,39 @@ class StickHeaderBehavior(
             }
             _nestedScrollView = null
         }
+
+        _bottomFlingRecyclerView?.stopNestedScroll()
+        _bottomFlingRecyclerView?.stopScroll()
+        _bottomFlingRecyclerView = null
+
+        _topFlingRecyclerView?.stopNestedScroll()
+        _topFlingRecyclerView?.stopScroll()
+        _topFlingRecyclerView = null
     }
+
+    var _handleTouch = true
 
     override fun onInterceptTouchEvent(
         parent: CoordinatorLayout,
         child: View,
         ev: MotionEvent
     ): Boolean {
-
         if (ev.isDown()) {
             _onTouchDown()
+        } else if (ev.isUp()) {
+            parent.requestDisallowInterceptTouchEvent(false)
         }
-        _gestureDetector.onTouchEvent(ev)
+        if (_handleTouch) {
+            _gestureDetector.onTouchEvent(ev)
+        }
         return super.onInterceptTouchEvent(parent, child, ev)
     }
 
     override fun onTouchEvent(parent: CoordinatorLayout, child: View, ev: MotionEvent): Boolean {
-        val result = _gestureDetector.onTouchEvent(ev)
+        var result = false
+        if (_handleTouch) {
+            result = _gestureDetector.onTouchEvent(ev)
+        }
         if (ev.isUp()) {
             parent.requestDisallowInterceptTouchEvent(false)
         } else if (ev.actionMasked == MotionEvent.ACTION_DOWN) {
@@ -393,6 +438,57 @@ class StickHeaderBehavior(
         }
     }
 
-    //</editor-fold desc="内嵌滚动相关">
+    var _topFlingRecyclerView: RecyclerView? = null
+    var _bottomFlingRecyclerView: RecyclerView? = null
 
+    override fun onNestedScroll(
+        coordinatorLayout: CoordinatorLayout,
+        child: View,
+        target: View,
+        dxConsumed: Int,
+        dyConsumed: Int,
+        dxUnconsumed: Int,
+        dyUnconsumed: Int,
+        type: Int
+    ) {
+        super.onNestedScroll(
+            coordinatorLayout,
+            child,
+            target,
+            dxConsumed,
+            dyConsumed,
+            dxUnconsumed,
+            dyUnconsumed,
+            type
+        )
+
+        //child.offsetTop(-dyUnconsumed, -child.measuredHeight, 0)
+
+        //fling 传递
+        if (dyUnconsumed > 0 && _bottomFlingRecyclerView == null && isStickClose()) {
+            val velocityY = topRecyclerView?.getLastVelocity()?.toInt() ?: 0
+            //L.e("lastVelocity1:.....${topRecyclerView?.simpleHash()} $velocityY")
+
+            if (velocityY != 0) {
+                bottomRecyclerView?.apply {
+                    _bottomFlingRecyclerView = this
+                    fling(0, (velocityY * 0.9).toInt())
+                }
+            }
+        } else if (dyUnconsumed < 0 && _topFlingRecyclerView == null) {
+            if (target == bottomRecyclerView) {
+                val velocityY = (target as? RecyclerView)?.getLastVelocity()?.toInt() ?: 0
+                //L.e("lastVelocity2:.....${target.simpleHash()} $velocityY")
+
+                if (velocityY != 0) {
+                    topRecyclerView?.apply {
+                        _topFlingRecyclerView = this
+                        fling(0, (-velocityY * 0.9).toInt())
+                    }
+                }
+            }
+        }
+    }
+
+    //</editor-fold desc="内嵌滚动相关">
 }

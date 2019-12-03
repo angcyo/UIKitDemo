@@ -20,6 +20,7 @@
         <item name="r_draw_text_gravity">CENTER</item>
         <item name="r_draw_text_color">@color/base_text_color</item>
     </style>
+
     <style name="TabDrawItemStyle" parent="TabItemStyle">
         <item name="android:layout_marginLeft">0dp</item>
         <item name="android:layout_marginRight">0dp</item>
@@ -44,5 +45,13 @@
 
     <style name="TabCommonItemStyle" parent="DslTabItemStyle">
         <item name="android:padding">4dp</item>
+    </style>
+
+    <style name="DslButtonStyle" parent="BaseMainTextStyle">
+        <item name="android:padding">4dp</item>
+        <item name="android:textColor">@color/base_white</item>
+        <item name="button_gradient_end_color">@color/theme_color_primary_dark</item>
+        <item name="button_gradient_start_color">@color/theme_color_accent</item>
+        <item name="button_radius">3dp</item>
     </style>
 </resources>

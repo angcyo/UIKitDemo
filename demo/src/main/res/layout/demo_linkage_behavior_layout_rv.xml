@@ -4,27 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/top_wrap_layout"
+    <com.angcyo.uiview.less.recycler.RRecyclerView
+        android:id="@+id/top_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <include layout="@layout/item_image_little" />
-
-        <include layout="@layout/item_image_little" />
-
-        <include layout="@layout/item_image_little" />
-
-        <include layout="@layout/item_image_little" />
-
-        <include layout="@layout/item_image_little" />
-
-        <include layout="@layout/item_image_little" />
-
-        <include layout="@layout/item_image_little" />
-
-    </LinearLayout>
+        android:layout_height="match_parent" />
 
     <LinearLayout
         android:layout_width="match_parent"
