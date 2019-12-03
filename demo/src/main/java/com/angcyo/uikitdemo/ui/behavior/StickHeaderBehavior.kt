@@ -277,27 +277,31 @@ class StickHeaderBehavior(
                 val absX = abs(distanceX)
                 val absY = abs(distanceY)
 
-                if (absX > absY && absX > _touchSlop) {
-                    _handleTouch = false
-                    return false
-                }
-
-                if (absY > absX && absY > _touchSlop) {
-                    //L.e("onScroll:$distanceX $distanceY")
-
-                    if (_nestedScrollView == null) {
-                        //_onNestedViewScroll(_parentView, null, distanceY.toInt(), _consumed)
-
-                        val bottomRecyclerView = bottomRecyclerView
-
-                        if (distanceY < 0 && UI.canChildScrollUp(bottomRecyclerView)) {
-                            bottomRecyclerView?.scrollBy(0, distanceY.toInt())
-                        } else {
-                            _scrollBy(_parentView, distanceY.toInt())
+                if (absX > _touchSlop || absY > _touchSlop) {
+                    if (_isFirstScroll) {
+                        if (absX > absY) {
+                            _handleTouch = false
+                            return false
                         }
+                        _isFirstScroll = false
                     }
-                    return true
+
+                    if (absY > absX) {
+                        //L.e("onScroll:$distanceX $distanceY")
+
+                        if (_nestedScrollView == null) {
+                            val bottomRecyclerView = bottomRecyclerView
+
+                            if (distanceY < 0 && UI.canChildScrollUp(bottomRecyclerView)) {
+                                bottomRecyclerView?.scrollBy(0, distanceY.toInt())
+                            } else {
+                                _scrollBy(_parentView, distanceY.toInt())
+                            }
+                        }
+                        return true
+                    }
                 }
+
                 return false
             }
         })
@@ -313,6 +317,7 @@ class StickHeaderBehavior(
 
     fun _onTouchDown() {
         _handleTouch = true
+        _isFirstScroll = true
         _overScroller.abortAnimation()
         _nestedScrollView?.apply {
 
@@ -335,6 +340,7 @@ class StickHeaderBehavior(
     }
 
     var _handleTouch = true
+    var _isFirstScroll = true
 
     override fun onInterceptTouchEvent(
         parent: CoordinatorLayout,
