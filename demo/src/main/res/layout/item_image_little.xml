@@ -1,28 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true">
 
     <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:background="@drawable/base_bg_selector_v21"
-            android:padding="@dimen/base_xhdpi"
-            android:scaleType="fitXY"
-            android:src="@drawable/peppq"/>
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/base_bg_selector_v21"
+        android:padding="@dimen/base_xhdpi"
+        android:scaleType="fitXY"
+        android:src="@drawable/peppq" />
 
     <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/text_view"
-            style="@style/BaseMainTextStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@color/transparent_dark80"
-            android:paddingLeft="@dimen/base_xhdpi"
-            android:paddingRight="@dimen/base_xhdpi"
-            android:textColor="@color/base_white"
-            tools:text="angcyo"/>
+        android:id="@+id/text_view"
+        style="@style/BaseMainTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@color/transparent_dark80"
+        android:paddingLeft="@dimen/base_xhdpi"
+        android:paddingRight="@dimen/base_xhdpi"
+        android:text="angcyo"
+        android:textColor="@color/base_white" />
 </FrameLayout>

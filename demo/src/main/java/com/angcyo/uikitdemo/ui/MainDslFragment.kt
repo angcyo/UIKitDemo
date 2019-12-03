@@ -82,6 +82,7 @@ class MainDslFragment : AppBaseDslRecyclerFragment() {
             renderMainItem("DslAdapterDemo")
             renderMainItem("DslTabLayoutDemo")
             renderMainItem("LinkageBehaviorDemo")
+            renderMainItem("LinkageBehaviorDemo2")
             renderMainItem("RefreshBehaviorDemo")
 
 //            dslTextInfoItem {
