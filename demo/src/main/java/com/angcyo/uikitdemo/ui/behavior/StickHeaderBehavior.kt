@@ -204,8 +204,7 @@ class StickHeaderBehavior(
                 if (dy > 0) {
                     bottomRecyclerView?.fling(0, velocity.toInt())
                 } else {
-                    //多余的fling操作
-                    //bottomRecyclerView?.fling(0, -velocity.toInt())
+                    topRecyclerView?.fling(0, -velocity.toInt())
                 }
                 _overScroller.abortAnimation()
             } else {
