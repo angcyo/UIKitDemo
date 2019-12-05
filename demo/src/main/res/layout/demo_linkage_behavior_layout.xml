@@ -1,24 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.angcyo.uiview.less.widget.group.RCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <com.angcyo.uiview.less.recycler.RRecyclerView
         android:id="@+id/top_recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content" />
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_behavior=".ui.behavior.StickPagerBehavior"
-        android:layout_height="match_parent">
+        app:layout_behavior=".ui.behavior.StickHeaderPagerBehavior">
 
         <com.angcyo.uiview.less.widget.group.RTabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:background="@color/base_white">
 
             <TextView
                 style="@style/BaseMainTextStyle"
@@ -58,8 +59,26 @@
         <com.angcyo.uiview.less.widget.pager.RViewPager
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
-            android:layout_weight="1"
-            android:layout_height="0dp" />
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:orientation="vertical">
+
+        <com.angcyo.uiview.less.dsl.widget.DslButton
+            android:id="@+id/close_view"
+            style="@style/DslButtonStyle"
+            android:text="Close" />
+
+        <com.angcyo.uiview.less.dsl.widget.DslButton
+            android:id="@+id/open_view"
+            style="@style/DslButtonStyle"
+            android:layout_marginTop="4dp"
+            android:text="Open" />
     </LinearLayout>
 
 </com.angcyo.uiview.less.widget.group.RCoordinatorLayout>

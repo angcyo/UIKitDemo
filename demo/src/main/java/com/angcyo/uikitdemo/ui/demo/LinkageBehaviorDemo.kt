@@ -3,7 +3,7 @@ package com.angcyo.uikitdemo.ui.demo
 import android.os.Bundle
 import com.angcyo.uikitdemo.R
 import com.angcyo.uikitdemo.ui.base.AppBaseTitleFragment
-import com.angcyo.uikitdemo.ui.behavior.StickHeaderOldBehavior
+import com.angcyo.uikitdemo.ui.behavior.StickHeaderBehavior
 import com.angcyo.uikitdemo.ui.demo.sub.LoadMoreActivity
 import com.angcyo.uikitdemo.来点数据
 import com.angcyo.uiview.less.kotlin.coordinatorParams
@@ -30,13 +30,23 @@ class LinkageBehaviorDemo : AppBaseTitleFragment() {
     ) {
         super.onInitBaseView(viewHolder, arguments, savedInstanceState)
 
+        val stickHeaderBehavior = StickHeaderBehavior(mAttachContext)
+
         val topRecyclerView = viewHolder.rv(R.id.top_recycler_view)
         topRecyclerView.adapter = DslAdapter().apply {
-            来点数据()
+            来点数据(1, 1)
         }
 
         topRecyclerView.coordinatorParams {
-            behavior = StickHeaderOldBehavior()
+            behavior = stickHeaderBehavior
+        }
+
+        viewHolder.click(R.id.close_view) {
+            stickHeaderBehavior.stickToClose()
+        }
+
+        viewHolder.click(R.id.open_view) {
+            stickHeaderBehavior.stickToOpen()
         }
 
         val viewPager = viewHolder.pager(R.id.view_pager)
