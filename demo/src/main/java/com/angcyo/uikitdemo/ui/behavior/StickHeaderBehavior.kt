@@ -22,7 +22,7 @@ import kotlin.math.abs
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 
-class StickHeaderBehavior(
+open class StickHeaderBehavior(
     val context: Context,
     attrs: AttributeSet? = null
 ) : BaseDependsBehavior<View>(context, attrs), Runnable {
@@ -118,7 +118,10 @@ class StickHeaderBehavior(
         )
 
         val lp = child.layoutParams
-        if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT) {
+        if (lp.height == ViewGroup.LayoutParams.WRAP_CONTENT &&
+            child !is RecyclerView &&
+            topRecyclerView == null
+        ) {
             parent.onMeasureChild(
                 child,
                 parentWidthMeasureSpec,

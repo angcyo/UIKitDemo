@@ -13,7 +13,7 @@ import com.angcyo.uiview.less.widget.behavior.BaseDependsBehavior
  * Copyright (c) 2019 ShenZhen O&M Cloud Co., Ltd. All rights reserved.
  */
 
-class StickHeaderPagerBehavior(
+open class StickHeaderPagerBehavior(
     context: Context? = null,
     attrs: AttributeSet? = null
 ) : BaseDependsBehavior<View>(context, attrs), IStickHeaderFollowView {
