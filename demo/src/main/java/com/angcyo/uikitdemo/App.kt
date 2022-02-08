@@ -22,7 +22,7 @@ import com.angcyo.uiview.less.recycler.adapter.DslAdapter
 import com.angcyo.uiview.less.utils.RNetwork
 import com.angcyo.uiview.less.utils.RUtils.randomColor
 import com.angcyo.uiview.less.utils.TopToast
-import me.weishu.reflection.Reflection
+import org.lsposed.hiddenapibypass.HiddenApiBypass
 
 /**
  *
@@ -65,7 +65,11 @@ class App : PluginHostApplication() {
 
     override fun attachBaseContext(base: Context?) {
         super.attachBaseContext(base)
-        Reflection.unseal(base)
+        //Reflection.unseal(base)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P && Build.VERSION.SDK_INT < 31) {
+            HiddenApiBypass.addHiddenApiExemptions("")
+        }
     }
 }
 

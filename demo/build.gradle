@@ -49,7 +49,11 @@ dependencies {
     implementation androidx.viewpager2
 
     //https://github.com/tiann/FreeReflection
-    implementation 'me.weishu:free_reflection:2.1.0'
+    //implementation 'me.weishu:free_reflection:2.1.0'
+    //implementation 'com.github.tiann:FreeReflection:3.1.0'
+
+    //https://github.com/LSPosed/AndroidHiddenApiBypass
+    implementation 'org.lsposed.hiddenapibypass:hiddenapibypass:4.2'
 
     //https://github.com/airbnb/lottie-android
     //https://jcenter.bintray.com/com/airbnb/android/lottie/
